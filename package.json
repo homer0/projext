@@ -6,7 +6,20 @@
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
+      "jimple": "homer0/jimple",
+      "fs-extra": "5.0.0",
+      "extend": "3.0.1",
 
+      "webpack": "3.10.0",
+      "webpack-node-utils": "2.1.0",
+      "extract-text-webpack-plugin": "3.0.2",
+      "html-webpack-plugin": "2.30.1",
+      "script-ext-html-webpack-plugin": "1.8.8",
+      "compression-webpack-plugin": "1.1.2",
+      "uglifyjs-webpack-plugin": "1.1.4",
+      "optimize-css-assets-webpack-plugin": "3.2.0",
+
+      "wootils": "../wootils"
     },
     "devDependencies": {
       "eslint": "4.13.1",
@@ -16,8 +29,8 @@
     },
     "engine-strict": true,
     "engines": {
-        "node": ">=6.0.0",
-        "npm": ">=3.0.0"
+      "node": ">=6.0.0",
+      "npm": ">=3.0.0"
     },
     "main": "src/index.js",
     "scripts": {

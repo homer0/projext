@@ -1,0 +1,62 @@
+const webpackNodeUtils = require('webpack-node-utils');
+const {
+  NoEmitOnErrorsPlugin,
+} = require('webpack');
+const { provider } = require('jimple');
+const ConfigurationFile = require('../../../interfaces/configurationFile');
+
+class WebpackNodeProductionConfiguration extends ConfigurationFile {
+  constructor(
+    events,
+    pathUtils,
+    projectConfiguration
+  ) {
+    super(pathUtils, 'webpack/node.production.config.js');
+    this.events = events;
+    this.projectConfiguration = projectConfiguration;
+  }
+
+  createConfig(params) {
+    const { entry } = params;
+    const { paths: { build } } = this.projectConfiguration;
+
+    const config = {
+      entry,
+      output: {
+        path: `./${build}`,
+        filename: '[name].js',
+        publicPath: '/',
+      },
+      plugins: [
+        new NoEmitOnErrorsPlugin(),
+      ],
+      target: 'node',
+      node: {
+        __dirname: false,
+      },
+      externals: webpackNodeUtils.externals(),
+    };
+
+    return this.events.reduce(
+      'webpack-node-production-configuration',
+      config,
+      params
+    );
+  }
+}
+
+const webpackNodeProductionConfiguration = provider((app) => {
+  app.set(
+    'webpackNodeProductionConfiguration',
+    () => new WebpackNodeProductionConfiguration(
+      app.get('events'),
+      app.get('pathUtils'),
+      app.get('projectConfiguration').getConfig()
+    )
+  );
+});
+
+module.exports = {
+  WebpackNodeProductionConfiguration,
+  webpackNodeProductionConfiguration,
+};

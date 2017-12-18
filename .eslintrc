@@ -11,6 +11,11 @@
       imports: "always-multiline",
       exports: "always-multiline",
       functions: "never",
-    }]
+    }],
+    "class-methods-use-this": "off",
+    "import/no-unresolved": "off",
+    "function-paren-newline": "off",
+    "arrow-parens": ["error", "always"],
+    "no-plusplus": "off"
   }
 }

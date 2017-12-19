@@ -26,7 +26,7 @@ class WebpackBaseConfiguration extends ConfigurationFile {
       },
     };
 
-    const eventName = params.target.type === 'node' ?
+    const eventName = params.target.is.node ?
       'webpack-base-configuration-for-node' :
       'webpack-base-configuration-for-browser';
 

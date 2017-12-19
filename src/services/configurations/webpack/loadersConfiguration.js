@@ -11,7 +11,7 @@ class WebpackLoadersConfiguration extends ConfigurationFile {
   }
 
   createConfig(params) {
-    return params.target === 'node' ?
+    return params.target.is.node ?
       this.createNodeConfig(params) :
       this.createBrowserConfig(params);
   }
@@ -48,7 +48,7 @@ class WebpackLoadersConfiguration extends ConfigurationFile {
   getJSLoaders(params, eventName) {
     const loaders = [{
       test: /\.jsx?$/i,
-      include: [RegExp(params.targetPath)],
+      include: [RegExp(params.target.folders.source)],
       use: [{
         loader: 'babel-loader',
         options: this.babelConfiguration.getConfigForTarget(params.target),

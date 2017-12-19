@@ -17,13 +17,12 @@ class WebpackNodeProductionConfiguration extends ConfigurationFile {
   }
 
   createConfig(params) {
-    const { entry } = params;
-    const { paths: { build } } = this.projectConfiguration;
+    const { entry, target } = params;
 
     const config = {
       entry,
       output: {
-        path: `./${build}`,
+        path: `./${target.folders.build}`,
         filename: '[name].js',
         publicPath: '/',
       },

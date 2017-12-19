@@ -27,14 +27,13 @@ class WebpackBrowserDevelopmentConfiguration extends ConfigurationFile {
       definitions,
       entry,
       target,
-      targetPath,
     } = params;
-    const { paths: { build, output } } = this.projectConfiguration;
+    const { paths: { output } } = this.projectConfiguration;
 
     const config = {
       entry,
       output: {
-        path: `./${build}`,
+        path: `./${target.folders.build}`,
         filename: `${output.js}/[name].js`,
         publicPath: '/',
       },
@@ -52,7 +51,7 @@ class WebpackBrowserDevelopmentConfiguration extends ConfigurationFile {
     config.plugins = [
       new ExtractTextPlugin(`${output.css}/${target.name}.css`),
       new HtmlWebpackPlugin(Object.assign({}, target.html, {
-        template: path.join(targetPath, target.html.template),
+        template: path.join(target.paths.source, target.html.template),
         inject: 'body',
       })),
       new ScriptExtHtmlWebpackPlugin({

@@ -27,6 +27,9 @@ class ProjectConfiguration extends ConfigurationFile {
       targetsTemplates: {
         node: {
           type: 'node',
+          hasFolder: true,
+          folder: '',
+          createFolder: false,
           entry: {
             development: 'start.development.js',
             production: 'start.production.js',
@@ -43,6 +46,9 @@ class ProjectConfiguration extends ConfigurationFile {
         },
         browser: {
           type: 'browser',
+          hasFolder: true,
+          folder: '',
+          createFolder: true,
           entry: {
             development: 'index.js',
             production: 'index.js',

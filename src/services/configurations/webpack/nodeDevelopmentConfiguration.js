@@ -17,15 +17,14 @@ class WebpackNodeDevelopmentConfiguration extends ConfigurationFile {
   }
 
   createConfig(params) {
-    const { entry, target: { run } } = params;
-    const { paths: { build } } = this.projectConfiguration;
+    const { entry, target } = params;
 
     let watch = false;
     const plugins = [
       new NoEmitOnErrorsPlugin(),
     ];
 
-    if (run) {
+    if (target.run) {
       watch = true;
       plugins.push(new webpackNodeUtils.WebpackNodeUtilsRunner());
     }
@@ -33,7 +32,7 @@ class WebpackNodeDevelopmentConfiguration extends ConfigurationFile {
     const config = {
       entry,
       output: {
-        path: `./${build}`,
+        path: `./${target.folders.build}`,
         filename: '[name].js',
         publicPath: '/',
       },

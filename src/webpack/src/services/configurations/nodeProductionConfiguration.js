@@ -5,29 +5,25 @@ const {
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../../interfaces/configurationFile');
 
-class WebpackNodeDevelopmentConfiguration extends ConfigurationFile {
+class WebpackNodeProductionConfiguration extends ConfigurationFile {
   constructor(
     events,
     pathUtils,
-    projectConfiguration
+    projectConfiguration,
+    webpackBaseConfiguration
   ) {
-    super(pathUtils, 'webpack/node.development.config.js');
+    super(
+      pathUtils,
+      'webpack/node.production.config.js',
+      true,
+      webpackBaseConfiguration
+    );
     this.events = events;
     this.projectConfiguration = projectConfiguration;
   }
 
   createConfig(params) {
     const { entry, target } = params;
-
-    let watch = false;
-    const plugins = [
-      new NoEmitOnErrorsPlugin(),
-    ];
-
-    if (target.run) {
-      watch = true;
-      plugins.push(new webpackNodeUtils.WebpackNodeUtilsRunner());
-    }
 
     const config = {
       entry,
@@ -36,35 +32,37 @@ class WebpackNodeDevelopmentConfiguration extends ConfigurationFile {
         filename: '[name].js',
         publicPath: '/',
       },
-      watch,
-      plugins,
+      plugins: [
+        new NoEmitOnErrorsPlugin(),
+      ],
       target: 'node',
       node: {
         __dirname: false,
       },
-      externals: webpackNodeUtils.externals({}, true),
+      externals: webpackNodeUtils.externals(),
     };
 
     return this.events.reduce(
-      'webpack-node-development-configuration',
+      'webpack-node-production-configuration',
       config,
       params
     );
   }
 }
 
-const webpackNodeDevelopmentConfiguration = provider((app) => {
+const webpackNodeProductionConfiguration = provider((app) => {
   app.set(
-    'webpackNodeDevelopmentConfiguration',
-    () => new WebpackNodeDevelopmentConfiguration(
+    'webpackNodeProductionConfiguration',
+    () => new WebpackNodeProductionConfiguration(
       app.get('events'),
       app.get('pathUtils'),
-      app.get('projectConfiguration').getConfig()
+      app.get('projectConfiguration').getConfig(),
+      app.get('webpackBaseConfiguration')
     )
   );
 });
 
 module.exports = {
-  WebpackNodeDevelopmentConfiguration,
-  webpackNodeDevelopmentConfiguration,
+  WebpackNodeProductionConfiguration,
+  webpackNodeProductionConfiguration,
 };

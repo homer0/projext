@@ -27,6 +27,7 @@ class ProjectConfiguration extends ConfigurationFile {
       targetsTemplates: {
         node: {
           type: 'node',
+          bundler0: 'webpack',
           hasFolder: true,
           folder: '',
           createFolder: false,
@@ -43,9 +44,12 @@ class ProjectConfiguration extends ConfigurationFile {
             overwrites: {},
           },
           flow: false,
+          library: false,
+          libraryOptions: {},
         },
         browser: {
           type: 'browser',
+          bundler: 'webpack',
           hasFolder: true,
           folder: '',
           createFolder: true,
@@ -61,7 +65,6 @@ class ProjectConfiguration extends ConfigurationFile {
             template: 'index.tpl.html',
             filename: 'index.tpl.html',
           },
-          library: false,
           babel: {
             features: {},
             browserVersions: 2,
@@ -71,6 +74,8 @@ class ProjectConfiguration extends ConfigurationFile {
           flow: false,
           CSSModules: false,
           hotReload: false,
+          library: false,
+          libraryOptions: {},
         },
       },
       copy: [

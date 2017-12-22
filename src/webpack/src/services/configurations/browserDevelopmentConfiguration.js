@@ -1,21 +1,29 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const CompressionPlugin = require('compression-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const { DefinePlugin } = require('webpack');
+const {
+  NoEmitOnErrorsPlugin,
+  DefinePlugin,
+  HotModuleReplacementPlugin,
+} = require('webpack');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../../interfaces/configurationFile');
 
-class WebpackBrowserProductionConfiguration extends ConfigurationFile {
+class WebpackBrowserDevelopmentConfiguration extends ConfigurationFile {
   constructor(
     events,
     pathUtils,
-    projectConfiguration
+    projectConfiguration,
+    webpackBaseConfiguration
   ) {
-    super(pathUtils, 'webpack/browser.production.config.js');
+    super(
+      pathUtils,
+      'webpack/browser.development.config.js',
+      true,
+      webpackBaseConfiguration
+    );
     this.events = events;
     this.projectConfiguration = projectConfiguration;
   }
@@ -24,7 +32,6 @@ class WebpackBrowserProductionConfiguration extends ConfigurationFile {
     const {
       definitions,
       entry,
-      hashStr,
       target,
     } = params;
     const { paths: { output } } = this.projectConfiguration;
@@ -38,12 +45,17 @@ class WebpackBrowserProductionConfiguration extends ConfigurationFile {
       },
     };
 
-    if (target.sourceMap.production) {
+    if (target.hot) {
+      const [entryName] = Object.keys(entry);
+      config.entry[entryName].unshift('webpack-hot-middleware/client?reload=true');
+    }
+
+    if (target.sourceMap.development) {
       config.devtool = 'source-map';
     }
 
     config.plugins = [
-      new ExtractTextPlugin(`${output.css}/${target.name}${hashStr}.css`),
+      new ExtractTextPlugin(`${output.css}/${target.name}.css`),
       new HtmlWebpackPlugin(Object.assign({}, target.html, {
         template: path.join(target.paths.source, target.html.template),
         inject: 'body',
@@ -51,35 +63,33 @@ class WebpackBrowserProductionConfiguration extends ConfigurationFile {
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'async',
       }),
+      ...(target.hot ? [new HotModuleReplacementPlugin()] : []),
+      new NoEmitOnErrorsPlugin(),
       new DefinePlugin(definitions),
-      new UglifyJSPlugin({
-        sourceMap: target.sourceMap.production,
-      }),
       new OptimizeCssAssetsPlugin(),
-      new CompressionPlugin(),
     ];
 
     return this.events.reduce(
-      'webpack-browser-production-configuration',
+      'webpack-browser-development-configuration',
       config,
       params
     );
   }
 }
 
-const webpackBrowserProductionConfiguration = provider((app) => {
+const webpackBrowserDevelopmentConfiguration = provider((app) => {
   app.set(
-    'webpackBrowserProductionConfiguration',
-    () => new WebpackBrowserProductionConfiguration(
+    'webpackBrowserDevelopmentConfiguration',
+    () => new WebpackBrowserDevelopmentConfiguration(
       app.get('events'),
       app.get('pathUtils'),
       app.get('projectConfiguration').getConfig(),
-      app.get('webpackLoadersConfiguration')
+      app.get('webpackBaseConfiguration')
     )
   );
 });
 
 module.exports = {
-  WebpackBrowserProductionConfiguration,
-  webpackBrowserProductionConfiguration,
+  WebpackBrowserDevelopmentConfiguration,
+  webpackBrowserDevelopmentConfiguration,
 };

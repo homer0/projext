@@ -1,9 +1,9 @@
-const webpack = require('./webpack');
 const { babelConfiguration } = require('./babelConfiguration');
 const { projectConfiguration } = require('./projectConfiguration');
+const { targetConfiguration } = require('./targetConfiguration');
 
 module.exports = {
-  webpack,
   babelConfiguration,
   projectConfiguration,
+  targetConfiguration,
 };

@@ -11,6 +11,7 @@ const {
   cleaner,
   copier,
   events,
+  plugins,
   versionUtils,
 } = require('../services/common');
 
@@ -24,8 +25,6 @@ const {
   nodeTranspiler,
 } = require('../services/transpiler');
 
-const webpackPlugin = require('../webpack/src');
-
 class Woopack extends Jimple {
   constructor() {
     super();
@@ -34,10 +33,11 @@ class Woopack extends Jimple {
     this.register(appLogger);
     this.register(packageInfo);
     this.register(pathUtils);
-    this.register(cleaner);
 
+    this.register(cleaner);
     this.register(copier);
     this.register(events);
+    this.register(plugins);
     this.register(versionUtils);
 
     this.register(babelConfiguration);
@@ -46,7 +46,7 @@ class Woopack extends Jimple {
 
     this.register(nodeTranspiler);
 
-    webpackPlugin(this);
+    this._loadPlugins();
   }
 
   getConfigurationVars() {
@@ -57,6 +57,10 @@ class Woopack extends Jimple {
       target: envUtils.get('WOOPACK_BUILD_TARGET', firstTarget),
       type: envUtils.get('WOOPACK_BUILD_TYPE', 'development'),
     };
+  }
+
+  _loadPlugins() {
+    this.get('plugins').load();
   }
 }
 

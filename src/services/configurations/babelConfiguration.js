@@ -28,7 +28,7 @@ class BabelConfiguration {
 
     if (!hasEnv) {
       const presetTargets = {};
-      if (target.type === 'node') {
+      if (target.is.browser) {
         const browsers = ['chrome', 'safari', 'edge', 'firefox'];
         if (mobileSupport) {
           browsers.push(...['ios', 'android']);

@@ -15,7 +15,7 @@ commander
 .description('Get the engine build command for a project target')
 .option('-t, --type [type]', 'Which build type: development (default) or production')
 .action((target, options) => {
-  const type = options.type || 'development';
+  const type = (options.parent && options.parent.type) || 'development';
   console.log(builder.getBuildCommand(target, type));
 });
 

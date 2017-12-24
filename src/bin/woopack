@@ -2,10 +2,11 @@
 task=$1
 
 if [ "$task" = "build" ]; then
-  getCommand="woopack-cli sh-get-$@"
-  command=$(eval "$getCommand")
-  echo "> $command"
-  eval "$command"
+  command=$(eval "woopack-cli sh-get-$@")
+  if [ "$command" != "" ]; then
+    echo "> $command"
+    eval "$command"
+  fi
 else
   woopack-cli $@
 fi

@@ -20,6 +20,7 @@ const {
   buildCleaner,
   buildCopier,
   buildEngines,
+  buildTranspiler,
   builder,
   targets,
 } = require('../services/building');
@@ -29,10 +30,6 @@ const {
   projectConfiguration,
   targetConfiguration,
 } = require('../services/configurations');
-
-const {
-  nodeTranspiler,
-} = require('../services/transpiler');
 
 class Woopack extends Jimple {
   constructor() {
@@ -53,14 +50,13 @@ class Woopack extends Jimple {
     this.register(buildCleaner);
     this.register(buildCopier);
     this.register(buildEngines);
+    this.register(buildTranspiler);
     this.register(builder);
     this.register(targets);
 
     this.register(babelConfiguration);
     this.register(projectConfiguration);
     this.register(targetConfiguration);
-
-    this.register(nodeTranspiler);
 
     this._loadPlugins();
     this._addErrorHandler();
@@ -76,8 +72,16 @@ class Woopack extends Jimple {
     };
   }
 
-  getBuildCommand(targetName, buildType) {
+  getTargetBuildCommand(targetName, buildType) {
     return this.get('builder').getBuildCommand(targetName, buildType);
+  }
+
+  copyTarget(targetName, buildType) {
+    return this.get('builder').copyTarget(targetName, buildType);
+  }
+
+  transpileTarget(targetName, buildType) {
+    return this.get('builder').transpileTarget(targetName, buildType);
   }
 
   _loadPlugins() {

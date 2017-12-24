@@ -50,6 +50,10 @@ class Targets {
           },
         });
 
+        if (!newTarget.transpile && newTarget.flow) {
+          newTarget.transpile = true;
+        }
+
         newTarget.folders.source = newTarget.hasFolder ?
           path.join(source, sourceFolderName) :
           source;

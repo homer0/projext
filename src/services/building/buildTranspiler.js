@@ -4,7 +4,7 @@ const fs = require('fs-extra');
 const glob = require('glob');
 const { provider } = require('jimple');
 
-class NodeTranspiler {
+class BuildTranspiler {
   constructor(
     babelConfiguration,
     appLogger,
@@ -19,11 +19,11 @@ class NodeTranspiler {
     this.targets = targets;
   }
 
-  transpile(target, type) {
+  transpileTargetFiles(target, buildType) {
     const { paths } = this.projectConfiguration;
     const targetFile = this.pathUtils.join(
       paths.build,
-      target.entry[type]
+      target.entry[buildType]
     );
     const targetPath = path.dirname(targetFile);
     return this.findFiles(targetPath)
@@ -42,7 +42,7 @@ class NodeTranspiler {
     })
     .catch((error) => {
       this.appLogger.error(
-        `There was an error while transpiling the ${this.nodeName} code`
+        `There was an error while transpiling the ${target.name} code`
       );
       this.appLogger.log(error);
     });
@@ -129,8 +129,8 @@ class NodeTranspiler {
   }
 }
 
-const nodeTranspiler = provider((app) => {
-  app.set('nodeTranspiler', () => new NodeTranspiler(
+const buildTranspiler = provider((app) => {
+  app.set('buildTranspiler', () => new BuildTranspiler(
     app.get('babelConfiguration'),
     app.get('appLogger'),
     app.get('pathUtils'),
@@ -140,6 +140,6 @@ const nodeTranspiler = provider((app) => {
 });
 
 module.exports = {
-  NodeTranspiler,
-  nodeTranspiler,
+  BuildTranspiler,
+  buildTranspiler,
 };

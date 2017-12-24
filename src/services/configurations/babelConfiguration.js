@@ -57,6 +57,8 @@ class BabelConfiguration {
       }
     }
 
+    config.presets = presets;
+    config.plugins = plugins;
     return this.events.reduce('babel-configuration', config, target);
   }
 }

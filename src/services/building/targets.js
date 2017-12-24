@@ -53,7 +53,7 @@ class Targets {
         newTarget.folders.source = newTarget.hasFolder ?
           path.join(source, sourceFolderName) :
           source;
-        newTarget.paths.source = this.pathUtils.join(newTarget.fodlers.source);
+        newTarget.paths.source = this.pathUtils.join(newTarget.folders.source);
 
         newTarget.folders.build = path.join(build, buildFolderName);
         newTarget.paths.build = this.pathUtils.join(newTarget.folders.build);
@@ -68,7 +68,7 @@ class Targets {
   }
 
   getTarget(name) {
-    const target = this.getTarget()[name];
+    const target = this.getTargets()[name];
     if (!target) {
       throw new Error(`The required target doesn't exist: ${name}`);
     }

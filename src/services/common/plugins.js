@@ -1,10 +1,12 @@
 const { provider } = require('jimple');
 
 class Plugins {
-  constructor(prefix, app, appLogger, packageInfo) {
+  constructor(prefix, app, appLogger, packageInfo, pathUtils) {
     this.prefix = prefix;
     this.app = app;
+    this.appLogger = appLogger;
     this.packageInfo = packageInfo;
+    this.pathUtils = pathUtils;
   }
 
   load(dependencies = true, devDependencies = true) {
@@ -24,10 +26,10 @@ class Plugins {
 
   _loadPlugin(packageName) {
     try {
+      const packagePath = this.pathUtils.join('node_modules', packageName);
       // eslint-disable-next-line global-require,import/no-dynamic-require
-      const plugin = require(packageName);
+      const plugin = require(packagePath);
       plugin(this.app);
-      this.appLogger.success(`The plugin ${packageName} has been successfully loaded`);
     } catch (error) {
       this.appLogger.error(`The plugin ${packageName} couldn't be loaded`);
       this.appLogger.log(error);
@@ -40,7 +42,8 @@ const plugins = (prefix) => provider((app) => {
     prefix,
     app,
     app.get('appLogger'),
-    app.get('packageInfo')
+    app.get('packageInfo'),
+    app.get('pathUtils')
   ));
 });
 

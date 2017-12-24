@@ -6,16 +6,16 @@ class Builder {
     this.targets = targets;
   }
 
+  build(targetName, buildType) {
+    const target = this.targets.getTarget(targetName);
+    const engine = this.buildEngines.getEngine(target.engine);
+    return engine.build(target, buildType);
+  }
+
   getBuildCommand(targetName, buildType) {
     const target = this.targets.getTarget(targetName);
     const engine = this.buildEngines.getEngine(target.engine);
-    return engine.getCommand(target, buildType);
-  }
-
-  getBuildConfiguration(targetName, buildType) {
-    const target = this.targets.getTarget(targetName);
-    const engine = this.buildEngines.getEngine(target.engine);
-    return engine.getConfiguration(target, buildType);
+    return engine.getBuildCommand(target, buildType);
   }
 }
 

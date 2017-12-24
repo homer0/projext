@@ -2,6 +2,7 @@ const Jimple = require('jimple');
 
 const {
   environmentUtils,
+  errorHandler,
   appLogger,
   packageInfo,
   pathUtils,
@@ -14,6 +15,14 @@ const {
   plugins,
   versionUtils,
 } = require('../services/common');
+
+const {
+  buildCleaner,
+  buildCopier,
+  buildEngines,
+  builder,
+  targets,
+} = require('../services/building');
 
 const {
   babelConfiguration,
@@ -30,6 +39,7 @@ class Woopack extends Jimple {
     super();
 
     this.register(environmentUtils);
+    this.register(errorHandler);
     this.register(appLogger);
     this.register(packageInfo);
     this.register(pathUtils);
@@ -37,8 +47,14 @@ class Woopack extends Jimple {
     this.register(cleaner);
     this.register(copier);
     this.register(events);
-    this.register(plugins);
+    this.register(plugins('woopack-plugin'));
     this.register(versionUtils);
+
+    this.register(buildCleaner);
+    this.register(buildCopier);
+    this.register(buildEngines);
+    this.register(builder);
+    this.register(targets);
 
     this.register(babelConfiguration);
     this.register(projectConfiguration);
@@ -47,6 +63,7 @@ class Woopack extends Jimple {
     this.register(nodeTranspiler);
 
     this._loadPlugins();
+    this._addErrorHandler();
   }
 
   getConfigurationVars() {
@@ -59,9 +76,17 @@ class Woopack extends Jimple {
     };
   }
 
+  getBuildCommand(targetName, buildType) {
+    return this.get('builder').getBuildCommand(targetName, buildType);
+  }
+
   _loadPlugins() {
     this.get('plugins').load();
   }
+
+  _addErrorHandler() {
+    this.get('errorHandler').listen();
+  }
 }
 
-module.exports = Woopack;
+module.exports = { Woopack };

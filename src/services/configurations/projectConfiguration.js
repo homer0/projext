@@ -27,7 +27,7 @@ class ProjectConfiguration extends ConfigurationFile {
       targetsTemplates: {
         node: {
           type: 'node',
-          bundler0: 'webpack',
+          engine: 'webpack',
           hasFolder: true,
           folder: '',
           createFolder: false,
@@ -49,7 +49,7 @@ class ProjectConfiguration extends ConfigurationFile {
         },
         browser: {
           type: 'browser',
-          bundler: 'webpack',
+          engine: 'webpack',
           hasFolder: true,
           folder: '',
           createFolder: true,
@@ -62,8 +62,8 @@ class ProjectConfiguration extends ConfigurationFile {
             production: true,
           },
           html: {
-            template: 'index.tpl.html',
-            filename: 'index.tpl.html',
+            template: 'index.html',
+            filename: 'index.html',
           },
           babel: {
             features: {},

@@ -1,0 +1,11 @@
+#!/bin/sh
+task=$1
+
+if [ "$task" = "build" ]; then
+  getCommand="woopack-cli sh-get-$@"
+  command=$(eval "$getCommand")
+  echo "> $command"
+  eval "$command"
+else
+  woopack-cli $@
+fi

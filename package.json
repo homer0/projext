@@ -13,8 +13,7 @@
       "shelljs": "0.7.8",
       "babel-core": "6.26.0",
       "glob": "7.1.2",
-
-      "wootils": "../wootils"
+      "commander": "sennav/commander.js"
     },
     "devDependencies": {
       "eslint": "4.13.1",
@@ -28,6 +27,10 @@
       "npm": ">=3.0.0"
     },
     "main": "src/index.js",
+    "bin": {
+      "woopack": "./src/bin/woopack",
+      "woopack-cli": "./src/bin/woopack-cli"
+    },
     "scripts": {
       "install-hooks": "./utils/hooks/install",
       "test": "",

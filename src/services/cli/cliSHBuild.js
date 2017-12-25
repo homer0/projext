@@ -4,13 +4,17 @@ const CLICommand = require('../../interfaces/cliCommand');
 class CLISHBuildCommand extends CLICommand {
   constructor(
     builder,
+    cliCopyProjectFilesCommand,
     cliSHCopyCommand,
-    cliSHTranspileCommand
+    cliSHTranspileCommand,
+    projectConfiguration
   ) {
     super();
     this.builder = builder;
+    this.cliCopyProjectFilesCommand = cliCopyProjectFilesCommand;
     this.cliSHCopyCommand = cliSHCopyCommand;
     this.cliSHTranspileCommand = cliSHTranspileCommand;
+    this.projectConfiguration = projectConfiguration;
 
     this.command = 'sh-build [target]';
     this.description = 'Get the build commands for the shell program to execute';
@@ -30,9 +34,20 @@ class CLISHBuildCommand extends CLICommand {
     const deps = [
       this.cliSHCopyCommand.generate(args),
       this.cliSHTranspileCommand.generate(args),
-    ]
-    .map((cmd) => `${this.cliName} ${cmd}`);
-    commands.push(...deps);
+    ];
+
+    const { copyOnBuild } = this.projectConfiguration;
+    if (copyOnBuild.enabled) {
+      const copyEnvCheck = !copyOnBuild.onlyOnProduction ||
+        (copyOnBuild.onlyOnProduction && type === 'production');
+      const copyTaretCheck = !copyOnBuild.targets.length ||
+        copyOnBuild.targets.includes(target);
+      if (copyEnvCheck && copyTaretCheck) {
+        deps.push(this.cliCopyProjectFilesCommand.generate());
+      }
+    }
+
+    commands.push(...deps.map((cmd) => `${this.cliName} ${cmd}`));
 
     this.output(commands.join(';'));
   }
@@ -41,8 +56,10 @@ class CLISHBuildCommand extends CLICommand {
 const cliSHBuildCommand = provider((app) => {
   app.set('cliSHBuildCommand', () => new CLISHBuildCommand(
     app.get('builder'),
+    app.get('cliCopyProjectFilesCommand'),
     app.get('cliSHCopyCommand'),
-    app.get('cliSHTranspileCommand')
+    app.get('cliSHTranspileCommand'),
+    app.get('projectConfiguration').getConfig()
   ));
 });
 

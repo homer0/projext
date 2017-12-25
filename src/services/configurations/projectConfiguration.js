@@ -82,8 +82,12 @@ class ProjectConfiguration extends ConfigurationFile {
         '.nvmrc',
         'config',
         'package.json',
-        'utils',
       ],
+      copyOnBuild: {
+        enabled: true,
+        onlyOnProduction: true,
+        targets: [],
+      },
       targets: {},
     };
   }

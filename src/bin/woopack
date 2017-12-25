@@ -8,6 +8,7 @@ fi
 if [ "$task" = "build" ] && [ "$disableBuiltTask" = false ]; then
   command=$(eval "woopack-cli sh-$*")
   if [ "$command" != "" ]; then
+    # echo "> $command"
     eval "$command"
   fi
 else

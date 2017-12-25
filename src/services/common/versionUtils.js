@@ -75,12 +75,13 @@ class VersionUtils {
         this.appLogger.error(
           `There was an error creating the revision file (${filepath})`
         );
-        this.appLogger.log(error);
+        return Promise.reject(error);
       });
     } else {
+      this.appLogger.error('The revision file couldn\'t be created');
       const errorMessage = 'The project is not running on a GIT environment and there\'s no ' +
-        `${this.environmentVersionName} variable set, so the revision file couldn't be created.`;
-      this.appLogger.error(errorMessage);
+        `${this.environmentVersionName} variable set`;
+      write = Promise.reject(new Error(errorMessage));
     }
 
     return write;

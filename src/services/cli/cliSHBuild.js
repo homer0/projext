@@ -5,6 +5,7 @@ class CLISHBuildCommand extends CLICommand {
   constructor(
     builder,
     cliCopyProjectFilesCommand,
+    cliRevisionCommand,
     cliSHCopyCommand,
     cliSHTranspileCommand,
     projectConfiguration
@@ -12,6 +13,7 @@ class CLISHBuildCommand extends CLICommand {
     super();
     this.builder = builder;
     this.cliCopyProjectFilesCommand = cliCopyProjectFilesCommand;
+    this.cliRevisionCommand = cliRevisionCommand;
     this.cliSHCopyCommand = cliSHCopyCommand;
     this.cliSHTranspileCommand = cliSHTranspileCommand;
     this.projectConfiguration = projectConfiguration;
@@ -36,12 +38,28 @@ class CLISHBuildCommand extends CLICommand {
       this.cliSHTranspileCommand.generate(args),
     ];
 
-    const { copyOnBuild } = this.projectConfiguration;
+    const {
+      copyOnBuild,
+      version: {
+        createRevisionOnBuild,
+      },
+    } = this.projectConfiguration;
+
+    if (createRevisionOnBuild.enabled) {
+      const revisionTargetCheck = !createRevisionOnBuild.targets.length ||
+        createRevisionOnBuild.targets.includes(target);
+
+      if (revisionTargetCheck) {
+        deps.push(this.cliRevisionCommand.generate());
+      }
+    }
+
     if (copyOnBuild.enabled) {
       const copyEnvCheck = !copyOnBuild.onlyOnProduction ||
         (copyOnBuild.onlyOnProduction && type === 'production');
       const copyTaretCheck = !copyOnBuild.targets.length ||
         copyOnBuild.targets.includes(target);
+
       if (copyEnvCheck && copyTaretCheck) {
         deps.push(this.cliCopyProjectFilesCommand.generate());
       }
@@ -57,6 +75,7 @@ const cliSHBuildCommand = provider((app) => {
   app.set('cliSHBuildCommand', () => new CLISHBuildCommand(
     app.get('builder'),
     app.get('cliCopyProjectFilesCommand'),
+    app.get('cliRevisionCommand'),
     app.get('cliSHCopyCommand'),
     app.get('cliSHTranspileCommand'),
     app.get('projectConfiguration').getConfig()

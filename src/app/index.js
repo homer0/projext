@@ -30,6 +30,7 @@ const {
   cli,
   cliBuildCommand,
   cliCopyProjectFilesCommand,
+  cliRevisionCommand,
   cliSHBuildCommand,
   cliSHCopyCommand,
   cliSHTranspileCommand,
@@ -69,6 +70,7 @@ class Woopack extends Jimple {
     this.register(cli);
     this.register(cliBuildCommand);
     this.register(cliCopyProjectFilesCommand);
+    this.register(cliRevisionCommand);
     this.register(cliSHBuildCommand);
     this.register(cliSHCopyCommand);
     this.register(cliSHTranspileCommand);
@@ -85,6 +87,7 @@ class Woopack extends Jimple {
     this.get('cli').start([
       this.get('cliBuildCommand'),
       this.get('cliCopyProjectFilesCommand'),
+      this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),
       this.get('cliSHTranspileCommand'),

@@ -14,6 +14,10 @@ class BuildCopier {
     let result;
     const {
       copy,
+      version: {
+        revisionFilename,
+        copyRevision,
+      },
       paths: {
         build,
         privateModules,
@@ -35,6 +39,10 @@ class BuildCopier {
           items.push(item);
         }
       });
+
+      if (copyRevision && fs.pathExistsSync(this.pathUtils.join(revisionFilename))) {
+        items.push(revisionFilename);
+      }
 
       // if (runner.enabled) {
       //   items.push(runner.filename);

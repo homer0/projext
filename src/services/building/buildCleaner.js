@@ -34,7 +34,7 @@ class BuildCleaner {
   cleanTarget(target) {
     const { paths: { build } } = this.projectConfiguration;
     const dist = this.pathUtils.join(build);
-    const cleanStep = this.target.is.node ?
+    const cleanStep = target.is.node ?
       this.cleanNodeTarget(target) :
       this.cleanBrowserTarget(target);
 
@@ -83,18 +83,24 @@ class BuildCleaner {
     ];
 
     if (!target.library) {
-      items.push(target.html.filename);
+      items.push(...[
+        target.html.filename,
+        `${target.html.filename}.gz`,
+      ]);
     }
 
     return this.cleaner(build, items);
   }
 
   getTargetNamesVariation(name) {
-    const names = [name];
-    const nameParts = name.split('.');
-    const ext = nameParts.pop();
-    const nameWithoutExt = nameParts.join('.');
-    names.push(`${nameWithoutExt}.*${ext}`);
+    const names = [
+      name,
+      `${name}.js`,
+      `${name}.js.map`,
+      `${name}.*.js`,
+      `${name}.*.js.map`,
+    ];
+    names.push(...names.map((file) => `${file}.gz`));
     return names;
   }
 }

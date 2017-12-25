@@ -77,8 +77,13 @@ class CLICommand {
       }
     });
 
-    const options = cmdOptions.join(' ');
-    return `${cmd} ${options}`;
+    let options = '';
+    if (cmdOptions.length) {
+      const cmdOptionsString = cmdOptions.join(' ');
+      options = ` ${cmdOptionsString}`;
+    }
+
+    return `${this.cliName} ${cmd}${options}`;
   }
 
   handle() {

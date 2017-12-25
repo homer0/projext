@@ -50,6 +50,7 @@ class ProjectConfiguration extends ConfigurationFile {
           flow: false,
           library: false,
           libraryOptions: {},
+          cleanBeforeBuild: true,
         },
         browser: {
           type: 'browser',
@@ -80,6 +81,7 @@ class ProjectConfiguration extends ConfigurationFile {
           hotReload: false,
           library: false,
           libraryOptions: {},
+          cleanBeforeBuild: true,
         },
       },
       copy: [

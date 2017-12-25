@@ -13,7 +13,7 @@ class Cleaner {
 
     if (Array.isArray(files)) {
       files.forEach((file) => {
-        items.push(`${flag}${directory}/${file}.js`);
+        items.push(`${flag}${directory}/${file}`);
       });
     } else {
       items.push(`${directory}/${files}`);

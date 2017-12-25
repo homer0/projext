@@ -1,7 +1,14 @@
 const { provider } = require('jimple');
 
 class Builder {
-  constructor(buildCopier, buildEngines, buildTranspiler, targets) {
+  constructor(
+    buildCleaner,
+    buildCopier,
+    buildEngines,
+    buildTranspiler,
+    targets
+  ) {
+    this.buildCleaner = buildCleaner;
     this.buildCopier = buildCopier;
     this.buildEngines = buildEngines;
     this.buildTranspiler = buildTranspiler;
@@ -50,10 +57,16 @@ class Builder {
 
     return result;
   }
+
+  cleanTarget(targetName) {
+    const target = this.targets.getTarget(targetName);
+    return this.buildCleaner.cleanTarget(target);
+  }
 }
 
 const builder = provider((app) => {
   app.set('builder', () => new Builder(
+    app.get('buildCleaner'),
     app.get('buildCopier'),
     app.get('buildEngines'),
     app.get('buildTranspiler'),

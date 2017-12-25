@@ -8,7 +8,7 @@ class Builder {
     this.targets = targets;
   }
 
-  getBuildCommand(targetName, buildType) {
+  getTargetBuildCommand(targetName, buildType) {
     const target = this.targets.getTarget(targetName);
     let command = '';
     if (target.bundle !== false) {

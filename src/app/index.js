@@ -1,4 +1,5 @@
 const Jimple = require('jimple');
+const appPackage = require('../../package.json');
 
 const {
   environmentUtils,
@@ -26,6 +27,14 @@ const {
 } = require('../services/building');
 
 const {
+  cli,
+  cliBuildCommand,
+  cliSHBuildCommand,
+  cliSHCopyCommand,
+  cliSHTranspileCommand,
+} = require('../services/cli');
+
+const {
   babelConfiguration,
   projectConfiguration,
   targetConfiguration,
@@ -34,6 +43,8 @@ const {
 class Woopack extends Jimple {
   constructor() {
     super();
+
+    this.set('info', () => appPackage);
 
     this.register(environmentUtils);
     this.register(errorHandler);
@@ -54,6 +65,12 @@ class Woopack extends Jimple {
     this.register(builder);
     this.register(targets);
 
+    this.register(cli);
+    this.register(cliBuildCommand);
+    this.register(cliSHBuildCommand);
+    this.register(cliSHCopyCommand);
+    this.register(cliSHTranspileCommand);
+
     this.register(babelConfiguration);
     this.register(projectConfiguration);
     this.register(targetConfiguration);
@@ -62,26 +79,13 @@ class Woopack extends Jimple {
     this._addErrorHandler();
   }
 
-  getConfigurationVars() {
-    const envUtils = this.get('environmentUtils');
-    const projectConfig = this.get('projectConfiguration').getConfig();
-    const [firstTarget] = Object.keys(projectConfig.targets);
-    return {
-      target: envUtils.get('WOOPACK_BUILD_TARGET', firstTarget),
-      type: envUtils.get('WOOPACK_BUILD_TYPE', 'development'),
-    };
-  }
-
-  getTargetBuildCommand(targetName, buildType) {
-    return this.get('builder').getBuildCommand(targetName, buildType);
-  }
-
-  copyTarget(targetName, buildType) {
-    return this.get('builder').copyTarget(targetName, buildType);
-  }
-
-  transpileTarget(targetName, buildType) {
-    return this.get('builder').transpileTarget(targetName, buildType);
+  cli() {
+    this.get('cli').start([
+      this.get('cliBuildCommand'),
+      this.get('cliSHBuildCommand'),
+      this.get('cliSHCopyCommand'),
+      this.get('cliSHTranspileCommand'),
+    ]);
   }
 
   _loadPlugins() {

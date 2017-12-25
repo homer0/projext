@@ -1,12 +1,15 @@
 #!/bin/sh
 task=$1
+disableBuiltTask=false
+if echo "$*" | grep -q "\(\s\-\-\?\(help\|h\|version\|v\)\(\s\|$\)\)"; then
+  disableBuiltTask=true
+fi
 
-if [ "$task" = "build" ]; then
-  command=$(eval "woopack-cli sh-get-$@")
+if [ "$task" = "build" ] && [ "$disableBuiltTask" = false ]; then
+  command=$(eval "woopack-cli sh-$*")
   if [ "$command" != "" ]; then
-    echo "> $command"
     eval "$command"
   fi
 else
-  woopack-cli $@
+  woopack-cli "$@"
 fi

@@ -28,24 +28,58 @@ class CLISHBuildCommand extends CLICommand {
     this.hidden = true;
   }
 
-  handle(target, command, options) {
+  handle(name, command, options) {
     const { type } = options;
-    const args = { target, type };
-    const commands = [
-      this.getCleanCommandIfNeeded(args),
-      this.getBuildCommandIfNeeded(args),
-      this.getCopyCommand(args),
-      this.getTranspileCommand(args),
-      this.getRevisionCommand(args),
-      this.getCopyProjectFilesCommand(args),
-    ]
-    .filter((cmd) => !!cmd);
+    const target = this.targets.getTarget(name);
+    const run = type === 'development' && target.runOnDevelopment;
+    const commands = target.is.node ?
+      this.getCommandsForNodeTarget(target, type, run) :
+      this.getCommandsForBrowserTarget(target, type, run);
 
-    this.output(commands.join(';'));
+    const output = commands
+    .filter((cmd) => !!cmd)
+    .join(';');
+
+    this.output(output);
   }
 
-  getCleanCommandIfNeeded(args) {
-    const target = this.targets.getTarget(args.target);
+  getCommandsForNodeTarget(target, type, run) {
+    const args = { target: target.name, type };
+    const commands = [
+      this.getCleanCommandIfNeeded(args, target, type),
+      this.getBuildCommandIfNeeded(args, target, type),
+      this.getCopyCommand(args, target, type),
+      this.getTranspileCommand(args, target, type),
+    ];
+
+    if (!run) {
+      commands.push(...[
+        this.getRevisionCommand(args, target, type),
+        this.getCopyProjectFilesCommand(args, target, type),
+      ]);
+    }
+
+    return commands;
+  }
+
+  getCommandsForBrowserTarget(target, type, run) {
+    const args = { target: target.name, type };
+    const commands = [
+      this.getCleanCommandIfNeeded(args, target, type),
+      this.getBuildCommandIfNeeded(args, target, type),
+    ];
+
+    if (!run) {
+      commands.push(...[
+        this.getRevisionCommand(args, target, type),
+        this.getCopyProjectFilesCommand(args, target, type),
+      ]);
+    }
+
+    return commands;
+  }
+
+  getCleanCommandIfNeeded(args, target) {
     return target.cleanBeforeBuild ?
       this.cliCleanCommand.generate(args) :
       '';
@@ -67,10 +101,12 @@ class CLISHBuildCommand extends CLICommand {
     const { version: { createRevisionOnBuild } } = this.projectConfiguration;
     let command = '';
     if (createRevisionOnBuild.enabled) {
+      const revisionEnvCheck = !createRevisionOnBuild.onlyOnProduction ||
+        (createRevisionOnBuild.onlyOnProduction && args.type === 'production');
       const revisionTargetCheck = !createRevisionOnBuild.targets.length ||
         createRevisionOnBuild.targets.includes(args.target);
 
-      if (revisionTargetCheck) {
+      if (revisionEnvCheck && revisionTargetCheck) {
         command = this.cliRevisionCommand.generate();
       }
     }

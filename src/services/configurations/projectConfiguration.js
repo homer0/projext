@@ -14,6 +14,7 @@ class ProjectConfiguration extends ConfigurationFile {
         copyRevision: true,
         createRevisionOnBuild: {
           enabled: true,
+          onlyOnProduction: true,
           targets: [],
         },
       },
@@ -41,7 +42,7 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           transpile: false,
           bundle: false,
-          run: true,
+          runOnDevelopment: true,
           babel: {
             features: {},
             nodeVersion: 'current',
@@ -70,11 +71,13 @@ class ProjectConfiguration extends ConfigurationFile {
             template: 'index.html',
             filename: 'index.html',
           },
+          runOnDevelopment: true,
           babel: {
             features: {},
             browserVersions: 2,
             mobileSupport: true,
             overwrites: {},
+            polyfill: true,
           },
           flow: false,
           CSSModules: false,
@@ -82,6 +85,10 @@ class ProjectConfiguration extends ConfigurationFile {
           library: false,
           libraryOptions: {},
           cleanBeforeBuild: true,
+          devServer: {
+            port: 2509,
+            reload: true,
+          },
         },
       },
       copy: [

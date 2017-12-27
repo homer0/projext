@@ -9,7 +9,10 @@ class CLI {
   }
 
   start(commands) {
-    commander.version(this.info.version);
+    // eslint-disable-next-line no-underscore-dangle
+    commander._name = this.name;
+    commander.version(this.info.version, '-v, --version');
+    commander.description(this.info.description);
 
     commands.forEach((command) => {
       command.register(commander, this);

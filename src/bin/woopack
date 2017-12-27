@@ -2,21 +2,25 @@
 task=$1
 disableSHTasks=false
 isSHTask=false
-if echo "$task" | grep -q "^\(build\|run\)$"; then
-  isSHTask=true
-fi
-
-if echo "$*" | grep -q "\(\s\-\-\?\(help\|h\|version\|v\)\(\s\|$\)\)"; then
-  disableSHTasks=true
-fi
-
-if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
-    eval "woopack-cli sh-validate-$*"
-    command=$(eval "woopack-cli sh-$*")
-    if [ "$command" != "" ]; then
-      # echo "> $command"
-      eval "$command"
-    fi
+if [ "$task" = "" ]; then
+  woopack-cli --help
 else
-  woopack-cli "$@"
+  if echo "$task" | grep -q "^\(build\|run\)$"; then
+    isSHTask=true
+  fi
+
+  if echo "$*" | grep -q "\(\s\-\-\?\(help\|h\|version\|v\)\(\s\|$\)\)"; then
+    disableSHTasks=true
+  fi
+
+  if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
+      eval "woopack-cli sh-validate-$*"
+      command=$(eval "woopack-cli sh-$*")
+      if [ "$command" != "" ]; then
+        # echo "> $command"
+        eval "$command"
+      fi
+  else
+    woopack-cli "$@"
+  fi
 fi

@@ -24,11 +24,16 @@ class CLICommand {
   register(program, cli) {
     this.cliName = cli.name;
     let command;
+    const options = {};
+    if (this.hidden) {
+      options.noHelp = true;
+    }
+
     if (this.subCommand) {
-      command = program.command(this.command, this.description);
+      command = program.command(this.command, this.description, options);
     } else {
       command = program
-      .command(this.command)
+      .command(this.command, '', options)
       .description(this.description);
     }
 
@@ -41,10 +46,6 @@ class CLICommand {
     });
 
     command.action(this._handle.bind(this));
-
-    if (this.hidden) {
-      cli.hideCommand(this.command);
-    }
   }
 
   generate(args = {}) {

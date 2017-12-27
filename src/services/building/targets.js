@@ -84,7 +84,7 @@ class Targets {
     const targets = this.getTargets();
     const targetName = Object.keys(targets).find((name) => {
       const target = targets[name];
-      return file.includes(target.path.source);
+      return file.includes(target.paths.source);
     });
 
     if (!targetName) {

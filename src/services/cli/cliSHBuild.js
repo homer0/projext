@@ -8,6 +8,7 @@ class CLISHBuildCommand extends CLICommand {
     cliCopyProjectFilesCommand,
     cliRevisionCommand,
     cliSHCopyCommand,
+    cliSHNodeRunCommand,
     cliSHTranspileCommand,
     projectConfiguration,
     targets
@@ -18,6 +19,7 @@ class CLISHBuildCommand extends CLICommand {
     this.cliCopyProjectFilesCommand = cliCopyProjectFilesCommand;
     this.cliRevisionCommand = cliRevisionCommand;
     this.cliSHCopyCommand = cliSHCopyCommand;
+    this.cliSHNodeRunCommand = cliSHNodeRunCommand;
     this.cliSHTranspileCommand = cliSHTranspileCommand;
     this.projectConfiguration = projectConfiguration;
     this.targets = targets;
@@ -81,6 +83,8 @@ class CLISHBuildCommand extends CLICommand {
         this.getRevisionCommand(args, target, type),
         this.getCopyProjectFilesCommand(args, target, type),
       ]);
+    } else if (!target.bundle) {
+      commands.push(this.getNodeRunCommand(args, target, type));
     }
 
     return commands;
@@ -119,15 +123,19 @@ class CLISHBuildCommand extends CLICommand {
   }
 
   getCopyCommand(args, target, type, build = true) {
-    return build ?
+    return build && !target.bundle ?
       this.cliSHCopyCommand.generate(args) :
       '';
   }
 
   getTranspileCommand(args, target, type, build = true) {
-    return build ?
+    return build && !target.bundle ?
       this.cliSHTranspileCommand.generate(args) :
       '';
+  }
+
+  getNodeRunCommand(args) {
+    return this.cliSHNodeRunCommand.generate(args);
   }
 
   getRevisionCommand(args) {
@@ -172,6 +180,7 @@ const cliSHBuildCommand = provider((app) => {
     app.get('cliCopyProjectFilesCommand'),
     app.get('cliRevisionCommand'),
     app.get('cliSHCopyCommand'),
+    app.get('cliSHNodeRunCommand'),
     app.get('cliSHTranspileCommand'),
     app.get('projectConfiguration').getConfig(),
     app.get('targets')

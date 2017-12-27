@@ -21,6 +21,8 @@ const {
   buildCleaner,
   buildCopier,
   buildEngines,
+  buildNodeRunner,
+  buildNodeRunnerProcess,
   buildTranspiler,
   builder,
   targets,
@@ -34,6 +36,7 @@ const {
   cliRevisionCommand,
   cliSHBuildCommand,
   cliSHCopyCommand,
+  cliSHNodeRunCommand,
   cliSHRunCommand,
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
@@ -67,6 +70,8 @@ class Woopack extends Jimple {
     this.register(buildCleaner);
     this.register(buildCopier);
     this.register(buildEngines);
+    this.register(buildNodeRunner);
+    this.register(buildNodeRunnerProcess);
     this.register(buildTranspiler);
     this.register(builder);
     this.register(targets);
@@ -78,6 +83,7 @@ class Woopack extends Jimple {
     this.register(cliRevisionCommand);
     this.register(cliSHBuildCommand);
     this.register(cliSHCopyCommand);
+    this.register(cliSHNodeRunCommand);
     this.register(cliSHRunCommand);
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
@@ -99,6 +105,7 @@ class Woopack extends Jimple {
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),
+      this.get('cliSHNodeRunCommand'),
       this.get('cliSHRunCommand'),
       this.get('cliSHTranspileCommand'),
       this.get('cliSHValidateBuildCommand'),

@@ -37,7 +37,7 @@ class BuildTranspiler {
       const prefix = this.pathUtils.path.length + 1;
       files.forEach((file) => {
         const filepath = file.substr(prefix);
-        this.appLogger.info(`${filepath}`);
+        this.appLogger.info(`> ${filepath}`);
       });
     })
     .catch((error) => {

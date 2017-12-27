@@ -32,7 +32,8 @@ class CLISHValidateBuildCommand extends CLICommand {
     if (
       target.is.node &&
       type === 'development' &&
-      (run || target.runOnDevelopment) &&
+      !run &&
+      !target.runOnDevelopment &&
       !target.bundle &&
       !target.transpile
     ) {

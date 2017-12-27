@@ -102,6 +102,11 @@ class ProjectConfiguration extends ConfigurationFile {
         targets: [],
       },
       targets: {},
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
     };
   }
 }

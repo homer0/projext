@@ -14,7 +14,7 @@ if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
     eval "woopack-cli sh-validate-$*"
     command=$(eval "woopack-cli sh-$*")
     if [ "$command" != "" ]; then
-      echo "> $command"
+      # echo "> $command"
       eval "$command"
     fi
 else

@@ -32,7 +32,7 @@ class Plugins {
       plugin(this.app);
     } catch (error) {
       this.appLogger.error(`The plugin ${packageName} couldn't be loaded`);
-      this.appLogger.log(error);
+      throw error;
     }
   }
 }

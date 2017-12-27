@@ -42,7 +42,7 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           transpile: false,
           bundle: false,
-          runOnDevelopment: true,
+          runOnDevelopment: false,
           babel: {
             features: {},
             nodeVersion: 'current',
@@ -71,7 +71,7 @@ class ProjectConfiguration extends ConfigurationFile {
             template: 'index.html',
             filename: 'index.html',
           },
-          runOnDevelopment: true,
+          runOnDevelopment: false,
           babel: {
             features: {},
             browserVersions: 2,

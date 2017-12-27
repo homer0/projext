@@ -43,7 +43,7 @@ class CLISHBuildCommand extends CLICommand {
   handle(name, command, options) {
     const { type } = options;
     const target = this.targets.getTarget(name);
-    const run = type === 'development' && target.runOnDevelopment;
+    const run = type === 'development' && (target.runOnDevelopment || options.run);
     const commands = target.is.node ?
       this.getCommandsForNodeTarget(target, type, run) :
       this.getCommandsForBrowserTarget(target, type, run);
@@ -56,8 +56,13 @@ class CLISHBuildCommand extends CLICommand {
   }
 
   getCommandsForNodeTarget(target, type, run) {
-    const args = { target: target.name, type };
-    const willBuild = (
+    const args = {
+      target: target.name,
+      type,
+      run,
+    };
+
+    const build = (
       type === 'production' ||
       target.is.browser ||
       target.bundle ||
@@ -65,10 +70,10 @@ class CLISHBuildCommand extends CLICommand {
     );
 
     const commands = [
-      this.getCleanCommandIfNeeded(args, target, type, willBuild),
-      this.getBuildCommandIfNeeded(args, target, type, willBuild),
-      this.getCopyCommand(args, target, type, willBuild),
-      this.getTranspileCommand(args, target, type, willBuild),
+      this.getCleanCommandIfNeeded(args, target, type, build, run),
+      this.getBuildCommandIfNeeded(args, target, type, build, run),
+      this.getCopyCommand(args, target, type, build, run),
+      this.getTranspileCommand(args, target, type, build, run),
     ];
 
     if (!run) {
@@ -82,10 +87,15 @@ class CLISHBuildCommand extends CLICommand {
   }
 
   getCommandsForBrowserTarget(target, type, run) {
-    const args = { target: target.name, type };
+    const args = {
+      target: target.name,
+      type,
+      run,
+    };
+
     const commands = [
-      this.getCleanCommandIfNeeded(args, target, type),
-      this.getBuildCommandIfNeeded(args, target, type),
+      this.getCleanCommandIfNeeded(args, target, type, true, run),
+      this.getBuildCommandIfNeeded(args, target, type, true, run),
     ];
 
     if (!run) {
@@ -98,24 +108,24 @@ class CLISHBuildCommand extends CLICommand {
     return commands;
   }
 
-  getCleanCommandIfNeeded(args, target, type, willBuild = true) {
-    return willBuild && target.cleanBeforeBuild ?
+  getCleanCommandIfNeeded(args, target, type, build = true) {
+    return build && target.cleanBeforeBuild ?
       this.cliCleanCommand.generate(args) :
       '';
   }
 
-  getBuildCommandIfNeeded(args) {
-    return this.builder.getTargetBuildCommand(args.target, args.type);
+  getBuildCommandIfNeeded(args, target, type, build, run) {
+    return this.builder.getTargetBuildCommand(target, type, run);
   }
 
-  getCopyCommand(args, target, type, willBuild = true) {
-    return willBuild ?
+  getCopyCommand(args, target, type, build = true) {
+    return build ?
       this.cliSHCopyCommand.generate(args) :
       '';
   }
 
-  getTranspileCommand(args, target, type, willBuild = true) {
-    return willBuild ?
+  getTranspileCommand(args, target, type, build = true) {
+    return build ?
       this.cliSHTranspileCommand.generate(args) :
       '';
   }

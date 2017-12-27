@@ -34,8 +34,10 @@ const {
   cliRevisionCommand,
   cliSHBuildCommand,
   cliSHCopyCommand,
+  cliSHRunCommand,
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
+  cliSHValidateRunCommand,
 } = require('../services/cli');
 
 const {
@@ -76,8 +78,10 @@ class Woopack extends Jimple {
     this.register(cliRevisionCommand);
     this.register(cliSHBuildCommand);
     this.register(cliSHCopyCommand);
+    this.register(cliSHRunCommand);
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
+    this.register(cliSHValidateRunCommand);
 
     this.register(babelConfiguration);
     this.register(projectConfiguration);
@@ -95,8 +99,10 @@ class Woopack extends Jimple {
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),
+      this.get('cliSHRunCommand'),
       this.get('cliSHTranspileCommand'),
       this.get('cliSHValidateBuildCommand'),
+      this.get('cliSHValidateRunCommand'),
     ]);
   }
 

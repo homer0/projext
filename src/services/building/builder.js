@@ -15,12 +15,11 @@ class Builder {
     this.targets = targets;
   }
 
-  getTargetBuildCommand(targetName, buildType) {
-    const target = this.targets.getTarget(targetName);
+  getTargetBuildCommand(target, buildType, forceRun = false) {
     let command = '';
     if (target.bundle !== false) {
       const engine = this.buildEngines.getEngine(target.engine);
-      command = engine.getBuildCommand(target, buildType);
+      command = engine.getBuildCommand(target, buildType, forceRun);
     }
 
     return command;

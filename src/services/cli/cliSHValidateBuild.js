@@ -8,7 +8,7 @@ class CLISHValidateBuildCommand extends CLICommand {
     this.targets = targets;
 
     this.command = 'sh-validate-build [target]';
-    this.description = 'Get the build commands for the shell program to execute';
+    this.description = 'Validate the arguments before the shell executes the task';
     this.addOption(
       'type',
       '-t, --type [type]',

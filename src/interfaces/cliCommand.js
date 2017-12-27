@@ -60,9 +60,13 @@ class CLICommand {
         let instruction = option.instruction.split(',').pop().trim();
         if (instruction.includes(asPlaceholder)) {
           instruction = instruction.replace(asPlaceholder, value);
+        } else if (value === false) {
+          instruction = '';
         }
 
-        cmdOptions.push(instruction);
+        if (instruction) {
+          cmdOptions.push(instruction);
+        }
       }
     });
 

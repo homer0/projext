@@ -21,17 +21,6 @@ class CLICommand {
     this.options.push(name);
   }
 
-  addCommonOptions(options = ['type']) {
-    if (options.includes('type')) {
-      this.addOption(
-        'type',
-        '-t, --type [type]',
-        'Which build type: development (default) or production',
-        'development'
-      );
-    }
-  }
-
   register(program, cli) {
     this.cliName = cli.name;
     let command;
@@ -114,7 +103,7 @@ class CLICommand {
         value = command.parent[name];
       }
 
-      if (!value && option.defaultValue) {
+      if (!value && typeof option.defaultValue !== 'undefined') {
         value = option.defaultValue;
       }
 

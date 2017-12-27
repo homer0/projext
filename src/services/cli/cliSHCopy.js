@@ -9,7 +9,12 @@ class CLISHCopyCommand extends CLICommand {
     this.command = 'sh-copy-target [target]';
     this.description = 'Copy a target files, only if the target requires' +
       'transpilation or the `type` argument is production';
-    this.addCommonOptions();
+    this.addOption(
+      'type',
+      '-t, --type [type]',
+      'Which build type: development (default) or production',
+      'development'
+    );
     this.hidden = true;
   }
 

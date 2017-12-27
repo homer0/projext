@@ -24,7 +24,19 @@ class CLISHBuildCommand extends CLICommand {
 
     this.command = 'sh-build [target]';
     this.description = 'Get the build commands for the shell program to execute';
-    this.addCommonOptions();
+    this.addOption(
+      'type',
+      '-t, --type [type]',
+      'Which build type: development (default) or production',
+      'development'
+    );
+    this.addOption(
+      'run',
+      '-r, --run',
+      'Run the target after the build is completed. It only works when the ' +
+        'build type is development',
+      false
+    );
     this.hidden = true;
   }
 
@@ -45,11 +57,18 @@ class CLISHBuildCommand extends CLICommand {
 
   getCommandsForNodeTarget(target, type, run) {
     const args = { target: target.name, type };
+    const willBuild = (
+      type === 'production' ||
+      target.is.browser ||
+      target.bundle ||
+      target.transpile
+    );
+
     const commands = [
-      this.getCleanCommandIfNeeded(args, target, type),
-      this.getBuildCommandIfNeeded(args, target, type),
-      this.getCopyCommand(args, target, type),
-      this.getTranspileCommand(args, target, type),
+      this.getCleanCommandIfNeeded(args, target, type, willBuild),
+      this.getBuildCommandIfNeeded(args, target, type, willBuild),
+      this.getCopyCommand(args, target, type, willBuild),
+      this.getTranspileCommand(args, target, type, willBuild),
     ];
 
     if (!run) {
@@ -79,8 +98,8 @@ class CLISHBuildCommand extends CLICommand {
     return commands;
   }
 
-  getCleanCommandIfNeeded(args, target) {
-    return target.cleanBeforeBuild ?
+  getCleanCommandIfNeeded(args, target, type, willBuild = true) {
+    return willBuild && target.cleanBeforeBuild ?
       this.cliCleanCommand.generate(args) :
       '';
   }
@@ -89,12 +108,16 @@ class CLISHBuildCommand extends CLICommand {
     return this.builder.getTargetBuildCommand(args.target, args.type);
   }
 
-  getCopyCommand(args) {
-    return this.cliSHCopyCommand.generate(args);
+  getCopyCommand(args, target, type, willBuild = true) {
+    return willBuild ?
+      this.cliSHCopyCommand.generate(args) :
+      '';
   }
 
-  getTranspileCommand(args) {
-    return this.cliSHTranspileCommand.generate(args);
+  getTranspileCommand(args, target, type, willBuild = true) {
+    return willBuild ?
+      this.cliSHTranspileCommand.generate(args) :
+      '';
   }
 
   getRevisionCommand(args) {

@@ -6,6 +6,7 @@ const { cliRevisionCommand } = require('./cliRevision');
 const { cliSHBuildCommand } = require('./cliSHBuild');
 const { cliSHCopyCommand } = require('./cliSHCopy');
 const { cliSHTranspileCommand } = require('./cliSHTranspile');
+const { cliSHValidateBuildCommand } = require('./cliSHValidateBuild');
 
 module.exports = {
   cliWithName,
@@ -17,4 +18,5 @@ module.exports = {
   cliSHBuildCommand,
   cliSHCopyCommand,
   cliSHTranspileCommand,
+  cliSHValidateBuildCommand,
 };

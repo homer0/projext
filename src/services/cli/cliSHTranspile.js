@@ -8,7 +8,12 @@ class CLISHTranspileCommand extends CLICommand {
 
     this.command = 'sh-transpile-target [target]';
     this.description = 'Transpile a target code if needed';
-    this.addCommonOptions();
+    this.addOption(
+      'type',
+      '-t, --type [type]',
+      'Which build type: development (default) or production',
+      'development'
+    );
     this.hidden = true;
   }
 

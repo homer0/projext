@@ -1,12 +1,18 @@
 class CLICommand {
   constructor() {
+    if (new.target === CLICommand) {
+      throw new TypeError(
+        'CLICommand is an abstract class, it can\'t be instantiated directly'
+      );
+    }
+
     this.command = '';
     this.description = '';
     this.options = [];
     this.optionsByName = {};
     this.checkOptionsOnParent = true;
     this.hidden = false;
-    this.subCommand = false;
+    this.subProgram = false;
     this.cliName = '';
   }
 
@@ -29,7 +35,7 @@ class CLICommand {
       options.noHelp = true;
     }
 
-    if (this.subCommand) {
+    if (this.subProgram) {
       command = program.command(this.command, this.description, options);
     } else {
       command = program

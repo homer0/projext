@@ -35,7 +35,7 @@ class VersionUtils {
   }
 
   getVersion(revisionFilename) {
-    if (!this._loadedVersion && this._loadedVersion !== this.fallbackVersion) {
+    if (!this._loadedVersion || this._loadedVersion === this.fallbackVersion) {
       this._loadedVersion = this.getVersionFromFile(revisionFilename) ||
         this.getEnvironmentVersion();
     }

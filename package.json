@@ -29,7 +29,10 @@
       "eslint": "4.13.1",
       "eslint-config-airbnb-base": "12.1.0",
       "eslint-plugin-import": "2.8.0",
-      "eslint-plugin-node": "5.2.1"
+      "eslint-plugin-node": "5.2.1",
+      "jest-ex": "3.0.1",
+      "jest-cli": "21.2.1",
+      "jasmine-expect": "3.8.1"
     },
     "engine-strict": true,
     "engines": {
@@ -43,8 +46,8 @@
     },
     "scripts": {
       "install-hooks": "./utils/hooks/install",
-      "test": "",
+      "test": "./utils/scripts/test",
       "lint": "./utils/scripts/lint",
-      "docs": ""
+      "lint:full": "./utils/scripts/lint-full"
     }
 }

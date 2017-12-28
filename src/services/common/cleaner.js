@@ -2,7 +2,7 @@ const del = require('del');
 const { provider } = require('jimple');
 
 class Cleaner {
-  static clean(directory, files, removeOthers) {
+  static clean(directory, files, removeOthers = false) {
     const items = [];
     let flag = '';
     if (removeOthers) {

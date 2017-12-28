@@ -3,6 +3,12 @@ const extend = require('extend');
 
 class ConfigurationFile {
   constructor(pathUtils, overwritePath, asFactory = false, parentConfig = null) {
+    if (new.target === ConfigurationFile) {
+      throw new TypeError(
+        'ConfigurationFile is an abstract class, it can\'t be instantiated directly'
+      );
+    }
+
     this.pathUtils = pathUtils;
     this.overwritePath = overwritePath;
     this.asFactory = asFactory;

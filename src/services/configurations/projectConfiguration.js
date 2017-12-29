@@ -44,7 +44,7 @@ class ProjectConfiguration extends ConfigurationFile {
           bundle: false,
           runOnDevelopment: false,
           babel: {
-            features: {},
+            features: [],
             nodeVersion: 'current',
             overwrites: {},
           },
@@ -73,7 +73,7 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           runOnDevelopment: false,
           babel: {
-            features: {},
+            features: [],
             browserVersions: 2,
             mobileSupport: true,
             overwrites: {},
@@ -91,6 +91,7 @@ class ProjectConfiguration extends ConfigurationFile {
           },
         },
       },
+      targets: {},
       copy: [
         '.nvmrc',
         'config',
@@ -101,7 +102,6 @@ class ProjectConfiguration extends ConfigurationFile {
         onlyOnProduction: true,
         targets: [],
       },
-      targets: {},
       others: {
         watch: {
           poll: true,

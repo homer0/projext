@@ -48,9 +48,10 @@ class BuildNodeRunnerProcess {
         'The process is already running, you can\'t start it more than once'
       );
     } else if (!fs.pathExistsSync(executable)) {
-      throw new Error(`The target executable doesnt exist (${executable})`);
+      throw new Error(`The target executable doesn't exist (${executable})`);
     }
 
+    this.running = true;
     this.options = extend(true, {}, this.defaultOptions, {
       executable,
       watchOn,
@@ -126,12 +127,7 @@ class BuildNodeRunnerProcess {
 
   _transpileFile(file) {
     const { sourcePath, executionPath } = this.options;
-    let relative;
-    if (file.startsWith(sourcePath)) {
-      relative = file.substr(sourcePath.length);
-    } else {
-      relative = file.substr(executionPath.length);
-    }
+    const relative = file.substr(sourcePath.length);
 
     try {
       this.buildTranspiler.transpileFileSync({

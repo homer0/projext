@@ -27,7 +27,8 @@ class BuildCleaner {
       this.appLogger.error(
         `Error: There was an error while removing the distribution directory (${dist})`
       );
-      this.appLogger.log(error);
+
+      return Promise.reject(error);
     });
   }
 
@@ -50,7 +51,8 @@ class BuildCleaner {
         `Error: There was an error while removing the files for ${target.name} ` +
         `from the distribution directory (${dist})`
       );
-      this.appLogger.log(error);
+
+      return Promise.reject(error);
     });
   }
 
@@ -75,6 +77,7 @@ class BuildCleaner {
     const { paths: { output } } = this.projectConfiguration;
     const {
       name,
+      html,
       paths: { build },
     } = target;
     const items = [
@@ -84,8 +87,8 @@ class BuildCleaner {
 
     if (!target.library) {
       items.push(...[
-        target.html.filename,
-        `${target.html.filename}.gz`,
+        html.filename,
+        `${html.filename}.gz`,
       ]);
     }
 

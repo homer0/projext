@@ -20,10 +20,6 @@ class CLI {
 
     commander.parse(process.argv);
   }
-
-  hideCommand() {
-
-  }
 }
 
 const cliWithName = (name) => provider((app) => {

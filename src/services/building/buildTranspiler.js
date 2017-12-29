@@ -44,7 +44,7 @@ class BuildTranspiler {
       this.appLogger.error(
         `There was an error while transpiling the ${target.name} code`
       );
-      this.appLogger.log(error);
+      return Promise.reject(error);
     });
   }
 

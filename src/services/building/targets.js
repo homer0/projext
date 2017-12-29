@@ -3,8 +3,7 @@ const extend = require('extend');
 const { provider } = require('jimple');
 
 class Targets {
-  constructor(appLogger, pathUtils, projectConfiguration) {
-    this.appLogger = appLogger;
+  constructor(pathUtils, projectConfiguration) {
     this.pathUtils = pathUtils;
     this.projectConfiguration = projectConfiguration;
     this.targets = {};
@@ -22,28 +21,24 @@ class Targets {
     Object.keys(targets).forEach((name) => {
       const target = targets[name];
       if (target.type && !this.typesValidationRegex.test(target.type)) {
-        this.appLogger.error(`Target ${name} has an invalid type: ${target.type}`);
+        throw new Error(`Target ${name} has an invalid type: ${target.type}`);
       } else {
-        const paths = {
-          source: '',
-          build: '',
-        };
-
-        const folders = {
-          source: '',
-          build: '',
-        };
-
         const sourceFolderName = target.folder || name;
         const buildFolderName = target.createFolder ? sourceFolderName : '';
         const type = target.type || this.defaultType;
         const isNode = type === 'node';
         const template = targetsTemplates[type];
-        const newTarget = extend(true, template, target, {
+        const newTarget = extend(true, {}, template, target, {
           name,
           type,
-          paths,
-          folders,
+          paths: {
+            source: '',
+            build: '',
+          },
+          folders: {
+            source: '',
+            build: '',
+          },
           is: {
             node: isNode,
             browser: !isNode,
@@ -97,7 +92,6 @@ class Targets {
 
 const targets = provider((app) => {
   app.set('targets', () => new Targets(
-    app.get('appLogger'),
     app.get('pathUtils'),
     app.get('projectConfiguration').getConfig()
   ));

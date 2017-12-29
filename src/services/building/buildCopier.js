@@ -22,7 +22,6 @@ class BuildCopier {
         build,
         privateModules,
       },
-      // runner,
     } = this.projectConfiguration;
 
     const items = [];
@@ -43,10 +42,6 @@ class BuildCopier {
       if (copyRevision && fs.pathExistsSync(this.pathUtils.join(revisionFilename))) {
         items.push(revisionFilename);
       }
-
-      // if (runner.enabled) {
-      //   items.push(runner.filename);
-      // }
 
       if (items.length) {
         const thispath = this.pathUtils.path;
@@ -70,7 +65,8 @@ class BuildCopier {
             {};
         })
         .catch((error) => {
-          this.appLogger.error(error.message);
+          this.appLogger.error('There was an error copying the files');
+          return Promise.reject(error);
         });
       } else {
         result = Promise.resolve();
@@ -90,7 +86,7 @@ class BuildCopier {
       ['dependencies', 'devDependencies']
       .forEach((type) => {
         Object.keys(modules).forEach((dependencyName) => {
-          if (newPackage[type][dependencyName]) {
+          if (newPackage[type] && newPackage[type][dependencyName]) {
             const privatePath = modules[dependencyName];
             newPackage[type][dependencyName] = `./${privatePath}`;
           }
@@ -114,7 +110,7 @@ class BuildCopier {
         const modulesWithPathToRoot = {};
         Object.keys(modules).forEach((dependencyName) => {
           const privatePath = modules[dependencyName];
-          // 2 leves = one to `node_modules` and one more to where the package.json is
+          // 2 levels = one to `node_modules` and one more to where the package.json is
           modulesWithPathToRoot[dependencyName] = `../../${privatePath}`;
           packages.push(path.join(directory, dependencyName, 'package.json'));
         });
@@ -144,7 +140,8 @@ class BuildCopier {
       );
     })
     .catch((error) => {
-      this.appLogger.error(error.message);
+      this.appLogger.error(`The files for ${target.name} couldn't be copied`);
+      return Promise.reject(error);
     });
   }
 }

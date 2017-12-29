@@ -43,17 +43,17 @@ class BabelConfiguration {
       presets.unshift(['env', { targets: presetTargets }]);
     }
 
-    Object.keys(features).forEach((feature) => {
-      const featurePlugin = this.features[feature];
-      if (!plugins.include(featurePlugin)) {
+    features.forEach((feature) => {
+      const featurePlugin = this.plugins[feature];
+      if (!plugins.includes(featurePlugin)) {
         plugins.push(featurePlugin);
       }
     });
 
     if (flow) {
       presets.push(['flow']);
-      if (!plugins.includes(this.features.properties)) {
-        plugins.push(this.features.properties);
+      if (!plugins.includes(this.plugins.properties)) {
+        plugins.push(this.plugins.properties);
       }
     }
 

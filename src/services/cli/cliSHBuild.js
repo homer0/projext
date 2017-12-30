@@ -66,7 +66,6 @@ class CLISHBuildCommand extends CLICommand {
 
     const build = (
       type === 'production' ||
-      target.is.browser ||
       target.bundle ||
       target.transpile
     );
@@ -112,7 +111,7 @@ class CLISHBuildCommand extends CLICommand {
     return commands;
   }
 
-  getCleanCommandIfNeeded(args, target, type, build = true) {
+  getCleanCommandIfNeeded(args, target, type, build) {
     return build && target.cleanBeforeBuild ?
       this.cliCleanCommand.generate(args) :
       '';
@@ -122,13 +121,13 @@ class CLISHBuildCommand extends CLICommand {
     return this.builder.getTargetBuildCommand(target, type, run);
   }
 
-  getCopyCommand(args, target, type, build = true) {
+  getCopyCommand(args, target, type, build) {
     return build && !target.bundle ?
       this.cliSHCopyCommand.generate(args) :
       '';
   }
 
-  getTranspileCommand(args, target, type, build = true) {
+  getTranspileCommand(args, target, type, build) {
     return build && !target.bundle ?
       this.cliSHTranspileCommand.generate(args) :
       '';

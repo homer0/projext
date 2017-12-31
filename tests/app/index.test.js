@@ -1,6 +1,12 @@
 const JimpleMock = require('/tests/mocks/jimple.mock');
 
 jest.mock('jimple', () => JimpleMock);
+jest.mock('nodemon', () => {
+  // If I let Jest parse the nodemon module, it fails when running on parallel.
+  const mockedNodemon = jest.fn();
+  mockedNodemon.on = jest.fn();
+  return mockedNodemon;
+});
 jest.unmock('/src/app/index');
 
 require('jasmine-expect');

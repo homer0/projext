@@ -11,7 +11,7 @@ const {
   projectConfiguration,
 } = require('/src/services/configurations/projectConfiguration');
 
-describe('services/configurations:babelConfiguration', () => {
+describe('services/configurations:projectConfiguration', () => {
   beforeEach(() => {
     ConfigurationFileMock.reset();
   });

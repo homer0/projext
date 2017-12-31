@@ -4,7 +4,12 @@ const WatchpackMock = require('/tests/mocks/watchpack.mock');
 jest.mock('jimple', () => JimpleMock);
 jest.mock('watchpack', () => WatchpackMock);
 jest.mock('fs-extra');
-jest.mock('nodemon');
+jest.mock('nodemon', () => {
+  // If I let Jest parse the nodemon module, it fails when running on parallel.
+  const mockedNodemon = jest.fn();
+  mockedNodemon.on = jest.fn();
+  return mockedNodemon;
+});
 jest.unmock('/src/services/building/buildNodeRunnerProcess');
 
 require('jasmine-expect');

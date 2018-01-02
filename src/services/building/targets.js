@@ -3,7 +3,8 @@ const extend = require('extend');
 const { provider } = require('jimple');
 
 class Targets {
-  constructor(pathUtils, projectConfiguration) {
+  constructor(events, pathUtils, projectConfiguration) {
+    this.events = events;
     this.pathUtils = pathUtils;
     this.projectConfiguration = projectConfiguration;
     this.targets = {};
@@ -57,7 +58,7 @@ class Targets {
         newTarget.folders.build = path.join(build, buildFolderName);
         newTarget.paths.build = this.pathUtils.join(newTarget.folders.build);
 
-        this.targets[name] = newTarget;
+        this.targets[name] = this.events.reduce('target-load', newTarget);
       }
     });
   }
@@ -92,6 +93,7 @@ class Targets {
 
 const targets = provider((app) => {
   app.set('targets', () => new Targets(
+    app.get('events'),
     app.get('pathUtils'),
     app.get('projectConfiguration').getConfig()
   ));

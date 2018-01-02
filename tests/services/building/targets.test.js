@@ -10,6 +10,7 @@ const { Targets, targets } = require('/src/services/building/targets');
 describe('services/building:targets', () => {
   it('should be instantiated with all its dependencies', () => {
     // Given
+    const events = 'events';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -21,15 +22,19 @@ describe('services/building:targets', () => {
     };
     let sut = null;
     // When
-    sut = new Targets(pathUtils, projectConfiguration);
+    sut = new Targets(events, pathUtils, projectConfiguration);
     // Then
     expect(sut).toBeInstanceOf(Targets);
+    expect(sut.events).toBe(events);
     expect(sut.pathUtils).toBe(pathUtils);
     expect(sut.projectConfiguration).toEqual(projectConfiguration);
   });
 
   it('should load the project targets', () => {
     // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -151,17 +156,28 @@ describe('services/building:targets', () => {
         },
       },
     };
+    const expectedTargetsNames = Object.keys(expectedTargets);
     let sut = null;
     let result = null;
     // When
-    sut = new Targets(pathUtils, projectConfiguration);
+    sut = new Targets(events, pathUtils, projectConfiguration);
     result = sut.getTargets();
     // Then
     expect(result).toEqual(expectedTargets);
+    expect(events.reduce).toHaveBeenCalledTimes(expectedTargetsNames.length);
+    expectedTargetsNames.forEach((targetName) => {
+      expect(events.reduce).toHaveBeenCalledWith(
+        'target-load',
+        expectedTargets[targetName]
+      );
+    });
   });
 
   it('should get a target by its name', () => {
     // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -206,7 +222,7 @@ describe('services/building:targets', () => {
     let sut = null;
     let result = null;
     // When
-    sut = new Targets(pathUtils, projectConfiguration);
+    sut = new Targets(events, pathUtils, projectConfiguration);
     result = sut.getTarget(targetName);
     // Then
     expect(result).toEqual(expectedTarget);
@@ -214,6 +230,9 @@ describe('services/building:targets', () => {
 
   it('should throw an error while trying to load a target with an invalid type', () => {
     // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -232,12 +251,15 @@ describe('services/building:targets', () => {
       },
     };
     // When/Then
-    expect(() => new Targets(pathUtils, projectConfiguration))
+    expect(() => new Targets(events, pathUtils, projectConfiguration))
     .toThrow(/invalid type/i);
   });
 
   it('should throw an error when trying to get a target that doesn\'t exist', () => {
     // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -249,7 +271,7 @@ describe('services/building:targets', () => {
     };
     let sut = null;
     // When
-    sut = new Targets(pathUtils, projectConfiguration);
+    sut = new Targets(events, pathUtils, projectConfiguration);
     // Then
     expect(() => sut.getTarget('some-target'))
     .toThrow(/The required target doesn't exist/i);
@@ -261,6 +283,9 @@ describe('services/building:targets', () => {
     const folder = 'target-three';
     const file = `some-path/${source}/${folder}/file.js`;
     const targetName = 'targetThree';
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -286,7 +311,7 @@ describe('services/building:targets', () => {
     let sut = null;
     let result = null;
     // When
-    sut = new Targets(pathUtils, projectConfiguration);
+    sut = new Targets(events, pathUtils, projectConfiguration);
     result = sut.findTargetForFile(file);
     // Then
     expect(result).toBeObject();
@@ -295,6 +320,7 @@ describe('services/building:targets', () => {
 
   it('should throw an error if it can\'t find a target by a filepath', () => {
     // Given
+    const events = 'events';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -306,7 +332,7 @@ describe('services/building:targets', () => {
     };
     let sut = null;
     // When
-    sut = new Targets(pathUtils, projectConfiguration);
+    sut = new Targets(events, pathUtils, projectConfiguration);
     // Then
     expect(() => sut.findTargetForFile('some-file'))
     .toThrow(/A target for the following file couldn't be found/i);
@@ -343,6 +369,7 @@ describe('services/building:targets', () => {
     expect(serviceName).toBe('targets');
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(Targets);
+    expect(sut.events).toBe('events');
     expect(sut.pathUtils).toBe('pathUtils');
     expect(sut.projectConfiguration).toEqual(projectConfiguration);
   });

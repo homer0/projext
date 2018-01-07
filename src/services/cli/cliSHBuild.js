@@ -138,9 +138,12 @@ class CLISHBuildCommand extends CLICommand {
   }
 
   getRevisionCommand(args) {
-    const { version: { createRevisionOnBuild } } = this.projectConfiguration;
+    const {
+      enabled,
+      createRevisionOnBuild,
+    } = this.projectConfiguration.version.revision;
     let command = '';
-    if (createRevisionOnBuild.enabled) {
+    if (enabled && createRevisionOnBuild.enabled) {
       const revisionEnvCheck = !createRevisionOnBuild.onlyOnProduction ||
         (createRevisionOnBuild.onlyOnProduction && args.type === 'production');
       const revisionTargetCheck = !createRevisionOnBuild.targets.length ||

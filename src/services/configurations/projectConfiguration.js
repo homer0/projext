@@ -10,12 +10,15 @@ class ProjectConfiguration extends ConfigurationFile {
     return {
       version: {
         replaceKey: 'APP_VERSION',
-        revisionFilename: 'revision',
-        copyRevision: true,
-        createRevisionOnBuild: {
-          enabled: true,
-          onlyOnProduction: true,
-          targets: [],
+        revision: {
+          enabled: false,
+          copy: true,
+          filename: 'revision',
+          createRevisionOnBuild: {
+            enabled: true,
+            onlyOnProduction: true,
+            targets: [],
+          },
         },
       },
       paths: {

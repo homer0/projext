@@ -12,9 +12,12 @@ class CLIRevisionCommand extends CLICommand {
   }
 
   handle() {
-    return this.versionUtils.createRevisionFile(
-      this.projectConfiguration.version.revisionFilename
-    );
+    const { version: { revision } } = this.projectConfiguration;
+    if (!revision.enabled) {
+      throw new Error('The revision feature is disabled on the project configuration');
+    }
+
+    return this.versionUtils.createRevisionFile(revision.filename);
   }
 }
 

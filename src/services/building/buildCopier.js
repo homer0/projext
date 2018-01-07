@@ -15,8 +15,7 @@ class BuildCopier {
     const {
       copy,
       version: {
-        revisionFilename,
-        copyRevision,
+        revision,
       },
       paths: {
         build,
@@ -39,8 +38,12 @@ class BuildCopier {
         }
       });
 
-      if (copyRevision && fs.pathExistsSync(this.pathUtils.join(revisionFilename))) {
-        items.push(revisionFilename);
+      if (
+        revision.enabled &&
+        revision.copy &&
+        fs.pathExistsSync(this.pathUtils.join(revision.filename))
+      ) {
+        items.push(revision.filename);
       }
 
       if (items.length) {

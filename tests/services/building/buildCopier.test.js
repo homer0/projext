@@ -57,8 +57,11 @@ describe('services/building:buildCopier', () => {
         'folderB',
       ],
       version: {
-        revisionFilename: 'revision',
-        copyRevision: true,
+        revision: {
+          enabled: true,
+          copy: true,
+          filename: 'revision',
+        },
       },
       paths: {
         build: 'some-build',
@@ -67,7 +70,7 @@ describe('services/building:buildCopier', () => {
     };
     const expectedItems = [
       ...projectConfiguration.copy,
-      ...[projectConfiguration.version.revisionFilename],
+      ...[projectConfiguration.version.revision.filename],
     ];
     fs.pathExistsSync.mockImplementationOnce(() => true);
     let sut = null;
@@ -78,10 +81,10 @@ describe('services/building:buildCopier', () => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync)
-      .toHaveBeenCalledWith(projectConfiguration.version.revisionFilename);
+      .toHaveBeenCalledWith(projectConfiguration.version.revision.filename);
       expect(pathUtils.join).toHaveBeenCalledTimes(2);
       expect(pathUtils.join)
-      .toHaveBeenCalledWith(projectConfiguration.version.revisionFilename);
+      .toHaveBeenCalledWith(projectConfiguration.version.revision.filename);
       expect(pathUtils.join)
       .toHaveBeenCalledWith(projectConfiguration.paths.build);
       expect(copier).toHaveBeenCalledTimes(1);
@@ -106,8 +109,11 @@ describe('services/building:buildCopier', () => {
     const projectConfiguration = {
       copy: null,
       version: {
-        revisionFilename: 'revision',
-        copyRevision: true,
+        revision: {
+          enabled: true,
+          copy: true,
+          filename: 'revision',
+        },
       },
       paths: {
         build: 'some-build',
@@ -137,8 +143,11 @@ describe('services/building:buildCopier', () => {
     const projectConfiguration = {
       copy: [],
       version: {
-        revisionFilename: 'revision',
-        copyRevision: false,
+        revision: {
+          enabled: true,
+          copy: false,
+          filename: 'revision',
+        },
       },
       paths: {
         build: 'some-build',
@@ -201,8 +210,11 @@ describe('services/building:buildCopier', () => {
         ...modulesToCopy.map((mod) => `node_modules/${mod}`),
       ],
       version: {
-        revisionFilename: 'revision',
-        copyRevision: true,
+        revision: {
+          enabled: true,
+          copy: true,
+          filename: 'revision',
+        },
       },
       paths: {
         build: 'some-build',
@@ -214,7 +226,7 @@ describe('services/building:buildCopier', () => {
       ...modulesToCopy.map((mod) => ({
         [`node_modules/${mod}`]: `${privateModulesFolder}/${mod}`,
       })),
-      ...[projectConfiguration.version.revisionFilename],
+      ...[projectConfiguration.version.revision.filename],
     ];
     fs.pathExistsSync.mockImplementationOnce(() => true);
     fs.readJson.mockImplementationOnce(() => Promise.resolve({
@@ -244,11 +256,11 @@ describe('services/building:buildCopier', () => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync)
-      .toHaveBeenCalledWith(projectConfiguration.version.revisionFilename);
+      .toHaveBeenCalledWith(projectConfiguration.version.revision.filename);
 
       expect(pathUtils.join).toHaveBeenCalledTimes(3);
       expect(pathUtils.join)
-      .toHaveBeenCalledWith(projectConfiguration.version.revisionFilename);
+      .toHaveBeenCalledWith(projectConfiguration.version.revision.filename);
       expect(pathUtils.join)
       .toHaveBeenCalledWith(projectConfiguration.paths.build);
       expect(pathUtils.join)
@@ -285,8 +297,11 @@ describe('services/building:buildCopier', () => {
         'folderB',
       ],
       version: {
-        revisionFilename: 'revision',
-        copyRevision: true,
+        revision: {
+          enabled: true,
+          copy: true,
+          filename: 'revision',
+        },
       },
       paths: {
         build: 'some-build',
@@ -295,7 +310,7 @@ describe('services/building:buildCopier', () => {
     };
     const expectedItems = [
       ...projectConfiguration.copy,
-      ...[projectConfiguration.version.revisionFilename],
+      ...[projectConfiguration.version.revision.filename],
     ];
     fs.pathExistsSync.mockImplementationOnce(() => true);
     let sut = null;
@@ -309,10 +324,10 @@ describe('services/building:buildCopier', () => {
       // Then
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync)
-      .toHaveBeenCalledWith(projectConfiguration.version.revisionFilename);
+      .toHaveBeenCalledWith(projectConfiguration.version.revision.filename);
       expect(pathUtils.join).toHaveBeenCalledTimes(2);
       expect(pathUtils.join)
-      .toHaveBeenCalledWith(projectConfiguration.version.revisionFilename);
+      .toHaveBeenCalledWith(projectConfiguration.version.revision.filename);
       expect(pathUtils.join)
       .toHaveBeenCalledWith(projectConfiguration.paths.build);
       expect(copier).toHaveBeenCalledTimes(1);

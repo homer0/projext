@@ -38,7 +38,10 @@ describe('services/cli:revision', () => {
     const revisionFilename = 'revision';
     const projectConfiguration = {
       version: {
-        revisionFilename,
+        revision: {
+          enabled: true,
+          filename: revisionFilename,
+        },
       },
     };
     const versionUtils = {
@@ -53,6 +56,23 @@ describe('services/cli:revision', () => {
     expect(result).toBe(message);
     expect(versionUtils.createRevisionFile).toHaveBeenCalledTimes(1);
     expect(versionUtils.createRevisionFile).toHaveBeenCalledWith(revisionFilename);
+  });
+
+  it('should throw an error when trying to execute with the `revision` flag disabled', () => {
+    // Given
+    const projectConfiguration = {
+      version: {
+        revision: {
+          enabled: false,
+        },
+      },
+    };
+    const versionUtils = 'versionUtils';
+    let sut = null;
+    // When
+    sut = new CLIRevisionCommand(projectConfiguration, versionUtils);
+    // Then
+    expect(() => sut.handle()).toThrow(/The revision feature is disabled/i);
   });
 
   it('should include a provider for the DIC', () => {

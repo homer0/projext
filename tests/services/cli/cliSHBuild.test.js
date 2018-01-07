@@ -61,10 +61,13 @@ describe('services/cli:sh-build', () => {
         targets: [],
       },
       version: {
-        createRevisionOnBuild: {
-          onlyOnProduction: true,
-          enabled: false,
-          targets: [],
+        revision: {
+          enabled: true,
+          createRevisionOnBuild: {
+            onlyOnProduction: true,
+            enabled: false,
+            targets: [],
+          },
         },
       },
     };
@@ -378,7 +381,7 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.version.createRevisionOnBuild.enabled = true;
+    test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     // When
     test.run('production', true);
     // Then
@@ -404,8 +407,8 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.version.createRevisionOnBuild.enabled = true;
-    test.projectConfiguration.version.createRevisionOnBuild.onlyOnProduction = false;
+    test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
+    test.projectConfiguration.version.revision.createRevisionOnBuild.onlyOnProduction = false;
     // When
     test.run('development', false);
     // Then
@@ -431,8 +434,8 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.version.createRevisionOnBuild.enabled = true;
-    test.projectConfiguration.version.createRevisionOnBuild.targets.push(test.targetName);
+    test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
+    test.projectConfiguration.version.revision.createRevisionOnBuild.targets.push(test.targetName);
     // When
     test.run('production', false);
     // Then
@@ -458,8 +461,8 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.version.createRevisionOnBuild.enabled = true;
-    test.projectConfiguration.version.createRevisionOnBuild.targets.push('random-target');
+    test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
+    test.projectConfiguration.version.revision.createRevisionOnBuild.targets.push('random-target');
     // When
     test.run('production', false);
     // Then

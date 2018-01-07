@@ -158,9 +158,9 @@ class CLISHBuildCommand extends CLICommand {
   }
 
   getCopyProjectFilesCommand(args) {
-    const { copyOnBuild } = this.projectConfiguration;
+    const { enabled, copyOnBuild } = this.projectConfiguration.copy;
     let command = '';
-    if (copyOnBuild.enabled) {
+    if (enabled && copyOnBuild.enabled) {
       const copyEnvCheck = !copyOnBuild.onlyOnProduction ||
         (copyOnBuild.onlyOnProduction && args.type === 'production');
       const copyTaretCheck = !copyOnBuild.targets.length ||

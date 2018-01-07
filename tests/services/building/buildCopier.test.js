@@ -52,10 +52,13 @@ describe('services/building:buildCopier', () => {
       join: jest.fn((rest) => rest),
     };
     const projectConfiguration = {
-      copy: [
-        'fileA.js',
-        'folderB',
-      ],
+      copy: {
+        enabled: true,
+        items: [
+          'fileA.js',
+          'folderB',
+        ],
+      },
       version: {
         revision: {
           enabled: true,
@@ -69,7 +72,7 @@ describe('services/building:buildCopier', () => {
       },
     };
     const expectedItems = [
-      ...projectConfiguration.copy,
+      ...projectConfiguration.copy.items,
       ...[projectConfiguration.version.revision.filename],
     ];
     fs.pathExistsSync.mockImplementationOnce(() => true);
@@ -101,13 +104,16 @@ describe('services/building:buildCopier', () => {
     });
   });
 
-  it('shouldn\'t copy the project files if the `copy` key is not an array', () => {
+  it('shouldn\'t copy the project files if the `copy.items` key is not an array', () => {
     // Given
     const copier = jest.fn();
     const appLogger = 'appLogger';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
-      copy: null,
+      copy: {
+        enabled: true,
+        items: null,
+      },
       version: {
         revision: {
           enabled: true,
@@ -135,13 +141,51 @@ describe('services/building:buildCopier', () => {
     });
   });
 
-  it('shouldn\'t copy anything if the `copy` array is empty', () => {
+  it('shouldn\'t copy anything if the `copy.enabled` flag is `false`', () => {
     // Given
     const copier = jest.fn();
     const appLogger = 'appLogger';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
-      copy: [],
+      copy: {
+        enabled: false,
+        items: ['fileA.js'],
+      },
+      version: {
+        revision: {
+          enabled: true,
+          copy: false,
+          filename: 'revision',
+        },
+      },
+      paths: {
+        build: 'some-build',
+        privateModules: 'private',
+      },
+    };
+    let sut = null;
+    // When
+    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    return sut.copyFiles()
+    .then(() => {
+      // Then
+      expect(copier).toHaveBeenCalledTimes(0);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
+  });
+
+  it('shouldn\'t copy anything if the `copy.items` array is empty', () => {
+    // Given
+    const copier = jest.fn();
+    const appLogger = 'appLogger';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      copy: {
+        enabled: true,
+        items: [],
+      },
       version: {
         revision: {
           enabled: true,
@@ -205,10 +249,13 @@ describe('services/building:buildCopier', () => {
     ];
     const privateModulesFolder = 'private';
     const projectConfiguration = {
-      copy: [
-        ...itemsToCopy,
-        ...modulesToCopy.map((mod) => `node_modules/${mod}`),
-      ],
+      copy: {
+        enabled: true,
+        items: [
+          ...itemsToCopy,
+          ...modulesToCopy.map((mod) => `node_modules/${mod}`),
+        ],
+      },
       version: {
         revision: {
           enabled: true,
@@ -292,10 +339,13 @@ describe('services/building:buildCopier', () => {
       join: jest.fn((rest) => rest),
     };
     const projectConfiguration = {
-      copy: [
-        'fileA.js',
-        'folderB',
-      ],
+      copy: {
+        enabled: true,
+        items: [
+          'fileA.js',
+          'folderB',
+        ],
+      },
       version: {
         revision: {
           enabled: true,
@@ -309,7 +359,7 @@ describe('services/building:buildCopier', () => {
       },
     };
     const expectedItems = [
-      ...projectConfiguration.copy,
+      ...projectConfiguration.copy.items,
       ...[projectConfiguration.version.revision.filename],
     ];
     fs.pathExistsSync.mockImplementationOnce(() => true);
@@ -342,7 +392,7 @@ describe('services/building:buildCopier', () => {
     });
   });
 
-  it('should copy the project files', () => {
+  it('should copy a target files', () => {
     // Given
     const copier = jest.fn(() => Promise.resolve());
     const appLogger = {
@@ -382,7 +432,7 @@ describe('services/building:buildCopier', () => {
     });
   });
 
-  it('should fail to copy the project files', () => {
+  it('should fail to copy a target files', () => {
     // Given
     const error = new Error('Unknown error');
     const copier = jest.fn(() => Promise.reject(error));

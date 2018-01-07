@@ -55,10 +55,13 @@ describe('services/cli:sh-build', () => {
       generate: jest.fn(() => test.transpileCommand),
     };
     test.projectConfiguration = {
-      copyOnBuild: {
-        onlyOnProduction: true,
-        enabled: false,
-        targets: [],
+      copy: {
+        enabled: true,
+        copyOnBuild: {
+          onlyOnProduction: true,
+          enabled: false,
+          targets: [],
+        },
       },
       version: {
         revision: {
@@ -487,7 +490,7 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.copyOnBuild.enabled = true;
+    test.projectConfiguration.copy.copyOnBuild.enabled = true;
     // When
     test.run('production', true);
     // Then
@@ -513,8 +516,8 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.copyOnBuild.enabled = true;
-    test.projectConfiguration.copyOnBuild.onlyOnProduction = false;
+    test.projectConfiguration.copy.copyOnBuild.enabled = true;
+    test.projectConfiguration.copy.copyOnBuild.onlyOnProduction = false;
     // When
     test.run('development', false);
     // Then
@@ -540,8 +543,8 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.copyOnBuild.enabled = true;
-    test.projectConfiguration.copyOnBuild.targets.push(test.targetName);
+    test.projectConfiguration.copy.copyOnBuild.enabled = true;
+    test.projectConfiguration.copy.copyOnBuild.targets.push(test.targetName);
     // When
     test.run('production', false);
     // Then
@@ -567,8 +570,8 @@ describe('services/cli:sh-build', () => {
     // Given
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
-    test.projectConfiguration.copyOnBuild.enabled = true;
-    test.projectConfiguration.copyOnBuild.targets.push('random-target');
+    test.projectConfiguration.copy.copyOnBuild.enabled = true;
+    test.projectConfiguration.copy.copyOnBuild.targets.push('random-target');
     // When
     test.run('production', false);
     // Then

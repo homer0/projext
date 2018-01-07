@@ -40,7 +40,6 @@ describe('services/configurations:projectConfiguration', () => {
       'targetsTemplates',
       'targets',
       'copy',
-      'copyOnBuild',
       'others',
     ];
     let sut = null;

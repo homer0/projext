@@ -23,59 +23,63 @@ class BuildCopier {
       },
     } = this.projectConfiguration;
 
-    const items = [];
-    const copiedModules = {};
-    if (Array.isArray(copy)) {
-      copy.forEach((item) => {
-        if (typeof item === 'string' && item.startsWith('node_modules')) {
-          const newModulePath = item.replace(/^(node_modules\/)/, `${privateModules}/`);
-          copiedModules[item.split('/').pop()] = newModulePath;
-          items.push({
-            [item]: newModulePath,
+    if (copy.enabled) {
+      const items = [];
+      const copiedModules = {};
+      if (Array.isArray(copy.items)) {
+        copy.items.forEach((item) => {
+          if (typeof item === 'string' && item.startsWith('node_modules')) {
+            const newModulePath = item.replace(/^(node_modules\/)/, `${privateModules}/`);
+            copiedModules[item.split('/').pop()] = newModulePath;
+            items.push({
+              [item]: newModulePath,
+            });
+          } else {
+            items.push(item);
+          }
+        });
+
+        if (
+          revision.enabled &&
+          revision.copy &&
+          fs.pathExistsSync(this.pathUtils.join(revision.filename))
+        ) {
+          items.push(revision.filename);
+        }
+
+        if (items.length) {
+          const thispath = this.pathUtils.path;
+          result = this.copier(
+            thispath,
+            this.pathUtils.join(build),
+            items
+          )
+          .then((results) => {
+            this.appLogger.success('The following items have been successfully copied:');
+            // Remove the absolute path and the first `/`
+            const prefix = thispath.length + 1;
+            results.forEach((item) => {
+              const from = item.from.substr(prefix);
+              const to = item.to.substr(prefix);
+              this.appLogger.info(`${from} -> ${to}`);
+            });
+
+            return Object.keys(copiedModules).length ?
+              this.addPrivateModules(this.pathUtils.join(build, 'package.json'), copiedModules) :
+              {};
+          })
+          .catch((error) => {
+            this.appLogger.error('There was an error copying the files');
+            return Promise.reject(error);
           });
         } else {
-          items.push(item);
+          result = Promise.resolve();
         }
-      });
-
-      if (
-        revision.enabled &&
-        revision.copy &&
-        fs.pathExistsSync(this.pathUtils.join(revision.filename))
-      ) {
-        items.push(revision.filename);
-      }
-
-      if (items.length) {
-        const thispath = this.pathUtils.path;
-        result = this.copier(
-          thispath,
-          this.pathUtils.join(build),
-          items
-        )
-        .then((results) => {
-          this.appLogger.success('The following items have been successfully copied:');
-          // Remove the absolute path and the first `/`
-          const prefix = thispath.length + 1;
-          results.forEach((item) => {
-            const from = item.from.substr(prefix);
-            const to = item.to.substr(prefix);
-            this.appLogger.info(`${from} -> ${to}`);
-          });
-
-          return Object.keys(copiedModules).length ?
-            this.addPrivateModules(this.pathUtils.join(build, 'package.json'), copiedModules) :
-            {};
-        })
-        .catch((error) => {
-          this.appLogger.error('There was an error copying the files');
-          return Promise.reject(error);
-        });
       } else {
-        result = Promise.resolve();
+        result = Promise.reject(new Error('The \'copy.items\' setting is not an array'));
       }
     } else {
-      result = Promise.reject(new Error('The \'copy\' setting is not an array'));
+      result = Promise.resolve();
     }
 
     return result;

@@ -10,6 +10,7 @@ class CLISHBuildCommand extends CLICommand {
     cliSHCopyCommand,
     cliSHNodeRunCommand,
     cliSHTranspileCommand,
+    events,
     projectConfiguration,
     targets
   ) {
@@ -21,6 +22,7 @@ class CLISHBuildCommand extends CLICommand {
     this.cliSHCopyCommand = cliSHCopyCommand;
     this.cliSHNodeRunCommand = cliSHNodeRunCommand;
     this.cliSHTranspileCommand = cliSHTranspileCommand;
+    this.events = events;
     this.projectConfiguration = projectConfiguration;
     this.targets = targets;
 
@@ -50,8 +52,13 @@ class CLISHBuildCommand extends CLICommand {
       this.getCommandsForNodeTarget(target, type, run) :
       this.getCommandsForBrowserTarget(target, type, run);
 
-    const output = commands
-    .filter((cmd) => !!cmd)
+    const output = this.events.reduce(
+      'build-target-commands-list',
+      commands.filter((cmd) => !!cmd),
+      target,
+      type,
+      run
+    )
     .join(';');
 
     this.output(output);
@@ -184,6 +191,7 @@ const cliSHBuildCommand = provider((app) => {
     app.get('cliSHCopyCommand'),
     app.get('cliSHNodeRunCommand'),
     app.get('cliSHTranspileCommand'),
+    app.get('events'),
     app.get('projectConfiguration').getConfig(),
     app.get('targets')
   ));

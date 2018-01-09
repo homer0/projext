@@ -54,6 +54,9 @@ describe('services/cli:sh-build', () => {
     test.cliSHTranspileCommand = {
       generate: jest.fn(() => test.transpileCommand),
     };
+    test.events = {
+      reduce: jest.fn((name, commands) => commands),
+    };
     test.projectConfiguration = {
       copy: {
         enabled: true,
@@ -85,6 +88,7 @@ describe('services/cli:sh-build', () => {
       test.cliSHCopyCommand,
       test.cliSHNodeRunCommand,
       test.cliSHTranspileCommand,
+      test.events,
       test.projectConfiguration,
       test.targets
     );
@@ -105,6 +109,7 @@ describe('services/cli:sh-build', () => {
     const cliSHCopyCommand = 'cliSHCopyCommand';
     const cliSHNodeRunCommand = 'cliSHNodeRunCommand';
     const cliSHTranspileCommand = 'cliSHTranspileCommand';
+    const events = 'events';
     const projectConfiguration = 'projectConfiguration';
     const targets = 'targets';
     let sut = null;
@@ -117,6 +122,7 @@ describe('services/cli:sh-build', () => {
       cliSHCopyCommand,
       cliSHNodeRunCommand,
       cliSHTranspileCommand,
+      events,
       projectConfiguration,
       targets
     );
@@ -130,6 +136,7 @@ describe('services/cli:sh-build', () => {
     expect(sut.cliSHCopyCommand).toBe(cliSHCopyCommand);
     expect(sut.cliSHNodeRunCommand).toBe(cliSHNodeRunCommand);
     expect(sut.cliSHTranspileCommand).toBe(cliSHTranspileCommand);
+    expect(sut.events).toBe(events);
     expect(sut.projectConfiguration).toBe(projectConfiguration);
     expect(sut.targets).toBe(targets);
     expect(sut.command).not.toBeEmptyString();
@@ -152,9 +159,10 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build a node target', () => {
     // Given
+    const buildType = 'development';
     const test = getTestForTheBuildCommand();
     // When
-    test.run('development', false);
+    test.run(buildType, false);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -164,6 +172,14 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.buildCommand],
+      test.target,
+      buildType,
+      false
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.buildCommand,
@@ -622,6 +638,7 @@ describe('services/cli:sh-build', () => {
     expect(sut.cliSHCopyCommand).toBe('cliSHCopyCommand');
     expect(sut.cliSHNodeRunCommand).toBe('cliSHNodeRunCommand');
     expect(sut.cliSHTranspileCommand).toBe('cliSHTranspileCommand');
+    expect(sut.events).toBe('events');
     expect(sut.projectConfiguration).toBe('projectConfiguration');
     expect(sut.targets).toBe('targets');
   });

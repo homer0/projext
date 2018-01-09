@@ -1,12 +1,12 @@
 {
     "name": "woopack",
     "description": "I swear I'll write a description soon",
-    "version": "0.0.1",
+    "version": "0.0.10",
     "repository": "homer0/woopack",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "wootils": "0.0.1",
+      "wootils": "0.0.2",
       "jimple": "homer0/jimple",
       "fs-extra": "5.0.0",
       "extend": "3.0.1",

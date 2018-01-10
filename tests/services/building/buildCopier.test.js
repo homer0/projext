@@ -21,15 +21,17 @@ describe('services/building:buildCopier', () => {
     // Given
     const copier = 'copier';
     const appLogger = 'appLogger';
+    const events = 'events';
     const pathUtils = 'pathUtils';
     const projectConfiguration = 'projectConfiguration';
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     // Then
     expect(sut).toBeInstanceOf(BuildCopier);
     expect(sut.copier).toBe('copier');
     expect(sut.appLogger).toBe('appLogger');
+    expect(sut.events).toBe('events');
     expect(sut.pathUtils).toBe('pathUtils');
     expect(sut.projectConfiguration).toBe('projectConfiguration');
   });
@@ -46,6 +48,9 @@ describe('services/building:buildCopier', () => {
     const appLogger = {
       success: jest.fn(),
       info: jest.fn(),
+    };
+    const events = {
+      reduce: jest.fn((name, items) => items),
     };
     const pathUtils = {
       path: 'project-path',
@@ -78,7 +83,7 @@ describe('services/building:buildCopier', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyFiles()
     .then(() => {
       // Then
@@ -98,6 +103,8 @@ describe('services/building:buildCopier', () => {
       );
       expect(appLogger.success).toHaveBeenCalledTimes(1);
       expect(appLogger.info).toHaveBeenCalledTimes(expectedItems.length);
+      expect(events.reduce).toHaveBeenCalledTimes(1);
+      expect(events.reduce).toHaveBeenCalledWith('project-files-to-copy', expectedItems);
     })
     .catch(() => {
       expect(true).toBeFalse();
@@ -108,6 +115,7 @@ describe('services/building:buildCopier', () => {
     // Given
     const copier = jest.fn();
     const appLogger = 'appLogger';
+    const events = 'events';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       copy: {
@@ -128,7 +136,7 @@ describe('services/building:buildCopier', () => {
     };
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyFiles()
     .then(() => {
       expect(true).toBeFalse();
@@ -145,6 +153,7 @@ describe('services/building:buildCopier', () => {
     // Given
     const copier = jest.fn();
     const appLogger = 'appLogger';
+    const events = 'events';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       copy: {
@@ -165,7 +174,7 @@ describe('services/building:buildCopier', () => {
     };
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyFiles()
     .then(() => {
       // Then
@@ -180,6 +189,9 @@ describe('services/building:buildCopier', () => {
     // Given
     const copier = jest.fn();
     const appLogger = 'appLogger';
+    const events = {
+      reduce: jest.fn((name, items) => items),
+    };
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       copy: {
@@ -200,10 +212,12 @@ describe('services/building:buildCopier', () => {
     };
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyFiles()
     .then(() => {
       // Then
+      expect(events.reduce).toHaveBeenCalledTimes(1);
+      expect(events.reduce).toHaveBeenCalledWith('project-files-to-copy', []);
       expect(copier).toHaveBeenCalledTimes(0);
     })
     .catch(() => {
@@ -235,6 +249,9 @@ describe('services/building:buildCopier', () => {
     const appLogger = {
       success: jest.fn(),
       info: jest.fn(),
+    };
+    const events = {
+      reduce: jest.fn((name, items) => items),
     };
     const pathUtils = {
       path: 'project-path',
@@ -297,7 +314,7 @@ describe('services/building:buildCopier', () => {
     fs.writeJson.mockImplementationOnce(() => Promise.resolve());
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyFiles()
     .then(() => {
       // Then
@@ -321,6 +338,8 @@ describe('services/building:buildCopier', () => {
       );
       expect(appLogger.success).toHaveBeenCalledTimes(1);
       expect(appLogger.info).toHaveBeenCalledTimes(expectedItems.length);
+      expect(events.reduce).toHaveBeenCalledTimes(1);
+      expect(events.reduce).toHaveBeenCalledWith('project-files-to-copy', expectedItems);
     })
     .catch(() => {
       expect(true).toBeFalse();
@@ -333,6 +352,9 @@ describe('services/building:buildCopier', () => {
     const copier = jest.fn(() => Promise.reject(error));
     const appLogger = {
       error: jest.fn(),
+    };
+    const events = {
+      reduce: jest.fn((name, items) => items),
     };
     const pathUtils = {
       path: 'project-path',
@@ -365,7 +387,7 @@ describe('services/building:buildCopier', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyFiles()
     .then(() => {
       expect(true).toBeFalse();
@@ -389,6 +411,8 @@ describe('services/building:buildCopier', () => {
       expect(appLogger.error).toHaveBeenCalledTimes(1);
       expect(errorResult).toBeInstanceOf(Error);
       expect(errorResult).toBe(error);
+      expect(events.reduce).toHaveBeenCalledTimes(1);
+      expect(events.reduce).toHaveBeenCalledWith('project-files-to-copy', expectedItems);
     });
   });
 
@@ -399,6 +423,7 @@ describe('services/building:buildCopier', () => {
       success: jest.fn(),
     };
     const pathUtils = 'pathUtils';
+    const events = 'events';
     const projectConfiguration = 'projectConfiguration';
     const target = {
       paths: {
@@ -415,7 +440,7 @@ describe('services/building:buildCopier', () => {
     fs.readdir.mockImplementationOnce(() => Promise.resolve(targetFiles));
     let sut = null;
     // When
-    sut = new BuildCopier(copier, appLogger, pathUtils, projectConfiguration);
+    sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     return sut.copyTargetFiles(target)
     .then(() => {
       // Then
@@ -498,6 +523,7 @@ describe('services/building:buildCopier', () => {
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(BuildCopier);
     expect(sut.appLogger).toBe('appLogger');
+    expect(sut.events).toBe('events');
     expect(sut.copier).toBe('copier');
     expect(sut.pathUtils).toBe('pathUtils');
     expect(sut.projectConfiguration).toBe('projectConfiguration');

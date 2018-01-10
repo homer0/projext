@@ -3,9 +3,10 @@ const path = require('path');
 const { provider } = require('jimple');
 
 class BuildCopier {
-  constructor(copier, appLogger, pathUtils, projectConfiguration) {
+  constructor(copier, appLogger, events, pathUtils, projectConfiguration) {
     this.copier = copier;
     this.appLogger = appLogger;
+    this.events = events;
     this.pathUtils = pathUtils;
     this.projectConfiguration = projectConfiguration;
   }
@@ -24,7 +25,7 @@ class BuildCopier {
     } = this.projectConfiguration;
 
     if (copy.enabled) {
-      const items = [];
+      let items = [];
       const copiedModules = {};
       if (Array.isArray(copy.items)) {
         copy.items.forEach((item) => {
@@ -46,6 +47,8 @@ class BuildCopier {
         ) {
           items.push(revision.filename);
         }
+
+        items = this.events.reduce('project-files-to-copy', items);
 
         if (items.length) {
           const thispath = this.pathUtils.path;
@@ -157,6 +160,7 @@ const buildCopier = provider((app) => {
   app.set('buildCopier', () => new BuildCopier(
     app.get('copier'),
     app.get('appLogger'),
+    app.get('events'),
     app.get('pathUtils'),
     app.get('projectConfiguration').getConfig()
   ));

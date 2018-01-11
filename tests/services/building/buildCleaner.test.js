@@ -24,10 +24,10 @@ describe('services/building:buildCleaner', () => {
     sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
     // Then
     expect(sut).toBeInstanceOf(BuildCleaner);
-    expect(sut.appLogger).toBe('appLogger');
-    expect(sut.cleaner).toBe('cleaner');
-    expect(sut.pathUtils).toBe('pathUtils');
-    expect(sut.projectConfiguration).toBe('projectConfiguration');
+    expect(sut.appLogger).toBe(appLogger);
+    expect(sut.cleaner).toBe(cleaner);
+    expect(sut.pathUtils).toBe(pathUtils);
+    expect(sut.projectConfiguration).toBe(projectConfiguration);
   });
 
   it('should clean the project distribution directory', () => {

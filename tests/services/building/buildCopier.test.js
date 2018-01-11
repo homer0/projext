@@ -29,11 +29,11 @@ describe('services/building:buildCopier', () => {
     sut = new BuildCopier(copier, appLogger, events, pathUtils, projectConfiguration);
     // Then
     expect(sut).toBeInstanceOf(BuildCopier);
-    expect(sut.copier).toBe('copier');
-    expect(sut.appLogger).toBe('appLogger');
-    expect(sut.events).toBe('events');
-    expect(sut.pathUtils).toBe('pathUtils');
-    expect(sut.projectConfiguration).toBe('projectConfiguration');
+    expect(sut.copier).toBe(copier);
+    expect(sut.appLogger).toBe(appLogger);
+    expect(sut.events).toBe(events);
+    expect(sut.pathUtils).toBe(pathUtils);
+    expect(sut.projectConfiguration).toBe(projectConfiguration);
   });
 
   it('should copy the project files', () => {

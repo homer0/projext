@@ -15,7 +15,7 @@ describe('services/building:buildEngines', () => {
     sut = new BuildEngines(app);
     // Then
     expect(sut).toBeInstanceOf(BuildEngines);
-    expect(sut.app).toBe('app');
+    expect(sut.app).toBe(app);
   });
 
   it('should return a build engine service', () => {

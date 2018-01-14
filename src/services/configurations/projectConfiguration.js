@@ -96,7 +96,7 @@ class ProjectConfiguration extends ConfigurationFile {
             enabled: false,
             default: null,
             path: 'config/',
-            hasFolder: false,
+            hasFolder: true,
             defineOn: 'process.env.CONFIG',
             environmentVariable: 'CONFIG',
             loadFromEnvironment: true,

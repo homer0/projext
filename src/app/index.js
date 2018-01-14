@@ -7,6 +7,7 @@ const {
   appLogger,
   packageInfo,
   pathUtils,
+  rootRequire,
 } = require('wootils/node/providers');
 
 const {
@@ -61,6 +62,7 @@ class Woopack extends Jimple {
     this.register(appLogger);
     this.register(packageInfo);
     this.register(pathUtils);
+    this.register(rootRequire);
 
     this.register(cleaner);
     this.register(copier);

@@ -21,12 +21,10 @@ class VersionUtils {
   getVersionFromFile(filename) {
     let version;
     try {
-      const hashLength = 7;
       const filepath = this.pathUtils.join(filename);
       version = fs
       .readFileSync(filepath, 'utf-8')
-      .trim()
-      .substr(0, hashLength);
+      .trim();
     } catch (e) {
       version = '';
     }
@@ -58,7 +56,8 @@ class VersionUtils {
     } else if (shell.which('git') && inRepository) {
       const commitHash = shell.exec('git rev-parse HEAD', { silent: true });
       if (commitHash && commitHash.code === 0) {
-        version = commitHash.trim();
+        const hashLength = 7;
+        version = commitHash.trim().substr(0, hashLength);
       }
     }
 

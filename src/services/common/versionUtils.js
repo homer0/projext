@@ -70,6 +70,8 @@ class VersionUtils {
         this.appLogger.success(
           `The revision file was successfully created (${filepath})`
         );
+
+        return version;
       })
       .catch((error) => {
         this.appLogger.error(

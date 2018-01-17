@@ -18,14 +18,16 @@ describe('services/cli:revision', () => {
 
   it('should be instantiated with all its dependencies', () => {
     // Given
+    const events = 'events';
     const projectConfiguration = 'projectConfiguration';
     const versionUtils = 'versionUtils';
     let sut = null;
     // When
-    sut = new CLIRevisionCommand(projectConfiguration, versionUtils);
+    sut = new CLIRevisionCommand(events, projectConfiguration, versionUtils);
     // Then
     expect(sut).toBeInstanceOf(CLIRevisionCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
+    expect(sut.events).toBe(events);
     expect(sut.projectConfiguration).toBe(projectConfiguration);
     expect(sut.versionUtils).toBe(versionUtils);
     expect(sut.command).not.toBeEmptyString();
@@ -34,7 +36,10 @@ describe('services/cli:revision', () => {
 
   it('should call the method to create the revision file when executed', () => {
     // Given
-    const message = 'done';
+    const events = {
+      emit: jest.fn(),
+    };
+    const version = 'latest';
     const revisionFilename = 'revision';
     const projectConfiguration = {
       version: {
@@ -45,21 +50,28 @@ describe('services/cli:revision', () => {
       },
     };
     const versionUtils = {
-      createRevisionFile: jest.fn(() => message),
+      createRevisionFile: jest.fn(() => Promise.resolve(version)),
     };
     let sut = null;
-    let result = null;
     // When
-    sut = new CLIRevisionCommand(projectConfiguration, versionUtils);
-    result = sut.handle();
-    // Then
-    expect(result).toBe(message);
-    expect(versionUtils.createRevisionFile).toHaveBeenCalledTimes(1);
-    expect(versionUtils.createRevisionFile).toHaveBeenCalledWith(revisionFilename);
+    sut = new CLIRevisionCommand(events, projectConfiguration, versionUtils);
+    return sut.handle()
+    .then((result) => {
+      // Then
+      expect(result).toBe(version);
+      expect(versionUtils.createRevisionFile).toHaveBeenCalledTimes(1);
+      expect(versionUtils.createRevisionFile).toHaveBeenCalledWith(revisionFilename);
+      expect(events.emit).toHaveBeenCalledTimes(1);
+      expect(events.emit).toHaveBeenCalledWith('revision-file-created', version);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
   });
 
   it('should throw an error when trying to execute with the `revision` flag disabled', () => {
     // Given
+    const events = 'events';
     const projectConfiguration = {
       version: {
         revision: {
@@ -70,7 +82,7 @@ describe('services/cli:revision', () => {
     const versionUtils = 'versionUtils';
     let sut = null;
     // When
-    sut = new CLIRevisionCommand(projectConfiguration, versionUtils);
+    sut = new CLIRevisionCommand(events, projectConfiguration, versionUtils);
     // Then
     expect(() => sut.handle()).toThrow(/The revision feature is disabled/i);
   });
@@ -98,6 +110,7 @@ describe('services/cli:revision', () => {
     expect(serviceName).toBe('cliRevisionCommand');
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(CLIRevisionCommand);
+    expect(sut.events).toBe('events');
     expect(sut.projectConfiguration).toBe('projectConfiguration');
     expect(sut.versionUtils).toBe('versionUtils');
   });

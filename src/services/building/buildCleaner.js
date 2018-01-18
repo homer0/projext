@@ -1,19 +1,51 @@
 const fs = require('fs-extra');
 const { provider } = require('jimple');
-
+/**
+ * Remove the builded files for the project and/or an specific target.
+ */
 class BuildCleaner {
+  /**
+   * Class constructor.
+   * @param {Logger}               appLogger            Used to inform the user when files haven
+   *                                                    been removed of it there was a problem
+   *                                                    removing them.
+   * @param {cleaner}              cleaner              The function that removes directories and
+   *                                                    files using glob patterns.
+   * @param {PathUtils}            pathUtils            Necessary to build the paths to clean.
+   * @param {ProjectConfiguration} projectConfiguration To read the project information and get
+   *                                                    paths.
+   */
   constructor(
     appLogger,
     cleaner,
     pathUtils,
     projectConfiguration
   ) {
+    /**
+     * A local reference to the `appLogger` service.
+     * @type {Logger}
+     */
     this.appLogger = appLogger;
+    /**
+     * A local reference to the `cleaner` service function.
+     * @type {Logger}
+     */
     this.cleaner = cleaner;
+    /**
+     * A local reference to the `pathUtils` service.
+     * @type {PathUtils}
+     */
     this.pathUtils = pathUtils;
+    /**
+     * A local reference to the `projectConfiguration` service.
+     * @type {ProjectConfiguration}
+     */
     this.projectConfiguration = projectConfiguration;
   }
-
+  /**
+   * Removes the entire distribution directory (where are the targets build are located).
+   * @return {Promise<undefined,Error>}
+   */
   cleanAll() {
     const { paths: { build } } = this.projectConfiguration;
     const dist = this.pathUtils.join(build);
@@ -31,7 +63,11 @@ class BuildCleaner {
       return Promise.reject(error);
     });
   }
-
+  /**
+   * Removes the builded files of an specific target.
+   * @param {Target} target The target information.
+   * @return {Promise<undefined,Error>}
+   */
   cleanTarget(target) {
     const { paths: { build } } = this.projectConfiguration;
     const dist = this.pathUtils.join(build);
@@ -55,7 +91,11 @@ class BuildCleaner {
       return Promise.reject(error);
     });
   }
-
+  /**
+   * Removes the builded files of a Node target.
+   * @param {Target} target The target information.
+   * @return {Promise<undefined,undefined>}
+   */
   cleanNodeTarget(target) {
     const {
       bundle,
@@ -72,7 +112,11 @@ class BuildCleaner {
     return firstStep
     .then((items) => this.cleaner(build, items));
   }
-
+  /**
+   * Removes the builded files of a browser target.
+   * @param {Target} target The target information.
+   * @return {Promise<undefined,undefined>}
+   */
   cleanBrowserTarget(target) {
     const { paths: { output } } = this.projectConfiguration;
     const {
@@ -94,7 +138,11 @@ class BuildCleaner {
 
     return this.cleaner(build, items);
   }
-
+  /**
+   * Get all the names variations for a target bundled file based on the target name.
+   * @param {String} name The target name.
+   * @return {Array} A list of all the possible names of files related to that target.
+   */
   getTargetNamesVariation(name) {
     const names = [
       name,
@@ -107,7 +155,16 @@ class BuildCleaner {
     return names;
   }
 }
-
+/**
+ * The service provider that once registered on the app container will set an instance of
+ * `BuildCleaner` as the `buildCleaner` service.
+ * @example
+ * // Register is on the container
+ * container.register(buildCleaner);
+ * // Getting access to the service instance
+ * const buildCleaner = container.get('buildCleaner');
+ * @type {Provider}
+ */
 const buildCleaner = provider((app) => {
   app.set('buildCleaner', () => new BuildCleaner(
     app.get('appLogger'),

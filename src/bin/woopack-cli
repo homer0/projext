@@ -1,4 +1,8 @@
 #!/usr/bin/env node
-const builder = require('../..');
-
-builder.cli();
+/**
+ * Get an instance of Woopack to use.
+ * @type {Woopack}
+ */
+const woopack = require('../..');
+// Start the CLI interface.
+woopack.cli();

@@ -50,8 +50,17 @@ const {
   projectConfiguration,
   targetConfiguration,
 } = require('../services/configurations');
-
+/**
+ * Woopack dependecy injector container. This class is in charge of registering all the Woopack
+ * known services, load any existing plugin and add an error handler.
+ * @extends {Jimple}
+ * @see https://yarnpkg.com/en/package/jimple
+ */
 class Woopack extends Jimple {
+  /**
+   * Registers all the known services, load any existing plugin and add an error handler.
+   * @ignore
+   */
   constructor() {
     super();
 
@@ -100,7 +109,9 @@ class Woopack extends Jimple {
     this._loadPlugins();
     this._addErrorHandler();
   }
-
+  /**
+   * Starts Woopack CLI interface.
+   */
   cli() {
     this.get('cli').start([
       this.get('cliBuildCommand'),
@@ -117,11 +128,19 @@ class Woopack extends Jimple {
       this.get('cliSHValidateRunCommand'),
     ]);
   }
-
+  /**
+   * Uses the `plugins` service to load and register any existing plugin.
+   * @ignore
+   * @access protected
+   */
   _loadPlugins() {
     this.get('plugins').load();
   }
-
+  /**
+   * Makes `errorHandler` service listen for any uncaught exceptions Woopack may throw.
+   * @ignore
+   * @access protected
+   */
   _addErrorHandler() {
     this.get('errorHandler').listen();
   }

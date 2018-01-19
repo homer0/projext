@@ -9,7 +9,7 @@ class BabelConfiguration {
    */
   constructor(events) {
     /**
-     * A local reference to the `events` service.
+     * A local reference for the `events` service.
      * @type {Events}
      */
     this.events = events;

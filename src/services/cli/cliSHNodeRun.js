@@ -14,12 +14,12 @@ class CLISHNodeRunCommand extends CLICommand {
   constructor(buildNodeRunner, targets) {
     super();
     /**
-     * A local reference to the `buildNodeRunner` service.
+     * A local reference for the `buildNodeRunner` service.
      * @type {BuildNodeRunner}
      */
     this.buildNodeRunner = buildNodeRunner;
     /**
-     * A local reference to the `targets` service.
+     * A local reference for the `targets` service.
      * @type {Targets}
      */
     this.targets = targets;

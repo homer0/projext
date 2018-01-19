@@ -18,12 +18,12 @@ class BuildNodeRunnerProcess {
    */
   constructor(appLogger, buildTranspiler, projectConfiguration) {
     /**
-     * A local reference to the `appLogger` service.
+     * A local reference for the `appLogger` service.
      * @type {Logger}
      */
     this.appLogger = appLogger;
     /**
-     * A local reference to the `buildTranspiler` service.
+     * A local reference for the `buildTranspiler` service.
      * @type {BuildTranspiler}
      */
     this.buildTranspiler = buildTranspiler;

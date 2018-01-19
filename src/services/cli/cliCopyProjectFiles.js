@@ -14,7 +14,7 @@ class CLICopyProjectFilesCommand extends CLICommand {
   constructor(buildCopier) {
     super();
     /**
-     * A local reference to the `buildCopier` service function.
+     * A local reference for the `buildCopier` service function.
      * @type {BuildCopier}
      */
     this.buildCopier = buildCopier;

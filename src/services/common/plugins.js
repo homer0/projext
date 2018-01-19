@@ -24,7 +24,7 @@ class Plugins {
      */
     this.app = app;
     /**
-     * A local reference to the `appLogger` service.
+     * A local reference for the `appLogger` service.
      * @type {Logger}
      */
     this.appLogger = appLogger;
@@ -34,7 +34,7 @@ class Plugins {
      */
     this.packageInfo = packageInfo;
     /**
-     * A local reference to the `pathUtils` service.
+     * A local reference for the `pathUtils` service.
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;

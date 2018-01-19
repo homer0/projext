@@ -13,7 +13,7 @@ class BuildNodeRunner {
    */
   constructor(buildNodeRunnerProcess) {
     /**
-     * A local reference to the `buildNodeRunnerProcess` service.
+     * A local reference for the `buildNodeRunnerProcess` service.
      * @type {function}
      */
     this.buildNodeRunnerProcess = buildNodeRunnerProcess;

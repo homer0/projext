@@ -17,17 +17,17 @@ class CLIRevisionCommand extends CLICommand {
   constructor(events, projectConfiguration, versionUtils) {
     super();
     /**
-     * A local reference to the `events` service function.
+     * A local reference for the `events` service function.
      * @type {Events}
      */
     this.events = events;
     /**
-     * A local reference to the `projectConfiguration` service function.
+     * A local reference for the `projectConfiguration` service function.
      * @type {ProjectConfiguration}
      */
     this.projectConfiguration = projectConfiguration;
     /**
-     * A local reference to the `versionUtils` service function.
+     * A local reference for the `versionUtils` service function.
      * @type {VersionUtils}
      */
     this.versionUtils = versionUtils;

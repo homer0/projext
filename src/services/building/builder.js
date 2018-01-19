@@ -23,27 +23,27 @@ class Builder {
     targets
   ) {
     /**
-     * A local reference to the `buildCleaner` service.
+     * A local reference for the `buildCleaner` service.
      * @type {BuildCleaner}
      */
     this.buildCleaner = buildCleaner;
     /**
-     * A local reference to the `buildCopier` service.
+     * A local reference for the `buildCopier` service.
      * @type {BuildCopier}
      */
     this.buildCopier = buildCopier;
     /**
-     * A local reference to the `buildEngines` service.
+     * A local reference for the `buildEngines` service.
      * @type {BuildEngines}
      */
     this.buildEngines = buildEngines;
     /**
-     * A local reference to the `buildTranspiler` service.
+     * A local reference for the `buildTranspiler` service.
      * @type {BuildTranspiler}
      */
     this.buildTranspiler = buildTranspiler;
     /**
-     * A local reference to the `targets` service.
+     * A local reference for the `targets` service.
      * @type {Targets}
      */
     this.targets = targets;

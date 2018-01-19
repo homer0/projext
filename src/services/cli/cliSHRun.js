@@ -15,7 +15,7 @@ class CLISHRunCommand extends CLICommand {
   constructor(cliBuildCommand) {
     super();
     /**
-     * A local reference to the `cliBuildCommand` service.
+     * A local reference for the `cliBuildCommand` service.
      * @type {CLIBuildCommand}
      */
     this.cliBuildCommand = cliBuildCommand;

@@ -52,52 +52,52 @@ class CLISHBuildCommand extends CLICommand {
   ) {
     super();
     /**
-     * A local reference to the `builder` service.
+     * A local reference for the `builder` service.
      * @type {Builder}
      */
     this.builder = builder;
     /**
-     * A local reference to the `cliCleanCommand` service.
+     * A local reference for the `cliCleanCommand` service.
      * @type {CliCleanCommand}
      */
     this.cliCleanCommand = cliCleanCommand;
     /**
-     * A local reference to the `cliCopyProjectFilesCommand` service.
+     * A local reference for the `cliCopyProjectFilesCommand` service.
      * @type {CliCopyProjectFilesCommand}
      */
     this.cliCopyProjectFilesCommand = cliCopyProjectFilesCommand;
     /**
-     * A local reference to the `cliRevisionCommand` service.
+     * A local reference for the `cliRevisionCommand` service.
      * @type {CliRevisionCommand}
      */
     this.cliRevisionCommand = cliRevisionCommand;
     /**
-     * A local reference to the `cliSHCopyCommand` service.
+     * A local reference for the `cliSHCopyCommand` service.
      * @type {CliSHCopyCommand}
      */
     this.cliSHCopyCommand = cliSHCopyCommand;
     /**
-     * A local reference to the `cliSHNodeRunCommand` service.
+     * A local reference for the `cliSHNodeRunCommand` service.
      * @type {CliSHNodeRunCommand}
      */
     this.cliSHNodeRunCommand = cliSHNodeRunCommand;
     /**
-     * A local reference to the `cliSHTranspileCommand` service.
+     * A local reference for the `cliSHTranspileCommand` service.
      * @type {CliSHTranspileCommand}
      */
     this.cliSHTranspileCommand = cliSHTranspileCommand;
     /**
-     * A local reference to the `events` service.
+     * A local reference for the `events` service.
      * @type {Events}
      */
     this.events = events;
     /**
-     * A local reference to the `projectConfiguration` service.
+     * A local reference for the `projectConfiguration` service.
      * @type {ProjectConfiguration}
      */
     this.projectConfiguration = projectConfiguration;
     /**
-     * A local reference to the `targets` service.
+     * A local reference for the `targets` service.
      * @type {Targets}
      */
     this.targets = targets;

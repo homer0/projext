@@ -15,12 +15,12 @@ class CLICleanCommand extends CLICommand {
   constructor(builder, buildCleaner) {
     super();
     /**
-     * A local reference to the `builder` service function.
+     * A local reference for the `builder` service function.
      * @type {Builder}
      */
     this.builder = builder;
     /**
-     * A local reference to the `buildCleaner` service function.
+     * A local reference for the `buildCleaner` service function.
      * @type {BuildCleaner}
      */
     this.buildCleaner = buildCleaner;

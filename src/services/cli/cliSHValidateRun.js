@@ -16,7 +16,7 @@ class CLISHValidateRunCommand extends CLICommand {
   constructor(targets) {
     super();
     /**
-     * A local reference to the `targets` service.
+     * A local reference for the `targets` service.
      * @type {Targets}
      */
     this.targets = targets;

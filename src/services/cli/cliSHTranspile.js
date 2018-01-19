@@ -13,7 +13,7 @@ class CLISHTranspileCommand extends CLICommand {
   constructor(builder) {
     super();
     /**
-     * A local reference to the `builder` service.
+     * A local reference for the `builder` service.
      * @type {Builder}
      */
     this.builder = builder;

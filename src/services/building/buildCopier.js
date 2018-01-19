@@ -19,27 +19,27 @@ class BuildCopier {
    */
   constructor(copier, appLogger, events, pathUtils, projectConfiguration) {
     /**
-     * A local reference to the `copier` service function.
+     * A local reference for the `copier` service function.
      * @type {Logger}
      */
     this.copier = copier;
     /**
-     * A local reference to the `appLogger` service.
+     * A local reference for the `appLogger` service.
      * @type {Logger}
      */
     this.appLogger = appLogger;
     /**
-     * A local reference to the `events` service.
+     * A local reference for the `events` service.
      * @type {Events}
      */
     this.events = events;
     /**
-     * A local reference to the `pathUtils` service.
+     * A local reference for the `pathUtils` service.
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference to the `projectConfiguration` service.
+     * A local reference for the `projectConfiguration` service.
      * @type {ProjectConfiguration}
      */
     this.projectConfiguration = projectConfiguration;

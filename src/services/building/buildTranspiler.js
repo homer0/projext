@@ -24,27 +24,27 @@ class BuildTranspiler {
     targets
   ) {
     /**
-     * A local reference to the `babelConfiguration` service.
+     * A local reference for the `babelConfiguration` service.
      * @type {BabelConfiguration}
      */
     this.babelConfiguration = babelConfiguration;
     /**
-     * A local reference to the `appLogger` service.
+     * A local reference for the `appLogger` service.
      * @type {Logger}
      */
     this.appLogger = appLogger;
     /**
-     * A local reference to the `pathUtils` service.
+     * A local reference for the `pathUtils` service.
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference to the `projectConfiguration` service.
+     * A local reference for the `projectConfiguration` service.
      * @type {ProjectConfiguration}
      */
     this.projectConfiguration = projectConfiguration;
     /**
-     * A local reference to the `targets` service.
+     * A local reference for the `targets` service.
      * @type {Targets}
      */
     this.targets = targets;

@@ -22,22 +22,22 @@ class BuildCleaner {
     projectConfiguration
   ) {
     /**
-     * A local reference to the `appLogger` service.
+     * A local reference for the `appLogger` service.
      * @type {Logger}
      */
     this.appLogger = appLogger;
     /**
-     * A local reference to the `cleaner` service function.
+     * A local reference for the `cleaner` service function.
      * @type {Logger}
      */
     this.cleaner = cleaner;
     /**
-     * A local reference to the `pathUtils` service.
+     * A local reference for the `pathUtils` service.
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference to the `projectConfiguration` service.
+     * A local reference for the `projectConfiguration` service.
      * @type {ProjectConfiguration}
      */
     this.projectConfiguration = projectConfiguration;

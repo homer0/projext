@@ -25,27 +25,27 @@ class Targets {
     rootRequire
   ) {
     /**
-     * A local reference to the `events` service.
+     * A local reference for the `events` service.
      * @type {Events}
      */
     this.events = events;
     /**
-     * A local reference to the `environmentUtils` service.
+     * A local reference for the `environmentUtils` service.
      * @type {EnvironmentUtils}
      */
     this.environmentUtils = environmentUtils;
     /**
-     * A local reference to the `pathUtils` service.
+     * A local reference for the `pathUtils` service.
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference to the `projectConfiguration` service.
+     * A local reference for the `projectConfiguration` service.
      * @type {ProjectConfiguration}
      */
     this.projectConfiguration = projectConfiguration;
     /**
-     * A local reference to the `rootRequire` function service.
+     * A local reference for the `rootRequire` function service.
      * @type {Function}
      */
     this.rootRequire = rootRequire;

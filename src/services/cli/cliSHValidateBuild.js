@@ -17,12 +17,12 @@ class CLISHValidateBuildCommand extends CLICommand {
   constructor(appLogger, targets) {
     super();
     /**
-     * A local reference to the `appLogger` service.
+     * A local reference for the `appLogger` service.
      * @type {Logger}
      */
     this.appLogger = appLogger;
     /**
-     * A local reference to the `targets` service.
+     * A local reference for the `targets` service.
      * @type {Targets}
      */
     this.targets = targets;

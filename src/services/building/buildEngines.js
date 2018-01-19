@@ -15,7 +15,7 @@ class BuildEngines {
    */
   constructor(app) {
     /**
-     * A local reference to the main app container.
+     * A local reference for the main app container.
      * @type {Woopack}
      */
     this.app = app;

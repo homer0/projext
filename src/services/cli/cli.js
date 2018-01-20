@@ -42,7 +42,7 @@ class CLI {
   }
 }
 /**
- * Generate a `Provider` with an already defined name for the program.
+ * Generates a `Provider` with an already defined name for the program.
  * @example
  * // Generate the provider
  * const provider = cliWithName('my-program');

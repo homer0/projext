@@ -23,8 +23,8 @@ else
 
   # If the task is a shell task that needs commands...
   if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
-      # ...execute a validation of the commands task to avoid any error being thrown on the
-      # execution that returns the list of commands for the task.
+      # ...execute a validation command to avoid any error being thrown on the
+      # command that returns the list.
       eval "woopack-cli sh-validate-$*"
       # Capture the commands that need to run
       command=$(eval "woopack-cli sh-$*")

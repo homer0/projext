@@ -2,7 +2,7 @@ const { provider } = require('jimple');
 const CLICommand = require('../../interfaces/cliCommand');
 /**
  * This is the _'real build command'_. This is a private command the shell script executes in order
- * to get a list of commands it should execute.
+ * to get a list of commands to run.
  * @extends {CLICommand}
  * @implements {CLICommand}
  */

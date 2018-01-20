@@ -3,8 +3,8 @@ const CLICommand = require('../../interfaces/cliCommand');
 /**
  * This is a private command the shell script executes before running the build command in order to
  * validate the arguments and throw any necessary error. The reason we do this in two separated
- * commands is that the shell script takes all the output of the build command and tries to execute,
- * so we can't include execptions in there.
+ * commands is that the shell script takes all the output of the build command and tries to execute
+ * it, so we can't include execptions in there.
  * @extends {CLICommand}
  * @implements {CLICommand}
  */

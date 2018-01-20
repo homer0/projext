@@ -51,7 +51,7 @@ const {
   targetConfiguration,
 } = require('../services/configurations');
 /**
- * Woopack dependecy injector container. This class is in charge of registering all the Woopack
+ * Woopack dependecy injection container. This class is in charge of registering all the Woopack
  * known services, load any existing plugin and add an error handler.
  * @extends {Jimple}
  * @see https://yarnpkg.com/en/package/jimple
@@ -137,7 +137,7 @@ class Woopack extends Jimple {
     this.get('plugins').load();
   }
   /**
-   * Makes `errorHandler` service listen for any uncaught exceptions Woopack may throw.
+   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.
    * @ignore
    * @access protected
    */

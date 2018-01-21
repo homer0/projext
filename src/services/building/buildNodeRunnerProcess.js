@@ -303,7 +303,7 @@ class BuildNodeRunnerProcess {
  * The service provider that once registered on the app container will set an instance of
  * `BuildNodeRunnerProcess` as the `buildNodeRunnerProcess` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(buildNodeRunnerProcess);
  * // Getting access to the service instance
  * const buildNodeRunnerProcess = container.get('buildNodeRunnerProcess');

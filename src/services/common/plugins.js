@@ -84,7 +84,7 @@ class Plugins {
  * @example
  * // Generate the provider
  * const provider = plugins('my-plugin-');
- * // Register is on the container
+ * // Register it on the container
  * container.register(provider);
  * // Getting access to the service instance
  * const plugins = container.get('plugins');

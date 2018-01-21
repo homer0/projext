@@ -245,7 +245,7 @@ class BuildTranspiler {
  * The service provider that once registered on the app container will set an instance of
  * `BuildTranspiler` as the `buildTranspiler` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(buildTranspiler);
  * // Getting access to the service instance
  * const buildTranspiler = container.get('buildTranspiler');

@@ -389,7 +389,7 @@ class CLISHBuildCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLISHBuildCommand` as the `cliSHBuildCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliSHBuildCommand);
  * // Getting access to the service instance
  * const cliSHBuildCommand = container.get('cliSHBuildCommand');

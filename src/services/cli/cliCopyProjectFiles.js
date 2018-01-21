@@ -41,7 +41,7 @@ class CLICopyProjectFilesCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLICopyProjectFilesCommand` as the `cliCopyProjectFilesCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliCopyProjectFilesCommand);
  * // Getting access to the service instance
  * const cliCopyProjectFilesCommand = container.get('cliCopyProjectFilesCommand');

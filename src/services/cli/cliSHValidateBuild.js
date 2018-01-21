@@ -88,7 +88,7 @@ class CLISHValidateBuildCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLISHValidateBuildCommand` as the `cliSHValidateBuildCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliSHValidateBuildCommand);
  * // Getting access to the service instance
  * const cliSHValidateBuildCommand = container.get('cliSHValidateBuildCommand');

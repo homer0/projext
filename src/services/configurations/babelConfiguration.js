@@ -99,7 +99,7 @@ class BabelConfiguration {
  * The service provider that once registered on the app container will set an instance of
  * `BabelConfiguration` as the `babelConfiguration` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(babelConfiguration);
  * // Getting access to the service instance
  * const babelConfiguration = container.get('babelConfiguration');

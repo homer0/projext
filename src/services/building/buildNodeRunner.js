@@ -73,7 +73,7 @@ class BuildNodeRunner {
  * The service provider that once registered on the app container will set an instance of
  * `BuildNodeRunner` as the `buildNodeRunner` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(buildNodeRunner);
  * // Getting access to the service instance
  * const buildNodeRunner = container.get('buildNodeRunner');

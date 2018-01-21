@@ -36,7 +36,7 @@ class Cleaner {
  * The service provider that once registered on the app container will set `Cleaner.clean` as the
  * `cleaner` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cleaner);
  * // Getting access to the service instance
  * const cleaner = container.get('cleaner');

@@ -31,7 +31,7 @@ class TargetConfiguration extends ConfigurationFile {
  * The service provider that once registered on the app container will set an function to get
  * instance of `TargetConfiguration` as the `targetConfiguration` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(targetConfiguration);
  * // Getting access to the service function
  * const targetConfiguration = container.get('targetConfiguration');

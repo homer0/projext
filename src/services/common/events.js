@@ -9,7 +9,7 @@ class Events extends EventsHub {}
  * The service provider that once registered on the app container will set an instance of
  * `Events` as the `events` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(events);
  * // Getting access to the service instance
  * const events = container.get('events');

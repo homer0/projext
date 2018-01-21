@@ -250,7 +250,7 @@ class BuildCopier {
  * The service provider that once registered on the app container will set an instance of
  * `BuildCopier` as the `buildCopier` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(buildCopier);
  * // Getting access to the service instance
  * const buildCopier = container.get('buildCopier');

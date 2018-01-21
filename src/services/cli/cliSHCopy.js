@@ -56,7 +56,7 @@ class CLISHCopyCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLISHCopyCommand` as the `cliSHCopyCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliSHCopyCommand);
  * // Getting access to the service instance
  * const cliSHCopyCommand = container.get('cliSHCopyCommand');

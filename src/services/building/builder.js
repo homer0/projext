@@ -126,7 +126,7 @@ class Builder {
  * The service provider that once registered on the app container will set an instance of
  * `Builder` as the `builder` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(builder);
  * // Getting access to the service instance
  * const builder = container.get('builder');

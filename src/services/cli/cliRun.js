@@ -29,7 +29,7 @@ class CLIRunCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLIRunCommand` as the `cliRunCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliRunCommand);
  * // Getting access to the service instance
  * const cliRunCommand = container.get('cliRunCommand');

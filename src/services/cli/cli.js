@@ -46,7 +46,7 @@ class CLI {
  * @example
  * // Generate the provider
  * const provider = cliWithName('my-program');
- * // Register is on the container
+ * // Register it on the container
  * container.register(provider);
  * // Getting access to the service instance
  * const cli = container.get('cli');
@@ -63,7 +63,7 @@ const cliWithName = (name) => provider((app) => {
  * The service provider that once registered on the app container will set an instance of
  * `CLI` as the `cli` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cli);
  * // Getting access to the service instance
  * const cli = container.get('cli');

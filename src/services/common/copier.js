@@ -135,7 +135,7 @@ class Copier {
  * The service provider that once registered on the app container will set `Copier.copy` as the
  * `copier` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(copier);
  * // Getting access to the service instance
  * const copier = container.get('copier');

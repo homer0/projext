@@ -146,7 +146,7 @@ class VersionUtils {
  * The service provider that once registered on the app container will set an instance of
  * `VersionUtils` as the `versionUtils` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(versionUtils);
  * // Getting access to the service instance
  * const versionUtils = container.get('versionUtils');

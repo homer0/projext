@@ -141,7 +141,7 @@ class ProjectConfiguration extends ConfigurationFile {
  * The service provider that once registered on the app container will set an instance of
  * `ProjectConfiguration` as the `projectConfiguration` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(projectConfiguration);
  * // Getting access to the service instance
  * const projectConfiguration = container.get('projectConfiguration');

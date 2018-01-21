@@ -67,7 +67,7 @@ class CLIRevisionCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLIRevisionCommand` as the `cliRevisionCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliRevisionCommand);
  * // Getting access to the service instance
  * const cliRevisionCommand = container.get('cliRevisionCommand');

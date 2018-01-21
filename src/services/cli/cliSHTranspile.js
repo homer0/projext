@@ -55,7 +55,7 @@ class CLISHTranspileCommand extends CLICommand {
  * The service provider that once registered on the app container will set an instance of
  * `CLISHTranspileCommand` as the `cliSHTranspileCommand` service.
  * @example
- * // Register is on the container
+ * // Register it on the container
  * container.register(cliSHTranspileCommand);
  * // Getting access to the service instance
  * const cliSHTranspileCommand = container.get('cliSHTranspileCommand');

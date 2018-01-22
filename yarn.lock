@@ -1501,9 +1501,9 @@ esdoc-lint-plugin@^1.0.0:
   version "1.0.1"
   resolved "http://local.npm/esdoc-lint-plugin/-/esdoc-lint-plugin-1.0.1.tgz#87bee6403e676c087f61be92c452d60f2c6a70e5"
 
-esdoc-node@1.0.2:
+esdoc-node@homer0/esdoc-node:
   version "1.0.2"
-  resolved "http://local.npm/esdoc-node/-/esdoc-node-1.0.2.tgz#3e21e2e05f9f3522060001e638b652f30ab1ab12"
+  resolved "https://codeload.github.com/homer0/esdoc-node/tar.gz/b08d22e4990462cbbb16641d08b32b14e439fff4"
 
 esdoc-publish-html-plugin@^1.0.0:
   version "1.1.0"
@@ -2800,6 +2800,10 @@ jest-worker@^22.0.3:
   resolved "https://registry.yarnpkg.com/jest-worker/-/jest-worker-22.0.3.tgz#30433faca67814a8f80559f75ab2ceaa61332fd2"
   dependencies:
     merge-stream "^1.0.1"
+
+"jimple@github:homer0/jimple":
+  version "1.4.6"
+  resolved "https://codeload.github.com/homer0/jimple/tar.gz/1f123c2ba1f0aef14de159747455f877f70e0c9d"
 
 jimple@homer0/jimple:
   version "1.4.6"
@@ -4503,9 +4507,9 @@ window-size@0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/window-size/-/window-size-0.1.0.tgz#5438cd2ea93b202efa3a19fe8887aee7c94f9c9d"
 
-wootils@^0.0.4:
-  version "0.0.4"
-  resolved "http://local.npm/wootils/-/wootils-0.0.4.tgz#17f0ab7423325920ab46f9f8f20cb0d48b562479"
+wootils@^1.0.2:
+  version "1.0.2"
+  resolved "http://local.npm/wootils/-/wootils-1.0.2.tgz#70de151c3c14ef2bb1abbed75c5fb822ca0c30ef"
   dependencies:
     colors "1.1.2"
     fs-extra "5.0.0"

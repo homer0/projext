@@ -1,6 +1,6 @@
 {
     "name": "woopack",
-    "description": "I swear I'll write a description soon",
+    "description": "Bundle your Javascript projects without having to learn how to use a bundler.",
     "version": "0.0.18",
     "repository": "homer0/woopack",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",

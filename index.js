@@ -1,5 +1,5 @@
 const path = require('path');
-const { Woopack } = require('./src/app');
+const { Woopack } = require('./src');
 
 let builder;
 try {

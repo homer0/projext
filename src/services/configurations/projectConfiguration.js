@@ -20,6 +20,7 @@ class ProjectConfiguration extends ConfigurationFile {
   /**
    * Create the project configuration with all its _'smart defaults'_.
    * @return {Object}
+   * @todo Change replaceKey with defineOne and use VERSION instead APP_VERSION
    */
   createConfig() {
     return {

@@ -434,11 +434,11 @@ A list of files and/or directories that will be copied. All with paths relative 
 
 ### `copyOnBuild`
 
-Since the feature is also available through the woopack CLI interface, you can configure how the feature behaves when building:
+Since the feature is also available through the woopack CLI, you can configure how the feature behaves when building:
 
 #### `enabled`
 
-Whether or not to copy the files when building. If disabled, you can use the CLI interface to copy the files.
+Whether or not to copy the files when building. If disabled, you can use the CLI to copy the files.
 
 #### `onlyOnProduction`
 
@@ -495,11 +495,11 @@ The name of the revision file.
 
 #### `revision.createRevisionOnBuild`
 
-Since the feature is also available through the woopack CLI interface, you can configure how the feature behaves when building:
+Since the feature is also available through the woopack CLI, you can configure how the feature behaves when building:
 
 **`revision.createRevisionOnBuild.enabled`**
 
-Whether or not to create the file when building. If disabled, you can use the CLI interface to copy the files.
+Whether or not to create the file when building. If disabled, you can use the CLI to copy the files.
 
 **`revision.createRevisionOnBuild.onlyOnProduction`**
 

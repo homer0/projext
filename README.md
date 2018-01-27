@@ -150,7 +150,7 @@ Having that in mind, you can go ahead and create those files with some code on t
 
 ### Bundling the code
 
-And we got to the final part, you have your configuration and your targets code, time to bundle them, and the way you do it is by using the `build` command from the `woopack` CLI interface:
+And we got to the final part, you have your configuration and your targets code, time to bundle them, and the way you do it is by using the `build` command from the `woopack` CLI:
 
 > You can use scripts from the `package.json`, `$(npm bin)/` or `npx` too, but for these examples I'll be using `yarn`
 
@@ -174,7 +174,7 @@ yarn woopack build frontend --type production
 
 Done, the `--type` argument set to `production` tells woopack that you are preparing a build production, so it will move everything to the distribution directory.
 
-[Read more about woopack CLI interface](./documents/cli.md)
+[Read more about woopack CLI](./documents/cli.md)
 
 ## Other features
 
@@ -188,37 +188,11 @@ For `browser` targets it uses the bundle engine to run it so it can update your 
 
 ### You can extend most of the things and overwrite EVERYTHING
 
-There are two ways to overwrite things on woopack:
-
-#### Configuration services
-
-Most of the configuration services check if a file with `x` name exists on your project and merge whatever you export on that file with the service defaults. An example of this is the Project configuration: All the defaults are on the service and it overwrites the values of the settings you add on the `config/project.config.js` file.
-
-[Read more about woopack configuration services](./documents/configurations.md).
-
-#### Overwriting services
-
-The whole tool is built using [Jimple](https://yarnpkg.com/en/package/jimple), a port of [Pimple Dependency Injection container](https://github.com/silexphp/Pimple/) for Node. EVERYTHING is registered on the container, so you can simple set your own version of a service with the same name in order to overwrite it.
+The whole tool is built using [Jimple](https://yarnpkg.com/en/package/jimple), a port of [Pimple Dependency Injection container](https://github.com/silexphp/Pimple/) for Node, and EVERYTHING is registered on the container. You can simple set your own version of a service with the same name in order to overwrite it.
 
 > If you haven't tried [Jimple](https://github.com/fjorgemota/jimple), give it a try, it's excellent for organizing your app dependencies and services.
 
-The way you get access to the container is by creating a file called `woopack.config.js` on your project root directory, there you'll create your own instance of woopack that all the commands will use:
-
-```js
-// woopack.config.js
-
-// Get the main class
-const { Woopack } = require('woopack');
-
-// Create a new instance
-const myWoopack = new Woopack();
-
-// Overwrite a service
-myWoopack.set('cleaner', () => myCustomCleaner);
-
-// Export your custom version
-module.exports = woopack;
-```
+[Read more about overwriting woopack](./documents/overwrite.md).
 
 ### Building plugins is really easy
 
@@ -235,7 +209,7 @@ module.exports = (woopack) => {
 ```
 
 - [Read more about writing plugins](./documents/plugins.md).
-- [Read more about build engines](./documents/plugins.md).
+- [Read more about build engines](./documents/engines.md).
 
 ### Browser targets configuration
 
@@ -266,7 +240,7 @@ That's all you need to enable the feature, the rest is dictated by the setting _
 - Whenever you write `process.env.CONFIG` on your code, when bundled, it will replaced by the configuration contents.
 - If you add `CONFIG=xyz` before the `woopack build` command, the service will look for a file `browser.xyz.config.js` and the configuration will be created by extending the default one.
 
-[Read more about browser configuration](./documents/browserConfiguration.md)
+[Read more about browser targets configuration](./documents/browserTargetConfiguration.md)
 
 ## Development
 

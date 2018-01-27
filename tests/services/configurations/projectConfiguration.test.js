@@ -35,11 +35,11 @@ describe('services/configurations:projectConfiguration', () => {
     // Given
     const pathUtils = 'pathUtils';
     const expectedKeys = [
-      'version',
       'paths',
       'targetsTemplates',
       'targets',
       'copy',
+      'version',
       'others',
     ];
     let sut = null;

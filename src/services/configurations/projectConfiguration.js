@@ -24,19 +24,6 @@ class ProjectConfiguration extends ConfigurationFile {
    */
   createConfig() {
     return {
-      version: {
-        replaceKey: 'APP_VERSION',
-        revision: {
-          enabled: false,
-          copy: true,
-          filename: 'revision',
-          createRevisionOnBuild: {
-            enabled: true,
-            onlyOnProduction: true,
-            targets: [],
-          },
-        },
-      },
       paths: {
         source: 'src',
         build: 'dist',
@@ -51,16 +38,16 @@ class ProjectConfiguration extends ConfigurationFile {
       targetsTemplates: {
         node: {
           type: 'node',
+          bundle: false,
+          transpile: false,
           engine: 'webpack',
           hasFolder: true,
-          folder: '',
           createFolder: false,
+          folder: '',
           entry: {
             development: 'start.development.js',
             production: 'start.production.js',
           },
-          transpile: false,
-          bundle: false,
           runOnDevelopment: false,
           babel: {
             features: [],
@@ -76,8 +63,8 @@ class ProjectConfiguration extends ConfigurationFile {
           type: 'browser',
           engine: 'webpack',
           hasFolder: true,
-          folder: '',
           createFolder: true,
+          folder: '',
           entry: {
             development: 'index.js',
             production: 'index.js',
@@ -95,8 +82,8 @@ class ProjectConfiguration extends ConfigurationFile {
             features: [],
             browserVersions: 2,
             mobileSupport: true,
-            overwrites: {},
             polyfill: true,
+            overwrites: {},
           },
           flow: false,
           CSSModules: false,
@@ -128,6 +115,19 @@ class ProjectConfiguration extends ConfigurationFile {
           enabled: true,
           onlyOnProduction: true,
           targets: [],
+        },
+      },
+      version: {
+        replaceKey: 'APP_VERSION',
+        revision: {
+          enabled: false,
+          copy: true,
+          filename: 'revision',
+          createRevisionOnBuild: {
+            enabled: true,
+            onlyOnProduction: true,
+            targets: [],
+          },
         },
       },
       others: {

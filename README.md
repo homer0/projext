@@ -1,10 +1,15 @@
-# Woopack
+# woopack
 
-Bundle your Javascript projects without having to learn how to use a bundler.
+Bundle and run your javascript project without configuring an specific module bundler.
 
 ## What?
 
-woopack is a tool that allows you to configure a project bundling options on an _"almost-human"_ readable format so you don't have to deal with very complex rules and structures.
+Let's start with this:
+
+- **woopack is not** an alternative to [webpack](https://webpack.js.org/).
+- **woopack is not** a module bundler.
+
+Now, this is a tool that allows you to configure a project bundling options on an _"almost-human"_ readable format so you don't have to deal with very complex rules and structures.
 
 The idea is to divide your project bundling on a 4 layers architecture:
 
@@ -17,13 +22,13 @@ The idea is to divide your project bundling on a 4 layers architecture:
 
 ### Quick example
 
-You want to create an AngularJS app and you want to bundle it with webpack. You first need the following dependencies:
+You want to create an [AngularJS](https://angularjs.org/) app and you want to bundle it with webpack. You first need the following dependencies:
 
 - [`woopack`](https://yarnpkg.com/en/package/woopack)
 - [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack)
 - [`woopack-plugin-webpack-angularjs`](https://yarnpkg.com/en/package/woopack-plugin-webpack-angularjs)
 
-Then, on your project configuration you would have this:
+Then, on your project configuration you would write this:
 
 ```js
 module.exports = {
@@ -37,7 +42,7 @@ module.exports = {
 };
 ```
 
-> There are a lot of _"smart defaults"_ on the project configuration, but since this we want a quick example, we are going to modify just what we need.
+> There are a lot of _"smart defaults"_ on the project configuration, but since this we just want a quick example, we are going to modify just what we need.
 
 That's all you need to do in terms of configuration, after that you can start coding your app.
 
@@ -45,39 +50,41 @@ That's all you need to do in terms of configuration, after that you can start co
 
 Module bundlers have been around for quite some time now and they are amazing tools, they allow us to do so much, from just putting the files together to transpiling, tree shaking, splitting for lazy load, etc.
 
-I've been bundling projects since [require.js](http://requirejs.org/) was popular, and since mid 2016 I've been using [webpack](https://webpack.js.org/) for almost everything. You can configure every detail, adding [Babel](https://babeljs.io/) is so easy, optimizing files, implementing it with [Express](https://expressjs.com), etc; But after year and half, and more than 20 projects built with it... I'm sick and tire of writing the configuration.
+I've been bundling projects since [require.js](http://requirejs.org/) was popular, and since mid 2016 I've been using [webpack](https://webpack.js.org/) for almost everything. You can configure every detail, [Babel](https://babeljs.io/) integration, optimizing files, [Express](https://expressjs.com) middlewares, etc; But after year and half, and more than 20 projects built with it... I'm sick and tire of writing the configuration.
 
 I even [wrote a plugin](https://github.com/homer0/webpack-node-utils/) to manage the configurations, but at the end of the day, I always ended up with huge configurations files, tons of rules and a lot of plugins/dependencies that needed to be up to date and comply with each other versions.
 
-At some point I started considering start using [Rollup](https://rollupjs.org/), at least for the non web apps projects. Rollup was getting a lot of traction and since Facebook started adopting it, its popularity exploded.
+> I'm well aware of the new features webpack 4 will bring to the table, including all the _"smart defaults"_, and it looks really promising. But I still believe **this tool is for a different purpose than just bundling**.
 
-I tried it for a library project I had and I was impressed with the results. Very simple to use, it doesn't require a lot of configuration and the builds are really small.
+At some point I started considering start using [Rollup](https://rollupjs.org/), at least for the non web apps projects. Rollup was getting a lot of traction and since Facebook started adopting it, it got **really** popular.
+
+I tried it for a npm package project and the results were pretty impressive: It doesn't require a lot of configuration and there's not a lot of boiler plate code on the builds.
 
 I considered migrating a few older projects, but I didn't want to have to go over their configurations, so I just kept it for new projects.
 
-Then, a few months ago, [Parcel](https://parceljs.org/) showed up, and the community was all over it (yes, we are a very hype-driven community :P). And, of course, I wanted to use it, but at that point it was too much. That's when I finally understood the _"Javascript Fatigue"_.
+Then, a few months ago, [Parcel](https://parceljs.org/) showed up, and the community was all over it (I know, we are a very hype-driven community :P). And, of course, I wanted to use it, but at that point it was too much. That's when I finally understood the _"Javascript Fatigue"_.
 
-And at that point was when I had the first idea for this project: Preparing boiler plates for different bundlers for different scenarios: library, web page, web app, etc. Yes, it wasn't a very original idea, but it was the start.
+And at that point was when I had the first idea for this project: Preparing boiler plates for different bundlers for different scenarios: library, web page, web app, etc. Yes, it wasn't very original, but it was the start.
 
-Yes, there were a few issues with that:
+As you may have suspected, there were a few issues:
 
 - Hard to maintain: Different projects for the same tool that needed to be up-to-date.
-- What about the framework? Yes, frameworks are another big cause of the _"Javascript Fatigue"_, and they all have their unique configuration when using a bundler.
-- I had to align every project to whatever the I would configure on the boiler plates.
+- What about the framework? Yes, frameworks are another big cause of the _"Javascript Fatigue"_, and they all have their unique configuration for specific bundlers.
+- I had to align every project to whatever the boiler plate needed in order to work.
 
 But thanks to those problems was that I was able to come with a plan for this project:
 
-- Make a tool that would understand your project configuration on an _"almost-human"_ readable format. Try to move almost every configuration to `boolean` value.
+- Make a tool that would understand your project configuration on an _"almost-human"_ readable format, meaning, try to move almost every configuration to `boolean` or `string` value and no configuration functions.
 - Add another layer, on a form of plugin, that would take the project configuration and apply it to a bundler configuration.
 - And another layer/plugin that would be the framework implementation for that bundler.
 
-And then I built it. Right now it's only webpack as an bundler engine and AngularJS for webpack, but I'm already building the Rollup engine, adding the [React](https://reactjs.org/) to webpack and planning on then making ports of both AngularJS and React.
+And then I built it. Right now it's only webpack as an bundler engine and AngularJS for webpack as framework, but I'm already building the Rollup engine, adding the [React](https://reactjs.org/) to webpack and planning on then making ports of both AngularJS and React.
 
 My plan is to ask the community for help putting these plugins/recipes together.
 
 ## Who?
 
-Of course I know there's no way this will be helpful for everyone, there's no way to make a tool like that.
+Of course there's no way this will be helpful for everyone: a tool that works as an abstraction of other tool could never cover all the possible scenarios.
 
 This tool is aimed to those who use bundlers everyday to build web sites, libraries and apps without the need to go to the last optimal detail. If you need to do that, then use the bundler directly, it's the best choice.
 

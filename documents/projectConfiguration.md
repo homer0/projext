@@ -455,8 +455,8 @@ This settings are for the feature that manages your project version:
 ```js
 {
   version: {
-    environmentVariable: 'VERSION',
     defineOne: 'APP_VERSION',
+    environmentVariable: 'VERSION',
     revision: {
       enabled: false,
       copy: true,
@@ -471,13 +471,13 @@ This settings are for the feature that manages your project version:
 }
 ```
 
-### `environmentVariable`
-
-The name of the environment variable woopack should check to get the project version.
-
 ### `defineOne`
 
 The name of the variable where the version is going to be replaced on your code when bundled.
+
+### `environmentVariable`
+
+The name of the environment variable woopack should check to get the project version.
 
 ### `revision`
 

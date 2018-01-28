@@ -8,29 +8,15 @@ const CLICommand = require('../../interfaces/cliCommand');
 class CLIRevisionCommand extends CLICommand {
   /**
    * Class constructor.
-   * @param {Events}               events               To trigger an event informing the file was
-   *                                                    created.
-   * @param {ProjectConfiguration} projectConfiguration To read the settings and verify that a file
-   *                                                    needs to be created.
-   * @param {VersionUtils}         versionUtils         To create the file.
+   * @param {BuildVersion} buildVersion To call the method that writes the revision file.
    */
-  constructor(events, projectConfiguration, versionUtils) {
+  constructor(buildVersion) {
     super();
     /**
-     * A local reference for the `events` service function.
-     * @type {Events}
+     * A local reference for the `buildVersion` service function.
+     * @type {BuildVersion}
      */
-    this.events = events;
-    /**
-     * A local reference for the `projectConfiguration` service function.
-     * @type {ProjectConfiguration}
-     */
-    this.projectConfiguration = projectConfiguration;
-    /**
-     * A local reference for the `versionUtils` service function.
-     * @type {VersionUtils}
-     */
-    this.versionUtils = versionUtils;
+    this.buildVersion = buildVersion;
     /**
      * The instruction needed to trigger the command.
      * @type {String}
@@ -43,24 +29,11 @@ class CLIRevisionCommand extends CLICommand {
     this.description = 'Create the revision file with the project version';
   }
   /**
-   * Handle the execution of the command and creates the file.
-   * This method emits the `revision-file-created` event and sends the contents of the file as
-   * a argument.
-   * @return {Promise<String,Error>}
-   * @throws {Error} if the feature is disabled.
-   * @todo Throws and error and returns a Promise? It should have only one error interface.
+   * Handles the execution of the command and creates the file.
+   * @return {Promise<string,Error>}
    */
   handle() {
-    const { version: { revision } } = this.projectConfiguration;
-    if (!revision.enabled) {
-      throw new Error('The revision feature is disabled on the project configuration');
-    }
-
-    return this.versionUtils.createRevisionFile(revision.filename)
-    .then((version) => {
-      this.events.emit('revision-file-created', version);
-      return version;
-    });
+    return this.buildVersion.createRevision();
   }
 }
 /**
@@ -75,9 +48,7 @@ class CLIRevisionCommand extends CLICommand {
  */
 const cliRevisionCommand = provider((app) => {
   app.set('cliRevisionCommand', () => new CLIRevisionCommand(
-    app.get('events'),
-    app.get('projectConfiguration').getConfig(),
-    app.get('versionUtils')
+    app.get('buildVersion')
   ));
 });
 

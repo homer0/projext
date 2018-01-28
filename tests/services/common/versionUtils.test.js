@@ -39,6 +39,7 @@ describe('services/common:versionUtils', () => {
 
   it('should return the version set on the environment', () => {
     // Given
+    const variable = 'VERSION';
     const version = 'latest';
     const environmentUtils = {
       get: jest.fn(() => version),
@@ -49,18 +50,19 @@ describe('services/common:versionUtils', () => {
     let result = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    result = sut.getEnvironmentVersion();
+    result = sut.getEnvironmentVersion(variable);
     // Then
     expect(result).toBe(version);
     expect(environmentUtils.get).toHaveBeenCalledTimes(1);
     expect(environmentUtils.get).toHaveBeenCalledWith(
-      sut.environmentVersionName,
+      variable,
       sut.fallbackVersion
     );
   });
 
   it('should return the version set on the environment (without fallback)', () => {
     // Given
+    const variable = 'VERSION';
     const version = 'latest';
     const environmentUtils = {
       get: jest.fn(() => version),
@@ -71,12 +73,12 @@ describe('services/common:versionUtils', () => {
     let result = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    result = sut.getEnvironmentVersion(false);
+    result = sut.getEnvironmentVersion(variable, false);
     // Then
     expect(result).toBe(version);
     expect(environmentUtils.get).toHaveBeenCalledTimes(1);
     expect(environmentUtils.get).toHaveBeenCalledWith(
-      sut.environmentVersionName,
+      variable,
       undefined
     );
   });
@@ -129,6 +131,7 @@ describe('services/common:versionUtils', () => {
 
   it('should return the file version after checking both the file and the env variable', () => {
     // Given
+    const variable = 'VERSION';
     const file = 'revision';
     const version = 'charito';
     const environmentUtils = 'environmentUtils';
@@ -141,7 +144,7 @@ describe('services/common:versionUtils', () => {
     let result = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    result = sut.getVersion(file);
+    result = sut.getVersion(file, variable);
     // Then
     expect(result).toBe(version);
     expect(fs.readFileSync).toHaveBeenCalledTimes(1);
@@ -151,6 +154,7 @@ describe('services/common:versionUtils', () => {
 
   it('should load the version from the file only once', () => {
     // Given
+    const variable = 'VERSION';
     const file = 'revision';
     const version = 'charito';
     const environmentUtils = 'environmentUtils';
@@ -164,8 +168,8 @@ describe('services/common:versionUtils', () => {
     let secondResult = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    firstResult = sut.getVersion(file);
-    secondResult = sut.getVersion(file);
+    firstResult = sut.getVersion(file, variable);
+    secondResult = sut.getVersion(file, variable);
     // Then
     expect(firstResult).toBe(version);
     expect(secondResult).toBe(version);
@@ -176,10 +180,11 @@ describe('services/common:versionUtils', () => {
 
   it('should try to load the version from the file if the first time failed', () => {
     // Given
+    const variable = 'VERSION';
     const file = 'revision';
     const version = 'charito';
     const environmentUtils = {
-      get: jest.fn((variable, fallback) => fallback),
+      get: jest.fn((variableName, fallback) => fallback),
     };
     const appLogger = 'appLogger';
     const pathUtils = {
@@ -195,8 +200,8 @@ describe('services/common:versionUtils', () => {
     let secondResult = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    firstResult = sut.getVersion(file);
-    secondResult = sut.getVersion(file);
+    firstResult = sut.getVersion(file, variable);
+    secondResult = sut.getVersion(file, variable);
     // Then
     expect(firstResult).toBe(sut.fallbackVersion);
     expect(secondResult).toBe(version);
@@ -208,13 +213,14 @@ describe('services/common:versionUtils', () => {
     expect(pathUtils.join).toHaveBeenCalledWith(file);
     expect(environmentUtils.get).toHaveBeenCalledTimes(1);
     expect(environmentUtils.get).toHaveBeenCalledWith(
-      sut.environmentVersionName,
+      variable,
       sut.fallbackVersion
     );
   });
 
   it('should return the env version after checking both the file and the env variable', () => {
     // Given
+    const variable = 'VERSION';
     const version = 'latest';
     const file = 'revision';
     const environmentUtils = {
@@ -232,7 +238,7 @@ describe('services/common:versionUtils', () => {
     let result = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    result = sut.getVersion(file);
+    result = sut.getVersion(file, variable);
     // Then
     expect(result).toBe(version);
     expect(fs.readFileSync).toHaveBeenCalledTimes(1);
@@ -240,13 +246,14 @@ describe('services/common:versionUtils', () => {
     expect(pathUtils.join).toHaveBeenCalledWith(file);
     expect(environmentUtils.get).toHaveBeenCalledTimes(1);
     expect(environmentUtils.get).toHaveBeenCalledWith(
-      sut.environmentVersionName,
+      variable,
       sut.fallbackVersion
     );
   });
 
   it('should create the revision file using the environment variable', () => {
     // Given
+    const variable = 'VERSION';
     const version = 'latest';
     const file = 'revision';
     const environmentUtils = {
@@ -265,7 +272,7 @@ describe('services/common:versionUtils', () => {
     let sut = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    return sut.createRevisionFile(file)
+    return sut.createRevisionFile(file, variable)
     .then(() => {
       // Then
       expect(fs.statSync).toHaveBeenCalledTimes(1);
@@ -274,7 +281,7 @@ describe('services/common:versionUtils', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(file);
       expect(environmentUtils.get).toHaveBeenCalledTimes(1);
       expect(environmentUtils.get).toHaveBeenCalledWith(
-        sut.environmentVersionName,
+        variable,
         undefined
       );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
@@ -288,6 +295,7 @@ describe('services/common:versionUtils', () => {
 
   it('should create the revision file using the repository hash', () => {
     // Given
+    const variable = 'VERSION';
     const version = 'latest';
     const file = 'revision';
     const environmentUtils = {
@@ -309,7 +317,7 @@ describe('services/common:versionUtils', () => {
     let sut = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    return sut.createRevisionFile(file)
+    return sut.createRevisionFile(file, variable)
     .then(() => {
       // Then
       expect(fs.statSync).toHaveBeenCalledTimes(1);
@@ -322,7 +330,7 @@ describe('services/common:versionUtils', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(file);
       expect(environmentUtils.get).toHaveBeenCalledTimes(1);
       expect(environmentUtils.get).toHaveBeenCalledWith(
-        sut.environmentVersionName,
+        variable,
         undefined
       );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
@@ -336,6 +344,7 @@ describe('services/common:versionUtils', () => {
 
   it('should fail to create the revision file because it can\'t read the repository hash', () => {
     // Given
+    const variable = 'VERSION';
     const file = 'revision';
     const environmentUtils = {
       get: jest.fn(() => ''),
@@ -353,7 +362,7 @@ describe('services/common:versionUtils', () => {
     let sut = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    return sut.createRevisionFile(file)
+    return sut.createRevisionFile(file, variable)
     .then(() => {
       expect(true).toBeFalse();
     })
@@ -370,7 +379,7 @@ describe('services/common:versionUtils', () => {
       expect(shell.exec).toHaveBeenCalledWith('git rev-parse HEAD', { silent: true });
       expect(environmentUtils.get).toHaveBeenCalledTimes(1);
       expect(environmentUtils.get).toHaveBeenCalledWith(
-        sut.environmentVersionName,
+        variable,
         undefined
       );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
@@ -379,6 +388,7 @@ describe('services/common:versionUtils', () => {
 
   it('should fail to create the revision file because there\'s no way to obtain a version', () => {
     // Given
+    const variable = 'VERSION';
     const file = 'revision';
     const environmentUtils = {
       get: jest.fn(() => ''),
@@ -393,7 +403,7 @@ describe('services/common:versionUtils', () => {
     let sut = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    return sut.createRevisionFile(file)
+    return sut.createRevisionFile(file, variable)
     .then(() => {
       expect(true).toBeFalse();
     })
@@ -408,7 +418,7 @@ describe('services/common:versionUtils', () => {
       expect(shell.which).toHaveBeenCalledWith('git');
       expect(environmentUtils.get).toHaveBeenCalledTimes(1);
       expect(environmentUtils.get).toHaveBeenCalledWith(
-        sut.environmentVersionName,
+        variable,
         undefined
       );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
@@ -417,6 +427,7 @@ describe('services/common:versionUtils', () => {
 
   it('should fail to create the revision file because it can\'t write the file', () => {
     // Given
+    const variable = 'VERSION';
     const version = 'latest';
     const file = 'revision';
     const environmentUtils = {
@@ -439,7 +450,7 @@ describe('services/common:versionUtils', () => {
     let sut = null;
     // When
     sut = new VersionUtils(environmentUtils, appLogger, pathUtils);
-    return sut.createRevisionFile(file)
+    return sut.createRevisionFile(file, variable)
     .then(() => {
       expect(true).toBeFalse();
     })
@@ -457,7 +468,7 @@ describe('services/common:versionUtils', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(file);
       expect(environmentUtils.get).toHaveBeenCalledTimes(1);
       expect(environmentUtils.get).toHaveBeenCalledWith(
-        sut.environmentVersionName,
+        variable,
         undefined
       );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);

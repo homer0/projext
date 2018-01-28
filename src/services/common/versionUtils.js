@@ -28,11 +28,6 @@ class VersionUtils {
      */
     this.pathUtils = pathUtils;
     /**
-     * The name of the environment variable where the service will look for a version.
-     * @type {String}
-     */
-    this.environmentVersionName = 'VERSION';
-    /**
      * The default fallback version in case none can be retrieved.
      * @type {String}
      */
@@ -46,21 +41,21 @@ class VersionUtils {
     this._loadedVersion = null;
   }
   /**
-   * Get the version from the environment variable.
-   * @param  {Boolean} [withFallback=true] If `true` and there's no version on the variable, it will
+   * Get the version from an environment variable.
+   * @param {string}  environmentVariable The name of the environment variable.
+   * @param {boolean} [withFallback=true] If `true` and there's no version on the variable, it will
    *                                       return the fallback version.
    * @return {String}
    */
-  getEnvironmentVersion(withFallback = true) {
+  getEnvironmentVersion(environmentVariable, withFallback = true) {
     const fallback = withFallback ? this.fallbackVersion : undefined;
-    return this.environmentUtils.get(this.environmentVersionName, fallback).trim();
+    return this.environmentUtils.get(environmentVariable, fallback).trim();
   }
   /**
    * Get the version from the revision file. If the revision file doesn't exist or can't be loaded,
    * it will return an empty string.
    * @param  {String} filename The path to the revision file.
    * @return {String}
-   * @todo This method should also support the `withFallback` parameter.
    */
   getVersionFromFile(filename) {
     let version;
@@ -77,13 +72,14 @@ class VersionUtils {
   }
   /**
    * Look for a version on both the revision file and the environment variable.
-   * @param {String} revisionFilename The path to the revision file.
+   * @param {String} revisionFilename    The path to the revision file.
+   * @param {string} environmentVariable The name of the environment variable.
    * @return {String}
    */
-  getVersion(revisionFilename) {
+  getVersion(revisionFilename, environmentVariable) {
     if (!this._loadedVersion || this._loadedVersion === this.fallbackVersion) {
       this._loadedVersion = this.getVersionFromFile(revisionFilename) ||
-        this.getEnvironmentVersion();
+        this.getEnvironmentVersion(environmentVariable);
     }
 
     return this._loadedVersion;
@@ -91,11 +87,12 @@ class VersionUtils {
   /**
    * Create the revision file with either the version from the environment or, if the project is
    * on a GIT repository, with the first `7` letters of the last commit hash.
-   * @param  {String} revisionFilename The path to where the revision file will be created.
-   * @return {Promise<String,Error>} If everything goes well, the promise will resolve with the
+   * @param {string} revisionFilename    The path to where the revision file will be created.
+   * @param {string} environmentVariable The name of the environment variable.
+   * @return {Promise<string,Error>} If everything goes well, the promise will resolve with the
    *                                 version the method wrote on the file.
    */
-  createRevisionFile(revisionFilename) {
+  createRevisionFile(revisionFilename, environmentVariable) {
     let inRepository = true;
     try {
       fs.statSync('./.git');
@@ -104,7 +101,7 @@ class VersionUtils {
     }
 
     let version = '';
-    const envVersion = this.getEnvironmentVersion(false);
+    const envVersion = this.getEnvironmentVersion(environmentVariable, false);
     if (envVersion) {
       version = envVersion;
     } else if (shell.which('git') && inRepository) {
@@ -135,7 +132,7 @@ class VersionUtils {
     } else {
       this.appLogger.error('The revision file couldn\'t be created');
       const errorMessage = 'The project is not running on a GIT environment and there\'s no ' +
-        `${this.environmentVersionName} variable set`;
+        `${environmentVariable} variable set`;
       write = Promise.reject(new Error(errorMessage));
     }
 

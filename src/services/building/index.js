@@ -4,6 +4,7 @@ const { buildEngines } = require('./buildEngines');
 const { buildNodeRunner } = require('./buildNodeRunner');
 const { buildNodeRunnerProcess } = require('./buildNodeRunnerProcess');
 const { buildTranspiler } = require('./buildTranspiler');
+const { buildVersion } = require('./buildVersion');
 const { builder } = require('./builder');
 const { targets } = require('./targets');
 
@@ -14,6 +15,7 @@ module.exports = {
   buildNodeRunner,
   buildNodeRunnerProcess,
   buildTranspiler,
+  buildVersion,
   builder,
   targets,
 };

@@ -25,6 +25,7 @@ const {
   buildNodeRunner,
   buildNodeRunnerProcess,
   buildTranspiler,
+  buildVersion,
   builder,
   targets,
 } = require('../services/building');
@@ -85,6 +86,7 @@ class Woopack extends Jimple {
     this.register(buildNodeRunner);
     this.register(buildNodeRunnerProcess);
     this.register(buildTranspiler);
+    this.register(buildVersion);
     this.register(builder);
     this.register(targets);
 

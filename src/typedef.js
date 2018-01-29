@@ -19,11 +19,6 @@
  */
 
 /**
- * @external {APIClientEndpoints}
- * https://homer0.github.io/wootils/typedef/index.html#static-typedef-APIClientEndpoints
- */
-
-/**
  * @external {PathUtils}
  * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html
  */
@@ -36,6 +31,11 @@
 /**
  * @external {EnvironmentUtils}
  * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html
+ */
+
+/**
+ * @external {EventsHub}
+ * https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html
  */
 
 /**
@@ -521,6 +521,8 @@
  * The intended build type: `development` or `production`.
  * @param {boolean} [forceRun=false]
  * Force the target to run even if the `runOnDevelopment` setting is `false`.
+ * @return {string}
+ * The command the shell script will use to build the target.
  */
 
 /**

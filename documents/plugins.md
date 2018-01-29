@@ -31,13 +31,13 @@ woopack has an `events` service that is an implementation of [wootil's `EventsHu
 ...
 module.exports = (woopack) => {
 	...
-	const events = woopack.get('events);
+	const events = woopack.get('events');
 
 	// Add a new listener for a regular event
 	events.on('some-event', () => {
 	  console.log('some-event was fired!');
 	});
-	
+
 	// Add a reducer event
 	events.on('some-reducer-events', (someConfiguration) => Object.assign({}, someConfiguration, {
 	  name: 'charito',
@@ -49,8 +49,8 @@ module.exports = (woopack) => {
 
 #### Revision file creation
 
-- name: `revision-file-created`.
-- parameters:
+- Name: `revision-file-created`.
+- Parameters:
  - `version`: The version written on the file.
 
 This is emitted if the revision file feature is enabled (check the project configuration document) and the command that creates it was called.
@@ -59,23 +59,23 @@ This is emitted if the revision file feature is enabled (check the project confi
 
 #### List of the project files and/or folders to copy
 
-- name: `project-files-to-copy`.
-- reduces: The list of files and/or folders to copy.
+- Name: `project-files-to-copy`.
+- Reduces: The list of files and/or folders to copy.
 
 This event is used if the feature to copy project files is enabled (check the project configuration document) and the command that does the copying is called.
 
 #### Target information
 
-- name: `target-load`.
-- reduces: A target information.
+- Name: `target-load`.
+- Reduces: A target information.
 
 This is called when woopack loads a new target, after defining its paths and applying its type template.
 
 #### The list of commands to build a target
 
-- name: `build-target-commands-list`.
-- reduces: The list of CLI commands woopack uses to build a target.
-- parameters:
+- Name: `build-target-commands-list`.
+- Reduces: The list of CLI commands woopack uses to build a target.
+- Parameters:
  - `target`: The target information.
  - `type`: The build type, `development` or `production`.
  - `run`: Whether or not the target will be executed after building.
@@ -84,9 +84,9 @@ In order to build targets, woopack generates a list of CLI commands that a shell
 
 #### A target Babel configuration
 
-- name: `babel-configuration`.
-- reduces: The Babel configuration for an specific target.
-- parameters:
+- Name: `babel-configuration`.
+- Reduces: The Babel configuration for an specific target.
+- Parameters:
  - `target`: The target information.
 
 When building a target, woopack will create a Babel configuration based on this settings, then this event is used to reduce that configuration.

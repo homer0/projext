@@ -9,12 +9,12 @@ const { provider } = require('jimple');
 class BuildTranspiler {
   /**
    * Class constructor.
-   * @param {BabelConfiguration}   babelConfiguration   To get a target Babel configuration.
-   * @param {Logger}               appLogger            To print information messages after
-   *                                                    transpiling files.
-   * @param {PathUtils}            pathUtils            To build paths for targets files.
-   * @param {ProjectConfiguration} projectConfiguration To read the project paths.
-   * @param {Targets}              targets              To access targets information.
+   * @param {BabelConfiguration}           babelConfiguration   To get a target Babel configuration.
+   * @param {Logger}                       appLogger            To print information messages after
+   *                                                            transpiling files.
+   * @param {PathUtils}                    pathUtils            To build paths for targets files.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the project paths.
+   * @param {Targets}                      targets              To access targets information.
    */
   constructor(
     babelConfiguration,
@@ -39,8 +39,8 @@ class BuildTranspiler {
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference for the `projectConfiguration` service.
-     * @type {ProjectConfiguration}
+     * All the project settings.
+     * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
     /**
@@ -53,9 +53,8 @@ class BuildTranspiler {
    * Transpile a target files for a given build type. This requires the target files to have been
    * previously copied to the distribution directory.
    * @param {Target} target    The target information.
-   * @param {[type]} buildType Required in order to get the target entry file for that build type
-   *                           and use that directory as reference of what it needs to be
-   *                           transpiled.
+   * @param {string} buildType Required in order to get the target entry file and use that
+   *                           directory as reference of what it needs to be transpiled.
    * @return {Promise<undefined,Error}
    */
   transpileTargetFiles(target, buildType) {
@@ -97,16 +96,16 @@ class BuildTranspiler {
   }
   /**
    * Transpile a file.
-   * @param {String|Object} filepath         If used as a string, it's the path to the file to
+   * @param {string|Object} filepath         If used as a string, it's the path to the file to
    *                                         transpile; if used as an object, it should have
    *                                         `source` and `output` properties to define from where
    *                                         to where the file is transpiled.
    * @param {?Object}       [options=null]   The Babel configuration to use. If not defined, the
    *                                         method will try to find a target configuration using
    *                                         the path of the file.
-   * @param {Boolean}       [writeFile=true] If `true`, it will write the transpile code,
+   * @param {boolean}       [writeFile=true] If `true`, it will write the transpile code,
    *                                         otherwise, it will return it on the promise.
-   * @return {Promise<Object|String,Error>} If `writeFile` is true, the promise will resolve on
+   * @return {Promise<Object|string,Error>} If `writeFile` is true, the promise will resolve on
    *                                        an object with the keys `filepath` (the path where it
    *                                        was transpiled) and `code`; but if the parameter is
    *                                        `false`, the promise will resolve on a string with
@@ -157,16 +156,16 @@ class BuildTranspiler {
   }
   /**
    * Synchronous version of `transpileFile`.
-   * @param {String|Object} filepath         If used as a string, it's the path to the file to
+   * @param {string|Object} filepath         If used as a string, it's the path to the file to
    *                                         transpile; if used as an object, it should have
    *                                         `source` and `output` properties to define from where
    *                                         to where the file is transpiled.
    * @param {?Object}       [options=null]   The Babel configuration to use. If not defined, the
    *                                         method will try to find a target configuration using
    *                                         the path of the file.
-   * @param {Boolean}       [writeFile=true] If `true`, it will write the transpile code,
+   * @param {boolean}       [writeFile=true] If `true`, it will write the transpile code,
    *                                         otherwise, it will return it.
-   * @return {Object|String} If `writeFile` is true, it will return an object with the keys
+   * @return {Object|string} If `writeFile` is true, it will return an object with the keys
    *                         `filepath` (the path where it was transpiled) and `code`; but if the
    *                         parameter is `false`, it will return a string with the path to the
    *                         file.
@@ -207,8 +206,8 @@ class BuildTranspiler {
   }
   /**
    * Find files of a given type on a directory.
-   * @param {String} directory                 The directory where the files will be searched for.
-   * @param {String} [pattern='**\/*.{js,jsx}'] A glob pattern to match the files.
+   * @param {string} directory                 The directory where the files will be searched for.
+   * @param {string} [pattern='**\/*.{js,jsx}'] A glob pattern to match the files.
    * @return {Promise<Array,Error>} If everything goes well, the promise will resolve on the list
    *                                of files found.
    */
@@ -225,7 +224,7 @@ class BuildTranspiler {
   }
   /**
    * Get a target Babel configuration based on a filepath.
-   * @param {String} file The file that will be used to obtain the target and then the Babel
+   * @param {string} file The file that will be used to obtain the target and then the Babel
    *                      configuration.
    * @return {Object}
    * @throws {Error} If no target can be found.

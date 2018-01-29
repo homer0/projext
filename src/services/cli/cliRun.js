@@ -15,12 +15,12 @@ class CLIRunCommand extends CLICommand {
     super();
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'run [target]';
     /**
      * A description of the command for the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Run a target on a development build type';
   }

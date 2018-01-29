@@ -7,8 +7,8 @@ const { provider } = require('jimple');
 class Copier {
   /**
    * Copy a list of items between an `origin` directory and a `target` directory.
-   * @param {String} origin The path to the origin directory.
-   * @param {String} target The path to the target directory.
+   * @param {string} origin The path to the origin directory.
+   * @param {string} target The path to the target directory.
    * @param {Array}  items  The list of items to copy. Each item can be a `string` with the path to
    *                        the item, or an object with origin path of the file as key and the
    *                        target path as value.
@@ -46,8 +46,8 @@ class Copier {
   }
   /**
    * Copy a single file from one location to another.
-   * @param {String} from The current location of the file.
-   * @param {String} to   The location of the copy.
+   * @param {string} from The current location of the file.
+   * @param {string} to   The location of the copy.
    * @return {Promise<Object,Object>} The promise will resolve on an object with the information of
    *                                  the process: `from`, `to` and `success`.
    */
@@ -69,8 +69,8 @@ class Copier {
    * Copy a Node module. The reason this is different from `copyFile` is because instead of copying
    * the entire module, we first read all the files on its directory, remove its modules and the
    * lock files and then copy all the rest.
-   * @param {String} from The module path.
-   * @param {String} to   The path to where it will be copied.
+   * @param {string} from The module path.
+   * @param {string} to   The path to where it will be copied.
    * @return {Promise<Object,Object>} The promise will resolve on an object with the information of
    *                                  the process: `from`, `to` and `success`.
    */
@@ -118,7 +118,7 @@ class Copier {
   }
   /**
    * Check if an item exists.
-   * @param  {String} item The path for the item.
+   * @param  {string} item The path for the item.
    * @return {Promise<Object,Error>} If everything goes well, the promise will resolve on an object
    *                                 with the keys `item`, for the item path, and `exists` to
    *                                 indicate whether the item exists or not.

@@ -6,9 +6,9 @@ const { provider } = require('jimple');
 class Cleaner {
   /**
    * Remove items that match a glob pattern from a given directory.
-   * @param {String}  directory            The path to the target directory.
+   * @param {string}  directory            The path to the target directory.
    * @param {Array}   files                The list of files/folders to remove.
-   * @param {Boolean} [removeOthers=false] If `true`, it will remove everything but the specified
+   * @param {boolean} [removeOthers=false] If `true`, it will remove everything but the specified
    *                                       `files`.
    * @return {Promise<undefined,Error>}
    */

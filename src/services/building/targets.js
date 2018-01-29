@@ -8,14 +8,15 @@ const { provider } = require('jimple');
 class Targets {
   /**
    * Class constructor.
-   * @param {Events}               events               Used to reduce a target information after
-   *                                                    loading it.
-   * @param {EnvironmentUtils}     environmentUtils     To send to the configuration service used
-   *                                                    by the browser targets.
-   * @param {PathUtils}            pathUtils            Used to build the targets paths.
-   * @param {ProjectConfiguration} projectConfiguration To read the targets and their templates.
-   * @param {Function}             rootRequire          To send to the configuration service used
-   *                                                    by the browser targets.
+   * @param {Events}                       events               Used to reduce a target information
+   *                                                            after loading it.
+   * @param {EnvironmentUtils}             environmentUtils     To send to the configuration
+   *                                                            service used by the browser targets.
+   * @param {PathUtils}                    pathUtils            Used to build the targets paths.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the targets and their
+   *                                                            templates.
+   * @param {RootRequire}                  rootRequire          To send to the configuration
+   *                                                            service used by the browser targets.
    */
   constructor(
     events,
@@ -40,13 +41,13 @@ class Targets {
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference for the `projectConfiguration` service.
-     * @type {ProjectConfiguration}
+     * All the project settings.
+     * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
     /**
      * A local reference for the `rootRequire` function service.
-     * @type {Function}
+     * @type {RootRequire}
      */
     this.rootRequire = rootRequire;
     /**
@@ -61,7 +62,7 @@ class Targets {
     this.typesValidationRegex = /^(?:node|browser)$/i;
     /**
      * The default type a target will be if it doesn't have a `type` property.
-     * @type {String}
+     * @type {string}
      */
     this.defaultType = 'node';
     this.loadTargets();
@@ -139,7 +140,7 @@ class Targets {
   }
   /**
    * Get a target information by its name.
-   * @param {String} name The target name.
+   * @param {string} name The target name.
    * @return {Target}
    * @throws {Error} If there's no target with the given name.
    */
@@ -153,7 +154,7 @@ class Targets {
   }
   /**
    * Find a target by a given filepath.
-   * @param {String} file The path of the file that should match with a target path.
+   * @param {string} file The path of the file that should match with a target path.
    * @return {Target}
    * @throws {Error} If no target is found.
    * @todo The implementation of this method also throws an error if no target is found.

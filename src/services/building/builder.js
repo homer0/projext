@@ -53,9 +53,9 @@ class Builder {
    * empty string, otherwise, it will ask the build engine the target uses for the required shell
    * command.
    * @param {Target}  target           The target information.
-   * @param {String}  buildType        The type of build intended: `production` or `development`.
-   * @param {Boolean} [forceRun=false] Whether or not the build command should also run the target.
-   * @return {String}
+   * @param {string}  buildType        The type of build intended: `production` or `development`.
+   * @param {boolean} [forceRun=false] Whether or not the build command should also run the target.
+   * @return {string}
    */
   getTargetBuildCommand(target, buildType, forceRun = false) {
     let command = '';
@@ -70,8 +70,8 @@ class Builder {
    * Copy a target files to the distribution directory. The only reason to copy a target files are:
    * If the target needs to be transpiles or if the build type is `production`, on all the other
    * cases the method won't do anything.
-   * @param {String} targetName The name of the target.
-   * @param {String} buildType  The type of build it's being made: `production` or `development`.
+   * @param {string} targetName The name of the target.
+   * @param {string} buildType  The type of build it's being made: `production` or `development`.
    * @return {Promise<undefined,Error>}
    */
   copyTarget(targetName, buildType) {
@@ -93,8 +93,8 @@ class Builder {
    * Transpile a target files **that have been previously copied** to the distribution directory.
    * If the target is not a Node target or it doesn't require transpiling, this method won't do
    * anything.
-   * @param {String} targetName The name of the target.
-   * @param {String} buildType  The type of build it's being made: `production` or `development`.
+   * @param {string} targetName The name of the target.
+   * @param {string} buildType  The type of build it's being made: `production` or `development`.
    * @return {Promise<undefined,Error>}
    */
   transpileTarget(targetName, buildType) {
@@ -114,7 +114,7 @@ class Builder {
   }
   /**
    * Removes all previous builds/copies of a target from the distribution directory.
-   * @param {String} targetName The name of the target.
+   * @param {string} targetName The name of the target.
    * @return {Promise<undefined,Error>}
    */
   cleanTarget(targetName) {

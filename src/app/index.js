@@ -55,7 +55,6 @@ const {
  * Woopack dependecy injection container. This class is in charge of registering all the Woopack
  * known services, load any existing plugin and add an error handler.
  * @extends {Jimple}
- * @see https://yarnpkg.com/en/package/jimple
  */
 class Woopack extends Jimple {
   /**

@@ -14,12 +14,12 @@ class CLIBuildCommand extends CLICommand {
     super();
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'build [target]';
     /**
      * A description of the command for the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Build a target';
     this.addOption(

@@ -22,7 +22,7 @@ class BuildEngines {
   }
   /**
    * Get a build engine service.
-   * @param {String} name The engine name.
+   * @param {string} name The engine name.
    * @return {BuildEngine}
    * @throws {Error} If the service is not registered.
    */

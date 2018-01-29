@@ -9,9 +9,9 @@ class ConfigurationFile {
   /**
    * Class constructor.
    * @param {PathUtils}         pathUtils            To build the path to the overwrite file.
-   * @param {String}            overwritePath        The path, inside the `config` folder, for the
+   * @param {string}            overwritePath        The path, inside the `config` folder, for the
    *                                                 file that can overwrite the configuration.
-   * @param {Boolean}           [asFactory=false]    If `true`, every time `getConfig` gets called,
+   * @param {boolean}           [asFactory=false]    If `true`, every time `getConfig` gets called,
    *                                                 the configuration will be created again,
    *                                                 instead of caching it the first time it's
    *                                                 created.
@@ -34,12 +34,12 @@ class ConfigurationFile {
     this.pathUtils = pathUtils;
     /**
      * The path, inside the `config` folder, for the file that can overwrite the configuration.
-     * @type {String}
+     * @type {string}
      */
     this.overwritePath = overwritePath;
     /**
      * Whether the configuration should be created every time `getConfig` gets called or not.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.asFactory = asFactory;
     /**
@@ -54,7 +54,7 @@ class ConfigurationFile {
     this._config = null;
     /**
      * A flag to know if the overwrite file has been loaded or not.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this._fileConfigLoaded = false;
     /**

@@ -15,12 +15,12 @@ class CLICommand {
     }
     /**
      * The CLI command instruction. For example `my-command [target]`.
-     * @type {String}
+     * @type {string}
      */
     this.command = '';
     /**
      * A description of the command for the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = '';
     /**
@@ -38,13 +38,13 @@ class CLICommand {
     /**
      * This is a useful flag for when the command is ran as a result of another command. It lets
      * the interface know that it can search for option values on a parent command, if there's one.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.checkOptionsOnParent = true;
     /**
      * Whether the command and its description should be shown on the CLI interface list of
      * commands.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.hidden = false;
     /**
@@ -52,13 +52,13 @@ class CLICommand {
      * of `git`, where `git checkout [branch]` executes `git` as main program, and `checkout` as a
      * sub program. If this is `true`, then a binary with the name of the command should be
      * exported on the `package.json`.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.subProgram = false;
     /**
      * This is the name of the program that runs the command. It will be added when the command
      * is registered on the program.
-     * @type {String}
+     * @type {string}
      */
     this.cliName = '';
   }
@@ -80,10 +80,10 @@ class CLICommand {
    *   false
    * );
    *
-   * @param {String} name              The option name.
-   * @param {String} instruction       The option instruction, for example: `-t, --type [type]`.
-   * @param {String} [description='']  The option description.
-   * @param {String} [defaultValue=''] The option default value, in case is not used on execution.
+   * @param {string} name              The option name.
+   * @param {string} instruction       The option instruction, for example: `-t, --type [type]`.
+   * @param {string} [description='']  The option description.
+   * @param {string} [defaultValue=''] The option default value, in case is not used on execution.
    */
   addOption(name, instruction, description = '', defaultValue = '') {
     this.optionsByName[name] = {
@@ -99,7 +99,7 @@ class CLICommand {
    * Register this command on a CLI program.
    * @param {Command} program  A Commander instance.
    * @param {Object}  cli      The main CLI interface, just for the name.
-   * @param {String}  cli.name The CLI interface name.
+   * @param {string}  cli.name The CLI interface name.
    * @see https://yarnpkg.com/en/package/commander
    */
   register(program, cli) {
@@ -150,7 +150,7 @@ class CLICommand {
    * @param  {Object} [args={}] A dictionary with the arguments and options for the command. If the
    *                            command includes an argument on its `command` property, that
    *                            argument is required.
-   * @return {String} The command instruction to run on the CLI interface.
+   * @return {string} The command instruction to run on the CLI interface.
    */
   generate(args = {}) {
     let cmd = this.command;
@@ -222,7 +222,7 @@ class CLICommand {
   }
   /**
    * A simple wrapper for a `console.log`. Outputs a variable to the CLI interface.
-   * @param {String} text The text to output.
+   * @param {string} text The text to output.
    */
   output(text) {
     // eslint-disable-next-line no-console

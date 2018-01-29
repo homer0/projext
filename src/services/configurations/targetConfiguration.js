@@ -11,7 +11,7 @@ const ConfigurationFile = require('../../interfaces/configurationFile');
 class TargetConfiguration extends ConfigurationFile {
   /**
    * Class constructor.
-   * @param {String}            overwritePath     The path to the overwrite file.
+   * @param {string}            overwritePath     The path to the overwrite file.
    * @param {ConfigurationFile} baseConfiguration The configuration this will be extending.
    * @param {PathUtils}         pathUtils         Because `ConfigurationFile` needs it in order to
    *                                              build the overwrite path.`

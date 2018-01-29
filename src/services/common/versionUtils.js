@@ -29,12 +29,12 @@ class VersionUtils {
     this.pathUtils = pathUtils;
     /**
      * The default fallback version in case none can be retrieved.
-     * @type {String}
+     * @type {string}
      */
     this.fallbackVersion = 'development';
     /**
      * This will be filled with the version on the revision file, if it exists.
-     * @type {null|String}
+     * @type {null|string}
      * @ignore
      * @access protected
      */
@@ -45,7 +45,7 @@ class VersionUtils {
    * @param {string}  environmentVariable The name of the environment variable.
    * @param {boolean} [withFallback=true] If `true` and there's no version on the variable, it will
    *                                       return the fallback version.
-   * @return {String}
+   * @return {string}
    */
   getEnvironmentVersion(environmentVariable, withFallback = true) {
     const fallback = withFallback ? this.fallbackVersion : undefined;
@@ -54,8 +54,8 @@ class VersionUtils {
   /**
    * Get the version from the revision file. If the revision file doesn't exist or can't be loaded,
    * it will return an empty string.
-   * @param  {String} filename The path to the revision file.
-   * @return {String}
+   * @param  {string} filename The path to the revision file.
+   * @return {string}
    */
   getVersionFromFile(filename) {
     let version;
@@ -72,9 +72,9 @@ class VersionUtils {
   }
   /**
    * Look for a version on both the revision file and the environment variable.
-   * @param {String} revisionFilename    The path to the revision file.
+   * @param {string} revisionFilename    The path to the revision file.
    * @param {string} environmentVariable The name of the environment variable.
-   * @return {String}
+   * @return {string}
    */
   getVersion(revisionFilename, environmentVariable) {
     if (!this._loadedVersion || this._loadedVersion === this.fallbackVersion) {

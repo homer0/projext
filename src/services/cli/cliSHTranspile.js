@@ -19,13 +19,13 @@ class CLISHTranspileCommand extends CLICommand {
     this.builder = builder;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'sh-transpile-target [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Transpile a target code if needed';
     this.addOption(
@@ -36,16 +36,16 @@ class CLISHTranspileCommand extends CLICommand {
     );
     /**
      * Hide the command from the help interface.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.hidden = true;
   }
   /**
    * Handle the execution of the command and copies a target files.
-   * @param {String}  target       The name of the target.
+   * @param {string}  target       The name of the target.
    * @param {Command} command      The executed command (sent by `commander`).
    * @param {Object}  options      The command options.
-   * @param {String}  options.type The type of build.
+   * @param {string}  options.type The type of build.
    */
   handle(target, command, options) {
     return this.builder.transpileTarget(target, options.type);

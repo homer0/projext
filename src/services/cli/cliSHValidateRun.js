@@ -11,7 +11,7 @@ const CLICommand = require('../../interfaces/cliCommand');
 class CLISHValidateRunCommand extends CLICommand {
   /**
    * Class constructor.
-   * @param {Targets} targets   To validate a target existence.
+   * @param {Targets} targets To validate a target existence.
    */
   constructor(targets) {
     super();
@@ -22,13 +22,13 @@ class CLISHValidateRunCommand extends CLICommand {
     this.targets = targets;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'sh-validate-run [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Validate the arguments before the shell executes the task';
     this.addOption(
@@ -46,13 +46,13 @@ class CLISHValidateRunCommand extends CLICommand {
     );
     /**
      * Hide the command from the help interface.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.hidden = true;
   }
   /**
    * Handle the execution of the command and validate the target existence.
-   * @param {String} name The name of the target.
+   * @param {string} name The name of the target.
    */
   handle(name) {
     // If the target doesn't exist, this will throw an error.

@@ -6,14 +6,16 @@ const { provider } = require('jimple');
 class BuildCleaner {
   /**
    * Class constructor.
-   * @param {Logger}               appLogger            Used to inform the user when files haven
-   *                                                    been removed of it there was a problem
-   *                                                    removing them.
-   * @param {cleaner}              cleaner              The function that removes directories and
-   *                                                    files using glob patterns.
-   * @param {PathUtils}            pathUtils            Necessary to build the paths to clean.
-   * @param {ProjectConfiguration} projectConfiguration To read the project information and get
-   *                                                    paths.
+   * @param {Logger}                       appLogger            Used to inform the user when files
+   *                                                            haven been removed of it there was
+   *                                                            a problem removing them.
+   * @param {Cleaner.clean}                cleaner              The function that removes
+   *                                                            directories and files using glob
+   *                                                            patterns.
+   * @param {PathUtils}                    pathUtils            Necessary to build the paths to
+   *                                                            clean.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the project information and
+   *                                                            get paths.
    */
   constructor(
     appLogger,
@@ -28,7 +30,7 @@ class BuildCleaner {
     this.appLogger = appLogger;
     /**
      * A local reference for the `cleaner` service function.
-     * @type {Logger}
+     * @type {Cleaner.clean}
      */
     this.cleaner = cleaner;
     /**
@@ -37,8 +39,8 @@ class BuildCleaner {
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference for the `projectConfiguration` service.
-     * @type {ProjectConfiguration}
+     * All the project settings.
+     * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
   }
@@ -140,7 +142,7 @@ class BuildCleaner {
   }
   /**
    * Get all the names variations for a target bundled file based on the target name.
-   * @param {String} name The target name.
+   * @param {string} name The target name.
    * @return {Array} A list of all the possible names of files related to that target.
    */
   getTargetNamesVariation(name) {

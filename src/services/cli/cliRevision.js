@@ -19,12 +19,12 @@ class CLIRevisionCommand extends CLICommand {
     this.buildVersion = buildVersion;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'create-revision';
     /**
      * A description of the command for the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Create the revision file with the project version';
   }

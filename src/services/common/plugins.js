@@ -5,7 +5,7 @@ const { provider } = require('jimple');
 class Plugins {
   /**
    * Class constructor.
-   * @param {String}    prefix      The prefix the dependencies need to have in order to be
+   * @param {string}    prefix      The prefix the dependencies need to have in order to be
    *                                identified as plugins.
    * @param {Woopack}   app         The send to the plugis so they can register their services.
    * @param {Logger}    appLogger   To indicate if a plugin couldn't be loaded.
@@ -15,7 +15,7 @@ class Plugins {
   constructor(prefix, app, appLogger, packageInfo, pathUtils) {
     /**
      * The prefix the dependencies need to have in order to be identified as plugins.
-     * @type {String}
+     * @type {string}
      */
     this.prefix = prefix;
     /**
@@ -41,9 +41,9 @@ class Plugins {
   }
   /**
    * Load all the plugins.
-   * @param  {Boolean} [dependencies=true]    Whether or not to look for plugins on the
+   * @param  {boolean} [dependencies=true]    Whether or not to look for plugins on the
    *                                          `dependencies`.
-   * @param  {Boolean} [devDependencies=true] Whether or not to look for plugins on the
+   * @param  {boolean} [devDependencies=true] Whether or not to look for plugins on the
    *                                          `devDependencies`.
    */
   load(dependencies = true, devDependencies = true) {
@@ -62,7 +62,7 @@ class Plugins {
   }
   /**
    * Load a plugin by its package name.
-   * @param  {String} packageName The name of the plugin.
+   * @param  {string} packageName The name of the plugin.
    * @throws {Error} If the plugin can't be loaded or registered.
    * @ignore
    * @access protected
@@ -88,7 +88,7 @@ class Plugins {
  * container.register(provider);
  * // Getting access to the service instance
  * const plugins = container.get('plugins');
- * @param {String} prefix The prefix the dependencies need to have in order to
+ * @param {string} prefix The prefix the dependencies need to have in order to
  *                        be identified as plugins.
  * @return {Provider}
  */

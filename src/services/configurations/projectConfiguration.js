@@ -19,7 +19,7 @@ class ProjectConfiguration extends ConfigurationFile {
   }
   /**
    * Create the project configuration with all its _'smart defaults'_.
-   * @return {Object}
+   * @return {ProjectConfigurationSettings}
    */
   createConfig() {
     return {

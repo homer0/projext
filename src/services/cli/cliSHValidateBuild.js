@@ -28,13 +28,13 @@ class CLISHValidateBuildCommand extends CLICommand {
     this.targets = targets;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'sh-validate-build [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Validate the arguments before the shell executes the task';
     this.addOption(
@@ -52,17 +52,17 @@ class CLISHValidateBuildCommand extends CLICommand {
     );
     /**
      * Hide the command from the help interface.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.hidden = true;
   }
   /**
    * Handle the execution of the command and validate all the arguments.
-   * @param {String}  name         The name of the target.
+   * @param {string}  name         The name of the target.
    * @param {Command} command      The executed command (sent by `commander`).
    * @param {Object}  options      The command options.
-   * @param {String}  options.type The type of build.
-   * @param {String}  options.type Whether or not the target should be executed.
+   * @param {string}  options.type The type of build.
+   * @param {string}  options.type Whether or not the target should be executed.
    */
   handle(name, command, options) {
     const { run, type } = options;

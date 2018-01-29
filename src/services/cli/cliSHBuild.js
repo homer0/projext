@@ -9,34 +9,34 @@ const CLICommand = require('../../interfaces/cliCommand');
 class CLISHBuildCommand extends CLICommand {
   /**
    * Class constructor.
-   * @param {Builder}                    builder                    Needed to generate a target
-   *                                                                build command.
-   * @param {CLICleanCommand}            cliCleanCommand            Needed to generate the command
-   *                                                                that cleans a target files.
-   * @param {CLICopyProjectFilesCommand} cliCopyProjectFilesCommand Needed to generate the command
-   *                                                                to copy the project files if
-   *                                                                the feature of copying on build
-   *                                                                is enabled.
-   * @param {CLIRevisionCommand}         cliRevisionCommand         Needed to generate the command
-   *                                                                that creates the revision file
-   *                                                                if the feature of generating it
-   *                                                                on build is enabled.
-   * @param {CLISHCopyCommand}           cliSHCopyCommand           Needed to generate the command
-   *                                                                to copy the target files if
-   *                                                                the target doesn't require
-   *                                                                bundling.
-   * @param {CLISHNodeRunCommand}        cliSHNodeRunCommand        Needed to generate the command
-   *                                                                to run a Node target if the
-   *                                                                `run` option is used.
-   * @param {CLISHTranspileCommand}      cliSHTranspileCommand      Needed to generate the command
-   *                                                                to transpile a Node target
-   *                                                                code.
-   * @param {Events}                     events                     Used to reduce the list of
-   *                                                                commands generated.
-   * @param {ProjectConfiguration}       projectConfiguration       Used to read and validate the
-   *                                                                features.
-   * @param {Targets}                    targets                    Used to get the targets
-   *                                                                information.
+   * @param {Builder}                      builder                    Needed to generate a target
+   *                                                                  build command.
+   * @param {CLICleanCommand}              cliCleanCommand            Needed to generate the command
+   *                                                                  that cleans a target files.
+   * @param {CLICopyProjectFilesCommand}   cliCopyProjectFilesCommand Needed to generate the command
+   *                                                                  to copy the project files if
+   *                                                                  the feature of copying on
+   *                                                                  build is enabled.
+   * @param {CLIRevisionCommand}           cliRevisionCommand         Needed to generate the command
+   *                                                                  that creates the revision file
+   *                                                                  if the feature of generating
+   *                                                                  it on build is enabled.
+   * @param {CLISHCopyCommand}             cliSHCopyCommand           Needed to generate the command
+   *                                                                  to copy the target files if
+   *                                                                  the target doesn't require
+   *                                                                  bundling.
+   * @param {CLISHNodeRunCommand}          cliSHNodeRunCommand        Needed to generate the command
+   *                                                                  to run a Node target if the
+   *                                                                  `run` option is used.
+   * @param {CLISHTranspileCommand}        cliSHTranspileCommand      Needed to generate the command
+   *                                                                  to transpile a Node target
+   *                                                                  code.
+   * @param {Events}                       events                     Used to reduce the list of
+   *                                                                  commands generated.
+   * @param {ProjectConfigurationSettings} projectConfiguration       Used to read and validate the
+   *                                                                  features.
+   * @param {Targets}                      targets                    Used to get the targets
+   *                                                                  information.
    */
   constructor(
     builder,
@@ -92,8 +92,8 @@ class CLISHBuildCommand extends CLICommand {
      */
     this.events = events;
     /**
-     * A local reference for the `projectConfiguration` service.
-     * @type {ProjectConfiguration}
+     * All the project settings.
+     * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
     /**
@@ -103,13 +103,13 @@ class CLISHBuildCommand extends CLICommand {
     this.targets = targets;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'sh-build [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Get the build commands for the shell program to execute';
     this.addOption(
@@ -127,7 +127,7 @@ class CLISHBuildCommand extends CLICommand {
     );
     /**
      * Hide the command from the help interface.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.hidden = true;
   }
@@ -136,11 +136,11 @@ class CLISHBuildCommand extends CLICommand {
    * This method emits the event reducer `build-target-commands-list` with the list of commands,
    * the target information, the type of build and whether or not the target should be executed;
    * and it expects a list of commands on return.
-   * @param {String}  name         The name of the target.
+   * @param {string}  name         The name of the target.
    * @param {Command} command      The executed command (sent by `commander`).
    * @param {Object}  options      The command options.
-   * @param {String}  options.type The type of build.
-   * @param {Boolean} options.run  Whether or not the target also needs to be executed.
+   * @param {string}  options.type The type of build.
+   * @param {boolean} options.run  Whether or not the target also needs to be executed.
    */
   handle(name, command, options) {
     const { type } = options;
@@ -168,8 +168,8 @@ class CLISHBuildCommand extends CLICommand {
   /**
    * Get the build (and run) commands for a Node target.
    * @param {Target}  target The target information.
-   * @param {String}  type   The intended build type: `development` or `production`.
-   * @param {Boolean} run    Whether or not the target needs to be executed.
+   * @param {string}  type   The intended build type: `development` or `production`.
+   * @param {boolean} run    Whether or not the target needs to be executed.
    * @return {Array}
    */
   getCommandsForNodeTarget(target, type, run) {
@@ -216,8 +216,8 @@ class CLISHBuildCommand extends CLICommand {
   /**
    * Get the build (and run) commands for a browser target.
    * @param {Target}  target The target information.
-   * @param {String}  type   The intended build type: `development` or `production`.
-   * @param {Boolean} run    Whether or not the target needs to be executed.
+   * @param {string}  type   The intended build type: `development` or `production`.
+   * @param {boolean} run    Whether or not the target needs to be executed.
    * @return {Array}
    */
   getCommandsForBrowserTarget(target, type, run) {
@@ -252,13 +252,13 @@ class CLISHBuildCommand extends CLICommand {
    * build, otherwise, it will return an empty string.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
    * @param {Target}  target      The target information.
-   * @param {String}  type        The intended build type: `development` or `production`.
-   * @param {Boolean} build       Whether or not the target will be build.
-   * @return {String}
+   * @param {string}  type        The intended build type: `development` or `production`.
+   * @param {boolean} build       Whether or not the target will be build.
+   * @return {string}
    */
   getCleanCommandIfNeeded(args, target, type, build) {
     return build && target.cleanBeforeBuild ?
@@ -269,14 +269,14 @@ class CLISHBuildCommand extends CLICommand {
    * Get the command to actually build a target.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
    * @param {Target}  target      The target information.
-   * @param {String}  type        The intended build type: `development` or `production`.
-   * @param {Boolean} build       Whether or not the target will be build.
-   * @param {Boolean} run         Whether or not the target will be executed.
-   * @return {String}
+   * @param {string}  type        The intended build type: `development` or `production`.
+   * @param {boolean} build       Whether or not the target will be build.
+   * @param {boolean} run         Whether or not the target will be executed.
+   * @return {string}
    */
   getBuildCommandIfNeeded(args, target, type, build, run) {
     return this.builder.getTargetBuildCommand(target, type, run);
@@ -286,13 +286,13 @@ class CLISHBuildCommand extends CLICommand {
    * counts) and it doesn't support bundling, otherwise, it will return an empty string.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
    * @param {Target}  target      The target information.
-   * @param {String}  type        The intended build type: `development` or `production`.
-   * @param {Boolean} build       Whether or not the target will be build.
-   * @return {String}
+   * @param {string}  type        The intended build type: `development` or `production`.
+   * @param {boolean} build       Whether or not the target will be build.
+   * @return {string}
    */
   getCopyCommand(args, target, type, build) {
     return build && !target.bundle ?
@@ -304,13 +304,13 @@ class CLISHBuildCommand extends CLICommand {
    * (transpiled counts) and it doesn't support bundling, otherwise, it will return an empty string.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
    * @param {Target}  target      The target information.
-   * @param {String}  type        The intended build type: `development` or `production`.
-   * @param {Boolean} build       Whether or not the target will be build.
-   * @return {String}
+   * @param {string}  type        The intended build type: `development` or `production`.
+   * @param {boolean} build       Whether or not the target will be build.
+   * @return {string}
    */
   getTranspileCommand(args, target, type, build) {
     return build && !target.bundle ?
@@ -321,10 +321,10 @@ class CLISHBuildCommand extends CLICommand {
    * Get the command to run a Node target.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
-   * @return {String}
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
+   * @return {string}
    */
   getNodeRunCommand(args) {
     return this.cliSHNodeRunCommand.generate(args);
@@ -334,10 +334,10 @@ class CLISHBuildCommand extends CLICommand {
    * it will return an empty string.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
-   * @return {String}
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
+   * @return {string}
    */
   getRevisionCommand(args) {
     const {
@@ -363,10 +363,10 @@ class CLISHBuildCommand extends CLICommand {
    * it will return an empty string.
    * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
    *                              method.
-   * @param {String}  args.target The target name.
-   * @param {String}  args.type   The intended build type: `development` or `production`.
-   * @param {Boolean} args.run    Whether or not the target will be executed.
-   * @return {String}
+   * @param {string}  args.target The target name.
+   * @param {string}  args.type   The intended build type: `development` or `production`.
+   * @param {boolean} args.run    Whether or not the target will be executed.
+   * @return {string}
    */
   getCopyProjectFilesCommand(args) {
     const { enabled, copyOnBuild } = this.projectConfiguration.copy;

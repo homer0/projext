@@ -26,19 +26,19 @@ class CLICleanCommand extends CLICommand {
     this.buildCleaner = buildCleaner;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'clean [target]';
     /**
      * A description of the command for the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Delete builded files for a target. If no target is ' +
       'specified, the build directory will be deleted';
   }
   /**
    * Handle the execution of the command.
-   * @param {?String} target A target name. If specified, only that target files will be removed
+   * @param {?string} target A target name. If specified, only that target files will be removed
    *                         from the distribution directory; otherwise, the entire directory will
    *                         be removed.
    * @return {Promise<undefined,Error>}

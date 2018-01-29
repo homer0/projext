@@ -20,12 +20,12 @@ class CLICopyProjectFilesCommand extends CLICommand {
     this.buildCopier = buildCopier;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'copy-project-files';
     /**
      * A description of the command for the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Copy the required project files into the build directory';
   }

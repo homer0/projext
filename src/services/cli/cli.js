@@ -8,7 +8,7 @@ class CLI {
   /**
    * Class constructor.
    * @param {Object} info      This app `package.json` information.
-   * @param {String} [name=''] The name of the program. If not specified, it will use the one on
+   * @param {string} [name=''] The name of the program. If not specified, it will use the one on
    *                           `info` object.
    */
   constructor(info, name = '') {
@@ -19,7 +19,7 @@ class CLI {
     this.info = info;
     /**
      * The name of the CLI program.
-     * @type {String}
+     * @type {string}
      */
     this.name = name || this.info.name;
   }
@@ -50,7 +50,7 @@ class CLI {
  * container.register(provider);
  * // Getting access to the service instance
  * const cli = container.get('cli');
- * @param {String} name The name of the program.
+ * @param {string} name The name of the program.
  * @return {Provider}
  */
 const cliWithName = (name) => provider((app) => {

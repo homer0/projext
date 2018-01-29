@@ -5,11 +5,11 @@ const { provider } = require('jimple');
 class BuildVersion {
   /**
    * Class constructor.
-   * @param {Events}               events               To fire an event when the revision file is
-   *                                                    created.
-   * @param {ProjectConfiguration} projectConfiguration To read the `version` settings.
-   * @param {VersionUtils}         versionUtils         To load the version and write the revision
-   *                                                    file.
+   * @param {Events}                       events               To fire an event when the revision
+   *                                                            file is created.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the `version` settings.
+   * @param {VersionUtils}                 versionUtils         To load the version and write the
+   *                                                            revision file.
    */
   constructor(events, projectConfiguration, versionUtils) {
     /**
@@ -18,8 +18,8 @@ class BuildVersion {
      */
     this.events = events;
     /**
-     * A local reference for the `projectConfiguration` service.
-     * @type {ProjectConfiguration}
+     * All the project settings.
+     * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
     /**

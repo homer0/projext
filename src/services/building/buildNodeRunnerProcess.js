@@ -11,10 +11,10 @@ const { provider } = require('jimple');
 class BuildNodeRunnerProcess {
   /**
    * Class constructor.
-   * @param {Logger}               appLogger            The inform on the CLI of the events of the
-   *                                                    runner.
-   * @param {BuildTranspiler}      buildTranspiler      To transpile files if required.
-   * @param {ProjectConfiguration} projectConfiguration To read the project paths.
+   * @param {Logger}                       appLogger            The inform on the CLI of the events
+   *                                                            of the runner.
+   * @param {BuildTranspiler}              buildTranspiler      To transpile files if required.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the project paths.
    */
   constructor(appLogger, buildTranspiler, projectConfiguration) {
     /**
@@ -36,21 +36,21 @@ class BuildNodeRunnerProcess {
     });
     /**
      * A simple flag to check whether the process is running or not.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.running = false;
     /**
      * The default options for when the service runs a target. These will be overwritten by the
      * parameters sent to the `run` method.
      * @type {Object}
-     * @property {String}  executable            The path to the executable file.
+     * @property {string}  executable            The path to the executable file.
      * @property {Array}   watch                 A list of directories to watch.
      * @property {Array}   ignore                A list of patterns to ignore.
-     * @property {String}  sourcePath            The path to the source files.
-     * @property {String}  executionPath         The path to the files being executed.
+     * @property {string}  sourcePath            The path to the source files.
+     * @property {string}  executionPath         The path to the files being executed.
      * @property {Object}  envVars               A dictionary of environment variables to send to
      *                                           the process.
-     * @property {Boolean} requiresTranspilation Whether or not the target requires transpilation.
+     * @property {boolean} requiresTranspilation Whether or not the target requires transpilation.
      */
     this.defaultOptions = {
       executable: '',
@@ -69,14 +69,14 @@ class BuildNodeRunnerProcess {
     this.options = {};
     /**
      * Whether or not the process logged the starting message.
-     * @type {Boolean}
+     * @type {boolean}
      * @ignore
      * @access protected
      */
     this._started = false;
     /**
      * Whether or not the process is currently being restarted.
-     * @type {Boolean}
+     * @type {boolean}
      * @ignore
      * @access protected
      */
@@ -114,18 +114,18 @@ class BuildNodeRunnerProcess {
   }
   /**
    * Run a Node app.
-   * @param {String} executable             The app executable.
+   * @param {string} executable             The app executable.
    * @param {Array}  watchOn                A list of directories to watch.
-   * @param {String} sourcePath             The path to the source code of the app. If it doesn't
+   * @param {string} sourcePath             The path to the source code of the app. If it doesn't
    *                                        match with `executionPath`, then the code needs
    *                                        transpilation.
-   * @param {String} executionPath          The path to where the app is being executed. If it
+   * @param {string} executionPath          The path to where the app is being executed. If it
    *                                        doesn't match with `sourcePath`, then the code needs
    *                                        transpilation.
    * @param {Object} [envVars={}]           A dictionary with extra environment variables to send to
    *                                        the process.
    * @param {Array}  [ignore=['*.test.js']] A list of patterns to ignore on the watch.
-   * @return {nodemon}
+   * @return {Nodemon}
    * @throws {Error} if the process is already running.
    * @throws {Error} if the executable doesn't exist.
    */
@@ -181,7 +181,7 @@ class BuildNodeRunnerProcess {
   /**
    * This is called when `nodemon` starts the process and after each time it restarts it. The
    * method just prints information messages and turn on the `_started` flag.
-   * @param {Boolean} [forceLog=false] By default, it only logs the messages the first time, but
+   * @param {boolean} [forceLog=false] By default, it only logs the messages the first time, but
    *                                   if this flag is `true`, it will do it anyways. This is
    *                                   used from the `_onNodemonRestart` to make sure the restart
    *                                   messages are shown before the start.
@@ -262,7 +262,7 @@ class BuildNodeRunnerProcess {
   /**
    * This is the `watchpack` listener and it gets called every time a source file changes. When this
    * happens, the service transpiles the file, thus triggering `nodemon` restart.
-   * @param {String} file The path to the modified file.
+   * @param {string} file The path to the modified file.
    * @ignore
    * @access protected
    */
@@ -273,7 +273,7 @@ class BuildNodeRunnerProcess {
   /**
    * Transpile a file from the source directory into the execution directory (the one `nodemon` is
    * watching).
-   * @param {String} file The path to the file.
+   * @param {string} file The path to the file.
    * @ignore
    * @access protected
    */

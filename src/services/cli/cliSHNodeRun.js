@@ -25,24 +25,24 @@ class CLISHNodeRunCommand extends CLICommand {
     this.targets = targets;
     /**
      * The instruction needed to trigger the command.
-     * @type {String}
+     * @type {string}
      */
     this.command = 'sh-node-run [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
-     * @type {String}
+     * @type {string}
      */
     this.description = 'Run a Node target that wasn\'t bundled';
     /**
      * Hide the command from the help interface.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.hidden = true;
   }
   /**
    * Handle the execution of the command and runs a Node target.
-   * @param {String} name The name of the target.
+   * @param {string} name The name of the target.
    * @return {`nodemon`}
    */
   handle(name) {

@@ -9,19 +9,19 @@ const { provider } = require('jimple');
 class BuildNodeRunner {
   /**
    * Class constructor.
-   * @param {function} buildNodeRunnerProcess To actually run a target process.
+   * @param {BuildNodeRunnerProcess#run} buildNodeRunnerProcess To actually run a target process.
    */
   constructor(buildNodeRunnerProcess) {
     /**
      * A local reference for the `buildNodeRunnerProcess` service.
-     * @type {function}
+     * @type {BuildNodeRunnerProcess#run}
      */
     this.buildNodeRunnerProcess = buildNodeRunnerProcess;
   }
   /**
    * Run a target with Nodemon.
    * @param  {Target} target The target information.
-   * @return {nodemon}
+   * @return {Nodemon}
    * @throws {Error} If the target needs to be bundled.
    */
   runTarget(target) {
@@ -37,7 +37,7 @@ class BuildNodeRunner {
    * Runs a target that requires transpilation. It executes the file from the distribution
    * directory while it watches the source directory.
    * @param  {Target} target The target information.
-   * @return {nodemon}
+   * @return {Nodemon}
    */
   _runWithTranspilation(target) {
     const { paths: { source, build } } = target;
@@ -54,7 +54,7 @@ class BuildNodeRunner {
   /**
    * Runs a target that doesn't require transpilation. It executes and watches the source directory.
    * @param  {Target} target The target information.
-   * @return {nodemon}
+   * @return {Nodemon}
    */
   _run(target) {
     const { paths: { source } } = target;

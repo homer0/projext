@@ -7,20 +7,20 @@ const { provider } = require('jimple');
 class BuildCopier {
   /**
    * Class constructor.
-   * @param {copier}               copier               The function that copies files and
-   *                                                    directories.
-   * @param {Logger}               appLogger            Used to inform the user when files are being
-   *                                                    copied.
-   * @param {Events}               events               To trigger events reducer that may alter
-   *                                                    the items being copied.
-   * @param {PathUtils}            pathUtils            Necessary to build the paths.
-   * @param {ProjectConfiguration} projectConfiguration To read the project information and get
-   *                                                    paths.
+   * @param {Copier.copy}                  copier               The function that copies files and
+   *                                                            directories.
+   * @param {Logger}                       appLogger            Used to inform the user when files
+   *                                                            are being copied.
+   * @param {Events}                       events               To trigger events reducer that may
+   *                                                            alter the items being copied.
+   * @param {PathUtils}                    pathUtils            Necessary to build the paths.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the project information and
+   *                                                            get paths.
    */
   constructor(copier, appLogger, events, pathUtils, projectConfiguration) {
     /**
      * A local reference for the `copier` service function.
-     * @type {Logger}
+     * @type {Copier.copy}
      */
     this.copier = copier;
     /**
@@ -39,8 +39,8 @@ class BuildCopier {
      */
     this.pathUtils = pathUtils;
     /**
-     * A local reference for the `projectConfiguration` service.
-     * @type {ProjectConfiguration}
+     * All the project settings.
+     * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
   }
@@ -148,10 +148,10 @@ class BuildCopier {
   /**
    * After the project files are copied, this module updates the copied package.json with local
    * references for any given module name.
-   * @param {String}  packagePath             The path to the main `package.json`.
+   * @param {string}  packagePath             The path to the main `package.json`.
    * @param {Object}  modules                 A dictionary with the name of modules as keys and
    *                                          local paths as values.
-   * @param {Boolean} [updateModulesToo=true] If `true`, it will also update the `package.json` of
+   * @param {boolean} [updateModulesToo=true] If `true`, it will also update the `package.json` of
    *                                          each of the modules with references each others local
    *                                          paths.
    * @return Promise<undefined,Error>

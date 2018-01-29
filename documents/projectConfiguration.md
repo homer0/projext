@@ -62,7 +62,7 @@ This is for the feature that copies when bundling. In case you are using the fea
 
 ### `output`
 
-These are paths for static assets that may be generated when bundling your code.
+These are paths for static assets that may be generated when bundling a target.
 
 ## `targetsTemplates`
 
@@ -184,7 +184,7 @@ In case `library` is `true`, these options are going to be used by the build eng
 
 **`libraryOptions.libraryTarget`**
 
-How the library will be exposed: `commonjs`, `umd` and `window`.
+How the library will be exposed: `commonjs2`, `umd` and `window`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones woopack will support for all the other build engines with different APIs.
 
@@ -307,7 +307,7 @@ If `true`, the configuration will add to the list of major browsers `iOS` and `A
 
 **`babel.polyfill`**
 
-Whether or not the configuration should include the [babel-polyfill](https://yarnpkg.com/en/package/babel-polyfill) package.
+Whether or not the configuration should include the [`babel-polyfill`](https://yarnpkg.com/en/package/babel-polyfill) package.
 
 **`babel.overwrites`**
 
@@ -408,7 +408,7 @@ This setting is an empty object because this is the only required setting. This 
 
 ## `copy`
 
-This settings are for the feature that enables woopack to copy files when building targets:
+These settings are for the feature that enables woopack to copy files when building targets:
 
 ```js
 {
@@ -446,11 +446,11 @@ This tells woopack if the files should be copied only when building for producti
 
 #### `targets`
 
-This can be used to specify specific targets that will trigger the feature when builded, otherwise, it will behave the same for all the targets.
+This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.
 
 ## `version`
 
-This settings are for the feature that manages your project version:
+These settings are for the feature that manages your project version:
 
 ```js
 {
@@ -489,6 +489,10 @@ The way the revision file works is by first checking if the environment variable
 
 Whether or not the revision file feature is enabled.
 
+#### `revision.copy`
+
+Whether or not to copy the revision file when the project files are being copied to the distribution directory.
+
 #### `revision.filename`
 
 The name of the revision file.
@@ -507,7 +511,7 @@ This tells woopack if the file should be created only when building for producti
 
 **`revision.createRevisionOnBuild.targets`**
 
-This can be used to specify specific targets that will trigger the feature when builded, otherwise, it will behave the same for all the targets.
+This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.
 
 ## `others`
 

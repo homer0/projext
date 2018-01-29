@@ -1,9 +1,8 @@
 const { provider } = require('jimple');
-const CLICommand = require('../../interfaces/cliCommand');
+const CLICommand = require('../../abstracts/cliCommand');
 /**
  * This is a private command the shell script executes in order to run a Node target with `nodemon`.
  * @extends {CLICommand}
- * @implements {CLICommand}
  */
 class CLISHNodeRunCommand extends CLICommand {
   /**

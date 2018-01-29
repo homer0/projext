@@ -2,7 +2,9 @@
 
 Bundle and run your javascript project without configuring an specific module bundler.
 
-## What?
+## Introduction
+
+### What?
 
 Let's start with this:
 
@@ -20,7 +22,7 @@ The idea is to divide your project bundling on a 4 layers architecture:
 | Framework             | A woopack plugin with the framework settings of the used bundler. |
 | Others...             | Other plugins like a runner tool or bundler analyzer.             |
 
-### Quick example
+#### Quick example
 
 You want to create an [AngularJS](https://angularjs.org/) app and you want to bundle it with webpack. You first need the following dependencies:
 
@@ -46,7 +48,7 @@ module.exports = {
 
 That's all you need to do in terms of configuration, after that you can start coding your app.
 
-## Why?
+### Why?
 
 Module bundlers have been around for quite some time now and they are amazing tools, they allow us to do so much, from just putting the files together to transpiling, tree shaking, splitting for lazy load, etc.
 
@@ -82,7 +84,7 @@ And then I built it. Right now it's only webpack as an bundler engine and Angula
 
 My plan is to ask the community for help putting these plugins/recipes together.
 
-## Who?
+### Who?
 
 Of course there's no way this will be helpful for everyone: a tool that works as an abstraction of other tool could never cover all the possible scenarios.
 

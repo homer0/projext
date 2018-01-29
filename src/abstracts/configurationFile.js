@@ -3,7 +3,7 @@ const extend = require('extend');
 /**
  * A helper class for creating configuration files that can be overwritten on
  * implementation.
- * @interface
+ * @abstract
  */
 class ConfigurationFile {
   /**
@@ -20,6 +20,7 @@ class ConfigurationFile {
    *                                                 of the configuration returned by the
    *                                                 `getConfig` method of the parent configuration.
    * @throws {TypeError} If instantiated directly.
+   * @abstract
    */
   constructor(pathUtils, overwritePath, asFactory = false, parentConfig = null) {
     if (new.target === ConfigurationFile) {

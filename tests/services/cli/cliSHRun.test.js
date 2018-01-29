@@ -2,7 +2,7 @@ const JimpleMock = require('/tests/mocks/jimple.mock');
 const CLICommandMock = require('/tests/mocks/cliCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
-jest.mock('/src/interfaces/cliCommand', () => CLICommandMock);
+jest.mock('/src/abstracts/cliCommand', () => CLICommandMock);
 jest.unmock('/src/services/cli/cliSHRun');
 
 require('jasmine-expect');

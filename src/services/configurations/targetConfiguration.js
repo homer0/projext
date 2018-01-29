@@ -1,12 +1,11 @@
 const { provider } = require('jimple');
-const ConfigurationFile = require('../../interfaces/configurationFile');
+const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
  * This is a _'tricky'_ service as it only exists to be overwritten. It was created as a dynamic
  * way for a target to extend any configuration. It's service provider returns a function instead
  * of an instance, in which the plugin/service defines any path and then the service gets
  * instantiated.
  * @extends {ConfigurationFile}
- * @implements {ConfigurationFile}
  */
 class TargetConfiguration extends ConfigurationFile {
   /**

@@ -1,9 +1,8 @@
 const { provider } = require('jimple');
-const CLICommand = require('../../interfaces/cliCommand');
+const CLICommand = require('../../abstracts/cliCommand');
 /**
  * This is the command used on the CLI interface to create the revision file.
  * @extends {CLICommand}
- * @implements {CLICommand}
  */
 class CLIRevisionCommand extends CLICommand {
   /**

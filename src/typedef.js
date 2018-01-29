@@ -9,6 +9,11 @@
  */
 
 /**
+ * @external {Command}
+ * https://tj.github.io/commander.js/#Command
+ */
+
+/**
  * @external {Watchpack}
  * https://yarnpkg.com/en/package/watchpack
  */

@@ -1,12 +1,12 @@
-jest.unmock('/src/interfaces/cliCommand');
+jest.unmock('/src/abstracts/cliCommand');
 
 require('jasmine-expect');
-const CLICommand = require('/src/interfaces/cliCommand');
+const CLICommand = require('/src/abstracts/cliCommand');
 
 // eslint-disable-next-line no-console
 const originalLog = console.log;
 
-describe('interfaces:CLICommand', () => {
+describe('abstracts:CLICommand', () => {
   afterEach(() => {
     // eslint-disable-next-line no-console
     console.log = originalLog;

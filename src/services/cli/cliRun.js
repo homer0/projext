@@ -1,10 +1,9 @@
 const { provider } = require('jimple');
-const CLICommand = require('../../interfaces/cliCommand');
+const CLICommand = require('../../abstracts/cliCommand');
 /**
  * This is a fake command the app uses to show the information of the run task. In reality, this
  * command is handled by a shell script.
  * @extends {CLICommand}
- * @implements {CLICommand}
  */
 class CLIRunCommand extends CLICommand {
   /**

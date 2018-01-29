@@ -1,11 +1,10 @@
 const { provider } = require('jimple');
-const ConfigurationFile = require('../../interfaces/configurationFile');
+const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
  * Here's the configuration with all the _'magic defaults'_ the app uses. This service generates
  * the project configuration with all settings and features Woopack uses.
  * This configuration is ALWAYS overwritten and extended in order to define the targets.
  * @extends {ConfigurationFile}
- * @implements {ConfigurationFile}
  */
 class ProjectConfiguration extends ConfigurationFile {
   /**

@@ -1,16 +1,16 @@
 jest.mock('fs-extra');
-jest.unmock('/src/interfaces/configurationFile');
+jest.unmock('/src/abstracts/configurationFile');
 
 require('jasmine-expect');
 const fs = require('fs-extra');
 const path = require('path');
-const ConfigurationFile = require('/src/interfaces/configurationFile');
+const ConfigurationFile = require('/src/abstracts/configurationFile');
 const mockObjectConfig = require('/tests/mocks/mockObject.config');
 const mockFunctionConfig = require('/tests/mocks/mockFunction.config');
 
 const mocksRelativePath = path.join(__dirname, '../mocks');
 
-describe('interfaces:ConfigurationFile', () => {
+describe('abstracts:ConfigurationFile', () => {
   it('should throw an error if used without subclassing it', () => {
     // Given/When/Then
     expect(() => new ConfigurationFile())

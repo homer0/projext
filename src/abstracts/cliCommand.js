@@ -1,11 +1,12 @@
 /**
  * A helper class for creating commands for the CLI interface.
- * @interface
+ * @abstract
  */
 class CLICommand {
   /**
    * Class constructor.
    * @throws {TypeError} If instantiated directly.
+   * @abstract
    */
   constructor() {
     if (new.target === CLICommand) {

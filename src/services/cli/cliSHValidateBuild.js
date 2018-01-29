@@ -1,12 +1,11 @@
 const { provider } = require('jimple');
-const CLICommand = require('../../interfaces/cliCommand');
+const CLICommand = require('../../abstracts/cliCommand');
 /**
  * This is a private command the shell script executes before running the build command in order to
  * validate the arguments and throw any necessary error. The reason we do this in two separated
  * commands is that the shell script takes all the output of the build command and tries to execute
  * it, so we can't include execptions in there.
  * @extends {CLICommand}
- * @implements {CLICommand}
  */
 class CLISHValidateBuildCommand extends CLICommand {
   /**

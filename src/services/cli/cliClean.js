@@ -1,10 +1,9 @@
 const { provider } = require('jimple');
-const CLICommand = require('../../interfaces/cliCommand');
+const CLICommand = require('../../abstracts/cliCommand');
 /**
  * This is the command used on the CLI interface to remove a target file(s) or the entire
  * distribution directory.
  * @extends {CLICommand}
- * @implements {CLICommand}
  */
 class CLICleanCommand extends CLICommand {
   /**

@@ -2,7 +2,7 @@
     "name": "woopack",
     "description": "Bundle and run your javascript project without configuring an specific module bundler.",
     "homepage": "https://homer0.github.io/woopack/",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "repository": "homer0/woopack",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",

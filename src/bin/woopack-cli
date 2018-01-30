@@ -1,8 +1,0 @@
-#!/usr/bin/env node
-/**
- * Get an instance of Woopack to use.
- * @type {Woopack}
- */
-const woopack = require('../../index');
-// Start the CLI interface.
-woopack.cli();

@@ -1,0 +1,2130 @@
+{
+  "type": "File",
+  "start": 0,
+  "end": 24665,
+  "loc": {
+    "start": {
+      "line": 1,
+      "column": 0
+    },
+    "end": {
+      "line": 550,
+      "column": 0
+    }
+  },
+  "program": {
+    "type": "Program",
+    "start": 0,
+    "end": 24665,
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 550,
+        "column": 0
+      }
+    },
+    "sourceType": "module",
+    "body": [],
+    "directives": [],
+    "leadingComments": null,
+    "innerComments": [
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Jimple}\n * https://yarnpkg.com/en/package/jimple\n ",
+        "start": 0,
+        "end": 70,
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 0
+          },
+          "end": {
+            "line": 4,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Nodemon}\n * https://github.com/remy/nodemon/blob/master/doc/requireable.md\n ",
+        "start": 72,
+        "end": 168,
+        "loc": {
+          "start": {
+            "line": 6,
+            "column": 0
+          },
+          "end": {
+            "line": 9,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Command}\n * https://tj.github.io/commander.js/#Command\n ",
+        "start": 170,
+        "end": 246,
+        "loc": {
+          "start": {
+            "line": 11,
+            "column": 0
+          },
+          "end": {
+            "line": 14,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Watchpack}\n * https://yarnpkg.com/en/package/watchpack\n ",
+        "start": 248,
+        "end": 324,
+        "loc": {
+          "start": {
+            "line": 16,
+            "column": 0
+          },
+          "end": {
+            "line": 19,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {AppConfiguration}\n * https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html\n ",
+        "start": 326,
+        "end": 462,
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 0
+          },
+          "end": {
+            "line": 24,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {PathUtils}\n * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html\n ",
+        "start": 464,
+        "end": 579,
+        "loc": {
+          "start": {
+            "line": 26,
+            "column": 0
+          },
+          "end": {
+            "line": 29,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {Logger}\n * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html\n ",
+        "start": 581,
+        "end": 687,
+        "loc": {
+          "start": {
+            "line": 31,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {EnvironmentUtils}\n * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html\n ",
+        "start": 689,
+        "end": 825,
+        "loc": {
+          "start": {
+            "line": 36,
+            "column": 0
+          },
+          "end": {
+            "line": 39,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {EventsHub}\n * https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html\n ",
+        "start": 827,
+        "end": 944,
+        "loc": {
+          "start": {
+            "line": 41,
+            "column": 0
+          },
+          "end": {
+            "line": 44,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {ErrorHandler}\n * https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html\n ",
+        "start": 946,
+        "end": 1070,
+        "loc": {
+          "start": {
+            "line": 46,
+            "column": 0
+          },
+          "end": {
+            "line": 49,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @external {RootRequire}\n * https://homer0.github.io/wootils/function/index.html#static-function-rootRequire\n ",
+        "start": 1072,
+        "end": 1190,
+        "loc": {
+          "start": {
+            "line": 51,
+            "column": 0
+          },
+          "end": {
+            "line": 54,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} TargetLibraryOptions\n * @property {string} [libraryTarget='commonjs2']\n * How the library will be exposed: `commonjs2`, `umd` and `window`\n ",
+        "start": 1192,
+        "end": 1359,
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 0
+          },
+          "end": {
+            "line": 60,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} TargetTypeCheck\n * @property {boolean} node\n * Whether the target type is `node` or not.\n * @property {boolean} browser\n * Whether the target type is `browser` or not.\n ",
+        "start": 1361,
+        "end": 1557,
+        "loc": {
+          "start": {
+            "line": 62,
+            "column": 0
+          },
+          "end": {
+            "line": 68,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} TargetPaths\n * @property {string} source\n * The absolute path to the target source directory.\n * @property {string} build\n * The absolute path to the folder, inside the distribution directory, where the target will be\n * bundled/copied.\n ",
+        "start": 1559,
+        "end": 1824,
+        "loc": {
+          "start": {
+            "line": 70,
+            "column": 0
+          },
+          "end": {
+            "line": 77,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} TargetFolders\n * @property {string} source\n * The relative path to the target source directory.\n * @property {string} build\n * The relative path to the folder, inside the distribution directory, where the target will be\n * bundled/copied.\n ",
+        "start": 1826,
+        "end": 2093,
+        "loc": {
+          "start": {
+            "line": 79,
+            "column": 0
+          },
+          "end": {
+            "line": 86,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} NodeTargetBabelSettings\n * @property {Array}  [features=[]]\n * woopack includes by default two Babel plugins: `transform-class-properties` and\n * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`\n * to include them.\n * If you need other plugins, they can be included on the `overwrites` option.\n * @property {string} [nodeVersion='current']\n * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the\n * necessary stuff. This setting tells the preset the version of Node it should _\"complete\"_.\n * @property {Object} [overwrites={}]\n * If you know how to use Babel and need stuff that is not covered by woopack, you can use this\n * setting to overwrite/add any value you may need.\n ",
+        "start": 2095,
+        "end": 2888,
+        "loc": {
+          "start": {
+            "line": 88,
+            "column": 0
+          },
+          "end": {
+            "line": 101,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} BrowserTargetBabelSettings\n * @property {Array}  [features=[]]\n * woopack includes by default two Babel plugins: `transform-class-properties` and\n * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`\n * to include them.\n * If you need other plugins, they can be included on the `overwrites` option.\n * @property {number} [browserVersions=2]\n * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the\n * necessary stuff. This setting tells how many old versions of the major browsers the target needs\n * transpilation for.\n * Major browsers: Firefox, Chrome, Safari and Edge.\n * @property {boolean} [mobileSupport=true]\n * If `true`, the configuration will add to the list of major browsers `iOS` and `Android`.\n * @property {boolean} [polyfill=true]\n * Whether or not the configuration should include the `babel-polyfill` package.\n * @property {Object} [overwrites={}]\n * If you know how to use Babel and need stuff that is not covered by woopack, you can use this\n * setting to overwrite/add any value you may need.\n ",
+        "start": 2890,
+        "end": 4019,
+        "loc": {
+          "start": {
+            "line": 103,
+            "column": 0
+          },
+          "end": {
+            "line": 122,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} BrowserTargetDevServerSettings\n * @property {number} [port=2509]\n * The server port.\n * @property {boolean} [reload=true]\n * Whether or not to reload the server when the code changes.\n ",
+        "start": 4021,
+        "end": 4233,
+        "loc": {
+          "start": {
+            "line": 124,
+            "column": 0
+          },
+          "end": {
+            "line": 130,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} BrowserTargetConfigurationSettings\n * @property {boolean} [enabled=false]\n * Whether or not the feature is enabled.\n * @property {null|Object} [default=null]\n * The default configuration. If none is specified, when the target is builded, it will try to\n * use `[target-name].config.js`, located on the configuration folder.\n * @property {string} [path='config/']\n * The path where the configuration files are located.\n * @property {boolean} [hasFolder=true]\n * Whether or not there's a folder with the target name on the configuration path.\n * @property {string} [defineOn='process.env.CONFIG']\n * The name of the variable where the configuration is going to be replaced on your code when\n * bundled.\n * @property {string} [environmentVariable='CONFIG']\n * The name of the environment variable woopack will check when building the target in order to\n * load a dynamic configuration.\n * @property {boolean} [loadFromEnvironment=true]\n * Whether or not woopack should check for the environment variable value.\n * @property {string} [filenameFormat='[target-name].[configuration-name].config.js']\n * The name format of the configuration files.\n ",
+        "start": 4235,
+        "end": 5404,
+        "loc": {
+          "start": {
+            "line": 132,
+            "column": 0
+          },
+          "end": {
+            "line": 153,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationOutputPathSettings\n * @property {string} [js='static/js']\n * The path to generated Javascript files on the distribution directory.\n * @property {string} [fonts='static/fonts']\n * The path to font files once they are moved to the distribution directory.\n * @property {string} [css='static/css']\n * The path to generated stylesheets on the distribution directory.\n * @property {string} [images='static/img']\n * The path to font files once they are moved to the distribution directory.\n ",
+        "start": 5406,
+        "end": 5937,
+        "loc": {
+          "start": {
+            "line": 155,
+            "column": 0
+          },
+          "end": {
+            "line": 165,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationPathSettings\n * @property {string} [source='src']\n * The directory, relative to your project path, where your targets code is located. On the\n * documentation is often referred as the _\"source directory\"_.\n * @property {string} [build='dist']\n * The directory, relative to your project path, where your targets bundled code will be located.\n * On the documentation is often referred as the _\"distribution directory\"_.\n * @property {string} [privateModules='private']\n * This is for the feature that copies when bundling. In case you are using the feature to copy an\n * npm module that, let's say, is not published, woopack will save that module (without its\n * dependencies) on that folder.\n * @property {ProjectConfigurationOutputPathSettings} [output]\n * These are paths for static assets that may be generated when bundling a target.\n ",
+        "start": 5939,
+        "end": 6824,
+        "loc": {
+          "start": {
+            "line": 167,
+            "column": 0
+          },
+          "end": {
+            "line": 181,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationNodeTargetTemplateEntries\n * @property {string} [development='start.development.js']\n * The target entry point on a development build.\n * @property {string} [production='start.production.js']\n * The target entry point on a production build.\n ",
+        "start": 6826,
+        "end": 7115,
+        "loc": {
+          "start": {
+            "line": 183,
+            "column": 0
+          },
+          "end": {
+            "line": 189,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationNodeTargetTemplate\n * @property {boolean} [bundle=false]\n * Whether or not the target needs to be bundled.\n * If the value is `false`, when running on a development environment, and if the target doesn't\n * need transpilation, the code won't be moved to the distribution directory.\n * @property {boolean} [transpile=false]\n * This option is kind of tied to the previous one: You may not want to bundle your Node target,\n * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet\n * supported by the runtime.\n * @property {string} [engine='webpack']\n * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle\n * the target code with.\n * @property {boolean} [hasFolder=true]\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} [createFolder=true]\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} [folder='']\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationNodeTargetTemplateEntries} [entry]\n * The target entry points for each specific environment build.\n * @property {boolean} [runOnDevelopment=false]\n * This tells woopack that when the target is builded (bundled/copied) on a development\n * environment, it should execute it.\n * @property {NodeTargetBabelSettings} [babel]\n * The target transpilation options.\n * @property {boolean} [flow=false]\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support and, in case it was disabled, it will enable transpilation.\n * @property {boolean} [library=false]\n * If the project is bundled, this will tell the build engine that it needs to be builded as a\n * library to be `require`d.\n * @property {TargetLibraryOptions} [libraryOptions]\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library\n * @property {boolean} [cleanBeforeBuild=true]\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n ",
+        "start": 7117,
+        "end": 9571,
+        "loc": {
+          "start": {
+            "line": 191,
+            "column": 0
+          },
+          "end": {
+            "line": 233,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} NodeTarget\n * @property {boolean} bundle\n * Whether or not the target needs to be bundled.\n * If the value is `false`, when running on a development environment, and if the target doesn't\n * need transpilation, the code won't be moved to the distribution directory.\n * @property {boolean} transpile\n * This option is kind of tied to the previous one: You may not want to bundle your Node target,\n * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet\n * supported by the runtime.\n * @property {string} engine\n * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle\n * the target code with.\n * @property {boolean} hasFolder\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} createFolder\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} folder\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationNodeTargetTemplateEntries} entry\n * The target entry points for each specific environment build.\n * @property {boolean} runOnDevelopment\n * This tells woopack that when the target is builded (bundled/copied) on a development\n * environment, it should execute it.\n * @property {NodeTargetBabelSettings} babel\n * The target transpilation options.\n * @property {boolean} flow\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support and, in case it was disabled, it will enable transpilation.\n * @property {boolean} library\n * If the project is bundled, this will tell the build engine that it needs to be builded as a\n * library to be `require`d.\n * @property {TargetLibraryOptions} libraryOptions\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library\n * @property {boolean} cleanBeforeBuild\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {TargetTypeCheck} is\n * To check whether the target type is `node` or `browser`\n * @property {TargetPaths} paths\n * The target absolute paths to both the source directory folder and the distribution directory\n * folder.\n * @property {TargetFolders} folders\n * The target relative paths to both the source directory folder and the distribution directory\n * folder.\n ",
+        "start": 9573,
+        "end": 12292,
+        "loc": {
+          "start": {
+            "line": 235,
+            "column": 0
+          },
+          "end": {
+            "line": 285,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateEntries\n * @property {string} [development='index.js']\n * The target entry point on a development build.\n * @property {string} [production='index.js']\n * The target entry point on a production build.\n ",
+        "start": 12294,
+        "end": 12563,
+        "loc": {
+          "start": {
+            "line": 287,
+            "column": 0
+          },
+          "end": {
+            "line": 293,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings\n * @property {boolean} [development=false]\n * Whether or not to generate a source map on a development build.\n * @property {boolean} [production=true]\n * Whether or not to generate a source map on a production build.\n ",
+        "start": 12565,
+        "end": 12869,
+        "loc": {
+          "start": {
+            "line": 295,
+            "column": 0
+          },
+          "end": {
+            "line": 301,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateHTMLSettings\n * @property {string} [template='index.html']\n * The file inside your target source that will be used to generate the `html`.\n * @property {string} [filename='index.html']\n * The file that will be generated when your target is bundled. It will automatically include\n * the `<script />` tag to the generated bundle.\n ",
+        "start": 12871,
+        "end": 13268,
+        "loc": {
+          "start": {
+            "line": 303,
+            "column": 0
+          },
+          "end": {
+            "line": 310,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplate\n * @property {string} [engine='webpack']\n * This will tell woopack which build engine you are going to bundle the target code with.\n * @property {boolean} [hasFolder=true]\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} [createFolder=true]\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} [folder='']\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationBrowserTargetTemplateEntries} [entry]\n * The target entry points for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]\n * The target source map settings for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]\n * In the case the target is an app, these are the options for the `html` file that will include\n * the bundle `<script />`; and if your target is a library, this can be used to test your library.\n * @property {boolean} [runOnDevelopment=false]\n * This will tell the build engine that when you build the target for a development environment,\n * it should bring up an `http` server to _\"run\"_ your target.\n * @property {BrowserTargetBabelSettings} [babel]\n * These options are used by the build engine to configure [Babel](https://babeljs.io):\n * @property {boolean} [flow=false]\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support for it.\n * @property {boolean} [CSSModules=false]\n * Whether or not your application uses CSS Modules.\n * @property {boolean} [library=false]\n * This will tell the build engine that it needs to be builded as a library to be `require`d.\n * @property {TargetLibraryOptions} [libraryOptions]\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library.\n * @property {boolean} [cleanBeforeBuild=true]\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {BrowserTargetDevServerSettings} [devServer]\n * These are the options for the `http` server woopack will use when running the target on a\n * development environment.\n * @property {BrowserTargetConfigurationSettings} [configuration]\n * These are the settings for the feature that allows a browser target to have a dynamic\n * configuration file.\n ",
+        "start": 13270,
+        "end": 16060,
+        "loc": {
+          "start": {
+            "line": 312,
+            "column": 0
+          },
+          "end": {
+            "line": 357,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} BrowserTarget\n * @property {string} engine\n * This will tell woopack which build engine you are going to bundle the target code with.\n * @property {boolean} hasFolder\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} createFolder\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} folder\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationBrowserTargetTemplateEntries} entry\n * The target entry points for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap\n * The target source map settings for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html\n * In the case the target is an app, these are the options for the `html` file that will include\n * the bundle `<script />`; and if your target is a library, this can be used to test your library.\n * @property {boolean} runOnDevelopment\n * This will tell the build engine that when you build the target for a development environment,\n * it should bring up an `http` server to _\"run\"_ your target.\n * @property {BrowserTargetBabelSettings} babel\n * These options are used by the build engine to configure [Babel](https://babeljs.io):\n * @property {boolean} flow\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support for it.\n * @property {boolean} CSSModules\n * Whether or not your application uses CSS Modules.\n * @property {boolean} library\n * This will tell the build engine that it needs to be builded as a library to be `require`d.\n * @property {TargetLibraryOptions} libraryOptions\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library.\n * @property {boolean} cleanBeforeBuild\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {BrowserTargetDevServerSettings} devServer\n * These are the options for the `http` server woopack will use when running the target on a\n * development environment.\n * @property {BrowserTargetConfigurationSettings} configuration\n * These are the settings for the feature that allows a browser target to have a dynamic\n * configuration file.\n * @property {TargetTypeCheck} is\n * To check whether the target type is `node` or `browser`\n * @property {TargetPaths} paths\n * The target absolute paths to both the source directory folder and the distribution directory\n * folder.\n * @property {TargetFolders} folders\n * The target relative paths to both the source directory folder and the distribution directory\n * folder.\n ",
+        "start": 16062,
+        "end": 19117,
+        "loc": {
+          "start": {
+            "line": 359,
+            "column": 0
+          },
+          "end": {
+            "line": 412,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {BrowserTarget|NodeTarget} Target\n ",
+        "start": 19119,
+        "end": 19172,
+        "loc": {
+          "start": {
+            "line": 414,
+            "column": 0
+          },
+          "end": {
+            "line": 416,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} TargetConfigurationCreator\n * @param {string} overwritePath\n * The path to the file that can create the configuration.\n * @param {ConfigurationFile} baseConfiguration\n * The configuration service that will be extended.\n * @return {ConfigurationFile}\n ",
+        "start": 19174,
+        "end": 19454,
+        "loc": {
+          "start": {
+            "line": 418,
+            "column": 0
+          },
+          "end": {
+            "line": 425,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationTargetTemplates\n * @property {ProjectConfigurationNodeTargetTemplate} [node]\n * The template settings for all targets with the type `node`.\n * @property {ProjectConfigurationBrowserTargetTemplate} [browser]\n * The template settings for all targets with the type `browser`.\n ",
+        "start": 19456,
+        "end": 19777,
+        "loc": {
+          "start": {
+            "line": 427,
+            "column": 0
+          },
+          "end": {
+            "line": 433,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationFeatureTriggerSettings\n * @property {boolean} [enabled=true]\n * Whether or not the feature should be triggered when a target is being build.\n * @property {boolean} [onlyOnProduction=true]\n * This tells woopack if the feature should be triggered only when building for production, or if\n * it should do it for development too.\n * @property {Array} [targets=[]]\n * This can be used to specify the targets that will trigger the feature when builded. If no target\n * is specified, the feature will be triggered by all the targets.\n ",
+        "start": 19779,
+        "end": 20354,
+        "loc": {
+          "start": {
+            "line": 435,
+            "column": 0
+          },
+          "end": {
+            "line": 445,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationCopyFeatureSettings\n * @property {boolean} [enabled=false]\n * Whether or not the feature is enabled.\n * @property {Array} [items=[]]\n * A list of files and/or directories that will be copied. All with paths relative to the project\n * directory.\n * @property {ProjectConfigurationFeatureTriggerSettings} [copyOnBuild]\n * Since the feature is also available through the woopack CLI, you can configure how the feature\n * behaves when building.\n ",
+        "start": 20356,
+        "end": 20845,
+        "loc": {
+          "start": {
+            "line": 447,
+            "column": 0
+          },
+          "end": {
+            "line": 457,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationVersionRevisionSettings\n * @property {boolean} [enabled=false]\n * Whether or not the revision file feature is enabled.\n * @property {boolean} [copy=true]\n * Whether or not to copy the revision file when the project files are being copied to the\n * distribution directory.\n * @property {string} [filename='revision']\n * The name of the revision file.\n * @property {ProjectConfigurationFeatureTriggerSettings} [createRevisionOnBuild]\n * Since the feature is also available through the woopack CLI, you can configure how the feature\n * behaves when building.\n ",
+        "start": 20847,
+        "end": 21451,
+        "loc": {
+          "start": {
+            "line": 459,
+            "column": 0
+          },
+          "end": {
+            "line": 471,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationVersionSettings\n * @property {string} [defineOn='process.env.VERSION']\n * The name of the variable where the version is going to be replaced on your code when bundled.\n * @property {string} [environmentVariable='VERSION']\n * The name of the environment variable woopack should check to get the project version.\n * @property {ProjectConfigurationVersionRevisionSettings} [revision]\n * This is like a sub-feature. A revision file is a file that contains the version of your project.\n * This is useful when deploying the project to an environment where you have no access to the\n * environment variable.\n *\n * The way the revision file works is by first checking if the environment variable is available\n * and, if not, it will check if the project is on a `GIT` repository and try to get the hash of\n * the last commit.\n ",
+        "start": 21453,
+        "end": 22319,
+        "loc": {
+          "start": {
+            "line": 473,
+            "column": 0
+          },
+          "end": {
+            "line": 487,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationWatchSettings\n * @property {boolean} [poll=true]\n * Whether or not to use polling to get the changes on the file system, and if so, it can also be\n * used to specify the ms interval.\n ",
+        "start": 22321,
+        "end": 22552,
+        "loc": {
+          "start": {
+            "line": 489,
+            "column": 0
+          },
+          "end": {
+            "line": 494,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationOtherSettings\n * @property {ProjectConfigurationWatchSettings}\n * This is used by woopack to configure `watchpack`, which is used to watch Node files that need to\n * be transpiled.\n ",
+        "start": 22554,
+        "end": 22783,
+        "loc": {
+          "start": {
+            "line": 496,
+            "column": 0
+          },
+          "end": {
+            "line": 501,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} ProjectConfigurationSettings\n * @property {ProjectConfigurationPathSettings} [paths]\n * This setting is all about where your code is located and where it will be bundled\n * @property {ProjectConfigurationTargetTemplates} [targetsTemplates]\n * There was no way to have _\"smart defaults\"_ for targets and at the same time allow woopack\n * an unlimited amount of targets, and that's why the this setting exists.\n * The targets will extend the template which name is the same as their `type` property.\n * @property {Object} targets\n * This will be a dictionary with the {@link Target} definitions.\n * @property {ProjectConfigurationCopyFeatureSettings} [copy]\n * These settings are for the feature that enables woopack to copy files when building targets.\n * @property {ProjectConfigurationVersionSettings} [version]\n * These settings are for the feature that manages your project version.\n * @property {ProjectConfigurationOtherSettings} [others]\n * Miscellaneous options.\n ",
+        "start": 22785,
+        "end": 23783,
+        "loc": {
+          "start": {
+            "line": 503,
+            "column": 0
+          },
+          "end": {
+            "line": 519,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} BuildEngineGetCommand\n * @param {Target} target\n * The target information.\n * @param {string} buildType\n * The intended build type: `development` or `production`.\n * @param {boolean} [forceRun=false]\n * Force the target to run even if the `runOnDevelopment` setting is `false`.\n * @return {string}\n * The command the shell script will use to build the target.\n ",
+        "start": 23785,
+        "end": 24175,
+        "loc": {
+          "start": {
+            "line": 521,
+            "column": 0
+          },
+          "end": {
+            "line": 531,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} BuildEngine\n * @property {BuildEngineGetCommand} getBuildCommand\n * The method used by woopack in order to get the shell comands to build and/or run a target.\n ",
+        "start": 24177,
+        "end": 24364,
+        "loc": {
+          "start": {
+            "line": 533,
+            "column": 0
+          },
+          "end": {
+            "line": 537,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Woopack} app\n * A reference to the woopack dependency injection container.\n ",
+        "start": 24366,
+        "end": 24505,
+        "loc": {
+          "start": {
+            "line": 539,
+            "column": 0
+          },
+          "end": {
+            "line": 543,
+            "column": 3
+          }
+        }
+      },
+      {
+        "type": "CommentBlock",
+        "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called by Woopack when registering the provider.\n ",
+        "start": 24507,
+        "end": 24664,
+        "loc": {
+          "start": {
+            "line": 545,
+            "column": 0
+          },
+          "end": {
+            "line": 549,
+            "column": 3
+          }
+        }
+      }
+    ]
+  },
+  "comments": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Jimple}\n * https://yarnpkg.com/en/package/jimple\n ",
+      "start": 0,
+      "end": 70,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Nodemon}\n * https://github.com/remy/nodemon/blob/master/doc/requireable.md\n ",
+      "start": 72,
+      "end": 168,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Command}\n * https://tj.github.io/commander.js/#Command\n ",
+      "start": 170,
+      "end": 246,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Watchpack}\n * https://yarnpkg.com/en/package/watchpack\n ",
+      "start": 248,
+      "end": 324,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {AppConfiguration}\n * https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html\n ",
+      "start": 326,
+      "end": 462,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {PathUtils}\n * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html\n ",
+      "start": 464,
+      "end": 579,
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Logger}\n * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html\n ",
+      "start": 581,
+      "end": 687,
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 0
+        },
+        "end": {
+          "line": 34,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {EnvironmentUtils}\n * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html\n ",
+      "start": 689,
+      "end": 825,
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 0
+        },
+        "end": {
+          "line": 39,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {EventsHub}\n * https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html\n ",
+      "start": 827,
+      "end": 944,
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 0
+        },
+        "end": {
+          "line": 44,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {ErrorHandler}\n * https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html\n ",
+      "start": 946,
+      "end": 1070,
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 0
+        },
+        "end": {
+          "line": 49,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {RootRequire}\n * https://homer0.github.io/wootils/function/index.html#static-function-rootRequire\n ",
+      "start": 1072,
+      "end": 1190,
+      "loc": {
+        "start": {
+          "line": 51,
+          "column": 0
+        },
+        "end": {
+          "line": 54,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetLibraryOptions\n * @property {string} [libraryTarget='commonjs2']\n * How the library will be exposed: `commonjs2`, `umd` and `window`\n ",
+      "start": 1192,
+      "end": 1359,
+      "loc": {
+        "start": {
+          "line": 56,
+          "column": 0
+        },
+        "end": {
+          "line": 60,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetTypeCheck\n * @property {boolean} node\n * Whether the target type is `node` or not.\n * @property {boolean} browser\n * Whether the target type is `browser` or not.\n ",
+      "start": 1361,
+      "end": 1557,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 0
+        },
+        "end": {
+          "line": 68,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetPaths\n * @property {string} source\n * The absolute path to the target source directory.\n * @property {string} build\n * The absolute path to the folder, inside the distribution directory, where the target will be\n * bundled/copied.\n ",
+      "start": 1559,
+      "end": 1824,
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 0
+        },
+        "end": {
+          "line": 77,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetFolders\n * @property {string} source\n * The relative path to the target source directory.\n * @property {string} build\n * The relative path to the folder, inside the distribution directory, where the target will be\n * bundled/copied.\n ",
+      "start": 1826,
+      "end": 2093,
+      "loc": {
+        "start": {
+          "line": 79,
+          "column": 0
+        },
+        "end": {
+          "line": 86,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} NodeTargetBabelSettings\n * @property {Array}  [features=[]]\n * woopack includes by default two Babel plugins: `transform-class-properties` and\n * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`\n * to include them.\n * If you need other plugins, they can be included on the `overwrites` option.\n * @property {string} [nodeVersion='current']\n * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the\n * necessary stuff. This setting tells the preset the version of Node it should _\"complete\"_.\n * @property {Object} [overwrites={}]\n * If you know how to use Babel and need stuff that is not covered by woopack, you can use this\n * setting to overwrite/add any value you may need.\n ",
+      "start": 2095,
+      "end": 2888,
+      "loc": {
+        "start": {
+          "line": 88,
+          "column": 0
+        },
+        "end": {
+          "line": 101,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTargetBabelSettings\n * @property {Array}  [features=[]]\n * woopack includes by default two Babel plugins: `transform-class-properties` and\n * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`\n * to include them.\n * If you need other plugins, they can be included on the `overwrites` option.\n * @property {number} [browserVersions=2]\n * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the\n * necessary stuff. This setting tells how many old versions of the major browsers the target needs\n * transpilation for.\n * Major browsers: Firefox, Chrome, Safari and Edge.\n * @property {boolean} [mobileSupport=true]\n * If `true`, the configuration will add to the list of major browsers `iOS` and `Android`.\n * @property {boolean} [polyfill=true]\n * Whether or not the configuration should include the `babel-polyfill` package.\n * @property {Object} [overwrites={}]\n * If you know how to use Babel and need stuff that is not covered by woopack, you can use this\n * setting to overwrite/add any value you may need.\n ",
+      "start": 2890,
+      "end": 4019,
+      "loc": {
+        "start": {
+          "line": 103,
+          "column": 0
+        },
+        "end": {
+          "line": 122,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTargetDevServerSettings\n * @property {number} [port=2509]\n * The server port.\n * @property {boolean} [reload=true]\n * Whether or not to reload the server when the code changes.\n ",
+      "start": 4021,
+      "end": 4233,
+      "loc": {
+        "start": {
+          "line": 124,
+          "column": 0
+        },
+        "end": {
+          "line": 130,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTargetConfigurationSettings\n * @property {boolean} [enabled=false]\n * Whether or not the feature is enabled.\n * @property {null|Object} [default=null]\n * The default configuration. If none is specified, when the target is builded, it will try to\n * use `[target-name].config.js`, located on the configuration folder.\n * @property {string} [path='config/']\n * The path where the configuration files are located.\n * @property {boolean} [hasFolder=true]\n * Whether or not there's a folder with the target name on the configuration path.\n * @property {string} [defineOn='process.env.CONFIG']\n * The name of the variable where the configuration is going to be replaced on your code when\n * bundled.\n * @property {string} [environmentVariable='CONFIG']\n * The name of the environment variable woopack will check when building the target in order to\n * load a dynamic configuration.\n * @property {boolean} [loadFromEnvironment=true]\n * Whether or not woopack should check for the environment variable value.\n * @property {string} [filenameFormat='[target-name].[configuration-name].config.js']\n * The name format of the configuration files.\n ",
+      "start": 4235,
+      "end": 5404,
+      "loc": {
+        "start": {
+          "line": 132,
+          "column": 0
+        },
+        "end": {
+          "line": 153,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationOutputPathSettings\n * @property {string} [js='static/js']\n * The path to generated Javascript files on the distribution directory.\n * @property {string} [fonts='static/fonts']\n * The path to font files once they are moved to the distribution directory.\n * @property {string} [css='static/css']\n * The path to generated stylesheets on the distribution directory.\n * @property {string} [images='static/img']\n * The path to font files once they are moved to the distribution directory.\n ",
+      "start": 5406,
+      "end": 5937,
+      "loc": {
+        "start": {
+          "line": 155,
+          "column": 0
+        },
+        "end": {
+          "line": 165,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationPathSettings\n * @property {string} [source='src']\n * The directory, relative to your project path, where your targets code is located. On the\n * documentation is often referred as the _\"source directory\"_.\n * @property {string} [build='dist']\n * The directory, relative to your project path, where your targets bundled code will be located.\n * On the documentation is often referred as the _\"distribution directory\"_.\n * @property {string} [privateModules='private']\n * This is for the feature that copies when bundling. In case you are using the feature to copy an\n * npm module that, let's say, is not published, woopack will save that module (without its\n * dependencies) on that folder.\n * @property {ProjectConfigurationOutputPathSettings} [output]\n * These are paths for static assets that may be generated when bundling a target.\n ",
+      "start": 5939,
+      "end": 6824,
+      "loc": {
+        "start": {
+          "line": 167,
+          "column": 0
+        },
+        "end": {
+          "line": 181,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationNodeTargetTemplateEntries\n * @property {string} [development='start.development.js']\n * The target entry point on a development build.\n * @property {string} [production='start.production.js']\n * The target entry point on a production build.\n ",
+      "start": 6826,
+      "end": 7115,
+      "loc": {
+        "start": {
+          "line": 183,
+          "column": 0
+        },
+        "end": {
+          "line": 189,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationNodeTargetTemplate\n * @property {boolean} [bundle=false]\n * Whether or not the target needs to be bundled.\n * If the value is `false`, when running on a development environment, and if the target doesn't\n * need transpilation, the code won't be moved to the distribution directory.\n * @property {boolean} [transpile=false]\n * This option is kind of tied to the previous one: You may not want to bundle your Node target,\n * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet\n * supported by the runtime.\n * @property {string} [engine='webpack']\n * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle\n * the target code with.\n * @property {boolean} [hasFolder=true]\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} [createFolder=true]\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} [folder='']\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationNodeTargetTemplateEntries} [entry]\n * The target entry points for each specific environment build.\n * @property {boolean} [runOnDevelopment=false]\n * This tells woopack that when the target is builded (bundled/copied) on a development\n * environment, it should execute it.\n * @property {NodeTargetBabelSettings} [babel]\n * The target transpilation options.\n * @property {boolean} [flow=false]\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support and, in case it was disabled, it will enable transpilation.\n * @property {boolean} [library=false]\n * If the project is bundled, this will tell the build engine that it needs to be builded as a\n * library to be `require`d.\n * @property {TargetLibraryOptions} [libraryOptions]\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library\n * @property {boolean} [cleanBeforeBuild=true]\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n ",
+      "start": 7117,
+      "end": 9571,
+      "loc": {
+        "start": {
+          "line": 191,
+          "column": 0
+        },
+        "end": {
+          "line": 233,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} NodeTarget\n * @property {boolean} bundle\n * Whether or not the target needs to be bundled.\n * If the value is `false`, when running on a development environment, and if the target doesn't\n * need transpilation, the code won't be moved to the distribution directory.\n * @property {boolean} transpile\n * This option is kind of tied to the previous one: You may not want to bundle your Node target,\n * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet\n * supported by the runtime.\n * @property {string} engine\n * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle\n * the target code with.\n * @property {boolean} hasFolder\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} createFolder\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} folder\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationNodeTargetTemplateEntries} entry\n * The target entry points for each specific environment build.\n * @property {boolean} runOnDevelopment\n * This tells woopack that when the target is builded (bundled/copied) on a development\n * environment, it should execute it.\n * @property {NodeTargetBabelSettings} babel\n * The target transpilation options.\n * @property {boolean} flow\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support and, in case it was disabled, it will enable transpilation.\n * @property {boolean} library\n * If the project is bundled, this will tell the build engine that it needs to be builded as a\n * library to be `require`d.\n * @property {TargetLibraryOptions} libraryOptions\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library\n * @property {boolean} cleanBeforeBuild\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {TargetTypeCheck} is\n * To check whether the target type is `node` or `browser`\n * @property {TargetPaths} paths\n * The target absolute paths to both the source directory folder and the distribution directory\n * folder.\n * @property {TargetFolders} folders\n * The target relative paths to both the source directory folder and the distribution directory\n * folder.\n ",
+      "start": 9573,
+      "end": 12292,
+      "loc": {
+        "start": {
+          "line": 235,
+          "column": 0
+        },
+        "end": {
+          "line": 285,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateEntries\n * @property {string} [development='index.js']\n * The target entry point on a development build.\n * @property {string} [production='index.js']\n * The target entry point on a production build.\n ",
+      "start": 12294,
+      "end": 12563,
+      "loc": {
+        "start": {
+          "line": 287,
+          "column": 0
+        },
+        "end": {
+          "line": 293,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings\n * @property {boolean} [development=false]\n * Whether or not to generate a source map on a development build.\n * @property {boolean} [production=true]\n * Whether or not to generate a source map on a production build.\n ",
+      "start": 12565,
+      "end": 12869,
+      "loc": {
+        "start": {
+          "line": 295,
+          "column": 0
+        },
+        "end": {
+          "line": 301,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateHTMLSettings\n * @property {string} [template='index.html']\n * The file inside your target source that will be used to generate the `html`.\n * @property {string} [filename='index.html']\n * The file that will be generated when your target is bundled. It will automatically include\n * the `<script />` tag to the generated bundle.\n ",
+      "start": 12871,
+      "end": 13268,
+      "loc": {
+        "start": {
+          "line": 303,
+          "column": 0
+        },
+        "end": {
+          "line": 310,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplate\n * @property {string} [engine='webpack']\n * This will tell woopack which build engine you are going to bundle the target code with.\n * @property {boolean} [hasFolder=true]\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} [createFolder=true]\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} [folder='']\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationBrowserTargetTemplateEntries} [entry]\n * The target entry points for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]\n * The target source map settings for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]\n * In the case the target is an app, these are the options for the `html` file that will include\n * the bundle `<script />`; and if your target is a library, this can be used to test your library.\n * @property {boolean} [runOnDevelopment=false]\n * This will tell the build engine that when you build the target for a development environment,\n * it should bring up an `http` server to _\"run\"_ your target.\n * @property {BrowserTargetBabelSettings} [babel]\n * These options are used by the build engine to configure [Babel](https://babeljs.io):\n * @property {boolean} [flow=false]\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support for it.\n * @property {boolean} [CSSModules=false]\n * Whether or not your application uses CSS Modules.\n * @property {boolean} [library=false]\n * This will tell the build engine that it needs to be builded as a library to be `require`d.\n * @property {TargetLibraryOptions} [libraryOptions]\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library.\n * @property {boolean} [cleanBeforeBuild=true]\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {BrowserTargetDevServerSettings} [devServer]\n * These are the options for the `http` server woopack will use when running the target on a\n * development environment.\n * @property {BrowserTargetConfigurationSettings} [configuration]\n * These are the settings for the feature that allows a browser target to have a dynamic\n * configuration file.\n ",
+      "start": 13270,
+      "end": 16060,
+      "loc": {
+        "start": {
+          "line": 312,
+          "column": 0
+        },
+        "end": {
+          "line": 357,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTarget\n * @property {string} engine\n * This will tell woopack which build engine you are going to bundle the target code with.\n * @property {boolean} hasFolder\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} createFolder\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} folder\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationBrowserTargetTemplateEntries} entry\n * The target entry points for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap\n * The target source map settings for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html\n * In the case the target is an app, these are the options for the `html` file that will include\n * the bundle `<script />`; and if your target is a library, this can be used to test your library.\n * @property {boolean} runOnDevelopment\n * This will tell the build engine that when you build the target for a development environment,\n * it should bring up an `http` server to _\"run\"_ your target.\n * @property {BrowserTargetBabelSettings} babel\n * These options are used by the build engine to configure [Babel](https://babeljs.io):\n * @property {boolean} flow\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support for it.\n * @property {boolean} CSSModules\n * Whether or not your application uses CSS Modules.\n * @property {boolean} library\n * This will tell the build engine that it needs to be builded as a library to be `require`d.\n * @property {TargetLibraryOptions} libraryOptions\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library.\n * @property {boolean} cleanBeforeBuild\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {BrowserTargetDevServerSettings} devServer\n * These are the options for the `http` server woopack will use when running the target on a\n * development environment.\n * @property {BrowserTargetConfigurationSettings} configuration\n * These are the settings for the feature that allows a browser target to have a dynamic\n * configuration file.\n * @property {TargetTypeCheck} is\n * To check whether the target type is `node` or `browser`\n * @property {TargetPaths} paths\n * The target absolute paths to both the source directory folder and the distribution directory\n * folder.\n * @property {TargetFolders} folders\n * The target relative paths to both the source directory folder and the distribution directory\n * folder.\n ",
+      "start": 16062,
+      "end": 19117,
+      "loc": {
+        "start": {
+          "line": 359,
+          "column": 0
+        },
+        "end": {
+          "line": 412,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {BrowserTarget|NodeTarget} Target\n ",
+      "start": 19119,
+      "end": 19172,
+      "loc": {
+        "start": {
+          "line": 414,
+          "column": 0
+        },
+        "end": {
+          "line": 416,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} TargetConfigurationCreator\n * @param {string} overwritePath\n * The path to the file that can create the configuration.\n * @param {ConfigurationFile} baseConfiguration\n * The configuration service that will be extended.\n * @return {ConfigurationFile}\n ",
+      "start": 19174,
+      "end": 19454,
+      "loc": {
+        "start": {
+          "line": 418,
+          "column": 0
+        },
+        "end": {
+          "line": 425,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationTargetTemplates\n * @property {ProjectConfigurationNodeTargetTemplate} [node]\n * The template settings for all targets with the type `node`.\n * @property {ProjectConfigurationBrowserTargetTemplate} [browser]\n * The template settings for all targets with the type `browser`.\n ",
+      "start": 19456,
+      "end": 19777,
+      "loc": {
+        "start": {
+          "line": 427,
+          "column": 0
+        },
+        "end": {
+          "line": 433,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationFeatureTriggerSettings\n * @property {boolean} [enabled=true]\n * Whether or not the feature should be triggered when a target is being build.\n * @property {boolean} [onlyOnProduction=true]\n * This tells woopack if the feature should be triggered only when building for production, or if\n * it should do it for development too.\n * @property {Array} [targets=[]]\n * This can be used to specify the targets that will trigger the feature when builded. If no target\n * is specified, the feature will be triggered by all the targets.\n ",
+      "start": 19779,
+      "end": 20354,
+      "loc": {
+        "start": {
+          "line": 435,
+          "column": 0
+        },
+        "end": {
+          "line": 445,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationCopyFeatureSettings\n * @property {boolean} [enabled=false]\n * Whether or not the feature is enabled.\n * @property {Array} [items=[]]\n * A list of files and/or directories that will be copied. All with paths relative to the project\n * directory.\n * @property {ProjectConfigurationFeatureTriggerSettings} [copyOnBuild]\n * Since the feature is also available through the woopack CLI, you can configure how the feature\n * behaves when building.\n ",
+      "start": 20356,
+      "end": 20845,
+      "loc": {
+        "start": {
+          "line": 447,
+          "column": 0
+        },
+        "end": {
+          "line": 457,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationVersionRevisionSettings\n * @property {boolean} [enabled=false]\n * Whether or not the revision file feature is enabled.\n * @property {boolean} [copy=true]\n * Whether or not to copy the revision file when the project files are being copied to the\n * distribution directory.\n * @property {string} [filename='revision']\n * The name of the revision file.\n * @property {ProjectConfigurationFeatureTriggerSettings} [createRevisionOnBuild]\n * Since the feature is also available through the woopack CLI, you can configure how the feature\n * behaves when building.\n ",
+      "start": 20847,
+      "end": 21451,
+      "loc": {
+        "start": {
+          "line": 459,
+          "column": 0
+        },
+        "end": {
+          "line": 471,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationVersionSettings\n * @property {string} [defineOn='process.env.VERSION']\n * The name of the variable where the version is going to be replaced on your code when bundled.\n * @property {string} [environmentVariable='VERSION']\n * The name of the environment variable woopack should check to get the project version.\n * @property {ProjectConfigurationVersionRevisionSettings} [revision]\n * This is like a sub-feature. A revision file is a file that contains the version of your project.\n * This is useful when deploying the project to an environment where you have no access to the\n * environment variable.\n *\n * The way the revision file works is by first checking if the environment variable is available\n * and, if not, it will check if the project is on a `GIT` repository and try to get the hash of\n * the last commit.\n ",
+      "start": 21453,
+      "end": 22319,
+      "loc": {
+        "start": {
+          "line": 473,
+          "column": 0
+        },
+        "end": {
+          "line": 487,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationWatchSettings\n * @property {boolean} [poll=true]\n * Whether or not to use polling to get the changes on the file system, and if so, it can also be\n * used to specify the ms interval.\n ",
+      "start": 22321,
+      "end": 22552,
+      "loc": {
+        "start": {
+          "line": 489,
+          "column": 0
+        },
+        "end": {
+          "line": 494,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationOtherSettings\n * @property {ProjectConfigurationWatchSettings}\n * This is used by woopack to configure `watchpack`, which is used to watch Node files that need to\n * be transpiled.\n ",
+      "start": 22554,
+      "end": 22783,
+      "loc": {
+        "start": {
+          "line": 496,
+          "column": 0
+        },
+        "end": {
+          "line": 501,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationSettings\n * @property {ProjectConfigurationPathSettings} [paths]\n * This setting is all about where your code is located and where it will be bundled\n * @property {ProjectConfigurationTargetTemplates} [targetsTemplates]\n * There was no way to have _\"smart defaults\"_ for targets and at the same time allow woopack\n * an unlimited amount of targets, and that's why the this setting exists.\n * The targets will extend the template which name is the same as their `type` property.\n * @property {Object} targets\n * This will be a dictionary with the {@link Target} definitions.\n * @property {ProjectConfigurationCopyFeatureSettings} [copy]\n * These settings are for the feature that enables woopack to copy files when building targets.\n * @property {ProjectConfigurationVersionSettings} [version]\n * These settings are for the feature that manages your project version.\n * @property {ProjectConfigurationOtherSettings} [others]\n * Miscellaneous options.\n ",
+      "start": 22785,
+      "end": 23783,
+      "loc": {
+        "start": {
+          "line": 503,
+          "column": 0
+        },
+        "end": {
+          "line": 519,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} BuildEngineGetCommand\n * @param {Target} target\n * The target information.\n * @param {string} buildType\n * The intended build type: `development` or `production`.\n * @param {boolean} [forceRun=false]\n * Force the target to run even if the `runOnDevelopment` setting is `false`.\n * @return {string}\n * The command the shell script will use to build the target.\n ",
+      "start": 23785,
+      "end": 24175,
+      "loc": {
+        "start": {
+          "line": 521,
+          "column": 0
+        },
+        "end": {
+          "line": 531,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BuildEngine\n * @property {BuildEngineGetCommand} getBuildCommand\n * The method used by woopack in order to get the shell comands to build and/or run a target.\n ",
+      "start": 24177,
+      "end": 24364,
+      "loc": {
+        "start": {
+          "line": 533,
+          "column": 0
+        },
+        "end": {
+          "line": 537,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Woopack} app\n * A reference to the woopack dependency injection container.\n ",
+      "start": 24366,
+      "end": 24505,
+      "loc": {
+        "start": {
+          "line": 539,
+          "column": 0
+        },
+        "end": {
+          "line": 543,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called by Woopack when registering the provider.\n ",
+      "start": 24507,
+      "end": 24664,
+      "loc": {
+        "start": {
+          "line": 545,
+          "column": 0
+        },
+        "end": {
+          "line": 549,
+          "column": 3
+        }
+      }
+    }
+  ],
+  "tokens": [
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Jimple}\n * https://yarnpkg.com/en/package/jimple\n ",
+      "start": 0,
+      "end": 70,
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 0
+        },
+        "end": {
+          "line": 4,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Nodemon}\n * https://github.com/remy/nodemon/blob/master/doc/requireable.md\n ",
+      "start": 72,
+      "end": 168,
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Command}\n * https://tj.github.io/commander.js/#Command\n ",
+      "start": 170,
+      "end": 246,
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Watchpack}\n * https://yarnpkg.com/en/package/watchpack\n ",
+      "start": 248,
+      "end": 324,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {AppConfiguration}\n * https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html\n ",
+      "start": 326,
+      "end": 462,
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {PathUtils}\n * https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html\n ",
+      "start": 464,
+      "end": 579,
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 0
+        },
+        "end": {
+          "line": 29,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {Logger}\n * https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html\n ",
+      "start": 581,
+      "end": 687,
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 0
+        },
+        "end": {
+          "line": 34,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {EnvironmentUtils}\n * https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html\n ",
+      "start": 689,
+      "end": 825,
+      "loc": {
+        "start": {
+          "line": 36,
+          "column": 0
+        },
+        "end": {
+          "line": 39,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {EventsHub}\n * https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html\n ",
+      "start": 827,
+      "end": 944,
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 0
+        },
+        "end": {
+          "line": 44,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {ErrorHandler}\n * https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html\n ",
+      "start": 946,
+      "end": 1070,
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 0
+        },
+        "end": {
+          "line": 49,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @external {RootRequire}\n * https://homer0.github.io/wootils/function/index.html#static-function-rootRequire\n ",
+      "start": 1072,
+      "end": 1190,
+      "loc": {
+        "start": {
+          "line": 51,
+          "column": 0
+        },
+        "end": {
+          "line": 54,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetLibraryOptions\n * @property {string} [libraryTarget='commonjs2']\n * How the library will be exposed: `commonjs2`, `umd` and `window`\n ",
+      "start": 1192,
+      "end": 1359,
+      "loc": {
+        "start": {
+          "line": 56,
+          "column": 0
+        },
+        "end": {
+          "line": 60,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetTypeCheck\n * @property {boolean} node\n * Whether the target type is `node` or not.\n * @property {boolean} browser\n * Whether the target type is `browser` or not.\n ",
+      "start": 1361,
+      "end": 1557,
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 0
+        },
+        "end": {
+          "line": 68,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetPaths\n * @property {string} source\n * The absolute path to the target source directory.\n * @property {string} build\n * The absolute path to the folder, inside the distribution directory, where the target will be\n * bundled/copied.\n ",
+      "start": 1559,
+      "end": 1824,
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 0
+        },
+        "end": {
+          "line": 77,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} TargetFolders\n * @property {string} source\n * The relative path to the target source directory.\n * @property {string} build\n * The relative path to the folder, inside the distribution directory, where the target will be\n * bundled/copied.\n ",
+      "start": 1826,
+      "end": 2093,
+      "loc": {
+        "start": {
+          "line": 79,
+          "column": 0
+        },
+        "end": {
+          "line": 86,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} NodeTargetBabelSettings\n * @property {Array}  [features=[]]\n * woopack includes by default two Babel plugins: `transform-class-properties` and\n * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`\n * to include them.\n * If you need other plugins, they can be included on the `overwrites` option.\n * @property {string} [nodeVersion='current']\n * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the\n * necessary stuff. This setting tells the preset the version of Node it should _\"complete\"_.\n * @property {Object} [overwrites={}]\n * If you know how to use Babel and need stuff that is not covered by woopack, you can use this\n * setting to overwrite/add any value you may need.\n ",
+      "start": 2095,
+      "end": 2888,
+      "loc": {
+        "start": {
+          "line": 88,
+          "column": 0
+        },
+        "end": {
+          "line": 101,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTargetBabelSettings\n * @property {Array}  [features=[]]\n * woopack includes by default two Babel plugins: `transform-class-properties` and\n * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`\n * to include them.\n * If you need other plugins, they can be included on the `overwrites` option.\n * @property {number} [browserVersions=2]\n * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the\n * necessary stuff. This setting tells how many old versions of the major browsers the target needs\n * transpilation for.\n * Major browsers: Firefox, Chrome, Safari and Edge.\n * @property {boolean} [mobileSupport=true]\n * If `true`, the configuration will add to the list of major browsers `iOS` and `Android`.\n * @property {boolean} [polyfill=true]\n * Whether or not the configuration should include the `babel-polyfill` package.\n * @property {Object} [overwrites={}]\n * If you know how to use Babel and need stuff that is not covered by woopack, you can use this\n * setting to overwrite/add any value you may need.\n ",
+      "start": 2890,
+      "end": 4019,
+      "loc": {
+        "start": {
+          "line": 103,
+          "column": 0
+        },
+        "end": {
+          "line": 122,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTargetDevServerSettings\n * @property {number} [port=2509]\n * The server port.\n * @property {boolean} [reload=true]\n * Whether or not to reload the server when the code changes.\n ",
+      "start": 4021,
+      "end": 4233,
+      "loc": {
+        "start": {
+          "line": 124,
+          "column": 0
+        },
+        "end": {
+          "line": 130,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTargetConfigurationSettings\n * @property {boolean} [enabled=false]\n * Whether or not the feature is enabled.\n * @property {null|Object} [default=null]\n * The default configuration. If none is specified, when the target is builded, it will try to\n * use `[target-name].config.js`, located on the configuration folder.\n * @property {string} [path='config/']\n * The path where the configuration files are located.\n * @property {boolean} [hasFolder=true]\n * Whether or not there's a folder with the target name on the configuration path.\n * @property {string} [defineOn='process.env.CONFIG']\n * The name of the variable where the configuration is going to be replaced on your code when\n * bundled.\n * @property {string} [environmentVariable='CONFIG']\n * The name of the environment variable woopack will check when building the target in order to\n * load a dynamic configuration.\n * @property {boolean} [loadFromEnvironment=true]\n * Whether or not woopack should check for the environment variable value.\n * @property {string} [filenameFormat='[target-name].[configuration-name].config.js']\n * The name format of the configuration files.\n ",
+      "start": 4235,
+      "end": 5404,
+      "loc": {
+        "start": {
+          "line": 132,
+          "column": 0
+        },
+        "end": {
+          "line": 153,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationOutputPathSettings\n * @property {string} [js='static/js']\n * The path to generated Javascript files on the distribution directory.\n * @property {string} [fonts='static/fonts']\n * The path to font files once they are moved to the distribution directory.\n * @property {string} [css='static/css']\n * The path to generated stylesheets on the distribution directory.\n * @property {string} [images='static/img']\n * The path to font files once they are moved to the distribution directory.\n ",
+      "start": 5406,
+      "end": 5937,
+      "loc": {
+        "start": {
+          "line": 155,
+          "column": 0
+        },
+        "end": {
+          "line": 165,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationPathSettings\n * @property {string} [source='src']\n * The directory, relative to your project path, where your targets code is located. On the\n * documentation is often referred as the _\"source directory\"_.\n * @property {string} [build='dist']\n * The directory, relative to your project path, where your targets bundled code will be located.\n * On the documentation is often referred as the _\"distribution directory\"_.\n * @property {string} [privateModules='private']\n * This is for the feature that copies when bundling. In case you are using the feature to copy an\n * npm module that, let's say, is not published, woopack will save that module (without its\n * dependencies) on that folder.\n * @property {ProjectConfigurationOutputPathSettings} [output]\n * These are paths for static assets that may be generated when bundling a target.\n ",
+      "start": 5939,
+      "end": 6824,
+      "loc": {
+        "start": {
+          "line": 167,
+          "column": 0
+        },
+        "end": {
+          "line": 181,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationNodeTargetTemplateEntries\n * @property {string} [development='start.development.js']\n * The target entry point on a development build.\n * @property {string} [production='start.production.js']\n * The target entry point on a production build.\n ",
+      "start": 6826,
+      "end": 7115,
+      "loc": {
+        "start": {
+          "line": 183,
+          "column": 0
+        },
+        "end": {
+          "line": 189,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationNodeTargetTemplate\n * @property {boolean} [bundle=false]\n * Whether or not the target needs to be bundled.\n * If the value is `false`, when running on a development environment, and if the target doesn't\n * need transpilation, the code won't be moved to the distribution directory.\n * @property {boolean} [transpile=false]\n * This option is kind of tied to the previous one: You may not want to bundle your Node target,\n * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet\n * supported by the runtime.\n * @property {string} [engine='webpack']\n * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle\n * the target code with.\n * @property {boolean} [hasFolder=true]\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} [createFolder=true]\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} [folder='']\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationNodeTargetTemplateEntries} [entry]\n * The target entry points for each specific environment build.\n * @property {boolean} [runOnDevelopment=false]\n * This tells woopack that when the target is builded (bundled/copied) on a development\n * environment, it should execute it.\n * @property {NodeTargetBabelSettings} [babel]\n * The target transpilation options.\n * @property {boolean} [flow=false]\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support and, in case it was disabled, it will enable transpilation.\n * @property {boolean} [library=false]\n * If the project is bundled, this will tell the build engine that it needs to be builded as a\n * library to be `require`d.\n * @property {TargetLibraryOptions} [libraryOptions]\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library\n * @property {boolean} [cleanBeforeBuild=true]\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n ",
+      "start": 7117,
+      "end": 9571,
+      "loc": {
+        "start": {
+          "line": 191,
+          "column": 0
+        },
+        "end": {
+          "line": 233,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} NodeTarget\n * @property {boolean} bundle\n * Whether or not the target needs to be bundled.\n * If the value is `false`, when running on a development environment, and if the target doesn't\n * need transpilation, the code won't be moved to the distribution directory.\n * @property {boolean} transpile\n * This option is kind of tied to the previous one: You may not want to bundle your Node target,\n * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet\n * supported by the runtime.\n * @property {string} engine\n * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle\n * the target code with.\n * @property {boolean} hasFolder\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} createFolder\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} folder\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationNodeTargetTemplateEntries} entry\n * The target entry points for each specific environment build.\n * @property {boolean} runOnDevelopment\n * This tells woopack that when the target is builded (bundled/copied) on a development\n * environment, it should execute it.\n * @property {NodeTargetBabelSettings} babel\n * The target transpilation options.\n * @property {boolean} flow\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support and, in case it was disabled, it will enable transpilation.\n * @property {boolean} library\n * If the project is bundled, this will tell the build engine that it needs to be builded as a\n * library to be `require`d.\n * @property {TargetLibraryOptions} libraryOptions\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library\n * @property {boolean} cleanBeforeBuild\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {TargetTypeCheck} is\n * To check whether the target type is `node` or `browser`\n * @property {TargetPaths} paths\n * The target absolute paths to both the source directory folder and the distribution directory\n * folder.\n * @property {TargetFolders} folders\n * The target relative paths to both the source directory folder and the distribution directory\n * folder.\n ",
+      "start": 9573,
+      "end": 12292,
+      "loc": {
+        "start": {
+          "line": 235,
+          "column": 0
+        },
+        "end": {
+          "line": 285,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateEntries\n * @property {string} [development='index.js']\n * The target entry point on a development build.\n * @property {string} [production='index.js']\n * The target entry point on a production build.\n ",
+      "start": 12294,
+      "end": 12563,
+      "loc": {
+        "start": {
+          "line": 287,
+          "column": 0
+        },
+        "end": {
+          "line": 293,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings\n * @property {boolean} [development=false]\n * Whether or not to generate a source map on a development build.\n * @property {boolean} [production=true]\n * Whether or not to generate a source map on a production build.\n ",
+      "start": 12565,
+      "end": 12869,
+      "loc": {
+        "start": {
+          "line": 295,
+          "column": 0
+        },
+        "end": {
+          "line": 301,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplateHTMLSettings\n * @property {string} [template='index.html']\n * The file inside your target source that will be used to generate the `html`.\n * @property {string} [filename='index.html']\n * The file that will be generated when your target is bundled. It will automatically include\n * the `<script />` tag to the generated bundle.\n ",
+      "start": 12871,
+      "end": 13268,
+      "loc": {
+        "start": {
+          "line": 303,
+          "column": 0
+        },
+        "end": {
+          "line": 310,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationBrowserTargetTemplate\n * @property {string} [engine='webpack']\n * This will tell woopack which build engine you are going to bundle the target code with.\n * @property {boolean} [hasFolder=true]\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} [createFolder=true]\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} [folder='']\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationBrowserTargetTemplateEntries} [entry]\n * The target entry points for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]\n * The target source map settings for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]\n * In the case the target is an app, these are the options for the `html` file that will include\n * the bundle `<script />`; and if your target is a library, this can be used to test your library.\n * @property {boolean} [runOnDevelopment=false]\n * This will tell the build engine that when you build the target for a development environment,\n * it should bring up an `http` server to _\"run\"_ your target.\n * @property {BrowserTargetBabelSettings} [babel]\n * These options are used by the build engine to configure [Babel](https://babeljs.io):\n * @property {boolean} [flow=false]\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support for it.\n * @property {boolean} [CSSModules=false]\n * Whether or not your application uses CSS Modules.\n * @property {boolean} [library=false]\n * This will tell the build engine that it needs to be builded as a library to be `require`d.\n * @property {TargetLibraryOptions} [libraryOptions]\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library.\n * @property {boolean} [cleanBeforeBuild=true]\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {BrowserTargetDevServerSettings} [devServer]\n * These are the options for the `http` server woopack will use when running the target on a\n * development environment.\n * @property {BrowserTargetConfigurationSettings} [configuration]\n * These are the settings for the feature that allows a browser target to have a dynamic\n * configuration file.\n ",
+      "start": 13270,
+      "end": 16060,
+      "loc": {
+        "start": {
+          "line": 312,
+          "column": 0
+        },
+        "end": {
+          "line": 357,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BrowserTarget\n * @property {string} engine\n * This will tell woopack which build engine you are going to bundle the target code with.\n * @property {boolean} hasFolder\n * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or\n * the contents of the source directory are your target code (useful when working with a single\n * target).\n * @property {boolean} createFolder\n * Whether or not to create a folder for your targets code on the distribution directory when the\n * target is bundled/copied.\n * @property {string} folder\n * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different\n * folder name than the target's name.\n * @property {ProjectConfigurationBrowserTargetTemplateEntries} entry\n * The target entry points for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap\n * The target source map settings for each specific environment build.\n * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html\n * In the case the target is an app, these are the options for the `html` file that will include\n * the bundle `<script />`; and if your target is a library, this can be used to test your library.\n * @property {boolean} runOnDevelopment\n * This will tell the build engine that when you build the target for a development environment,\n * it should bring up an `http` server to _\"run\"_ your target.\n * @property {BrowserTargetBabelSettings} babel\n * These options are used by the build engine to configure [Babel](https://babeljs.io):\n * @property {boolean} flow\n * Whether or not your target uses [flow](https://flow.org/). This will update the Babel\n * configuration in order to add support for it.\n * @property {boolean} CSSModules\n * Whether or not your application uses CSS Modules.\n * @property {boolean} library\n * This will tell the build engine that it needs to be builded as a library to be `require`d.\n * @property {TargetLibraryOptions} libraryOptions\n * In case `library` is `true`, these options are going to be used by the build engine to configure\n * your library.\n * @property {boolean} cleanBeforeBuild\n * Whether or not to remove all code from previous builds from the distribution directory when\n * making a new build.\n * @property {BrowserTargetDevServerSettings} devServer\n * These are the options for the `http` server woopack will use when running the target on a\n * development environment.\n * @property {BrowserTargetConfigurationSettings} configuration\n * These are the settings for the feature that allows a browser target to have a dynamic\n * configuration file.\n * @property {TargetTypeCheck} is\n * To check whether the target type is `node` or `browser`\n * @property {TargetPaths} paths\n * The target absolute paths to both the source directory folder and the distribution directory\n * folder.\n * @property {TargetFolders} folders\n * The target relative paths to both the source directory folder and the distribution directory\n * folder.\n ",
+      "start": 16062,
+      "end": 19117,
+      "loc": {
+        "start": {
+          "line": 359,
+          "column": 0
+        },
+        "end": {
+          "line": 412,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {BrowserTarget|NodeTarget} Target\n ",
+      "start": 19119,
+      "end": 19172,
+      "loc": {
+        "start": {
+          "line": 414,
+          "column": 0
+        },
+        "end": {
+          "line": 416,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} TargetConfigurationCreator\n * @param {string} overwritePath\n * The path to the file that can create the configuration.\n * @param {ConfigurationFile} baseConfiguration\n * The configuration service that will be extended.\n * @return {ConfigurationFile}\n ",
+      "start": 19174,
+      "end": 19454,
+      "loc": {
+        "start": {
+          "line": 418,
+          "column": 0
+        },
+        "end": {
+          "line": 425,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationTargetTemplates\n * @property {ProjectConfigurationNodeTargetTemplate} [node]\n * The template settings for all targets with the type `node`.\n * @property {ProjectConfigurationBrowserTargetTemplate} [browser]\n * The template settings for all targets with the type `browser`.\n ",
+      "start": 19456,
+      "end": 19777,
+      "loc": {
+        "start": {
+          "line": 427,
+          "column": 0
+        },
+        "end": {
+          "line": 433,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationFeatureTriggerSettings\n * @property {boolean} [enabled=true]\n * Whether or not the feature should be triggered when a target is being build.\n * @property {boolean} [onlyOnProduction=true]\n * This tells woopack if the feature should be triggered only when building for production, or if\n * it should do it for development too.\n * @property {Array} [targets=[]]\n * This can be used to specify the targets that will trigger the feature when builded. If no target\n * is specified, the feature will be triggered by all the targets.\n ",
+      "start": 19779,
+      "end": 20354,
+      "loc": {
+        "start": {
+          "line": 435,
+          "column": 0
+        },
+        "end": {
+          "line": 445,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationCopyFeatureSettings\n * @property {boolean} [enabled=false]\n * Whether or not the feature is enabled.\n * @property {Array} [items=[]]\n * A list of files and/or directories that will be copied. All with paths relative to the project\n * directory.\n * @property {ProjectConfigurationFeatureTriggerSettings} [copyOnBuild]\n * Since the feature is also available through the woopack CLI, you can configure how the feature\n * behaves when building.\n ",
+      "start": 20356,
+      "end": 20845,
+      "loc": {
+        "start": {
+          "line": 447,
+          "column": 0
+        },
+        "end": {
+          "line": 457,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationVersionRevisionSettings\n * @property {boolean} [enabled=false]\n * Whether or not the revision file feature is enabled.\n * @property {boolean} [copy=true]\n * Whether or not to copy the revision file when the project files are being copied to the\n * distribution directory.\n * @property {string} [filename='revision']\n * The name of the revision file.\n * @property {ProjectConfigurationFeatureTriggerSettings} [createRevisionOnBuild]\n * Since the feature is also available through the woopack CLI, you can configure how the feature\n * behaves when building.\n ",
+      "start": 20847,
+      "end": 21451,
+      "loc": {
+        "start": {
+          "line": 459,
+          "column": 0
+        },
+        "end": {
+          "line": 471,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationVersionSettings\n * @property {string} [defineOn='process.env.VERSION']\n * The name of the variable where the version is going to be replaced on your code when bundled.\n * @property {string} [environmentVariable='VERSION']\n * The name of the environment variable woopack should check to get the project version.\n * @property {ProjectConfigurationVersionRevisionSettings} [revision]\n * This is like a sub-feature. A revision file is a file that contains the version of your project.\n * This is useful when deploying the project to an environment where you have no access to the\n * environment variable.\n *\n * The way the revision file works is by first checking if the environment variable is available\n * and, if not, it will check if the project is on a `GIT` repository and try to get the hash of\n * the last commit.\n ",
+      "start": 21453,
+      "end": 22319,
+      "loc": {
+        "start": {
+          "line": 473,
+          "column": 0
+        },
+        "end": {
+          "line": 487,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationWatchSettings\n * @property {boolean} [poll=true]\n * Whether or not to use polling to get the changes on the file system, and if so, it can also be\n * used to specify the ms interval.\n ",
+      "start": 22321,
+      "end": 22552,
+      "loc": {
+        "start": {
+          "line": 489,
+          "column": 0
+        },
+        "end": {
+          "line": 494,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationOtherSettings\n * @property {ProjectConfigurationWatchSettings}\n * This is used by woopack to configure `watchpack`, which is used to watch Node files that need to\n * be transpiled.\n ",
+      "start": 22554,
+      "end": 22783,
+      "loc": {
+        "start": {
+          "line": 496,
+          "column": 0
+        },
+        "end": {
+          "line": 501,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} ProjectConfigurationSettings\n * @property {ProjectConfigurationPathSettings} [paths]\n * This setting is all about where your code is located and where it will be bundled\n * @property {ProjectConfigurationTargetTemplates} [targetsTemplates]\n * There was no way to have _\"smart defaults\"_ for targets and at the same time allow woopack\n * an unlimited amount of targets, and that's why the this setting exists.\n * The targets will extend the template which name is the same as their `type` property.\n * @property {Object} targets\n * This will be a dictionary with the {@link Target} definitions.\n * @property {ProjectConfigurationCopyFeatureSettings} [copy]\n * These settings are for the feature that enables woopack to copy files when building targets.\n * @property {ProjectConfigurationVersionSettings} [version]\n * These settings are for the feature that manages your project version.\n * @property {ProjectConfigurationOtherSettings} [others]\n * Miscellaneous options.\n ",
+      "start": 22785,
+      "end": 23783,
+      "loc": {
+        "start": {
+          "line": 503,
+          "column": 0
+        },
+        "end": {
+          "line": 519,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} BuildEngineGetCommand\n * @param {Target} target\n * The target information.\n * @param {string} buildType\n * The intended build type: `development` or `production`.\n * @param {boolean} [forceRun=false]\n * Force the target to run even if the `runOnDevelopment` setting is `false`.\n * @return {string}\n * The command the shell script will use to build the target.\n ",
+      "start": 23785,
+      "end": 24175,
+      "loc": {
+        "start": {
+          "line": 521,
+          "column": 0
+        },
+        "end": {
+          "line": 531,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} BuildEngine\n * @property {BuildEngineGetCommand} getBuildCommand\n * The method used by woopack in order to get the shell comands to build and/or run a target.\n ",
+      "start": 24177,
+      "end": 24364,
+      "loc": {
+        "start": {
+          "line": 533,
+          "column": 0
+        },
+        "end": {
+          "line": 537,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {function} ProviderRegisterMethod\n * @param {Woopack} app\n * A reference to the woopack dependency injection container.\n ",
+      "start": 24366,
+      "end": 24505,
+      "loc": {
+        "start": {
+          "line": 539,
+          "column": 0
+        },
+        "end": {
+          "line": 543,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": "CommentBlock",
+      "value": "*\n * @typedef {Object} Provider\n * @property {ProviderRegisterMethod} register\n * The method that gets called by Woopack when registering the provider.\n ",
+      "start": 24507,
+      "end": 24664,
+      "loc": {
+        "start": {
+          "line": 545,
+          "column": 0
+        },
+        "end": {
+          "line": 549,
+          "column": 3
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "eof",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 24665,
+      "end": 24665,
+      "loc": {
+        "start": {
+          "line": 550,
+          "column": 0
+        },
+        "end": {
+          "line": 550,
+          "column": 0
+        }
+      }
+    }
+  ]
+}

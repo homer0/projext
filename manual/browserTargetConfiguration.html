@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Manual | woopack</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
+<body class="layout-container manual-root" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div class="manual-toc-root">
+  
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html" data-ice="link">Project Configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-paths--code-" data-ice="link">paths</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-source--code-" data-ice="link">source</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-build--code-" data-ice="link">build</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-privatemodules--code-" data-ice="link">privateModules</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targetstemplates--code-" data-ice="link">targetsTemplates</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-node--code-" data-ice="link">node</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-bundle--code-" data-ice="link">bundle</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-transpile--code-" data-ice="link">transpile</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-engine--code-" data-ice="link">engine</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-hasfolder--code-" data-ice="link">hasFolder</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-createfolder--code-" data-ice="link">createFolder</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-browser--code-" data-ice="link">browser</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-engine--code-" data-ice="link">engine</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-hasfolder--code-" data-ice="link">hasFolder</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-createfolder--code-" data-ice="link">createFolder</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-sourcemap--code-" data-ice="link">sourceMap</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cssmodules--code-" data-ice="link">CSSModules</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-devserver--code-" data-ice="link">devServer</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-configuration--code-" data-ice="link">configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targets--code-" data-ice="link">targets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copy--code-" data-ice="link">copy</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-items--code-" data-ice="link">items</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild--code-" data-ice="link">copyOnBuild</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-onlyonproduction--code-" data-ice="link">onlyOnProduction</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targets--code-" data-ice="link">targets</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-version--code-" data-ice="link">version</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-defineone--code-" data-ice="link">defineOne</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-environmentvariable--code-" data-ice="link">environmentVariable</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision--code-" data-ice="link">revision</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-enabled--code-" data-ice="link">revision.enabled</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-copy--code-" data-ice="link">revision.copy</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-filename--code-" data-ice="link">revision.filename</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-createrevisiononbuild--code-" data-ice="link">revision.createRevisionOnBuild</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-others--code-" data-ice="link">others</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-watch--code-" data-ice="link">watch</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-watch-poll--code-" data-ice="link">watch.poll</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">woopack CLI</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#available-commands" data-ice="link">Available commands</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#build-targets" data-ice="link">Build targets</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#running-a-target" data-ice="link">Running a target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#cleaning-previous-builds" data-ice="link">Cleaning previous builds</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#copy-the-project-files" data-ice="link">Copy the project files</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#create-the-revision-file" data-ice="link">Create the revision file</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/overwrite.html"><a href="manual/overwrite.html" data-ice="link">Overwriting woopack</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/plugins.html"><a href="manual/plugins.html" data-ice="link">woopack plugins</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#naming-convention" data-ice="link">Naming convention</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#adding-services-to-the-container" data-ice="link">Adding services to the container</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#events" data-ice="link">Events</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/plugins.html"><a href="manual/plugins.html#regular-events" data-ice="link">Regular events</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/plugins.html"><a href="manual/plugins.html#revision-file-creation" data-ice="link">Revision file creation</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/plugins.html"><a href="manual/plugins.html#reducer-events" data-ice="link">Reducer events</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/plugins.html"><a href="manual/plugins.html#list-of-the-project-files-and-or-folders-to-copy" data-ice="link">List of the project files and/or folders to copy</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/plugins.html"><a href="manual/plugins.html#target-information" data-ice="link">Target information</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/plugins.html"><a href="manual/plugins.html#the-list-of-commands-to-build-a-target" data-ice="link">The list of commands to build a target</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/plugins.html"><a href="manual/plugins.html#a-target-babel-configuration" data-ice="link">A target Babel configuration</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/engines.html"><a href="manual/engines.html" data-ice="link">woopack build engines</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/engines.html"><a href="manual/engines.html#implementing-a-build-engine" data-ice="link">Implementing a build engine</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/engines.html"><a href="manual/engines.html#creating-a-build-engine" data-ice="link">Creating a build engine</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/engines.html"><a href="manual/engines.html#let--39-s-create-a-plugin-for-browserify" data-ice="link">Let&apos;s create a plugin for browserify</a></li>
+</ul>
+  </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html" data-ice="link">woopack browser target configuration</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#settings" data-ice="link">Settings</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-default--code-" data-ice="link">default</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-path--code-" data-ice="link">path</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-hasfolder--code-" data-ice="link">hasFolder</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-defineon--code-" data-ice="link">defineOn</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-environmentvariable--code-" data-ice="link">environmentVariable</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-loadfromevironment--code-" data-ice="link">loadFromEvironment</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-filenameformat--code-" data-ice="link">filenameFormat</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#using-a-configuration" data-ice="link">Using a configuration</a></li>
+</ul>
+  </div>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="woopack-browser-target-configuration">woopack browser target configuration</h1><p>This feature allows you to have dynamic configurations on your browser targets.</p>
+<p>For <code>node</code> targets, having multiple configuration files is simple, as they can <code>require</code> files on runtime, but in the case of <code>browser</code> targets, you would probably want to select the configuration you want to use when you bundle the code and be able to include it inside.</p>
+<p>That&apos;s why, if enabled, woopack creates an instance of <a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">wootil&apos;s <code>AppConfiguration</code></a> that <code>browser</code> targets can use on the bundling process.</p>
+<h2 id="settings">Settings</h2><p>The settings for this feature are on the target own settings, under the <code>configuration</code> key:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  type: &apos;browser&apos;,
+  configuration: {
+    enabled: false,
+    default: null,
+    path: &apos;config/&apos;,
+    hasFolder: true,
+    defineOn: &apos;process.env.CONFIG&apos;,
+    environmentVariable: &apos;CONFIG&apos;,
+    loadFromEnvironment: true,
+    filenameFormat: &apos;[target-name].[configuration-name].config.js&apos;,
+  },
+}</code>
+</code></pre>
+<h3 id="-code-enabled--code-"><code>enabled</code></h3><p>Whether or not the feature is enabled.</p>
+<h3 id="-code-default--code-"><code>default</code></h3><p>The default configuration. It will be the base all the other, <em>&quot;dynamic&quot;</em>, configuration will extend.</p>
+<p>If not specified, woopack will try to load a configuration file called <code>[target-name].config.js</code>, inside the configuration path.</p>
+<h3 id="-code-path--code-"><code>path</code></h3><p>The path relative to the root directory where the configurations are located.</p>
+<h3 id="-code-hasfolder--code-"><code>hasFolder</code></h3><p>If <code>true</code>, woopack will append a folder with the name of the target on the configurations path.</p>
+<h3 id="-code-defineon--code-"><code>defineOn</code></h3><p>The name of a variable that, when the target is builded, will be replaced with the configuration object.</p>
+<h3 id="-code-environmentvariable--code-"><code>environmentVariable</code></h3><p>The name of an environment variable where woopack will check for a configuration name.</p>
+<h3 id="-code-loadfromevironment--code-"><code>loadFromEvironment</code></h3><p>Whether or not woopack should check the environment variable. This is for cases in which loading the default configuration is enough for your project.</p>
+<h3 id="-code-filenameformat--code-"><code>filenameFormat</code></h3><p>The name format of the configuration files. <code>[configuration-name]</code> will be replaced with the value of the environment variable.</p>
+<h2 id="using-a-configuration">Using a configuration</h2><p>First, let&apos;s assume the following things:</p>
+<ul>
+<li>You set <code>enabled</code> to <code>true</code>.</li>
+<li>You left all the other default values.</li>
+<li>You target is named <code>myapp</code></li>
+</ul>
+<p>Now, you should be able to use it by sending the environment variable before the woopack command:</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">CONFIG=debug [woopack-command-to-build-a-target]</code>
+</code></pre>
+<p>This will load <code>config/myapp/myapp.config.js</code> and then <code>config/myapp/myapp.debug.js</code>.</p>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

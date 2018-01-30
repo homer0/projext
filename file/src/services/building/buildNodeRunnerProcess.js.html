@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../../../">
+  <title data-ice="title">src/services/building/buildNodeRunnerProcess.js | woopack</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTarget">BrowserTarget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetBabelSettings">BrowserTargetBabelSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetConfigurationSettings">BrowserTargetConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetDevServerSettings">BrowserTargetDevServerSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BuildEngine">BuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BuildEngineGetCommand">BuildEngineGetCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NodeTarget">NodeTarget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NodeTargetBabelSettings">NodeTargetBabelSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplate">ProjectConfigurationBrowserTargetTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateEntries">ProjectConfigurationBrowserTargetTemplateEntries</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateHTMLSettings">ProjectConfigurationBrowserTargetTemplateHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateSourceMapSettings">ProjectConfigurationBrowserTargetTemplateSourceMapSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationCopyFeatureSettings">ProjectConfigurationCopyFeatureSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationFeatureTriggerSettings">ProjectConfigurationFeatureTriggerSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplate">ProjectConfigurationNodeTargetTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateEntries">ProjectConfigurationNodeTargetTemplateEntries</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOutputPathSettings">ProjectConfigurationOutputPathSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplates">ProjectConfigurationTargetTemplates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationVersionRevisionSettings">ProjectConfigurationVersionRevisionSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationVersionSettings">ProjectConfigurationVersionSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationWatchSettings">ProjectConfigurationWatchSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFolders">TargetFolders</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetLibraryOptions">TargetLibraryOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html">EventsHub</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/watchpack">Watchpack</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/cliCommand.js~CLICommand.html">CLICommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#app">app</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/app/index.js~Woopack.html">Woopack</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildCleaner.js~BuildCleaner.html">BuildCleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildCopier.js~BuildCopier.html">BuildCopier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildEngines.js~BuildEngines.html">BuildEngines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html">BuildNodeRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html">BuildNodeRunnerProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html">BuildTranspiler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/builder.js~Builder.html">Builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildCleaner">buildCleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildCopier">buildCopier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildEngines">buildEngines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunner">buildNodeRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunnerProcess">buildNodeRunnerProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildTranspiler">buildTranspiler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildVersion">buildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-builder">builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-targets">targets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-cli">services/cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cli.js~CLI.html">CLI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliBuild.js~CLIBuildCommand.html">CLIBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliClean.js~CLICleanCommand.html">CLICleanCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand.html">CLICopyProjectFilesCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliRevision.js~CLIRevisionCommand.html">CLIRevisionCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliRun.js~CLIRunCommand.html">CLIRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html">CLISHBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHCopy.js~CLISHCopyCommand.html">CLISHCopyCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html">CLISHNodeRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHRun.js~CLISHRunCommand.html">CLISHRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html">CLISHTranspileCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html">CLISHValidateBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html">CLISHValidateRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-cliWithName">cliWithName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cli">cli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliBuildCommand">cliBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliCleanCommand">cliCleanCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliCopyProjectFilesCommand">cliCopyProjectFilesCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliRevisionCommand">cliRevisionCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliRunCommand">cliRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHBuildCommand">cliSHBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHCopyCommand">cliSHCopyCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHNodeRunCommand">cliSHNodeRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHRunCommand">cliSHRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHTranspileCommand">cliSHTranspileCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateBuildCommand">cliSHValidateBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateRunCommand">cliSHValidateRunCommand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/versionUtils.js~VersionUtils.html">VersionUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-plugins">plugins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-versionUtils">versionUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html">ProjectConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/targetConfiguration.js~TargetConfiguration.html">TargetConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelConfiguration">babelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-projectConfiguration">projectConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-targetConfiguration">targetConfiguration</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/services/building/buildNodeRunnerProcess.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const fs = require(&apos;fs-extra&apos;);
+const extend = require(&apos;extend&apos;);
+const nodemon = require(&apos;nodemon&apos;);
+const Watchpack = require(&apos;watchpack&apos;);
+const { provider } = require(&apos;jimple&apos;);
+/**
+ * This service implements both `nodemon` and `watchpack` in order to run Node apps while watching
+ * and transpiling if necessary.
+ */
+class BuildNodeRunnerProcess {
+  /**
+   * Class constructor.
+   * @param {Logger}                       appLogger            The inform on the CLI of the events
+   *                                                            of the runner.
+   * @param {BuildTranspiler}              buildTranspiler      To transpile files if required.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the project paths.
+   */
+  constructor(appLogger, buildTranspiler, projectConfiguration) {
+    /**
+     * A local reference for the `appLogger` service.
+     * @type {Logger}
+     */
+    this.appLogger = appLogger;
+    /**
+     * A local reference for the `buildTranspiler` service.
+     * @type {BuildTranspiler}
+     */
+    this.buildTranspiler = buildTranspiler;
+    /**
+     * The watcher that will check of changes on the target source directory.
+     * @type {Watchpack}
+     */
+    this.watcher = new Watchpack({
+      poll: projectConfiguration.others.watch.poll,
+    });
+    /**
+     * A simple flag to check whether the process is running or not.
+     * @type {boolean}
+     */
+    this.running = false;
+    /**
+     * The default options for when the service runs a target. These will be overwritten by the
+     * parameters sent to the `run` method.
+     * @type {Object}
+     * @property {string}  executable            The path to the executable file.
+     * @property {Array}   watch                 A list of directories to watch.
+     * @property {Array}   ignore                A list of patterns to ignore.
+     * @property {string}  sourcePath            The path to the source files.
+     * @property {string}  executionPath         The path to the files being executed.
+     * @property {Object}  envVars               A dictionary of environment variables to send to
+     *                                           the process.
+     * @property {boolean} requiresTranspilation Whether or not the target requires transpilation.
+     */
+    this.defaultOptions = {
+      executable: &apos;&apos;,
+      watch: [],
+      ignore: [],
+      sourcePath: &apos;&apos;,
+      executionPath: &apos;&apos;,
+      envVars: {},
+      requiresTranspilation: false,
+    };
+    /**
+     * This dictionary is where the parameters sent to the `run` method and the `defaultOptions`
+     * will be merged.
+     * @type {Object}
+     */
+    this.options = {};
+    /**
+     * Whether or not the process logged the starting message.
+     * @type {boolean}
+     * @ignore
+     * @access protected
+     */
+    this._started = false;
+    /**
+     * Whether or not the process is currently being restarted.
+     * @type {boolean}
+     * @ignore
+     * @access protected
+     */
+    this._restaring = false;
+    /**
+     * Bind the method to export it as the main service.
+     * @ignore
+     */
+    this.run = this.run.bind(this);
+    /**
+     * Bind the method to send it to the `nodemon` events listener.
+     * @ignore
+     */
+    this._onNodemonStart = this._onNodemonStart.bind(this);
+    /**
+     * Bind the method to send it to the `nodemon` events listener.
+     * @ignore
+     */
+    this._onNodemonRestart = this._onNodemonRestart.bind(this);
+    /**
+     * Bind the method to send it to the `nodemon` events listener.
+     * @ignore
+     */
+    this._onNodemonCrash = this._onNodemonCrash.bind(this);
+    /**
+     * Bind the method to send it to the `nodemon` events listener.
+     * @ignore
+     */
+    this._onNodemonQuit = this._onNodemonQuit.bind(this);
+    /**
+     * Bind the method to send it to the `watchpack` events listener.
+     * @ignore
+     */
+    this._onFileChange = this._onFileChange.bind(this);
+  }
+  /**
+   * Run a Node app.
+   * @param {string} executable             The app executable.
+   * @param {Array}  watchOn                A list of directories to watch.
+   * @param {string} sourcePath             The path to the source code of the app. If it doesn&apos;t
+   *                                        match with `executionPath`, then the code needs
+   *                                        transpilation.
+   * @param {string} executionPath          The path to where the app is being executed. If it
+   *                                        doesn&apos;t match with `sourcePath`, then the code needs
+   *                                        transpilation.
+   * @param {Object} [envVars={}]           A dictionary with extra environment variables to send to
+   *                                        the process.
+   * @param {Array}  [ignore=[&apos;*.test.js&apos;]] A list of patterns to ignore on the watch.
+   * @return {Nodemon}
+   * @throws {Error} if the process is already running.
+   * @throws {Error} if the executable doesn&apos;t exist.
+   */
+  run(
+    executable,
+    watchOn,
+    sourcePath,
+    executionPath,
+    envVars = {},
+    ignore = [&apos;*.test.js&apos;]
+  ) {
+    // Check that is not already running and that the executable exists.
+    if (this.running) {
+      throw new Error(
+        &apos;The process is already running, you can\&apos;t start it more than once&apos;
+      );
+    } else if (!fs.pathExistsSync(executable)) {
+      throw new Error(`The target executable doesn&apos;t exist (${executable})`);
+    }
+    // Turn on the flag that tells the service the process is running.
+    this.running = true;
+    // Define the options.
+    this.options = extend(true, {}, this.defaultOptions, {
+      executable,
+      watchOn,
+      ignore,
+      sourcePath,
+      executionPath,
+      envVars,
+      requiresTranspilation: (sourcePath !== executionPath),
+    });
+    // If the code requires transpilation...
+    if (this.options.requiresTranspilation) {
+      // ...turn on `watchpack`.
+      this.watcher.watch([], [this.options.sourcePath]);
+      this.watcher.on(&apos;change&apos;, this._onFileChange);
+    }
+    // Execute `nodemon`.
+    nodemon({
+      script: this.options.executable,
+      watch: this.options.watchOn,
+      ignore: this.options.ignore,
+      env: Object.assign({}, process.env, this.options.envVars),
+    });
+    // Add the `nodemon` listeners.
+    nodemon.on(&apos;start&apos;, this._onNodemonStart);
+    nodemon.on(&apos;restart&apos;, this._onNodemonRestart);
+    nodemon.on(&apos;crash&apos;, this._onNodemonCrash);
+    nodemon.on(&apos;quit&apos;, this._onNodemonQuit);
+
+    return nodemon;
+  }
+  /**
+   * This is called when `nodemon` starts the process and after each time it restarts it. The
+   * method just prints information messages and turn on the `_started` flag.
+   * @param {boolean} [forceLog=false] By default, it only logs the messages the first time, but
+   *                                   if this flag is `true`, it will do it anyways. This is
+   *                                   used from the `_onNodemonRestart` to make sure the restart
+   *                                   messages are shown before the start.
+   * @ignore
+   * @access protected
+   */
+  _onNodemonStart(forceLog = false) {
+    // Only log the messages if it is the first time or if the force flag is `true.`
+    if (!this._started || forceLog) {
+      this.appLogger.success(`Starting ${this.options.executable}`);
+      this.appLogger.info([
+        &apos;to restart at any time, enter \&apos;rs\&apos;&apos;,
+        ...this.options.watchOn.map((directory) =&gt; `watching: ${directory}`),
+      ]);
+      // Turn on the flag that informs the service this method was executed at least once.
+      this._started = true;
+    }
+  }
+  /**
+   * This is called when `nodemon` restarts a process, because a file changed or because the user
+   * requested it. It only prints information messages.
+   * @param {?Array} files A list of files that changed, thus triggering the restart.
+   * @ignore
+   * @access protected
+   */
+  _onNodemonRestart(files) {
+    /**
+     * If the code requires transpilation and this was triggered by file changes, the restart
+     * message was already printed by the `watchpack` listener, so no need to print anything else.
+     */
+    if (!this.options.requiresTranspilation) {
+      if (files &amp;&amp; files.length) {
+        const [file] = files;
+        this.appLogger.warning(`Restarting because file was modified: ${file}`);
+      } else {
+        this.appLogger.warning(&apos;Restarting&apos;);
+      }
+    } else if (!files) {
+      /**
+       * If the code requires transpilation but the change was triggered by the user, then is ok to
+       * show a message.
+       */
+      this.appLogger.warning(&apos;Restarting&apos;);
+    }
+    /**
+     * After showing the restart messages, show the start messages again.
+     * This is done this way because for some reason, the events were being triggered before the
+     * `start` and then the `restart`, showing the messages out of order. This way, the `restart`
+     * triggers the `start`, so the order of the message is always correct.
+     */
+    this._onNodemonStart(true);
+  }
+  /**
+   * This is called when `nodemon` crashes and just prints a message saying that it is still
+   * watching.
+   * @ignore
+   * @access protected
+   */
+  _onNodemonCrash() {
+    this.appLogger.error(&apos;Crash - waiting for file changes before starting...&apos;);
+  }
+  /**
+   * This is called when the `nodemon` process is stopeed. It first checks if it needs to turn off
+   * the `watchpack` listener and then exists the current process.
+   * @ignore
+   * @access protected
+   */
+  _onNodemonQuit() {
+    // If the code needs transpilation...
+    if (this.options.requiresTranspilation) {
+      // ...then `watchpack` is listening and should be stopped.
+      this.watcher.close();
+    }
+
+    // eslint-disable-next-line no-process-exit
+    process.exit();
+  }
+  /**
+   * This is the `watchpack` listener and it gets called every time a source file changes. When this
+   * happens, the service transpiles the file, thus triggering `nodemon` restart.
+   * @param {string} file The path to the modified file.
+   * @ignore
+   * @access protected
+   */
+  _onFileChange(file) {
+    this.appLogger.warning(`Restarting because file was modified: ${file}`);
+    this._transpileFile(file);
+  }
+  /**
+   * Transpile a file from the source directory into the execution directory (the one `nodemon` is
+   * watching).
+   * @param {string} file The path to the file.
+   * @ignore
+   * @access protected
+   */
+  _transpileFile(file) {
+    const { sourcePath, executionPath } = this.options;
+    const relative = file.substr(sourcePath.length);
+
+    try {
+      this.buildTranspiler.transpileFileSync({
+        source: path.join(sourcePath, relative),
+        output: path.join(executionPath, relative),
+      });
+
+      this.appLogger.success(&apos;The file was successfully copied and transpiled&apos;);
+    } catch (error) {
+      /**
+       * By no throwing the error, we allow `nodemon` to keep listening so we can try making other
+       * changes to the file in order transpile it correctly.
+       */
+      this.appLogger.error(&apos;Error: The file couldn\&apos;t be updated&apos;);
+      this.appLogger.error(error);
+      this._onNodemonCrash();
+    }
+  }
+}
+/**
+ * The service provider that once registered on the app container will set an instance of
+ * `BuildNodeRunnerProcess` as the `buildNodeRunnerProcess` service.
+ * @example
+ * // Register it on the container
+ * container.register(buildNodeRunnerProcess);
+ * // Getting access to the service instance
+ * const buildNodeRunnerProcess = container.get(&apos;buildNodeRunnerProcess&apos;);
+ * @type {Provider}
+ */
+const buildNodeRunnerProcess = provider((app) =&gt; {
+  app.set(&apos;buildNodeRunnerProcess&apos;, () =&gt; new BuildNodeRunnerProcess(
+    app.get(&apos;appLogger&apos;),
+    app.get(&apos;buildTranspiler&apos;),
+    app.get(&apos;projectConfiguration&apos;).getConfig()
+  ).run);
+});
+
+module.exports = {
+  BuildNodeRunnerProcess,
+  buildNodeRunnerProcess,
+};
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,2635 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../">
+  <title data-ice="title">Variable | woopack</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTarget">BrowserTarget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetBabelSettings">BrowserTargetBabelSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetConfigurationSettings">BrowserTargetConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetDevServerSettings">BrowserTargetDevServerSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BuildEngine">BuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BuildEngineGetCommand">BuildEngineGetCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NodeTarget">NodeTarget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NodeTargetBabelSettings">NodeTargetBabelSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplate">ProjectConfigurationBrowserTargetTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateEntries">ProjectConfigurationBrowserTargetTemplateEntries</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateHTMLSettings">ProjectConfigurationBrowserTargetTemplateHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateSourceMapSettings">ProjectConfigurationBrowserTargetTemplateSourceMapSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationCopyFeatureSettings">ProjectConfigurationCopyFeatureSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationFeatureTriggerSettings">ProjectConfigurationFeatureTriggerSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplate">ProjectConfigurationNodeTargetTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateEntries">ProjectConfigurationNodeTargetTemplateEntries</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOutputPathSettings">ProjectConfigurationOutputPathSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplates">ProjectConfigurationTargetTemplates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationVersionRevisionSettings">ProjectConfigurationVersionRevisionSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationVersionSettings">ProjectConfigurationVersionSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationWatchSettings">ProjectConfigurationWatchSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFolders">TargetFolders</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetLibraryOptions">TargetLibraryOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html">EventsHub</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/watchpack">Watchpack</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/cliCommand.js~CLICommand.html">CLICommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#app">app</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/app/index.js~Woopack.html">Woopack</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildCleaner.js~BuildCleaner.html">BuildCleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildCopier.js~BuildCopier.html">BuildCopier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildEngines.js~BuildEngines.html">BuildEngines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html">BuildNodeRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html">BuildNodeRunnerProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html">BuildTranspiler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/builder.js~Builder.html">Builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildCleaner">buildCleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildCopier">buildCopier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildEngines">buildEngines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunner">buildNodeRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunnerProcess">buildNodeRunnerProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildTranspiler">buildTranspiler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildVersion">buildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-builder">builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-targets">targets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-cli">services/cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cli.js~CLI.html">CLI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliBuild.js~CLIBuildCommand.html">CLIBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliClean.js~CLICleanCommand.html">CLICleanCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand.html">CLICopyProjectFilesCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliRevision.js~CLIRevisionCommand.html">CLIRevisionCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliRun.js~CLIRunCommand.html">CLIRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html">CLISHBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHCopy.js~CLISHCopyCommand.html">CLISHCopyCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html">CLISHNodeRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHRun.js~CLISHRunCommand.html">CLISHRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html">CLISHTranspileCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html">CLISHValidateBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html">CLISHValidateRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-cliWithName">cliWithName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cli">cli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliBuildCommand">cliBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliCleanCommand">cliCleanCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliCopyProjectFilesCommand">cliCopyProjectFilesCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliRevisionCommand">cliRevisionCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliRunCommand">cliRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHBuildCommand">cliSHBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHCopyCommand">cliSHCopyCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHNodeRunCommand">cliSHNodeRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHRunCommand">cliSHRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHTranspileCommand">cliSHTranspileCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateBuildCommand">cliSHValidateBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateRunCommand">cliSHValidateRunCommand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/versionUtils.js~VersionUtils.html">VersionUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-plugins">plugins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-versionUtils">versionUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html">ProjectConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/targetConfiguration.js~TargetConfiguration.html">TargetConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelConfiguration">babelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-projectConfiguration">projectConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-targetConfiguration">targetConfiguration</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">Variable</h1>
+<div data-ice="summaries"><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Static Public Summary</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-babelConfiguration">babelConfiguration</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BabelConfiguration</code> as the <code>babelConfiguration</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildCleaner">buildCleaner</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildCleaner</code> as the <code>buildCleaner</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildCopier">buildCopier</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildCopier</code> as the <code>buildCopier</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildEngines">buildEngines</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildEngines</code> as the <code>buildEngines</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunner">buildNodeRunner</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildNodeRunner</code> as the <code>buildNodeRunner</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunnerProcess">buildNodeRunnerProcess</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildNodeRunnerProcess</code> as the <code>buildNodeRunnerProcess</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildTranspiler">buildTranspiler</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildTranspiler</code> as the <code>buildTranspiler</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-buildVersion">buildVersion</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildVersion</code> as the <code>buildVersion</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-builder">builder</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>Builder</code> as the <code>builder</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set <code>Cleaner.clean</code> as the
+<code>cleaner</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cli">cli</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLI</code> as the <code>cli</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliBuildCommand">cliBuildCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLIBuildCommand</code> as the <code>cliBuildCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliCleanCommand">cliCleanCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLICleanCommand</code> as the <code>cliCleanCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliCopyProjectFilesCommand">cliCopyProjectFilesCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLICopyProjectFilesCommand</code> as the <code>cliCopyProjectFilesCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliRevisionCommand">cliRevisionCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLIRevisionCommand</code> as the <code>cliRevisionCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliRunCommand">cliRunCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLIRunCommand</code> as the <code>cliRunCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHBuildCommand">cliSHBuildCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHBuildCommand</code> as the <code>cliSHBuildCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHCopyCommand">cliSHCopyCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHCopyCommand</code> as the <code>cliSHCopyCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHNodeRunCommand">cliSHNodeRunCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHNodeRunCommand</code> as the <code>cliSHNodeRunCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHRunCommand">cliSHRunCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHRunCommand</code> as the <code>cliSHRunCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHTranspileCommand">cliSHTranspileCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHTranspileCommand</code> as the <code>cliSHTranspileCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateBuildCommand">cliSHValidateBuildCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHValidateBuildCommand</code> as the <code>cliSHValidateBuildCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateRunCommand">cliSHValidateRunCommand</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHValidateRunCommand</code> as the <code>cliSHValidateRunCommand</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set <code>Copier.copy</code> as the
+<code>copier</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>Events</code> as the <code>events</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-projectConfiguration">projectConfiguration</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>ProjectConfiguration</code> as the <code>projectConfiguration</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-targetConfiguration">targetConfiguration</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an function to get
+instance of <code>TargetConfiguration</code> as the <code>targetConfiguration</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-targets">targets</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>Targets</code> as the <code>targets</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-versionUtils">versionUtils</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>VersionUtils</code> as the <code>versionUtils</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+<div data-ice="details"><h2 data-ice="title">Static Public </h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-babelConfiguration">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">babelConfiguration</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/configurations/babelConfiguration.js.html#lineNumber108">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {babelConfiguration} from &apos;<span><a href="file/src/services/configurations/babelConfiguration.js.html#lineNumber108">woopack/src/services/configurations/babelConfiguration.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BabelConfiguration</code> as the <code>babelConfiguration</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(babelConfiguration);
+// Getting access to the service instance
+const babelConfiguration = container.get(&apos;babelConfiguration&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildCleaner">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildCleaner</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildCleaner.js.html#lineNumber170">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildCleaner} from &apos;<span><a href="file/src/services/building/buildCleaner.js.html#lineNumber170">woopack/src/services/building/buildCleaner.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildCleaner</code> as the <code>buildCleaner</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildCleaner);
+// Getting access to the service instance
+const buildCleaner = container.get(&apos;buildCleaner&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildCopier">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildCopier</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildCopier.js.html#lineNumber259">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildCopier} from &apos;<span><a href="file/src/services/building/buildCopier.js.html#lineNumber259">woopack/src/services/building/buildCopier.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildCopier</code> as the <code>buildCopier</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildCopier);
+// Getting access to the service instance
+const buildCopier = container.get(&apos;buildCopier&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildEngines">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildEngines</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildEngines.js.html#lineNumber43">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildEngines} from &apos;<span><a href="file/src/services/building/buildEngines.js.html#lineNumber43">woopack/src/services/building/buildEngines.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildEngines</code> as the <code>buildEngines</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildEngines);
+// Getting access to the service instance
+const buildEngines = container.get(&apos;buildEngines&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildNodeRunner">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildNodeRunner</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunner.js.html#lineNumber82">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildNodeRunner} from &apos;<span><a href="file/src/services/building/buildNodeRunner.js.html#lineNumber82">woopack/src/services/building/buildNodeRunner.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildNodeRunner</code> as the <code>buildNodeRunner</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildNodeRunner);
+// Getting access to the service instance
+const buildNodeRunner = container.get(&apos;buildNodeRunner&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildNodeRunnerProcess">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildNodeRunnerProcess</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber312">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildNodeRunnerProcess} from &apos;<span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber312">woopack/src/services/building/buildNodeRunnerProcess.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildNodeRunnerProcess</code> as the <code>buildNodeRunnerProcess</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildNodeRunnerProcess);
+// Getting access to the service instance
+const buildNodeRunnerProcess = container.get(&apos;buildNodeRunnerProcess&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildTranspiler">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildTranspiler</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber253">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildTranspiler} from &apos;<span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber253">woopack/src/services/building/buildTranspiler.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildTranspiler</code> as the <code>buildTranspiler</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildTranspiler);
+// Getting access to the service instance
+const buildTranspiler = container.get(&apos;buildTranspiler&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-buildVersion">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">buildVersion</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildVersion.js.html#lineNumber89">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildVersion} from &apos;<span><a href="file/src/services/building/buildVersion.js.html#lineNumber89">woopack/src/services/building/buildVersion.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>BuildVersion</code> as the <code>buildVersion</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(buildVersion);
+// Getting access to the service instance
+const buildVersion = container.get(&apos;buildVersion&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-builder">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">builder</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/builder.js.html#lineNumber135">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {builder} from &apos;<span><a href="file/src/services/building/builder.js.html#lineNumber135">woopack/src/services/building/builder.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>Builder</code> as the <code>builder</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(builder);
+// Getting access to the service instance
+const builder = container.get(&apos;builder&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cleaner">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cleaner</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/cleaner.js.html#lineNumber45">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cleaner} from &apos;<span><a href="file/src/services/common/cleaner.js.html#lineNumber45">woopack/src/services/common/cleaner.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set <code>Cleaner.clean</code> as the
+<code>cleaner</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cleaner);
+// Getting access to the service instance
+const cleaner = container.get(&apos;cleaner&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cli">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cli</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cli.js.html#lineNumber72">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cli} from &apos;<span><a href="file/src/services/cli/cli.js.html#lineNumber72">woopack/src/services/cli/cli.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLI</code> as the <code>cli</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cli);
+// Getting access to the service instance
+const cli = container.get(&apos;cli&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliBuildCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliBuildCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliBuild.js.html#lineNumber49">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliBuildCommand} from &apos;<span><a href="file/src/services/cli/cliBuild.js.html#lineNumber49">woopack/src/services/cli/cliBuild.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLIBuildCommand</code> as the <code>cliBuildCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliBuildCommand);
+// Getting access to the service instance
+const cliBuildCommand = container.get(&apos;cliBuildCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliCleanCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliCleanCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliClean.js.html#lineNumber61">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliCleanCommand} from &apos;<span><a href="file/src/services/cli/cliClean.js.html#lineNumber61">woopack/src/services/cli/cliClean.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLICleanCommand</code> as the <code>cliCleanCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliCleanCommand);
+// Getting access to the service instance
+const cliCleanCommand = container.get(&apos;cliCleanCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliCopyProjectFilesCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliCopyProjectFilesCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliCopyProjectFiles.js.html#lineNumber49">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliCopyProjectFilesCommand} from &apos;<span><a href="file/src/services/cli/cliCopyProjectFiles.js.html#lineNumber49">woopack/src/services/cli/cliCopyProjectFiles.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLICopyProjectFilesCommand</code> as the <code>cliCopyProjectFilesCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliCopyProjectFilesCommand);
+// Getting access to the service instance
+const cliCopyProjectFilesCommand = container.get(&apos;cliCopyProjectFilesCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliRevisionCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliRevisionCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliRevision.js.html#lineNumber48">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliRevisionCommand} from &apos;<span><a href="file/src/services/cli/cliRevision.js.html#lineNumber48">woopack/src/services/cli/cliRevision.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLIRevisionCommand</code> as the <code>cliRevisionCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliRevisionCommand);
+// Getting access to the service instance
+const cliRevisionCommand = container.get(&apos;cliRevisionCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliRunCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliRunCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliRun.js.html#lineNumber37">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliRunCommand} from &apos;<span><a href="file/src/services/cli/cliRun.js.html#lineNumber37">woopack/src/services/cli/cliRun.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLIRunCommand</code> as the <code>cliRunCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliRunCommand);
+// Getting access to the service instance
+const cliRunCommand = container.get(&apos;cliRunCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHBuildCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHBuildCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHBuild.js.html#lineNumber397">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHBuildCommand} from &apos;<span><a href="file/src/services/cli/cliSHBuild.js.html#lineNumber397">woopack/src/services/cli/cliSHBuild.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHBuildCommand</code> as the <code>cliSHBuildCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHBuildCommand);
+// Getting access to the service instance
+const cliSHBuildCommand = container.get(&apos;cliSHBuildCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHCopyCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHCopyCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHCopy.js.html#lineNumber64">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHCopyCommand} from &apos;<span><a href="file/src/services/cli/cliSHCopy.js.html#lineNumber64">woopack/src/services/cli/cliSHCopy.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHCopyCommand</code> as the <code>cliSHCopyCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHCopyCommand);
+// Getting access to the service instance
+const cliSHCopyCommand = container.get(&apos;cliSHCopyCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHNodeRunCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHNodeRunCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHNodeRun.js.html#lineNumber62">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHNodeRunCommand} from &apos;<span><a href="file/src/services/cli/cliSHNodeRun.js.html#lineNumber62">woopack/src/services/cli/cliSHNodeRun.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHNodeRunCommand</code> as the <code>cliSHNodeRunCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHNodeRunCommand);
+// Getting access to the service instance
+const cliSHNodeRunCommand = container.get(&apos;cliSHNodeRunCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHRunCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHRunCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHRun.js.html#lineNumber60">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHRunCommand} from &apos;<span><a href="file/src/services/cli/cliSHRun.js.html#lineNumber60">woopack/src/services/cli/cliSHRun.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHRunCommand</code> as the <code>cliSHRunCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHRunCommand);
+// Getting access to the service instance
+const cliSHRunCommand = container.get(&apos;cliSHRunCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHTranspileCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHTranspileCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHTranspile.js.html#lineNumber63">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHTranspileCommand} from &apos;<span><a href="file/src/services/cli/cliSHTranspile.js.html#lineNumber63">woopack/src/services/cli/cliSHTranspile.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHTranspileCommand</code> as the <code>cliSHTranspileCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHTranspileCommand);
+// Getting access to the service instance
+const cliSHTranspileCommand = container.get(&apos;cliSHTranspileCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHValidateBuildCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHValidateBuildCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHValidateBuild.js.html#lineNumber96">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHValidateBuildCommand} from &apos;<span><a href="file/src/services/cli/cliSHValidateBuild.js.html#lineNumber96">woopack/src/services/cli/cliSHValidateBuild.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHValidateBuildCommand</code> as the <code>cliSHValidateBuildCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHValidateBuildCommand);
+// Getting access to the service instance
+const cliSHValidateBuildCommand = container.get(&apos;cliSHValidateBuildCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-cliSHValidateRunCommand">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">cliSHValidateRunCommand</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/cli/cliSHValidateRun.js.html#lineNumber71">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliSHValidateRunCommand} from &apos;<span><a href="file/src/services/cli/cliSHValidateRun.js.html#lineNumber71">woopack/src/services/cli/cliSHValidateRun.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>CLISHValidateRunCommand</code> as the <code>cliSHValidateRunCommand</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(cliSHValidateRunCommand);
+// Getting access to the service instance
+const cliSHValidateRunCommand = container.get(&apos;cliSHValidateRunCommand&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-copier">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">copier</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/copier.js.html#lineNumber144">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {copier} from &apos;<span><a href="file/src/services/common/copier.js.html#lineNumber144">woopack/src/services/common/copier.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set <code>Copier.copy</code> as the
+<code>copier</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(copier);
+// Getting access to the service instance
+const copier = container.get(&apos;copier&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-events">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">events</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/events.js.html#lineNumber18">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {events} from &apos;<span><a href="file/src/services/common/events.js.html#lineNumber18">woopack/src/services/common/events.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>Events</code> as the <code>events</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(events);
+// Getting access to the service instance
+const events = container.get(&apos;events&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-projectConfiguration">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">projectConfiguration</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/configurations/projectConfiguration.js.html#lineNumber150">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {projectConfiguration} from &apos;<span><a href="file/src/services/configurations/projectConfiguration.js.html#lineNumber150">woopack/src/services/configurations/projectConfiguration.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>ProjectConfiguration</code> as the <code>projectConfiguration</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(projectConfiguration);
+// Getting access to the service instance
+const projectConfiguration = container.get(&apos;projectConfiguration&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-targetConfiguration">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">targetConfiguration</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/configurations/targetConfiguration.js.html#lineNumber41">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {targetConfiguration} from &apos;<span><a href="file/src/services/configurations/targetConfiguration.js.html#lineNumber41">woopack/src/services/configurations/targetConfiguration.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an function to get
+instance of <code>TargetConfiguration</code> as the <code>targetConfiguration</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(targetConfiguration);
+// Getting access to the service function
+const targetConfiguration = container.get(&apos;targetConfiguration&apos;);
+// Generating an instance for an specific configurations
+const myNewConfig = targetConfiguration(&apos;./overwrite-path.js&apos;, configToExtend).getConfig();</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-targets">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">targets</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/targets.js.html#lineNumber260">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {targets} from &apos;<span><a href="file/src/services/building/targets.js.html#lineNumber260">woopack/src/services/building/targets.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>Targets</code> as the <code>targets</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(targets);
+// Getting access to the service instance
+const targets = container.get(&apos;targets&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-versionUtils">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">versionUtils</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/versionUtils.js.html#lineNumber152">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {versionUtils} from &apos;<span><a href="file/src/services/common/versionUtils.js.html#lineNumber152">woopack/src/services/common/versionUtils.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>VersionUtils</code> as the <code>versionUtils</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(versionUtils);
+// Getting access to the service instance
+const versionUtils = container.get(&apos;versionUtils&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+</div>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="">
+  <title data-ice="title">Source | woopack</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  <script src="script/manual.js"></script>
+<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  <a href="./manual/index.html" data-ice="manualHeaderLink">Manual</a>
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack"><img width="20px" src="./image/github.png"></a></header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTarget">BrowserTarget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetBabelSettings">BrowserTargetBabelSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetConfigurationSettings">BrowserTargetConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BrowserTargetDevServerSettings">BrowserTargetDevServerSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BuildEngine">BuildEngine</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-BuildEngineGetCommand">BuildEngineGetCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NodeTarget">NodeTarget</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-NodeTargetBabelSettings">NodeTargetBabelSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplate">ProjectConfigurationBrowserTargetTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateEntries">ProjectConfigurationBrowserTargetTemplateEntries</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateHTMLSettings">ProjectConfigurationBrowserTargetTemplateHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateSourceMapSettings">ProjectConfigurationBrowserTargetTemplateSourceMapSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationCopyFeatureSettings">ProjectConfigurationCopyFeatureSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationFeatureTriggerSettings">ProjectConfigurationFeatureTriggerSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplate">ProjectConfigurationNodeTargetTemplate</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateEntries">ProjectConfigurationNodeTargetTemplateEntries</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOutputPathSettings">ProjectConfigurationOutputPathSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplates">ProjectConfigurationTargetTemplates</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationVersionRevisionSettings">ProjectConfigurationVersionRevisionSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationVersionSettings">ProjectConfigurationVersionSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationWatchSettings">ProjectConfigurationWatchSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProviderRegisterMethod">ProviderRegisterMethod</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFolders">TargetFolders</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetLibraryOptions">TargetLibraryOptions</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html">EventsHub</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/jimple">Jimple</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://yarnpkg.com/en/package/watchpack">Watchpack</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#abstracts">abstracts</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/cliCommand.js~CLICommand.html">CLICommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#app">app</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/app/index.js~Woopack.html">Woopack</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-building">services/building</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildCleaner.js~BuildCleaner.html">BuildCleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildCopier.js~BuildCopier.html">BuildCopier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildEngines.js~BuildEngines.html">BuildEngines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html">BuildNodeRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html">BuildNodeRunnerProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html">BuildTranspiler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/builder.js~Builder.html">Builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/building/targets.js~Targets.html">Targets</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildCleaner">buildCleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildCopier">buildCopier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildEngines">buildEngines</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunner">buildNodeRunner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildNodeRunnerProcess">buildNodeRunnerProcess</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildTranspiler">buildTranspiler</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-buildVersion">buildVersion</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-builder">builder</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-targets">targets</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-cli">services/cli</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cli.js~CLI.html">CLI</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliBuild.js~CLIBuildCommand.html">CLIBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliClean.js~CLICleanCommand.html">CLICleanCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand.html">CLICopyProjectFilesCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliRevision.js~CLIRevisionCommand.html">CLIRevisionCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliRun.js~CLIRunCommand.html">CLIRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html">CLISHBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHCopy.js~CLISHCopyCommand.html">CLISHCopyCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html">CLISHNodeRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHRun.js~CLISHRunCommand.html">CLISHRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html">CLISHTranspileCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html">CLISHValidateBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html">CLISHValidateRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-cliWithName">cliWithName</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cli">cli</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliBuildCommand">cliBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliCleanCommand">cliCleanCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliCopyProjectFilesCommand">cliCopyProjectFilesCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliRevisionCommand">cliRevisionCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliRunCommand">cliRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHBuildCommand">cliSHBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHCopyCommand">cliSHCopyCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHNodeRunCommand">cliSHNodeRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHRunCommand">cliSHRunCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHTranspileCommand">cliSHTranspileCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateBuildCommand">cliSHValidateBuildCommand</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cliSHValidateRunCommand">cliSHValidateRunCommand</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/versionUtils.js~VersionUtils.html">VersionUtils</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-function">F</span><span data-ice="name"><span><a href="function/index.html#static-function-plugins">plugins</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-versionUtils">versionUtils</a></span></span></li>
+<li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-configurations">services/configurations</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html">ProjectConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/configurations/targetConfiguration.js~TargetConfiguration.html">TargetConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelConfiguration">babelConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-projectConfiguration">projectConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-targetConfiguration">targetConfiguration</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1>Source <img data-ice="coverageBadge" src="./badge.svg"><span data-ice="totalCoverageCount" class="total-coverage-count">300/300</span></h1>
+
+<table class="files-summary" data-ice="files" data-use-coverage="true">
+  <thead>
+    <tr>
+      <td>File</td>
+      <td>Identifier</td>
+      <td class="coverage">Document</td>
+      <td style="display: none;">Size</td>
+      <td style="display: none;">Lines</td>
+      <td style="display: none;">Updated</td>
+    </tr>
+  </thead>
+  <tbody>
+    
+  <tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/abstracts/cliCommand.js.html">src/abstracts/cliCommand.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/abstracts/cliCommand.js~CLICommand.html">CLICommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">16/16</span></td>
+      <td style="display: none;" data-ice="size">9609 byte</td>
+      <td style="display: none;" data-ice="lines">285</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:03 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/abstracts/configurationFile.js.html">src/abstracts/configurationFile.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/abstracts/configurationFile.js~ConfigurationFile.html">ConfigurationFile</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">13/13</span></td>
+      <td style="display: none;" data-ice="size">6450 byte</td>
+      <td style="display: none;" data-ice="lines">172</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 09:59:23 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/app/index.js.html">src/app/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/app/index.js~Woopack.html">Woopack</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">3691 byte</td>
+      <td style="display: none;" data-ice="lines">150</td>
+      <td style="display: none;" data-ice="updated">2018-01-01 11:30:15 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/index.js.html">src/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">35 byte</td>
+      <td style="display: none;" data-ice="lines">1</td>
+      <td style="display: none;" data-ice="updated">2018-01-04 07:36:47 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildCleaner.js.html">src/services/building/buildCleaner.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildCleaner.js~BuildCleaner.html">BuildCleaner</a></span>
+<span><a href="variable/index.html#static-variable-buildCleaner">buildCleaner</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">12/12</span></td>
+      <td style="display: none;" data-ice="size">5432 byte</td>
+      <td style="display: none;" data-ice="lines">182</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:03:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildCopier.js.html">src/services/building/buildCopier.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildCopier.js~BuildCopier.html">BuildCopier</a></span>
+<span><a href="variable/index.html#static-variable-buildCopier">buildCopier</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">11/11</span></td>
+      <td style="display: none;" data-ice="size">10425 byte</td>
+      <td style="display: none;" data-ice="lines">272</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:05:30 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildEngines.js.html">src/services/building/buildEngines.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildEngines.js~BuildEngines.html">BuildEngines</a></span>
+<span><a href="variable/index.html#static-variable-buildEngines">buildEngines</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">1608 byte</td>
+      <td style="display: none;" data-ice="lines">50</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:03:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildNodeRunner.js.html">src/services/building/buildNodeRunner.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html">BuildNodeRunner</a></span>
+<span><a href="variable/index.html#static-variable-buildNodeRunner">buildNodeRunner</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
+      <td style="display: none;" data-ice="size">2738 byte</td>
+      <td style="display: none;" data-ice="lines">91</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 03:45:29 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html">src/services/building/buildNodeRunnerProcess.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html">BuildNodeRunnerProcess</a></span>
+<span><a href="variable/index.html#static-variable-buildNodeRunnerProcess">buildNodeRunnerProcess</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">18/18</span></td>
+      <td style="display: none;" data-ice="size">11891 byte</td>
+      <td style="display: none;" data-ice="lines">323</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:05:30 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildTranspiler.js.html">src/services/building/buildTranspiler.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html">BuildTranspiler</a></span>
+<span><a href="variable/index.html#static-variable-buildTranspiler">buildTranspiler</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">13/13</span></td>
+      <td style="display: none;" data-ice="size">10457 byte</td>
+      <td style="display: none;" data-ice="lines">266</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:05:30 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/buildVersion.js.html">src/services/building/buildVersion.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/buildVersion.js~BuildVersion.html">BuildVersion</a></span>
+<span><a href="variable/index.html#static-variable-buildVersion">buildVersion</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">9/9</span></td>
+      <td style="display: none;" data-ice="size">3270 byte</td>
+      <td style="display: none;" data-ice="lines">100</td>
+      <td style="display: none;" data-ice="updated">2018-01-01 11:23:03 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/builder.js.html">src/services/building/builder.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/builder.js~Builder.html">Builder</a></span>
+<span><a href="variable/index.html#static-variable-builder">builder</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">12/12</span></td>
+      <td style="display: none;" data-ice="size">4996 byte</td>
+      <td style="display: none;" data-ice="lines">148</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:05:30 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/index.js.html">src/services/building/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">650 byte</td>
+      <td style="display: none;" data-ice="lines">21</td>
+      <td style="display: none;" data-ice="updated">2018-01-01 05:22:38 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/building/targets.js.html">src/services/building/targets.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/building/targets.js~Targets.html">Targets</a></span>
+<span><a href="variable/index.html#static-variable-targets">targets</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">16/16</span></td>
+      <td style="display: none;" data-ice="size">9441 byte</td>
+      <td style="display: none;" data-ice="lines">273</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:03:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cli.js.html">src/services/cli/cli.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cli.js~CLI.html">CLI</a></span>
+<span><a href="variable/index.html#static-variable-cli">cli</a></span>
+<span><a href="function/index.html#static-function-cliWithName">cliWithName</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
+      <td style="display: none;" data-ice="size">2261 byte</td>
+      <td style="display: none;" data-ice="lines">78</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:03:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliBuild.js.html">src/services/cli/cliBuild.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliBuild.js~CLIBuildCommand.html">CLIBuildCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliBuildCommand">cliBuildCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">1527 byte</td>
+      <td style="display: none;" data-ice="lines">56</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:29 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliClean.js.html">src/services/cli/cliClean.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliClean.js~CLICleanCommand.html">CLICleanCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliCleanCommand">cliCleanCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">2221 byte</td>
+      <td style="display: none;" data-ice="lines">71</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:33 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliCopyProjectFiles.js.html">src/services/cli/cliCopyProjectFiles.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand.html">CLICopyProjectFilesCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliCopyProjectFilesCommand">cliCopyProjectFilesCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
+      <td style="display: none;" data-ice="size">1783 byte</td>
+      <td style="display: none;" data-ice="lines">58</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:36 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliRevision.js.html">src/services/cli/cliRevision.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliRevision.js~CLIRevisionCommand.html">CLIRevisionCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliRevisionCommand">cliRevisionCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
+      <td style="display: none;" data-ice="size">1654 byte</td>
+      <td style="display: none;" data-ice="lines">57</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:39 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliRun.js.html">src/services/cli/cliRun.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliRun.js~CLIRunCommand.html">CLIRunCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliRunCommand">cliRunCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">5/5</span></td>
+      <td style="display: none;" data-ice="size">1202 byte</td>
+      <td style="display: none;" data-ice="lines">44</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:42 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHBuild.js.html">src/services/cli/cliSHBuild.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html">CLISHBuildCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHBuildCommand">cliSHBuildCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">26/26</span></td>
+      <td style="display: none;" data-ice="size">17330 byte</td>
+      <td style="display: none;" data-ice="lines">415</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:45 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHCopy.js.html">src/services/cli/cliSHCopy.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHCopy.js~CLISHCopyCommand.html">CLISHCopyCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHCopyCommand">cliSHCopyCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">2207 byte</td>
+      <td style="display: none;" data-ice="lines">71</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:48 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHNodeRun.js.html">src/services/cli/cliSHNodeRun.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html">CLISHNodeRunCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHNodeRunCommand">cliSHNodeRunCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">9/9</span></td>
+      <td style="display: none;" data-ice="size">2173 byte</td>
+      <td style="display: none;" data-ice="lines">72</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:52 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHRun.js.html">src/services/cli/cliSHRun.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHRun.js~CLISHRunCommand.html">CLISHRunCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHRunCommand">cliSHRunCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">2091 byte</td>
+      <td style="display: none;" data-ice="lines">69</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:55 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHTranspile.js.html">src/services/cli/cliSHTranspile.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html">CLISHTranspileCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHTranspileCommand">cliSHTranspileCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">2195 byte</td>
+      <td style="display: none;" data-ice="lines">70</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:00:58 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHValidateBuild.js.html">src/services/cli/cliSHValidateBuild.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html">CLISHValidateBuildCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHValidateBuildCommand">cliSHValidateBuildCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">9/9</span></td>
+      <td style="display: none;" data-ice="size">3457 byte</td>
+      <td style="display: none;" data-ice="lines">106</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:01:02 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/cliSHValidateRun.js.html">src/services/cli/cliSHValidateRun.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html">CLISHValidateRunCommand</a></span>
+<span><a href="variable/index.html#static-variable-cliSHValidateRunCommand">cliSHValidateRunCommand</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">8/8</span></td>
+      <td style="display: none;" data-ice="size">2521 byte</td>
+      <td style="display: none;" data-ice="lines">80</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:01:05 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/cli/index.js.html">src/services/cli/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">1061 byte</td>
+      <td style="display: none;" data-ice="lines">30</td>
+      <td style="display: none;" data-ice="updated">2017-12-04 10:52:42 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/common/cleaner.js.html">src/services/common/cleaner.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span>
+<span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">3/3</span></td>
+      <td style="display: none;" data-ice="size">1483 byte</td>
+      <td style="display: none;" data-ice="lines">52</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:05:30 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/common/copier.js.html">src/services/common/copier.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span>
+<span><a href="variable/index.html#static-variable-copier">copier</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">7/7</span></td>
+      <td style="display: none;" data-ice="size">4966 byte</td>
+      <td style="display: none;" data-ice="lines">151</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:03:46 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/common/events.js.html">src/services/common/events.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span>
+<span><a href="variable/index.html#static-variable-events">events</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">2/2</span></td>
+      <td style="display: none;" data-ice="size">648 byte</td>
+      <td style="display: none;" data-ice="lines">25</td>
+      <td style="display: none;" data-ice="updated">2018-01-01 09:47:18 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/common/index.js.html">src/services/common/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">297 byte</td>
+      <td style="display: none;" data-ice="lines">13</td>
+      <td style="display: none;" data-ice="updated">2017-12-06 19:47:59 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/common/plugins.js.html">src/services/common/plugins.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span>
+<span><a href="function/index.html#static-function-plugins">plugins</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">10/10</span></td>
+      <td style="display: none;" data-ice="size">3467 byte</td>
+      <td style="display: none;" data-ice="lines">108</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:05:30 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/common/versionUtils.js.html">src/services/common/versionUtils.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/common/versionUtils.js~VersionUtils.html">VersionUtils</a></span>
+<span><a href="variable/index.html#static-variable-versionUtils">versionUtils</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">12/12</span></td>
+      <td style="display: none;" data-ice="size">5465 byte</td>
+      <td style="display: none;" data-ice="lines">163</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 04:04:05 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/configurations/babelConfiguration.js.html">src/services/configurations/babelConfiguration.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span>
+<span><a href="variable/index.html#static-variable-babelConfiguration">babelConfiguration</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">6/6</span></td>
+      <td style="display: none;" data-ice="size">3630 byte</td>
+      <td style="display: none;" data-ice="lines">117</td>
+      <td style="display: none;" data-ice="updated">2018-01-01 09:47:18 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/configurations/index.js.html">src/services/configurations/index.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">290 byte</td>
+      <td style="display: none;" data-ice="lines">9</td>
+      <td style="display: none;" data-ice="updated">2017-12-06 08:52:34 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/configurations/projectConfiguration.js.html">src/services/configurations/projectConfiguration.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html">ProjectConfiguration</a></span>
+<span><a href="variable/index.html#static-variable-projectConfiguration">projectConfiguration</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
+      <td style="display: none;" data-ice="size">4371 byte</td>
+      <td style="display: none;" data-ice="lines">159</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:01:09 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/services/configurations/targetConfiguration.js.html">src/services/configurations/targetConfiguration.js</a></span></td>
+      <td data-ice="identifier" class="identifiers"><span><a href="class/src/services/configurations/targetConfiguration.js~TargetConfiguration.html">TargetConfiguration</a></span>
+<span><a href="variable/index.html#static-variable-targetConfiguration">targetConfiguration</a></span></td>
+      <td class="coverage"><span data-ice="coverage">100 %</span><span data-ice="coverageCount" class="coverage-count">4/4</span></td>
+      <td style="display: none;" data-ice="size">2023 byte</td>
+      <td style="display: none;" data-ice="lines">55</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 10:01:12 (UTC)</td>
+    </tr>
+<tr data-ice="file">
+      <td data-ice="filePath"><span><a href="file/src/typedef.js.html">src/typedef.js</a></span></td>
+      <td data-ice="identifier" class="identifiers">-</td>
+      <td class="coverage"><span data-ice="coverage">-</span></td>
+      <td style="display: none;" data-ice="size">24665 byte</td>
+      <td style="display: none;" data-ice="lines">549</td>
+      <td style="display: none;" data-ice="updated">2018-01-02 09:36:07 (UTC)</td>
+    </tr>
+</tbody>
+</table>
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

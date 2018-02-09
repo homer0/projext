@@ -12,9 +12,15 @@ const path = require('path');
 require('jasmine-expect');
 const { Targets, targets } = require('/src/services/building/targets');
 
+const originalNow = Date.now;
+
 describe('services/building:targets', () => {
   beforeEach(() => {
     WootilsAppConfigurationMock.reset();
+  });
+
+  afterEach(() => {
+    Date.now = originalNow;
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -101,6 +107,8 @@ describe('services/building:targets', () => {
         defaultTargetName: 'node',
         type: 'node',
         name: 'targetOne',
+        entry: {},
+        output: {},
         paths: {
           source: `${source}/targetOne`,
           build,
@@ -122,6 +130,8 @@ describe('services/building:targets', () => {
         createFolder: true,
         transpile: true,
         name: 'targetTwo',
+        entry: {},
+        output: {},
         type: 'node',
         paths: {
           source: `${source}/target-two`,
@@ -144,6 +154,8 @@ describe('services/building:targets', () => {
         transpile: true,
         flow: true,
         name: 'targetThree',
+        entry: {},
+        output: {},
         type: 'node',
         paths: {
           source: `${source}/target-three`,
@@ -163,14 +175,483 @@ describe('services/building:targets', () => {
         type: 'browser',
         hasFolder: false,
         name: 'targetFour',
-        paths: {
-          source,
-          build,
+        entry: {},
+        output: {},
+        paths: { source, build },
+        folders: { source, build },
+        is: {
+          node: false,
+          browser: true,
         },
-        folders: {
-          source,
-          build,
+      },
+    };
+    const expectedTargetsNames = Object.keys(expectedTargets);
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      pathUtils,
+      projectConfiguration,
+      rootRequire
+    );
+    result = sut.getTargets();
+    // Then
+    expect(result).toEqual(expectedTargets);
+    expect(events.reduce).toHaveBeenCalledTimes(expectedTargetsNames.length);
+    expectedTargetsNames.forEach((targetName) => {
+      expect(events.reduce).toHaveBeenCalledWith(
+        'target-load',
+        expectedTargets[targetName]
+      );
+    });
+  });
+
+  it('should load the project targets and resolve their entries and outputs', () => {
+    // Given
+    const hash = '2509';
+    Date.now = () => hash;
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const source = 'source-path';
+    const build = 'build-path';
+    const projectConfiguration = {
+      targets: {
+        targetOne: {},
+        targetTwo: {
+          type: 'browser',
+          entry: {
+            default: 'index.jsx',
+          },
+          output: {
+            default: {
+              js: 'statics/js/[target-name].js',
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
+            development: null,
+            production: null,
+          },
         },
+        targetThree: {
+          type: 'browser',
+          entry: {
+            default: 'index.jsx',
+            development: 'playground.js',
+          },
+          output: {
+            default: {
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
+            development: {
+              fonts: null,
+              css: null,
+              images: null,
+              js: 'statics/js/[target-name].development.js',
+            },
+            production: {
+              fonts: null,
+              css: null,
+              images: null,
+              js: 'statics/js/[target-name].production.js',
+            },
+          },
+        },
+        targetFour: {
+          type: 'browser',
+          entry: {
+            default: null,
+            development: 'index.js',
+          },
+        },
+        targetFive: {
+          output: {
+            default: 'start.js',
+          },
+        },
+        targetSix: {
+          output: {
+            development: 'start.development.js',
+          },
+        },
+        targetSeven: {
+          output: {
+            default: null,
+            production: 'start.production.js',
+          },
+        },
+      },
+      targetsTemplates: {
+        node: {
+          defaultTargetName: 'node',
+          hasFolder: false,
+          entry: {
+            default: 'index.js',
+            development: null,
+            production: null,
+          },
+          output: {
+            default: '[target-name].js',
+            development: null,
+            production: null,
+          },
+        },
+        browser: {
+          defaultTargetName: 'browser',
+          hasFolder: false,
+          entry: {
+            default: 'index.js',
+            development: null,
+            production: null,
+          },
+          output: {
+            default: {
+              js: 'statics/js/[target-name].[hash].js',
+              fonts: 'statics/fonts/[name].[hash].[ext]',
+              css: 'statics/styles/[target-name].[hash].css',
+              images: 'statics/images/[name].[hash].[ext]',
+            },
+            development: {
+              js: 'statics/js/[target-name].js',
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
+            production: null,
+          },
+        },
+      },
+      paths: {
+        source,
+        build,
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const expectedTargets = {
+      targetOne: {
+        name: 'targetOne',
+        defaultTargetName: 'node',
+        type: 'node',
+        entry: {
+          development: 'index.js',
+          production: 'index.js',
+        },
+        output: {
+          development: 'targetOne.js',
+          production: 'targetOne.js',
+        },
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: true,
+          browser: false,
+        },
+      },
+      targetTwo: {
+        name: 'targetTwo',
+        defaultTargetName: 'browser',
+        entry: {
+          development: 'index.jsx',
+          production: 'index.jsx',
+        },
+        output: {
+          development: {
+            js: 'statics/js/targetTwo.js',
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/targetTwo.css',
+            images: 'statics/images/[name].[ext]',
+          },
+          production: {
+            js: 'statics/js/targetTwo.js',
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/targetTwo.css',
+            images: 'statics/images/[name].[ext]',
+          },
+        },
+        type: 'browser',
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: false,
+          browser: true,
+        },
+      },
+      targetThree: {
+        name: 'targetThree',
+        defaultTargetName: 'browser',
+        entry: {
+          development: 'playground.js',
+          production: 'index.jsx',
+        },
+        output: {
+          development: {
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/targetThree.css',
+            images: 'statics/images/[name].[ext]',
+            js: 'statics/js/targetThree.development.js',
+          },
+          production: {
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/targetThree.css',
+            images: 'statics/images/[name].[ext]',
+            js: 'statics/js/targetThree.production.js',
+          },
+        },
+        type: 'browser',
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: false,
+          browser: true,
+        },
+      },
+      targetFour: {
+        name: 'targetFour',
+        defaultTargetName: 'browser',
+        type: 'browser',
+        entry: {
+          development: 'index.js',
+          production: null,
+        },
+        output: {
+          development: {
+            js: 'statics/js/targetFour.js',
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/targetFour.css',
+            images: 'statics/images/[name].[ext]',
+          },
+          production: {
+            js: `statics/js/targetFour.${hash}.js`,
+            fonts: `statics/fonts/[name].${hash}.[ext]`,
+            css: `statics/styles/targetFour.${hash}.css`,
+            images: `statics/images/[name].${hash}.[ext]`,
+          },
+        },
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: false,
+          browser: true,
+        },
+      },
+      targetFive: {
+        name: 'targetFive',
+        defaultTargetName: 'node',
+        type: 'node',
+        entry: {
+          development: 'index.js',
+          production: 'index.js',
+        },
+        output: {
+          development: 'start.js',
+          production: 'start.js',
+        },
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: true,
+          browser: false,
+        },
+      },
+      targetSix: {
+        name: 'targetSix',
+        defaultTargetName: 'node',
+        type: 'node',
+        entry: {
+          development: 'index.js',
+          production: 'index.js',
+        },
+        output: {
+          development: 'start.development.js',
+          production: 'targetSix.js',
+        },
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: true,
+          browser: false,
+        },
+      },
+      targetSeven: {
+        name: 'targetSeven',
+        defaultTargetName: 'node',
+        type: 'node',
+        entry: {
+          development: 'index.js',
+          production: 'index.js',
+        },
+        output: {
+          development: null,
+          production: 'start.production.js',
+        },
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: true,
+          browser: false,
+        },
+      },
+    };
+    const expectedTargetsNames = Object.keys(expectedTargets);
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      pathUtils,
+      projectConfiguration,
+      rootRequire
+    );
+    result = sut.getTargets();
+    // Then
+    expect(result).toEqual(expectedTargets);
+    expect(events.reduce).toHaveBeenCalledTimes(expectedTargetsNames.length);
+    expectedTargetsNames.forEach((targetName) => {
+      expect(events.reduce).toHaveBeenCalledWith(
+        'target-load',
+        expectedTargets[targetName]
+      );
+    });
+  });
+
+  it('should load the project targets and resolve the browser targets `html` setting', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const source = 'source-path';
+    const build = 'build-path';
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'browser',
+        },
+        targetTwo: {
+          type: 'browser',
+          html: {
+            template: 'done.html',
+          },
+        },
+        targetThree: {
+          type: 'browser',
+          html: {
+            filename: 'done.html',
+          },
+        },
+        targetFour: {
+          type: 'browser',
+          html: {
+            template: 'template.html',
+            filename: 'filename.html',
+          },
+        },
+      },
+      targetsTemplates: {
+        browser: {
+          defaultTargetName: 'browser',
+          hasFolder: false,
+          html: {
+            default: 'index.html',
+            template: null,
+            filename: null,
+          },
+        },
+      },
+      paths: {
+        source,
+        build,
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const expectedTargets = {
+      targetOne: {
+        name: 'targetOne',
+        defaultTargetName: 'browser',
+        entry: {},
+        output: {},
+        html: {
+          template: 'index.html',
+          filename: 'index.html',
+        },
+        type: 'browser',
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: false,
+          browser: true,
+        },
+      },
+      targetTwo: {
+        name: 'targetTwo',
+        defaultTargetName: 'browser',
+        entry: {},
+        output: {},
+        html: {
+          template: 'done.html',
+          filename: 'index.html',
+        },
+        type: 'browser',
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: false,
+          browser: true,
+        },
+      },
+      targetThree: {
+        name: 'targetThree',
+        defaultTargetName: 'browser',
+        entry: {},
+        output: {},
+        html: {
+          template: 'index.html',
+          filename: 'done.html',
+        },
+        type: 'browser',
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
+        is: {
+          node: false,
+          browser: true,
+        },
+      },
+      targetFour: {
+        name: 'targetFour',
+        defaultTargetName: 'browser',
+        entry: {},
+        output: {},
+        html: {
+          template: 'template.html',
+          filename: 'filename.html',
+        },
+        type: 'browser',
+        paths: { source, build },
+        folders: { source, build },
+        hasFolder: false,
         is: {
           node: false,
           browser: true,
@@ -234,6 +715,8 @@ describe('services/building:targets', () => {
       defaultTargetName: 'node',
       type: 'node',
       name: targetName,
+      entry: {},
+      output: {},
       paths: {
         source: `${source}/targetOne`,
         build,

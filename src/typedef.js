@@ -1,4 +1,10 @@
 /**
+ * ================================================================================================
+ * Externals
+ * ================================================================================================
+ */
+
+/**
  * @external {Jimple}
  * https://yarnpkg.com/en/package/jimple
  */
@@ -54,9 +60,9 @@
  */
 
 /**
- * @typedef {Object} TargetLibraryOptions
- * @property {string} [libraryTarget='commonjs2']
- * How the library will be exposed: `commonjs2`, `umd` and `window`
+ * ================================================================================================
+ * Project configuration > Targets > sub properties > Shared
+ * ================================================================================================
  */
 
 /**
@@ -86,8 +92,51 @@
  */
 
 /**
- * @typedef {Object} NodeTargetBabelSettings
- * @property {Array}  [features=[]]
+ * ================================================================================================
+ * Project configuration > Targets templates > Sub properties > Shared
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateEntry
+ * @property {string} [default='index.js']
+ * The target entry file for all types of build that don't have a specified entry.
+ * @property {string} [development=null]
+ * The target entry file on a development build. If `null`, it will fallback to the one specified
+ * on `default`.
+ * @property {string} [production=null]
+ * The target entry file on a production build. If `null`, it will fallback to the one specified
+ * on `default`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateLibraryOptions
+ * @property {string} [libraryTarget='commonjs2']
+ * How the library will be exposed: `commonjs2`, `umd` and `window`
+ */
+
+/**
+ * ================================================================================================
+ * Project configuration > Targets templates > Sub properties > Node
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationNodeTargetTemplateOutput
+ * @property {string} [default='[target-name].js']
+ * The target output file path for all types of build that are not specified. The only available
+ * placeholder is `[target-name]`.
+ * @property {string} [development=null]
+ * The target output file path on a development build. If `null`, it will fallback to the
+ * `default`. The only available placeholder is `[target-name]`.
+ * @property {string} [production=null]
+ * The target output file path on a production build. If `null`, it will fallback to the `default`.
+ * The only available placeholder is `[target-name]`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationNodeTargetTemplateBabelSettings
+ * @property {Array} [features=[]]
  * woopack includes by default two Babel plugins: `transform-class-properties` and
  * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
  * to include them.
@@ -101,8 +150,103 @@
  */
 
 /**
- * @typedef {Object} BrowserTargetBabelSettings
- * @property {Array}  [features=[]]
+ * ================================================================================================
+ * Project configuration > Targets templates > Sub properties > Browser
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths
+ * @property {string} [js='statics/js/[target-name].js']
+ * The path to generated Javascript files on the distribution directory. The available placeholders
+ * are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ * @property {string} [fonts='statics/fonts/[name].[ext]']
+ * The path to font files once they are copied to the distribution directory. The available
+ * placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ * @property {string} [css='statics/styles/[name].css']
+ * The path to generated stylesheets on the distribution directory. The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ * @property {string} [fonts='statics/images/[name].[ext]']
+ * The path to image files once they are copied to the distribution directory. The available
+ * placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateProductionOutputPaths
+ * @property {string} [js='statics/js/[target-name].[hash].js']
+ * The path to generated Javascript files on the distribution directory. The available placeholders
+ * are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ * @property {string} [fonts='statics/fonts/[name].[hash].[ext]']
+ * The path to font files once they are copied to the distribution directory. The available
+ * placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ * @property {string} [css='statics/styles/[target-name].[hash].css']
+ * The path to generated stylesheets on the distribution directory. The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ * @property {string} [fonts='statics/images/[name].[hash].[ext]']
+ * The path to image files once they are copied to the distribution directory. The available
+ * placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateOutput
+ * @property {ProjectConfigurationBrowserTargetTemplateProductionOutputPaths} [default]
+ * The target output settings for all types of build that don't have specified settings.
+ * @property {ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths} [development]
+ * The target output settings on a development build. If `null`, it will fallback to the ones
+ * specified on `default`.
+ * @property {ProjectConfigurationBrowserTargetTemplateProductionOutputPaths} [production=null]
+ * The target output settings on a production build. If `null`, it will fallback to the ones
+ * specified on `default`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings
+ * @property {boolean} [development=false]
+ * Whether or not to generate a source map on a development build.
+ * @property {boolean} [production=true]
+ * Whether or not to generate a source map on a production build.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateHTMLSettings
+ * @property {string} [default='index.html']
+ * This setting can be used to set the same value of default `template` and `filename` at once. But
+ * it will only overwrite settings with a `null` value, if one is specified, the value of this
+ * setting will be ignored.
+ * @property {string} [template=null]
+ * The file inside your target source that will be used to generate the `html`. If `null`, it will
+ * fallback to the value of the `default` setting.
+ * @property {string} [filename=null]
+ * The file that will be generated when your target is bundled. It will automatically include
+ * the `<script />` tag to the generated bundle. If `null`, it will fallback to the value of the
+ * `default` setting.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateBabelSettings
+ * @property {Array} [features=[]]
  * woopack includes by default two Babel plugins: `transform-class-properties` and
  * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
  * to include them.
@@ -122,15 +266,19 @@
  */
 
 /**
- * @typedef {Object} BrowserTargetDevServerSettings
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerSettings
  * @property {number} [port=2509]
  * The server port.
  * @property {boolean} [reload=true]
  * Whether or not to reload the server when the code changes.
+ * @property {string} [host='localhost']
+ * The dev server hostname.
+ * @property {boolean} [https=false]
+ * Whether or not the dev server host protocol should be `https`.
  */
 
 /**
- * @typedef {Object} BrowserTargetConfigurationSettings
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateConfigurationSettings
  * @property {boolean} [enabled=false]
  * Whether or not the feature is enabled.
  * @property {null|Object} [default=null]
@@ -153,39 +301,9 @@
  */
 
 /**
- * @typedef {Object} ProjectConfigurationOutputPathSettings
- * @property {string} [js='static/js']
- * The path to generated Javascript files on the distribution directory.
- * @property {string} [fonts='static/fonts']
- * The path to font files once they are moved to the distribution directory.
- * @property {string} [css='static/css']
- * The path to generated stylesheets on the distribution directory.
- * @property {string} [images='static/img']
- * The path to font files once they are moved to the distribution directory.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationPathSettings
- * @property {string} [source='src']
- * The directory, relative to your project path, where your targets code is located. On the
- * documentation is often referred as the _"source directory"_.
- * @property {string} [build='dist']
- * The directory, relative to your project path, where your targets bundled code will be located.
- * On the documentation is often referred as the _"distribution directory"_.
- * @property {string} [privateModules='private']
- * This is for the feature that copies when bundling. In case you are using the feature to copy an
- * npm module that, let's say, is not published, woopack will save that module (without its
- * dependencies) on that folder.
- * @property {ProjectConfigurationOutputPathSettings} [output]
- * These are paths for static assets that may be generated when bundling a target.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationNodeTargetTemplateEntries
- * @property {string} [development='start.development.js']
- * The target entry point on a development build.
- * @property {string} [production='start.production.js']
- * The target entry point on a production build.
+ * ================================================================================================
+ * Project configuration > Targets and target templates > Node
+ * ================================================================================================
  */
 
 /**
@@ -211,12 +329,14 @@
  * @property {string} [folder='']
  * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different
  * folder name than the target's name.
- * @property {ProjectConfigurationNodeTargetTemplateEntries} [entry]
- * The target entry points for each specific environment build.
+ * @property {ProjectConfigurationTargetTemplateEntry} [entry]
+ * The target entry files for each specific build type.
+ * @property {ProjectConfigurationNodeTargetTemplateOutput} [output]
+ * The target file paths for each specific build type.
  * @property {boolean} [runOnDevelopment=false]
  * This tells woopack that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
- * @property {NodeTargetBabelSettings} [babel]
+ * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} [babel]
  * The target transpilation options.
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
@@ -224,7 +344,7 @@
  * @property {boolean} [library=false]
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
- * @property {TargetLibraryOptions} [libraryOptions]
+ * @property {ProjectConfigurationTargetTemplateLibraryOptions} [libraryOptions]
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library
  * @property {boolean} [cleanBeforeBuild=true]
@@ -255,12 +375,14 @@
  * @property {string} folder
  * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different
  * folder name than the target's name.
- * @property {ProjectConfigurationNodeTargetTemplateEntries} entry
- * The target entry points for each specific environment build.
+ * @property {ProjectConfigurationTargetTemplateEntry} entry
+ * The target entry files for each specific build type.
+ * @property {ProjectConfigurationNodeTargetTemplateOutput} output
+ * The target file paths for each specific build type.
  * @property {boolean} runOnDevelopment
  * This tells woopack that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
- * @property {NodeTargetBabelSettings} babel
+ * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} babel
  * The target transpilation options.
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
@@ -268,7 +390,7 @@
  * @property {boolean} library
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
- * @property {TargetLibraryOptions} libraryOptions
+ * @property {ProjectConfigurationTargetTemplateLibraryOptions} libraryOptions
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library
  * @property {boolean} cleanBeforeBuild
@@ -285,28 +407,9 @@
  */
 
 /**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateEntries
- * @property {string} [development='index.js']
- * The target entry point on a development build.
- * @property {string} [production='index.js']
- * The target entry point on a production build.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings
- * @property {boolean} [development=false]
- * Whether or not to generate a source map on a development build.
- * @property {boolean} [production=true]
- * Whether or not to generate a source map on a production build.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateHTMLSettings
- * @property {string} [template='index.html']
- * The file inside your target source that will be used to generate the `html`.
- * @property {string} [filename='index.html']
- * The file that will be generated when your target is bundled. It will automatically include
- * the `<script />` tag to the generated bundle.
+ * ================================================================================================
+ * Project configuration > Targets and target templates > Browser
+ * ================================================================================================
  */
 
 /**
@@ -323,8 +426,10 @@
  * @property {string} [folder='']
  * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different
  * folder name than the target's name.
- * @property {ProjectConfigurationBrowserTargetTemplateEntries} [entry]
- * The target entry points for each specific environment build.
+ * @property {ProjectConfigurationTargetTemplateEntry} [entry]
+ * The target entry files for each specific build type.
+ * @property {ProjectConfigurationBrowserTargetTemplateOutput} [output]
+ * The target output settings for each specific build type.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]
@@ -333,7 +438,7 @@
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
- * @property {BrowserTargetBabelSettings} [babel]
+ * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} [babel]
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
@@ -342,16 +447,16 @@
  * Whether or not your application uses CSS Modules.
  * @property {boolean} [library=false]
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
- * @property {TargetLibraryOptions} [libraryOptions]
+ * @property {ProjectConfigurationTargetTemplateLibraryOptions} [libraryOptions]
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library.
  * @property {boolean} [cleanBeforeBuild=true]
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
- * @property {BrowserTargetDevServerSettings} [devServer]
+ * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} [devServer]
  * These are the options for the `http` server woopack will use when running the target on a
  * development environment.
- * @property {BrowserTargetConfigurationSettings} [configuration]
+ * @property {ProjectConfigurationBrowserTargetTemplateConfigurationSettings} [configuration]
  * These are the settings for the feature that allows a browser target to have a dynamic
  * configuration file.
  */
@@ -370,8 +475,10 @@
  * @property {string} folder
  * If either `hasFolder` or `createFolder` is `true`, this can be used to specify a different
  * folder name than the target's name.
- * @property {ProjectConfigurationBrowserTargetTemplateEntries} entry
- * The target entry points for each specific environment build.
+ * @property {ProjectConfigurationTargetTemplateEntry} entry
+ * The target entry files for each specific build type.
+ * @property {ProjectConfigurationBrowserTargetTemplateOutput} output
+ * The target output settings for each specific build type.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html
@@ -380,7 +487,7 @@
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
- * @property {BrowserTargetBabelSettings} babel
+ * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} babel
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
@@ -389,16 +496,16 @@
  * Whether or not your application uses CSS Modules.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
- * @property {TargetLibraryOptions} libraryOptions
+ * @property {ProjectConfigurationTargetTemplateLibraryOptions} libraryOptions
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library.
  * @property {boolean} cleanBeforeBuild
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
- * @property {BrowserTargetDevServerSettings} devServer
+ * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} devServer
  * These are the options for the `http` server woopack will use when running the target on a
  * development environment.
- * @property {BrowserTargetConfigurationSettings} configuration
+ * @property {ProjectConfigurationBrowserTargetTemplateConfigurationSettings} configuration
  * These are the settings for the feature that allows a browser target to have a dynamic
  * configuration file.
  * @property {TargetTypeCheck} is
@@ -412,16 +519,23 @@
  */
 
 /**
- * @typedef {BrowserTarget|NodeTarget} Target
+ * ================================================================================================
+ * Project configuration & Sub properties
+ * ================================================================================================
  */
 
 /**
- * @typedef {function} TargetConfigurationCreator
- * @param {string} overwritePath
- * The path to the file that can create the configuration.
- * @param {ConfigurationFile} baseConfiguration
- * The configuration service that will be extended.
- * @return {ConfigurationFile}
+ * @typedef {Object} ProjectConfigurationPathSettings
+ * @property {string} [source='src']
+ * The directory, relative to your project path, where your targets code is located. On the
+ * documentation is often referred as the _"source directory"_.
+ * @property {string} [build='dist']
+ * The directory, relative to your project path, where your targets bundled code will be located.
+ * On the documentation is often referred as the _"distribution directory"_.
+ * @property {string} [privateModules='private']
+ * This is for the feature that copies when bundling. In case you are using the feature to copy an
+ * npm module that, let's say, is not published, woopack will save that module (without its
+ * dependencies) on that folder.
  */
 
 /**
@@ -519,6 +633,25 @@
  */
 
 /**
+ * ================================================================================================
+ * Targets and other target related types
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {BrowserTarget|NodeTarget} Target
+ */
+
+/**
+ * @typedef {function} TargetConfigurationCreator
+ * @param {string} overwritePath
+ * The path to the file that can create the configuration.
+ * @param {ConfigurationFile} baseConfiguration
+ * The configuration service that will be extended.
+ * @return {ConfigurationFile}
+ */
+
+/**
  * @typedef {function} BuildEngineGetCommand
  * @param {Target} target
  * The target information.
@@ -531,9 +664,21 @@
  */
 
 /**
+ * ================================================================================================
+ * "Interfaces"
+ * ================================================================================================
+ */
+
+/**
  * @typedef {Object} BuildEngine
  * @property {BuildEngineGetCommand} getBuildCommand
  * The method used by woopack in order to get the shell comands to build and/or run a target.
+ */
+
+/**
+ * ================================================================================================
+ * Others
+ * ================================================================================================
  */
 
 /**

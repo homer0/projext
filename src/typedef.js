@@ -137,15 +137,15 @@
 /**
  * @typedef {Object} ProjectConfigurationNodeTargetTemplateBabelSettings
  * @property {Array} [features=[]]
- * woopack includes by default two Babel plugins: `transform-class-properties` and
+ * projext includes by default two Babel plugins: `transform-class-properties` and
  * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
  * to include them.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {string} [nodeVersion='current']
- * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the
+ * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
  * necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
  * @property {Object} [overwrites={}]
- * If you know how to use Babel and need stuff that is not covered by woopack, you can use this
+ * If you know how to use Babel and need stuff that is not covered by projext, you can use this
  * setting to overwrite/add any value you may need.
  */
 
@@ -247,12 +247,12 @@
 /**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateBabelSettings
  * @property {Array} [features=[]]
- * woopack includes by default two Babel plugins: `transform-class-properties` and
+ * projext includes by default two Babel plugins: `transform-class-properties` and
  * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
  * to include them.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {number} [browserVersions=2]
- * When building the Babel configuration, woopack uses the `babel-preset-env` to just include the
+ * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
  * necessary stuff. This setting tells how many old versions of the major browsers the target needs
  * transpilation for.
  * Major browsers: Firefox, Chrome, Safari and Edge.
@@ -261,7 +261,7 @@
  * @property {boolean} [polyfill=true]
  * Whether or not the configuration should include the `babel-polyfill` package.
  * @property {Object} [overwrites={}]
- * If you know how to use Babel and need stuff that is not covered by woopack, you can use this
+ * If you know how to use Babel and need stuff that is not covered by projext, you can use this
  * setting to overwrite/add any value you may need.
  */
 
@@ -292,10 +292,10 @@
  * The name of the variable where the configuration is going to be replaced on your code when
  * bundled.
  * @property {string} [environmentVariable='CONFIG']
- * The name of the environment variable woopack will check when building the target in order to
+ * The name of the environment variable projext will check when building the target in order to
  * load a dynamic configuration.
  * @property {boolean} [loadFromEnvironment=true]
- * Whether or not woopack should check for the environment variable value.
+ * Whether or not projext should check for the environment variable value.
  * @property {string} [filenameFormat='[target-name].[configuration-name].config.js']
  * The name format of the configuration files.
  */
@@ -317,7 +317,7 @@
  * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet
  * supported by the runtime.
  * @property {string} [engine='webpack']
- * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle
+ * In case `bundle` is `true`, this will tell projext which build engine you are going to bundle
  * the target code with.
  * @property {boolean} [hasFolder=true]
  * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or
@@ -334,7 +334,7 @@
  * @property {ProjectConfigurationNodeTargetTemplateOutput} [output]
  * The target file paths for each specific build type.
  * @property {boolean} [runOnDevelopment=false]
- * This tells woopack that when the target is builded (bundled/copied) on a development
+ * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} [babel]
  * The target transpilation options.
@@ -363,7 +363,7 @@
  * but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet
  * supported by the runtime.
  * @property {string} engine
- * In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle
+ * In case `bundle` is `true`, this will tell projext which build engine you are going to bundle
  * the target code with.
  * @property {boolean} hasFolder
  * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or
@@ -380,7 +380,7 @@
  * @property {ProjectConfigurationNodeTargetTemplateOutput} output
  * The target file paths for each specific build type.
  * @property {boolean} runOnDevelopment
- * This tells woopack that when the target is builded (bundled/copied) on a development
+ * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} babel
  * The target transpilation options.
@@ -415,7 +415,7 @@
 /**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplate
  * @property {string} [engine='webpack']
- * This will tell woopack which build engine you are going to bundle the target code with.
+ * This will tell projext which build engine you are going to bundle the target code with.
  * @property {boolean} [hasFolder=true]
  * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or
  * the contents of the source directory are your target code (useful when working with a single
@@ -454,7 +454,7 @@
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} [devServer]
- * These are the options for the `http` server woopack will use when running the target on a
+ * These are the options for the `http` server projext will use when running the target on a
  * development environment.
  * @property {ProjectConfigurationBrowserTargetTemplateConfigurationSettings} [configuration]
  * These are the settings for the feature that allows a browser target to have a dynamic
@@ -464,7 +464,7 @@
 /**
  * @typedef {Object} BrowserTarget
  * @property {string} engine
- * This will tell woopack which build engine you are going to bundle the target code with.
+ * This will tell projext which build engine you are going to bundle the target code with.
  * @property {boolean} hasFolder
  * Whether your target code is on a sub folder of the source directory (`src/[target-name]/`) or
  * the contents of the source directory are your target code (useful when working with a single
@@ -503,7 +503,7 @@
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} devServer
- * These are the options for the `http` server woopack will use when running the target on a
+ * These are the options for the `http` server projext will use when running the target on a
  * development environment.
  * @property {ProjectConfigurationBrowserTargetTemplateConfigurationSettings} configuration
  * These are the settings for the feature that allows a browser target to have a dynamic
@@ -534,7 +534,7 @@
  * On the documentation is often referred as the _"distribution directory"_.
  * @property {string} [privateModules='private']
  * This is for the feature that copies when bundling. In case you are using the feature to copy an
- * npm module that, let's say, is not published, woopack will save that module (without its
+ * npm module that, let's say, is not published, projext will save that module (without its
  * dependencies) on that folder.
  */
 
@@ -551,7 +551,7 @@
  * @property {boolean} [enabled=true]
  * Whether or not the feature should be triggered when a target is being build.
  * @property {boolean} [onlyOnProduction=true]
- * This tells woopack if the feature should be triggered only when building for production, or if
+ * This tells projext if the feature should be triggered only when building for production, or if
  * it should do it for development too.
  * @property {Array} [targets=[]]
  * This can be used to specify the targets that will trigger the feature when builded. If no target
@@ -566,7 +566,7 @@
  * A list of files and/or directories that will be copied. All with paths relative to the project
  * directory.
  * @property {ProjectConfigurationFeatureTriggerSettings} [copyOnBuild]
- * Since the feature is also available through the woopack CLI, you can configure how the feature
+ * Since the feature is also available through the projext CLI, you can configure how the feature
  * behaves when building.
  */
 
@@ -580,7 +580,7 @@
  * @property {string} [filename='revision']
  * The name of the revision file.
  * @property {ProjectConfigurationFeatureTriggerSettings} [createRevisionOnBuild]
- * Since the feature is also available through the woopack CLI, you can configure how the feature
+ * Since the feature is also available through the projext CLI, you can configure how the feature
  * behaves when building.
  */
 
@@ -589,7 +589,7 @@
  * @property {string} [defineOn='process.env.VERSION']
  * The name of the variable where the version is going to be replaced on your code when bundled.
  * @property {string} [environmentVariable='VERSION']
- * The name of the environment variable woopack should check to get the project version.
+ * The name of the environment variable projext should check to get the project version.
  * @property {ProjectConfigurationVersionRevisionSettings} [revision]
  * This is like a sub-feature. A revision file is a file that contains the version of your project.
  * This is useful when deploying the project to an environment where you have no access to the
@@ -610,7 +610,7 @@
 /**
  * @typedef {Object} ProjectConfigurationOtherSettings
  * @property {ProjectConfigurationWatchSettings}
- * This is used by woopack to configure `watchpack`, which is used to watch Node files that need to
+ * This is used by projext to configure `watchpack`, which is used to watch Node files that need to
  * be transpiled.
  */
 
@@ -619,13 +619,13 @@
  * @property {ProjectConfigurationPathSettings} [paths]
  * This setting is all about where your code is located and where it will be bundled
  * @property {ProjectConfigurationTargetTemplates} [targetsTemplates]
- * There was no way to have _"smart defaults"_ for targets and at the same time allow woopack
+ * There was no way to have _"smart defaults"_ for targets and at the same time allow projext
  * an unlimited amount of targets, and that's why the this setting exists.
  * The targets will extend the template which name is the same as their `type` property.
  * @property {Object} targets
  * This will be a dictionary with the {@link Target} definitions.
  * @property {ProjectConfigurationCopyFeatureSettings} [copy]
- * These settings are for the feature that enables woopack to copy files when building targets.
+ * These settings are for the feature that enables projext to copy files when building targets.
  * @property {ProjectConfigurationVersionSettings} [version]
  * These settings are for the feature that manages your project version.
  * @property {ProjectConfigurationOtherSettings} [others]
@@ -672,7 +672,7 @@
 /**
  * @typedef {Object} BuildEngine
  * @property {BuildEngineGetCommand} getBuildCommand
- * The method used by woopack in order to get the shell comands to build and/or run a target.
+ * The method used by projext in order to get the shell comands to build and/or run a target.
  */
 
 /**
@@ -683,12 +683,12 @@
 
 /**
  * @typedef {function} ProviderRegisterMethod
- * @param {Woopack} app
- * A reference to the woopack dependency injection container.
+ * @param {Projext} app
+ * A reference to the projext dependency injection container.
  */
 
 /**
  * @typedef {Object} Provider
  * @property {ProviderRegisterMethod} register
- * The method that gets called by Woopack when registering the provider.
+ * The method that gets called by projext when registering the provider.
  */

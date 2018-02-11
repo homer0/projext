@@ -1,6 +1,6 @@
 # Project Configuration
 
-These are the settings that will determine how woopack wil handle your project.
+These are the settings that will determine how projext will handle your project.
 
 **The file must be created on `[YOUR-PROJECT-PATH]/config/project.config.js`**
 
@@ -52,11 +52,11 @@ The directory, relative to your project path, where your targets bundled code wi
 
 ### `privateModules`
 
-This is for the feature that copies when bundling. In case you are using the feature to copy an npm module that, let's say, is not published, woopack will save that module (without its dependencies) on that folder.
+This is for the feature that copies when bundling. In case you are using the feature to copy an npm module that, let's say, is not published, projext will save that module (without its dependencies) on that folder.
 
 ## `targetsTemplates`
 
-There was no way to have _"smart defaults"_ for targets and at the same time allow woopack an unlimited amount of targets, and that's why the this setting exists.
+There was no way to have _"smart defaults"_ for targets and at the same time allow projext an unlimited amount of targets, and that's why the this setting exists.
 
 The targets will extend the template which name is the same as their `type` property:
 
@@ -97,7 +97,7 @@ Since there are a lot of settings for the templates, will divide them by type an
 Whether or not the target needs to be bundled. Yes, it's kind of ironic that a tool that aims to simplify bundling would have an option like this, but there are a few scenarios where this may be useful:
 
 - You are bundling a frontend while you have your backend running on Node, you can bundle your frontend and just copy your backend.
-- You have no frontend target and you are using woopack just to organize, run and prepare the distributable files.
+- You have no frontend target and you are using projext just to organize, run and prepare the distributable files.
 
 If the value is `false`, when running on a development environment, and if the target doesn't need transpilation, the code won't be moved to the distribution directory.
 
@@ -109,9 +109,9 @@ This option is kind of tied to the previous one: You may not want to bundle your
 #### `engine`
 > Default value: `webpack`
 
-In case `bundle` is `true`, this will tell woopack which build engine you are going to bundle the target code with.
+In case `bundle` is `true`, this will tell projext which build engine you are going to bundle the target code with.
 
-> If you don't intend to change its default value, you need to have the package [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack) installed.
+> If you don't intend to change its default value, you need to have the package [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack) installed.
 
 #### `hasFolder`
 > Default value: `true`
@@ -139,7 +139,7 @@ If either `hasFolder` or `createFolder` is `true`, this can be used to specify a
 > }
 > ```
 
-This object is the one that tells woopack which is the main file (executable) of your target for each specific environment. If you set `null` to an entry for an specific environment, it will fallback to the value of the `default` setting.
+This object is the one that tells projext which is the main file (executable) of your target for each specific environment. If you set `null` to an entry for an specific environment, it will fallback to the value of the `default` setting.
 
 #### `output`
 > Default value:
@@ -152,14 +152,14 @@ This object is the one that tells woopack which is the main file (executable) of
 > }
 > ```
 
-This tells woopack where to place the generated bundle on each environment. You can also use the `[target-name]` placeholder on the paths.
+This tells projext where to place the generated bundle on each environment. You can also use the `[target-name]` placeholder on the paths.
 
 #### `runOnDevelopment`
 > Default value: `false`
 
-This tells woopack that when the target is builded (bundled/copied) on a development environment, it should execute it.
+This tells projext that when the target is builded (bundled/copied) on a development environment, it should execute it.
 
-When the target needs to be bundled, it will relay on the build engined to do it, otherwise, woopack will use its custom implementation of [`nodemon`](https://yarnpkg.com/en/package/nodemon) for watching and, if needed, transpile your target code.
+When the target needs to be bundled, it will relay on the build engined to do it, otherwise, projext will use its custom implementation of [`nodemon`](https://yarnpkg.com/en/package/nodemon) for watching and, if needed, transpile your target code.
 
 #### `babel`
 > Default value:
@@ -176,17 +176,17 @@ These options are used in the case the target needs to be bundled or transpile t
 
 **`babel.features`**
 
-woopack includes by default two Babel plugins: [`transform-class-properties`](https://yarnpkg.com/en/package/babel-plugin-transform-class-properties) and [`transform-decorators-legacy`](https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy). On this list you can use the values `properties` or `decorators` to include them.
+projext includes by default two Babel plugins: [`transform-class-properties`](https://yarnpkg.com/en/package/babel-plugin-transform-class-properties) and [`transform-decorators-legacy`](https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy). On this list you can use the values `properties` or `decorators` to include them.
 
 If you need other plugins, they can be included on the `overwrites` option.
 
 **`babel.nodeVersion`**
 
-When building the Babel configuration, woopack uses the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) to just include the necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
+When building the Babel configuration, projext uses the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) to just include the necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
 
 **`babel.overwrites`**
 
-If you know how to use Babel and need stuff that is not covered by woopack, you can use this setting to overwrite/add any value you may need.
+If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.
 
 #### `flow`
 > Default value: `false`
@@ -213,7 +213,7 @@ In case `library` is `true`, these options are going to be used by the build eng
 
 How the library will be exposed: `commonjs2`, `umd` or `window`.
 
-> Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones woopack will support for all the other build engines with different APIs.
+> Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
 
 #### `cleanBeforeBuild`
 > Default value: `true`
@@ -248,9 +248,9 @@ Whether or not to remove all code from previous builds from the distribution dir
 #### `engine`
 > Default value: `webpack`
 
-This will tell woopack which build engine you are going to bundle the target code with.
+This will tell projext which build engine you are going to bundle the target code with.
 
-> If you don't intend to change its default value, you need to have the package [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack) installed.
+> If you don't intend to change its default value, you need to have the package [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack) installed.
 
 #### `hasFolder`
 > Default value: `true`
@@ -278,7 +278,7 @@ If either `hasFolder` or `createFolder` is `true`, this can be used to specify a
 > }
 > ```
 
-This object is the one that tells woopack which is the main file (the one that fires the app) of your target for each specific environment. If you set `null` to an entry for an specific environment, it will fallback to the value of the `default` setting.
+This object is the one that tells projext which is the main file (the one that fires the app) of your target for each specific environment. If you set `null` to an entry for an specific environment, it will fallback to the value of the `default` setting.
 
 #### `output`
 > Default value:
@@ -301,7 +301,7 @@ This object is the one that tells woopack which is the main file (the one that f
 > }
 > ```
 
-This tells woopack where to place the files generated while bundling on each environment, depending on the file type.
+This tells projext where to place the files generated while bundling on each environment, depending on the file type.
 
 You can use the following placeholders:
 
@@ -369,13 +369,13 @@ These options are used by the build engine to configure [Babel](https://babeljs.
 
 **`babel.features`**
 
-woopack includes by default two Babel plugins: [`transform-class-properties`](https://yarnpkg.com/en/package/babel-plugin-transform-class-properties) and [`transform-decorators-legacy`](https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy). On this list you can use the values `properties` or `decorators` to include them.
+projext includes by default two Babel plugins: [`transform-class-properties`](https://yarnpkg.com/en/package/babel-plugin-transform-class-properties) and [`transform-decorators-legacy`](https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy). On this list you can use the values `properties` or `decorators` to include them.
 
 If you need other plugins, they can be included on the `overwrites` option.
 
 **`babel.browserVersions`**
 
-When building the Babel configuration, woopack uses the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.
+When building the Babel configuration, projext uses the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.
 
 > Major browsers: Firefox, Chrome, Safari and Edge.
 
@@ -389,7 +389,7 @@ Whether or not the configuration should include the [`babel-polyfill`](https://y
 
 **`babel.overwrites`**
 
-If you know how to use Babel and need stuff that is not covered by woopack, you can use this setting to overwrite/add any value you may need.
+If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.
 
 #### `flow`
 > Default value: `false`
@@ -421,7 +421,7 @@ In case `library` is `true`, these options are going to be used by the build eng
 
 How the library will be exposed: `commonjs`, `umd` or `window`.
 
-> Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones woopack will support for all the other build engines with different APIs.
+> Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
 
 #### `cleanBeforeBuild`
 > Default value: `true`
@@ -440,7 +440,7 @@ Whether or not to remove all code from previous builds from the distribution dir
 > }
 > ```
 
-These are the options for the `http` server woopack will use when running the target on a development environment.
+These are the options for the `http` server projext will use when running the target on a development environment.
 
 **`devServer.port`**
 
@@ -500,11 +500,11 @@ The name of the variable where the configuration is going to be replaced on your
 
 **`configuration.environmentVariable`**
 
-The name of the environment variable woopack will check when building the target in order to load a dynamic configuration.
+The name of the environment variable projext will check when building the target in order to load a dynamic configuration.
 
 **`configuration.loadFromEnvironment`**
 
-Whether or not woopack should check for the environment variable value.
+Whether or not projext should check for the environment variable value.
 
 **`configuration.filenameFormat`**
 
@@ -529,7 +529,7 @@ This setting is an empty object because this is the only required setting. This 
 
 ## `copy`
 
-These settings are for the feature that enables woopack to copy files when building targets:
+These settings are for the feature that enables projext to copy files when building targets:
 
 ```js
 {
@@ -560,7 +560,7 @@ A list of files and/or directories that will be copied. All with paths relative 
 > }
 > ```
 
-Since the feature is also available through the woopack CLI, you can configure how the feature behaves when building:
+Since the feature is also available through the projext CLI, you can configure how the feature behaves when building:
 
 #### `copyOnBuild.enabled`
 > Default value: `true`
@@ -570,7 +570,7 @@ Whether or not to copy the files when building. If disabled, you can use the CLI
 #### `copyOnBuild.onlyOnProduction`
 > Default value: `true`
 
-This tells woopack if the files should be copied only when building for production, or if it should do it for development too.
+This tells projext if the files should be copied only when building for production, or if it should do it for development too.
 
 #### `copyOnBuild.targets`
 > Default value: `[]`
@@ -597,7 +597,7 @@ The name of the variable where the version is going to be replaced on your code 
 ### `environmentVariable`
 > Default value: `VERSION`
 
-The name of the environment variable woopack should check to get the project version.
+The name of the environment variable projext should check to get the project version.
 
 ### `revision`
 > Default value:
@@ -642,7 +642,7 @@ The name of the revision file.
 > ```
 
 
-Since the feature is also available through the woopack CLI, you can configure how the feature behaves when building:
+Since the feature is also available through the projext CLI, you can configure how the feature behaves when building:
 
 **`revision.createRevisionOnBuild.enabled`**
 > Default value: `true`
@@ -652,7 +652,7 @@ Whether or not to create the file when building. If disabled, you can use the CL
 **`revision.createRevisionOnBuild.onlyOnProduction`**
 > Default value: `true`
 
-This tells woopack if the file should be created only when building for production, or if it should do it for development too.
+This tells projext if the file should be created only when building for production, or if it should do it for development too.
 
 **`revision.createRevisionOnBuild.targets`**
 > Default value: `[]`
@@ -678,7 +678,7 @@ Miscellaneous options.
 > }
 > ```
 
-This is used by woopack to configure [`watchpack`](https://yarnpkg.com/en/package/watchpack), which is used to watch Node files that need to be transpiled.
+This is used by projext to configure [`watchpack`](https://yarnpkg.com/en/package/watchpack), which is used to watch Node files that need to be transpiled.
 
 The reason is outside the `targetsTemplate.node` is because this can be used for any other plugin that watches the file system.
 

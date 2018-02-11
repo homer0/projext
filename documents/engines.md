@@ -1,6 +1,6 @@
-# woopack build engines
+# projext build engines
 
-A build engine is what takes care of bundling your target code, woopack is just the intermediary.
+A build engine is what takes care of bundling your target code, projext is just the intermediary.
 
 ## Implementing a build engine
 
@@ -20,11 +20,11 @@ Once you are ready, you need to register a service with the name `[your-build-en
 - `buildType`: `development` or `production`.
 - `forceRun`: Whether or not the user intends to run the target after building it, even if the target `runOnDevelopment` setting is `false.
 
-This should return a string with the command(s) the woopack shell script should run in order to generate the bundle.
+This should return a string with the command(s) the projext shell script should run in order to generate the bundle.
 
 ### Let's create a plugin for browserify
 
-The first thing is to create the plugin with the naming convention: `woopack-plugin-browserify`.
+The first thing is to create the plugin with the naming convention: `projext-plugin-browserify`.
 Now, we'll create a build engine service for it:
 
 > This example is just to show how to create the engine, it will only build the target and nothing else. Not even include it on an HTML file.
@@ -49,8 +49,8 @@ Really simple, right? Now, assuming the `package.json` `main` entry points to `s
 // src/index.js
 const BrowserifyBuildEngine = require('./browserify.js');
 
-module.exports = (woopack) => {
-  woopack.set('browserifyBuildEngine', () => new BrowserifyBuildEngine());
+module.exports = (projext) => {
+  projext.set('browserifyBuildEngine', () => new BrowserifyBuildEngine());
 };
 ```
 

@@ -1,10 +1,10 @@
-# woopack plugins
+# projext plugins
 
-Creating plugins for woopack is really simple as the tool takes care of finding them on your `package.json`, loading them, allowing them to register services and providing the necessary events so they can interact with the targets.
+Creating plugins for projext is really simple as the tool takes care of finding them on your `package.json`, loading them, allowing them to register services and providing the necessary events so they can interact with the targets.
 
 ## Naming convention
 
-All woopack plugins names should start with `woopack-plugin-`, this allows woopack to find them on your project dependencies. Once a plugin is found, woopack will be `require` it and call its exported function with a reference to the dependency container.
+All projext plugins names should start with `projext-plugin-`, this allows projext to find them on your project dependencies. Once a plugin is found, projext will be `require` it and call its exported function with a reference to the dependency container.
 
 ## Adding services to the container
 
@@ -17,21 +17,21 @@ Let's say the following code is the `main` file of a plugin:
 const MyService = require('...');
 
 // Export the function that will be called when the plugin is register
-module.exports = (woopack) => {
+module.exports = (projext) => {
   // Set the service on the container
-  woopack.set('myServiceName', () => new MyService());
+  projext.set('myServiceName', () => new MyService());
 }
 ```
 
 ## Events
 
-woopack has an `events` service that is an implementation of [wootil's `EventsHub`](https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html) and that it uses to emit information events and reduce variables when needed.
+projext has an `events` service that is an implementation of [wootil's `EventsHub`](https://homer0.github.io/wootils/class/wootils/shared/eventsHub.js~EventsHub.html) and that it uses to emit information events and reduce variables when needed.
 
 ```js
 ...
-module.exports = (woopack) => {
+module.exports = (projext) => {
 	...
-	const events = woopack.get('events');
+	const events = projext.get('events');
 
 	// Add a new listener for a regular event
 	events.on('some-event', () => {
@@ -69,18 +69,18 @@ This event is used if the feature to copy project files is enabled (check the pr
 - Name: `target-load`.
 - Reduces: A target information.
 
-This is called when woopack loads a new target, after defining its paths and applying its type template.
+This is called when projext loads a new target, after defining its paths and applying its type template.
 
 #### The list of commands to build a target
 
 - Name: `build-target-commands-list`.
-- Reduces: The list of CLI commands woopack uses to build a target.
+- Reduces: The list of CLI commands projext uses to build a target.
 - Parameters:
  - `target`: The target information.
  - `type`: The build type, `development` or `production`.
  - `run`: Whether or not the target will be executed after building.
 
-In order to build targets, woopack generates a list of CLI commands that a shell script executes, and this event is called in order to reduce that list.
+In order to build targets, projext generates a list of CLI commands that a shell script executes, and this event is called in order to reduce that list.
 
 #### A target Babel configuration
 
@@ -89,4 +89,4 @@ In order to build targets, woopack generates a list of CLI commands that a shell
 - Parameters:
  - `target`: The target information.
 
-When building a target, woopack will create a Babel configuration based on this settings, then this event is used to reduce that configuration.
+When building a target, projext will create a Babel configuration based on this settings, then this event is used to reduce that configuration.

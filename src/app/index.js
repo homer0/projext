@@ -52,11 +52,11 @@ const {
   targetConfiguration,
 } = require('../services/configurations');
 /**
- * Woopack dependecy injection container. This class is in charge of registering all the Woopack
+ * This is projext dependecy injection container. This class is in charge of registering all the
  * known services, load any existing plugin and add an error handler.
  * @extends {Jimple}
  */
-class Woopack extends Jimple {
+class Projext extends Jimple {
   /**
    * Registers all the known services, load any existing plugin and add an error handler.
    * @ignore
@@ -76,7 +76,7 @@ class Woopack extends Jimple {
     this.register(cleaner);
     this.register(copier);
     this.register(events);
-    this.register(plugins('woopack-plugin'));
+    this.register(plugins('projext-plugin'));
     this.register(versionUtils);
 
     this.register(buildCleaner);
@@ -111,7 +111,7 @@ class Woopack extends Jimple {
     this._addErrorHandler();
   }
   /**
-   * Starts Woopack CLI interface.
+   * Starts projext CLI interface.
    */
   cli() {
     this.get('cli').start([
@@ -138,7 +138,7 @@ class Woopack extends Jimple {
     this.get('plugins').load();
   }
   /**
-   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.
+   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.
    * @ignore
    * @access protected
    */
@@ -147,4 +147,4 @@ class Woopack extends Jimple {
   }
 }
 
-module.exports = { Woopack };
+module.exports = { Projext };

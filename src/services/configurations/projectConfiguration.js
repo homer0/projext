@@ -26,12 +26,6 @@ class ProjectConfiguration extends ConfigurationFile {
         source: 'src',
         build: 'dist',
         privateModules: 'private',
-        output: {
-          js: 'statics/js',
-          fonts: 'statics/fonts',
-          css: 'statics/css',
-          images: 'statics/img',
-        },
       },
       targetsTemplates: {
         node: {
@@ -43,8 +37,14 @@ class ProjectConfiguration extends ConfigurationFile {
           createFolder: false,
           folder: '',
           entry: {
-            development: 'start.development.js',
-            production: 'start.production.js',
+            default: 'index.js',
+            development: null,
+            production: null,
+          },
+          output: {
+            default: '[target-name].js',
+            development: null,
+            production: null,
           },
           runOnDevelopment: false,
           babel: {
@@ -54,7 +54,9 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           flow: false,
           library: false,
-          libraryOptions: {},
+          libraryOptions: {
+            libraryTarget: 'commonjs2',
+          },
           cleanBeforeBuild: true,
         },
         browser: {
@@ -64,16 +66,33 @@ class ProjectConfiguration extends ConfigurationFile {
           createFolder: true,
           folder: '',
           entry: {
-            development: 'index.js',
-            production: 'index.js',
+            default: 'index.js',
+            development: null,
+            production: null,
+          },
+          output: {
+            default: {
+              js: 'statics/js/[target-name].[hash].js',
+              fonts: 'statics/fonts/[name].[hash].[ext]',
+              css: 'statics/styles/[target-name].[hash].css',
+              images: 'statics/images/[name].[hash].[ext]',
+            },
+            development: {
+              js: 'statics/js/[target-name].js',
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
+            production: null,
           },
           sourceMap: {
             development: false,
             production: true,
           },
           html: {
-            template: 'index.html',
-            filename: 'index.html',
+            default: 'index.html',
+            template: null,
+            filename: null,
           },
           runOnDevelopment: false,
           babel: {
@@ -85,13 +104,17 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           flow: false,
           CSSModules: false,
-          hotReload: false,
+          hot: false,
           library: false,
-          libraryOptions: {},
+          libraryOptions: {
+            libraryTarget: 'umd',
+          },
           cleanBeforeBuild: true,
           devServer: {
             port: 2509,
             reload: true,
+            host: 'localhost',
+            https: false,
           },
           configuration: {
             enabled: false,

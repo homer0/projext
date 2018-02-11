@@ -114,6 +114,23 @@ class Targets {
             browser: !isNode,
           },
         });
+        // Check if there are missing entries and fill them with the default value.
+        newTarget.entry = this._normalizeTargetEntry(newTarget.entry);
+        // Check if there are missing entries and merge them with the default value.
+        if (newTarget.is.node) {
+          newTarget.output = this._normalizeNodeTargetOutput(newTarget.output);
+        } else {
+          newTarget.output = this._normalizeBrowserTargetOutput(newTarget.output);
+        }
+        // Replace placeholders on the output settings
+        newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
+
+        // If the target has an `html` setting...
+        if (newTarget.html) {
+          // Check if there are missing settings that should be replaced with a fallback.
+          newTarget.html = this._normalizeTargetHTML(newTarget.html);
+        }
+
         // Check if the target should be transpiled (You can use types without transpilation).
         if (!newTarget.transpile && newTarget.flow) {
           newTarget.transpile = true;
@@ -245,6 +262,150 @@ class Targets {
     }
 
     return result;
+  }
+  /**
+   * Checks if there are missing entries that need to be replaced with the default fallback, and in
+   * case there are, a new set of entries will be generated and returned.
+   * @param {ProjectConfigurationTargetTemplateEntry} currentEntry
+   * The entries defined on the target after merging it with its type template.
+   * @return {ProjectConfigurationTargetTemplateEntry}
+   * @ignore
+   * @protected
+   */
+  _normalizeTargetEntry(currentEntry) {
+    return this._normalizeSettingsWithDefault(currentEntry);
+  }
+  /**
+   * Checks if there are missing output settings that need to be merged with the ones on the
+   * default fallback, and in case there are, a new set of output settings will be generated and
+   * returned.
+   * @param {ProjectConfigurationBrowserTargetTemplateOutput} currentOutput
+   * The output settings defined on the target after merging it with its type template.
+   * @return {ProjectConfigurationBrowserTargetTemplateOutput}
+   * @ignore
+   * @protected
+   */
+  _normalizeBrowserTargetOutput(currentOutput) {
+    const newOutput = Object.assign({}, currentOutput);
+    const { default: defaultOutput } = newOutput;
+    delete newOutput.default;
+    if (defaultOutput) {
+      Object.keys(newOutput).forEach((name) => {
+        const value = newOutput[name];
+        if (value === null) {
+          newOutput[name] = Object.assign({}, defaultOutput);
+        } else {
+          newOutput[name] = extend(true, {}, defaultOutput, value);
+          Object.keys(newOutput[name]).forEach((propName) => {
+            if (!newOutput[name][propName] && defaultOutput[propName]) {
+              newOutput[name][propName] = defaultOutput[propName];
+            }
+          });
+        }
+      });
+    }
+
+    return newOutput;
+  }
+  /**
+   * Checks if there are missing output paths that need to be replaced with the  default fallback,
+   * and in case there are, a new set of settings will be generated and returned.
+   * @param {ProjectConfigurationNodeTargetTemplateOutput} currentOutput
+   * The output settings defined on the target after merging it with its type template.
+   * @return {ProjectConfigurationNodeTargetTemplateOutput}
+   * @ignore
+   * @protected
+   */
+  _normalizeNodeTargetOutput(currentOutput) {
+    return this._normalizeSettingsWithDefault(currentOutput);
+  }
+  /**
+   * Replace the common placeholders from a target output paths.
+   * @param {Target} target The target information.
+   * @return {
+   *  ProjectConfigurationNodeTargetTemplateOutput|ProjectConfigurationBoTargetTemplateOutput
+   * }
+   * @ignore
+   * @protected
+   */
+  _replaceTargetOutputPlaceholders(target) {
+    const placeholders = {
+      'target-name': target.name,
+      hash: Date.now(),
+    };
+
+    const newOutput = Object.assign({}, target.output);
+    Object.keys(newOutput).forEach((name) => {
+      const value = newOutput[name];
+      if (typeof value === 'string') {
+        newOutput[name] = this._replacePlaceholdersOnString(value, placeholders);
+      } else if (value) {
+        Object.keys(value).forEach((propName) => {
+          newOutput[name][propName] = this._replacePlaceholdersOnString(
+            newOutput[name][propName],
+            placeholders
+          );
+        });
+      }
+    });
+
+    return newOutput;
+  }
+  /**
+   * Replace a dictionary of given placeholders on a string.
+   * @param {string} string       The target string where the placeholders will be replaced.
+   * @param {Object} placeholders A dictionary of placeholders and their values.
+   * @return {string}
+   * @ignore
+   * @protected
+   */
+  _replacePlaceholdersOnString(string, placeholders) {
+    let newString = string;
+    Object.keys(placeholders).forEach((name) => {
+      newString = newString.replace(
+        RegExp(`\\[${name}\\]`, 'ig'),
+        placeholders[name]
+      );
+    });
+
+    return newString;
+  }
+  /**
+   * Checks if there are missing HTML settings that need to be replaced with the default fallback,
+   * and in case there are, a new set of settings will be generated and returned.
+   * @param {ProjectConfigurationBrowserTargetTemplateHTMLSettings} currentHTML
+   * The HTML settings defined on the target after merging it with its type template.
+   * @return {ProjectConfigurationBrowserTargetTemplateHTMLSettings}
+   * @ignore
+   * @protected
+   */
+  _normalizeTargetHTML(currentHTML) {
+    return this._normalizeSettingsWithDefault(currentHTML);
+  }
+  /**
+   * Given a dictionary of settings that contains a `default` key, this method will check each of
+   * the other keys and if its find any `null` value, it will replace that key value with the one
+   * on the `default` key.
+   * @param {Object} currentSettings The dictionary to "complete".
+   * @property {*} default The default value that will be assigned to any other key with `null`
+   *                       value.
+   * @return {Object}
+   * @ignore
+   * @protected
+   */
+  _normalizeSettingsWithDefault(currentSettings) {
+    const newSettings = Object.assign({}, currentSettings);
+    const { default: defaultValue } = newSettings;
+    delete newSettings.default;
+    if (defaultValue !== null) {
+      Object.keys(newSettings).forEach((name) => {
+        if (newSettings[name] === null) {
+          newSettings[name] = defaultValue;
+        }
+      });
+    }
+
+    return newSettings;
   }
 }
 /**

@@ -258,7 +258,7 @@ describe('services/building:buildCopier', () => {
       join: jest.fn((rest) => rest),
     };
     const productionDependency = 'wootils';
-    const developmentDependency = 'woopack-plugin-webpack';
+    const developmentDependency = 'projext-plugin-webpack';
     const modulesToCopy = [productionDependency, developmentDependency];
     const itemsToCopy = [
       'fileA.js',

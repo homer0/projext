@@ -1,6 +1,6 @@
-# woopack CLI
+# projext CLI
 
-The woopack Command-Line Interface allows you to tell woopack which tasks you want to execute and for which targets.
+The projext Command-Line Interface allows you to tell projext which tasks you want to execute and for which targets.
 
 You can run this commands with either [yarn](https://yarnpkg.com), [npx](https://www.npmjs.com/package/npx) or by using a `package.json` script.
 
@@ -11,7 +11,7 @@ You can run this commands with either [yarn](https://yarnpkg.com), [npx](https:/
 It builds a target and moves it bundle to the distribution directory.
 
 ```bash
-woopack build [target] [--type [type]] [--run]
+projext build [target] [--type [type]] [--run]
 ```
 
 - **target:** The name of the target you intend to build.
@@ -23,18 +23,18 @@ woopack build [target] [--type [type]] [--run]
 If the target is a Node app, it will execute it, otherwise, it will bring up an `http` server to _"run"_ your target.
 
 ```bash
-woopack run [target]
+projext run [target]
 ```
 - **target:** The name of the target you intend to build and run.
 
-> This is basically an alias of `woopack build` that uses the `--run` flag by default.
+> This is basically an alias of `projext build` that uses the `--run` flag by default.
 
 ### Cleaning previous builds
 
 Removes the files from previous builds from the distribution directory.
 
 ```bash
-woopack clean [target]
+projext clean [target]
 ```
 
 > This gets automatically called when building if the target `cleanBeforeBuild` setting is `true`.
@@ -44,7 +44,7 @@ woopack clean [target]
 If the feature is enabled (check the project configuration document), this will copy the files and/or directories specified on the feature settings to the distribution directory.
 
 ```bash
-woopack copy-project-files
+projext copy-project-files
 ```
 
 > This gets automatically called when building if the feature is configured to run when building.
@@ -54,5 +54,5 @@ woopack copy-project-files
 If the feature is enabled (check the project configuration document), this will create the revision file with the project version.
 
 ```bash
-woopack create-revision
+projext create-revision
 ```

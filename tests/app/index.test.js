@@ -11,10 +11,10 @@ jest.unmock('/src/app/index');
 
 require('jasmine-expect');
 
-const { Woopack } = require('/src/app');
+const { Projext } = require('/src/app');
 const packageInfo = require('../../package.json');
 
-describe('app:Woopack', () => {
+describe('app:Projext', () => {
   beforeEach(() => {
     JimpleMock.reset();
   });
@@ -30,9 +30,9 @@ describe('app:Woopack', () => {
     }));
     JimpleMock.mock('get', get);
     // When
-    sut = new Woopack();
+    sut = new Projext();
     // Then
-    expect(sut).toBeInstanceOf(Woopack);
+    expect(sut).toBeInstanceOf(Projext);
     expect(loadPlugins).toHaveBeenCalledTimes(1);
     expect(listenErrors).toHaveBeenCalledTimes(1);
   });
@@ -52,10 +52,10 @@ describe('app:Woopack', () => {
     const set = jest.fn();
     JimpleMock.mock('set', set);
     // When
-    sut = new Woopack();
+    sut = new Projext();
     [[infoServiceName, infoServiceFn]] = set.mock.calls;
     // Then
-    expect(sut).toBeInstanceOf(Woopack);
+    expect(sut).toBeInstanceOf(Projext);
     expect(loadPlugins).toHaveBeenCalledTimes(1);
     expect(listenErrors).toHaveBeenCalledTimes(1);
     expect(infoServiceName).toBe('info');
@@ -75,10 +75,10 @@ describe('app:Woopack', () => {
     }));
     JimpleMock.mock('get', get);
     // When
-    sut = new Woopack();
+    sut = new Projext();
     sut.cli();
     // Then
-    expect(sut).toBeInstanceOf(Woopack);
+    expect(sut).toBeInstanceOf(Projext);
     expect(loadPlugins).toHaveBeenCalledTimes(1);
     expect(listenErrors).toHaveBeenCalledTimes(1);
     expect(startCLI).toHaveBeenCalledTimes(1);

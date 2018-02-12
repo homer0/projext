@@ -9,7 +9,7 @@ isSHTask=false
 # If no task was specified...
 if [ "$task" = "" ]; then
   # ...show the Node CLI help information
-  woopack-cli --help
+  projext-cli --help
 else
   # ...otherwise, check if the task is a shell task that needs commands
   if echo "$task" | grep -q "^\(build\|run\)$"; then
@@ -25,9 +25,9 @@ else
   if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
       # ...execute a validation command to avoid any error being thrown on the
       # command that returns the list.
-      eval "woopack-cli sh-validate-$*"
+      eval "projext-cli sh-validate-$*"
       # Capture the commands that need to run
-      command=$(eval "woopack-cli sh-$*")
+      command=$(eval "projext-cli sh-$*")
       # If there are commands to run...
       if [ "$command" != "" ]; then
         # ...execute them
@@ -36,6 +36,6 @@ else
       fi
   else
     # ...otherwise, delegate everything to the Node CLI
-    woopack-cli "$@"
+    projext-cli "$@"
   fi
 fi

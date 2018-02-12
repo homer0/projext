@@ -7,7 +7,7 @@ class Plugins {
    * Class constructor.
    * @param {string}    prefix      The prefix the dependencies need to have in order to be
    *                                identified as plugins.
-   * @param {Woopack}   app         The send to the plugis so they can register their services.
+   * @param {Projext}   app         To send to the plugis so they can register their services.
    * @param {Logger}    appLogger   To indicate if a plugin couldn't be loaded.
    * @param {Object}    packageInfo To read the dependencies list.
    * @param {PathUtils} pathUtils   To build the dependencies paths.
@@ -20,7 +20,7 @@ class Plugins {
     this.prefix = prefix;
     /**
      * The local reference to the main app.
-     * @type {Woopack}
+     * @type {Projext}
      */
     this.app = app;
     /**

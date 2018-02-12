@@ -1,13 +1,13 @@
 {
-    "name": "woopack",
+    "name": "projext",
     "description": "Bundle and run your javascript project without configuring an specific module bundler.",
-    "homepage": "https://homer0.github.io/woopack/",
-    "version": "1.0.1",
-    "repository": "homer0/woopack",
+    "homepage": "https://homer0.github.io/projext/",
+    "version": "2.0.0",
+    "repository": "homer0/projext",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "wootils": "^1.0.5",
+      "wootils": "^1.1.1",
       "jimple": "homer0/jimple",
       "fs-extra": "5.0.0",
       "extend": "3.0.1",
@@ -48,8 +48,8 @@
     },
     "main": "src/index.js",
     "bin": {
-      "woopack": "./src/bin/woopack",
-      "woopack-cli": "./src/bin/woopack-cli"
+      "projext": "./src/bin/projext",
+      "projext-cli": "./src/bin/projext-cli"
     },
     "scripts": {
       "install-hooks": "./utils/hooks/install",

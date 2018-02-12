@@ -1,7 +1,7 @@
 const { provider } = require('jimple');
 /**
  * This is an special service as it doesn't do anything but returning another services: Build
- * engines are what Woopack uses to bundle targets, since they depend on a target configuration,
+ * engines are what projext uses to bundle targets, since they depend on a target configuration,
  * we can't have huge `if` that checks the value of the setting in order to retrieve the required
  * service.
  * The solution we came up with is that the engines services all respect an interface and register
@@ -11,12 +11,12 @@ const { provider } = require('jimple');
 class BuildEngines {
   /**
    * Class constructor.
-   * @param {Woopack} app The main app container. Used to retrieve the build engines services.
+   * @param {Projext} app The main app container. Used to retrieve the build engines services.
    */
   constructor(app) {
     /**
      * A local reference for the main app container.
-     * @type {Woopack}
+     * @type {Projext}
      */
     this.app = app;
   }

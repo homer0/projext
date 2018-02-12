@@ -1,0 +1,8 @@
+#!/usr/bin/env node
+/**
+ * Get an instance of projext to use.
+ * @type {Projext}
+ */
+const projext = require('../../index');
+// Start the CLI interface.
+projext.cli();

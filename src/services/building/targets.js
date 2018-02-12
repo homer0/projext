@@ -190,9 +190,9 @@ class Targets {
     return targets[targetName];
   }
   /**
-   * Get a _'App Configuration'_ for a browser target. This is a utility Woopack provides for
+   * Get a _'App Configuration'_ for a browser target. This is a utility projext provides for
    * browser targets as they can't load configuration files dynamically, so on the building process,
-   * Woopack uses this service to load the configuration and then injects it on the target bundle.
+   * projext uses this service to load the configuration and then injects it on the target bundle.
    * @param {Target} target The target information.
    * @return {Object} The target _'App Configuration'_.
    * @throws {Error} If the given target is not a browser target.

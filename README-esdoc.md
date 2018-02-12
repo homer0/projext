@@ -1,4 +1,4 @@
-# woopack
+# projext
 
 Bundle and run your javascript project without configuring an specific module bundler.
 
@@ -8,8 +8,8 @@ Bundle and run your javascript project without configuring an specific module bu
 
 Let's start with this:
 
-- **woopack is not** an alternative to [webpack](https://webpack.js.org/).
-- **woopack is not** a module bundler.
+- **projext is not** an alternative to [webpack](https://webpack.js.org/).
+- **projext is not** a module bundler.
 
 Now, this is a tool that allows you to configure a project bundling options on an _"almost-human"_ readable format so you don't have to deal with very complex rules and structures.
 
@@ -17,18 +17,18 @@ The idea is to divide your project bundling on a 4 layers architecture:
 
 | Layer                 |                                                                   |
 |-----------------------|-------------------------------------------------------------------|
-| Project configuration | Managed by woopack                                                |
-| Bundler engine        | A woopack plugin for Webpack/Rollup/Parcel/etc.                   |
-| Framework             | A woopack plugin with the framework settings of the used bundler. |
+| Project configuration | Managed by projext                                                |
+| Bundler engine        | A projext plugin for Webpack/Rollup/Parcel/etc.                   |
+| Framework             | A projext plugin with the framework settings of the used bundler. |
 | Others...             | Other plugins like a runner tool or bundler analyzer.             |
 
 #### Quick example
 
 You want to create an [AngularJS](https://angularjs.org/) app and you want to bundle it with webpack. You first need the following dependencies:
 
-- [`woopack`](https://yarnpkg.com/en/package/woopack)
-- [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack)
-- [`woopack-plugin-webpack-angularjs`](https://yarnpkg.com/en/package/woopack-plugin-webpack-angularjs)
+- [`projext`](https://yarnpkg.com/en/package/projext)
+- [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack)
+- [`projext-plugin-webpack-angularjs`](https://yarnpkg.com/en/package/projext-plugin-webpack-angularjs)
 
 Then, on your project configuration you would write this:
 
@@ -94,7 +94,7 @@ This tool is aimed to those who use bundlers everyday to build web sites, librar
 
 | -            | -                                                                             |
 |--------------|-------------------------------------------------------------------------------|
-| Package      | woopack                                                                       |
+| Package      | projext                                                                       |
 | Description  | Bundle your Javascript projects without having to learn how to use a bundler. |
 | Node Version | >= v6.10.0                                                                    |
 
@@ -124,17 +124,17 @@ module.exports = {
 
 As you can see, the there's only one thing you need to define on your target: The `type`. If it's a Node app, you would use `node`; but if the target is going to run on a browser, go with `browser`.
 
-By default, woopack doesn't bundle Node apps (yes, it's ironic): For development, it runs them from the source directory, unless they need transpilation, then it moves them to the distribution directory and transpile them. For production, they are moved to the distribution directory whether they need transpilation or not (as a way to creating a deployable directory).
+By default, projext doesn't bundle Node apps (yes, it's ironic): For development, it runs them from the source directory, unless they need transpilation, then it moves them to the distribution directory and transpile them. For production, they are moved to the distribution directory whether they need transpilation or not (as a way to creating a deployable directory).
 
-Now, it doesn't do it by default, but if you add a setting `bundle: true` in there, woopack will bundle it.
+Now, it doesn't do it by default, but if you add a setting `bundle: true` in there, projext will bundle it.
 
-Regarding browser targets, they are always bundled, and as on any target with bundling, it needs a bundling engine. On the configuration above we defined `webpack`, which is also its default value, and in order to use webpack, we need to install the plugin for it: [`woopack-plugin-webpack`](https://yarnpkg.com/en/package/woopack-plugin-webpack).
+Regarding browser targets, they are always bundled, and as on any target with bundling, it needs a bundling engine. On the configuration above we defined `webpack`, which is also its default value, and in order to use webpack, we need to install the plugin for it: [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack).
 
 And that's all there is for a basic configuration, but I encourage you to [read more about the project configuration](manual/projectConfiguration.html).
 
 ### Writing your app code
 
-woopack relays a lot on the project configuration _"smart defaults"_, which are the default values of the settings that I consider to have pre set as there's not a lot of chances that you'd want to change them.
+projext relays a lot on the project configuration _"smart defaults"_, which are the default values of the settings that I consider to have pre set as there's not a lot of chances that you'd want to change them.
 
 Based on those defaults, the configuration from the previous step assumes the following things:
 
@@ -152,37 +152,37 @@ Having that in mind, you can go ahead and create those files with some code on t
 
 ### Bundling the code
 
-And we got to the final part, you have your configuration and your targets code, time to bundle them, and the way you do it is by using the `build` command from the `woopack` CLI:
+And we got to the final part, you have your configuration and your targets code, time to bundle them, and the way you do it is by using the `build` command from the `projext` CLI:
 
 > You can use scripts from the `package.json`, `$(npm bin)/` or `npx` too, but for these examples I'll be using `yarn`
 
 ```bash
-yarn woopack build backend
+yarn projext build backend
 # or
-yarn woopack build frontend
+yarn projext build frontend
 ```
 
 Really simple right? For the `frontend` target, it will take all the source, bundle it and move it to the distribution directory (`dist/` by default, but again, configurable).
 
-For the `backend` target it will give you a warning (not cool, I know), because the default build type is for a development environment and we didn't specify that the target needed to be bundled nor that it needed transpilation, so woopack doesn't see the need to move it.
+For the `backend` target it will give you a warning (not cool, I know), because the default build type is for a development environment and we didn't specify that the target needed to be bundled nor that it needed transpilation, so projext doesn't see the need to move it.
 
 Now, time to build for production:
 
 ```bash
-yarn woopack build backend --type production
+yarn projext build backend --type production
 # or
-yarn woopack build frontend --type production
+yarn projext build frontend --type production
 ```
 
-Done, the `--type` argument set to `production` tells woopack that you are preparing a build production, so it will move everything to the distribution directory.
+Done, the `--type` argument set to `production` tells projext that you are preparing a build production, so it will move everything to the distribution directory.
 
-[Read more about woopack CLI](manual/cli.html)
+[Read more about projext CLI](manual/cli.html)
 
 ## Other features
 
 ### Running the targets
 
-It's not all about putting all the files together. You can also use woopack to run your targets while you code.
+It's not all about putting all the files together. You can also use projext to run your targets while you code.
 
 For `node` targets, it has a custom implementation of [`nodemon`](https://yarnpkg.com/en/package/nodemon) that will take care of watching and, if needed, transpiling your files while you code.
 
@@ -194,19 +194,19 @@ The whole tool is built using [Jimple](https://yarnpkg.com/en/package/jimple), a
 
 > If you haven't tried [Jimple](https://github.com/fjorgemota/jimple), give it a try, it's excellent for organizing your app dependencies and services.
 
-[Read more about overwriting woopack](manual/overwrite.html).
+[Read more about overwriting projext](manual/overwrite.html).
 
 ### Building plugins is really easy
 
-By default, woopack checks your package.json for dependencies which names start with `woopack-plugin-`, `require` them, they need to export a function that will receive the app container as parameter, thus allowing them to listen for events or even overwrite existing services.
+By default, projext checks your package.json for dependencies which names start with `projext-plugin-`, `require` them, they need to export a function that will receive the app container as parameter, thus allowing them to listen for events or even overwrite existing services.
 
 For example, you want to create a plugin for [browserify](https://yarnpkg.com/en/package/browserify) (If someone is interested, please go ahead :)):
 
-You would call your plugin `woopack-plugin-browserify` to assure that woopack will pick it and `require` it, and then the code would look something like this:
+You would call your plugin `projext-plugin-browserify` to assure that projext will pick it and `require` it, and then the code would look something like this:
 
 ```js
-module.exports = (woopack) => {
-	woopack.set('browserifyBuildEngine', ...);
+module.exports = (projext) => {
+	projext.set('browserifyBuildEngine', ...);
 };
 ```
 
@@ -217,7 +217,7 @@ module.exports = (woopack) => {
 
 For `node` targets, having multiple configuration files is simple, as they can `require` files on runtime, but in the case of `browser` targets, you would probably want to select the configuration you want to use when you bundle the code and be able to include it inside.
 
-That's why, if enabled, woopack creates an instance of [wootil's `AppConfiguration`](https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html) that `browser` targets can use on the bundling process.
+That's why, if enabled, projext creates an instance of [wootil's `AppConfiguration`](https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html) that `browser` targets can use on the bundling process.
 
 To enable it, you have to edit your target settings:
 
@@ -240,7 +240,7 @@ That's all you need to enable the feature, the rest is dictated by the setting _
 - You target configurations will be on `config/browser/...`.
 - The default configuration will be loaded from `config/browser/browser.config.js`.
 - Whenever you write `process.env.CONFIG` on your code, when bundled, it will replaced by the configuration contents.
-- If you add `CONFIG=xyz` before the `woopack build` command, the service will look for a file `browser.xyz.config.js` and the configuration will be created by extending the default one.
+- If you add `CONFIG=xyz` before the `projext build` command, the service will look for a file `browser.xyz.config.js` and the configuration will be created by extending the default one.
 
 [Read more about browser targets configuration](manual/browserTargetConfiguration.html)
 

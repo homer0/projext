@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../">
-  <title data-ice="title">Manual | woopack</title>
+  <title data-ice="title">Manual | projext</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
+<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
@@ -36,7 +36,6 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-source--code-" data-ice="link">source</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-build--code-" data-ice="link">build</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-privatemodules--code-" data-ice="link">privateModules</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targetstemplates--code-" data-ice="link">targetsTemplates</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-node--code-" data-ice="link">node</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-bundle--code-" data-ice="link">bundle</a></li>
@@ -46,6 +45,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-createfolder--code-" data-ice="link">createFolder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
@@ -58,6 +58,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-createfolder--code-" data-ice="link">createFolder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-sourcemap--code-" data-ice="link">sourceMap</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
@@ -74,11 +75,11 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-items--code-" data-ice="link">items</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild--code-" data-ice="link">copyOnBuild</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-onlyonproduction--code-" data-ice="link">onlyOnProduction</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targets--code-" data-ice="link">targets</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild-enabled--code-" data-ice="link">copyOnBuild.enabled</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild-onlyonproduction--code-" data-ice="link">copyOnBuild.onlyOnProduction</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild-targets--code-" data-ice="link">copyOnBuild.targets</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-version--code-" data-ice="link">version</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-defineone--code-" data-ice="link">defineOne</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-defineon--code-" data-ice="link">defineOn</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-environmentvariable--code-" data-ice="link">environmentVariable</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision--code-" data-ice="link">revision</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-enabled--code-" data-ice="link">revision.enabled</a></li>
@@ -93,7 +94,7 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">woopack CLI</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">projext CLI</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#available-commands" data-ice="link">Available commands</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#build-targets" data-ice="link">Build targets</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#running-a-target" data-ice="link">Running a target</a></li>
@@ -105,13 +106,13 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/overwrite.html"><a href="manual/overwrite.html" data-ice="link">Overwriting woopack</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/overwrite.html"><a href="manual/overwrite.html" data-ice="link">Overwriting projext</a></li>
 </ul>
   </div>
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/plugins.html"><a href="manual/plugins.html" data-ice="link">woopack plugins</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/plugins.html"><a href="manual/plugins.html" data-ice="link">projext plugins</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#naming-convention" data-ice="link">Naming convention</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#adding-services-to-the-container" data-ice="link">Adding services to the container</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#events" data-ice="link">Events</a></li>
@@ -127,7 +128,7 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/engines.html"><a href="manual/engines.html" data-ice="link">woopack build engines</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/engines.html"><a href="manual/engines.html" data-ice="link">projext build engines</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/engines.html"><a href="manual/engines.html#implementing-a-build-engine" data-ice="link">Implementing a build engine</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/engines.html"><a href="manual/engines.html#creating-a-build-engine" data-ice="link">Creating a build engine</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/engines.html"><a href="manual/engines.html#let--39-s-create-a-plugin-for-browserify" data-ice="link">Let&apos;s create a plugin for browserify</a></li>
@@ -136,7 +137,7 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html" data-ice="link">woopack browser target configuration</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html" data-ice="link">projext browser target configuration</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#settings" data-ice="link">Settings</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-default--code-" data-ice="link">default</a></li>
@@ -152,7 +153,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="woopack-build-engines">woopack build engines</h1><p>A build engine is what takes care of bundling your target code, woopack is just the intermediary.</p>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="projext-build-engines">projext build engines</h1><p>A build engine is what takes care of bundling your target code, projext is just the intermediary.</p>
 <h2 id="implementing-a-build-engine">Implementing a build engine</h2><p>A build engine is a plugin that you need to install on your project, so the first requirement is to install it as a dependency, after that you should change your target(s) <code>engine</code> setting to the name of the build engine you installed.</p>
 <blockquote>
 <p>On an ideal world, that would be enough, but never forget to read the plugin <code>README</code>.</p>
@@ -165,8 +166,8 @@
 <li><code>buildType</code>: <code>development</code> or <code>production</code>.</li>
 <li><code>forceRun</code>: Whether or not the user intends to run the target after building it, even if the target <code>runOnDevelopment</code> setting is `false.</li>
 </ul>
-<p>This should return a string with the command(s) the woopack shell script should run in order to generate the bundle.</p>
-<h3 id="let--39-s-create-a-plugin-for-browserify">Let&apos;s create a plugin for browserify</h3><p>The first thing is to create the plugin with the naming convention: <code>woopack-plugin-browserify</code>.
+<p>This should return a string with the command(s) the projext shell script should run in order to generate the bundle.</p>
+<h3 id="let--39-s-create-a-plugin-for-browserify">Let&apos;s create a plugin for browserify</h3><p>The first thing is to create the plugin with the naming convention: <code>projext-plugin-browserify</code>.
 Now, we&apos;ll create a build engine service for it:</p>
 <blockquote>
 <p>This example is just to show how to create the engine, it will only build the target and nothing else. Not even include it on an HTML file.</p>
@@ -187,8 +188,8 @@ module.exports = BrowserifyBuildEngine;</code>
 <pre><code class="lang-js"><code class="source-code prettyprint">// src/index.js
 const BrowserifyBuildEngine = require(&apos;./browserify.js&apos;);
 
-module.exports = (woopack) =&gt; {
-  woopack.set(&apos;browserifyBuildEngine&apos;, () =&gt; new BrowserifyBuildEngine());
+module.exports = (projext) =&gt; {
+  projext.set(&apos;browserifyBuildEngine&apos;, () =&gt; new BrowserifyBuildEngine());
 };</code>
 </code></pre>
 <p>Done, the only thing to do now is to change a target <code>engine</code> setting to <code>browserify</code> and when building, it will create a bundle using Browserify.</p>

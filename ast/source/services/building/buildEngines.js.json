@@ -116,7 +116,7 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what Woopack uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
+            "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what projext uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
             "start": 35,
             "end": 563,
             "loc": {
@@ -354,7 +354,7 @@
                     "leadingComments": [
                       {
                         "type": "CommentBlock",
-                        "value": "*\n     * A local reference for the main app container.\n     * @type {Woopack}\n     ",
+                        "value": "*\n     * A local reference for the main app container.\n     * @type {Projext}\n     ",
                         "start": 741,
                         "end": 828,
                         "loc": {
@@ -377,7 +377,7 @@
               "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n   * Class constructor.\n   * @param {Woopack} app The main app container. Used to retrieve the build engines services.\n   ",
+                  "value": "*\n   * Class constructor.\n   * @param {Projext} app The main app container. Used to retrieve the build engines services.\n   ",
                   "start": 587,
                   "end": 715,
                   "loc": {
@@ -1373,7 +1373,7 @@
                       "leadingComments": [
                         {
                           "type": "CommentBlock",
-                          "value": "*\n     * A local reference for the main app container.\n     * @type {Woopack}\n     ",
+                          "value": "*\n     * A local reference for the main app container.\n     * @type {Projext}\n     ",
                           "start": 741,
                           "end": 828,
                           "loc": {
@@ -1396,7 +1396,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Class constructor.\n   * @param {Woopack} app The main app container. Used to retrieve the build engines services.\n   ",
+                    "value": "*\n   * Class constructor.\n   * @param {Projext} app The main app container. Used to retrieve the build engines services.\n   ",
                     "start": 587,
                     "end": 715,
                     "loc": {
@@ -1720,7 +1720,7 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what Woopack uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
+              "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what projext uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
               "start": 35,
               "end": 563,
               "loc": {
@@ -2117,7 +2117,7 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what Woopack uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
+      "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what projext uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
       "start": 35,
       "end": 563,
       "loc": {
@@ -2133,7 +2133,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Class constructor.\n   * @param {Woopack} app The main app container. Used to retrieve the build engines services.\n   ",
+      "value": "*\n   * Class constructor.\n   * @param {Projext} app The main app container. Used to retrieve the build engines services.\n   ",
       "start": 587,
       "end": 715,
       "loc": {
@@ -2149,7 +2149,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * A local reference for the main app container.\n     * @type {Woopack}\n     ",
+      "value": "*\n     * A local reference for the main app container.\n     * @type {Projext}\n     ",
       "start": 741,
       "end": 828,
       "loc": {
@@ -2382,7 +2382,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what Woopack uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
+      "value": "*\n * This is an special service as it doesn't do anything but returning another services: Build\n * engines are what projext uses to bundle targets, since they depend on a target configuration,\n * we can't have huge `if` that checks the value of the setting in order to retrieve the required\n * service.\n * The solution we came up with is that the engines services all respect an interface and register\n * themselves with the name `[name]BuildEngine` so the rest of the app can use this service to\n * retrieve them by name.\n ",
       "start": 35,
       "end": 563,
       "loc": {
@@ -2477,7 +2477,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Class constructor.\n   * @param {Woopack} app The main app container. Used to retrieve the build engines services.\n   ",
+      "value": "*\n   * Class constructor.\n   * @param {Projext} app The main app container. Used to retrieve the build engines services.\n   ",
       "start": 587,
       "end": 715,
       "loc": {
@@ -2620,7 +2620,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * A local reference for the main app container.\n     * @type {Woopack}\n     ",
+      "value": "*\n     * A local reference for the main app container.\n     * @type {Projext}\n     ",
       "start": 741,
       "end": 828,
       "loc": {

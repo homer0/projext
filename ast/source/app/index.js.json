@@ -2117,7 +2117,7 @@
         "trailingComments": [
           {
             "type": "CommentBlock",
-            "value": "*\n * Woopack dependecy injection container. This class is in charge of registering all the Woopack\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
+            "value": "*\n * This is projext dependecy injection container. This class is in charge of registering all the\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
             "start": 926,
             "end": 1121,
             "loc": {
@@ -2160,9 +2160,9 @@
               "line": 59,
               "column": 13
             },
-            "identifierName": "Woopack"
+            "identifierName": "Projext"
           },
-          "name": "Woopack",
+          "name": "Projext",
           "leadingComments": null
         },
         "superClass": {
@@ -3432,10 +3432,10 @@
                                 }
                               },
                               "extra": {
-                                "rawValue": "woopack-plugin",
-                                "raw": "'woopack-plugin'"
+                                "rawValue": "projext-plugin",
+                                "raw": "'projext-plugin'"
                               },
-                              "value": "woopack-plugin"
+                              "value": "projext-plugin"
                             }
                           ]
                         }
@@ -6147,7 +6147,7 @@
               "trailingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n   * Starts Woopack CLI interface.\n   ",
+                  "value": "*\n   * Starts projext CLI interface.\n   ",
                   "start": 2682,
                   "end": 2726,
                   "loc": {
@@ -7412,7 +7412,7 @@
               "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n   * Starts Woopack CLI interface.\n   ",
+                  "value": "*\n   * Starts projext CLI interface.\n   ",
                   "start": 2682,
                   "end": 2726,
                   "loc": {
@@ -7675,7 +7675,7 @@
               "trailingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.\n   * @ignore\n   * @access protected\n   ",
+                  "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.\n   * @ignore\n   * @access protected\n   ",
                   "start": 3419,
                   "end": 3556,
                   "loc": {
@@ -7901,7 +7901,7 @@
               "leadingComments": [
                 {
                   "type": "CommentBlock",
-                  "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.\n   * @ignore\n   * @access protected\n   ",
+                  "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.\n   * @ignore\n   * @access protected\n   ",
                   "start": 3419,
                   "end": 3556,
                   "loc": {
@@ -7966,9 +7966,9 @@
                   "line": 150,
                   "column": 16
                 },
-                "identifierName": "Woopack"
+                "identifierName": "Projext"
               },
-              "name": "Woopack"
+              "name": "Projext"
             },
             "exported": {
               "type": "Identifier",
@@ -7983,9 +7983,9 @@
                   "line": 150,
                   "column": 16
                 },
-                "identifierName": "Woopack"
+                "identifierName": "Projext"
               },
-              "name": "Woopack"
+              "name": "Projext"
             }
           }
         ],
@@ -8032,9 +8032,9 @@
                 "line": 59,
                 "column": 13
               },
-              "identifierName": "Woopack"
+              "identifierName": "Projext"
             },
-            "name": "Woopack",
+            "name": "Projext",
             "leadingComments": null
           },
           "superClass": {
@@ -9304,10 +9304,10 @@
                                   }
                                 },
                                 "extra": {
-                                  "rawValue": "woopack-plugin",
-                                  "raw": "'woopack-plugin'"
+                                  "rawValue": "projext-plugin",
+                                  "raw": "'projext-plugin'"
                                 },
-                                "value": "woopack-plugin"
+                                "value": "projext-plugin"
                               }
                             ]
                           }
@@ -12019,7 +12019,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Starts Woopack CLI interface.\n   ",
+                    "value": "*\n   * Starts projext CLI interface.\n   ",
                     "start": 2682,
                     "end": 2726,
                     "loc": {
@@ -13284,7 +13284,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Starts Woopack CLI interface.\n   ",
+                    "value": "*\n   * Starts projext CLI interface.\n   ",
                     "start": 2682,
                     "end": 2726,
                     "loc": {
@@ -13547,7 +13547,7 @@
                 "trailingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.\n   * @ignore\n   * @access protected\n   ",
+                    "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.\n   * @ignore\n   * @access protected\n   ",
                     "start": 3419,
                     "end": 3556,
                     "loc": {
@@ -13773,7 +13773,7 @@
                 "leadingComments": [
                   {
                     "type": "CommentBlock",
-                    "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.\n   * @ignore\n   * @access protected\n   ",
+                    "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.\n   * @ignore\n   * @access protected\n   ",
                     "start": 3419,
                     "end": 3556,
                     "loc": {
@@ -13794,7 +13794,7 @@
           "leadingComments": [
             {
               "type": "CommentBlock",
-              "value": "*\n * Woopack dependecy injection container. This class is in charge of registering all the Woopack\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
+              "value": "*\n * This is projext dependecy injection container. This class is in charge of registering all the\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
               "start": 926,
               "end": 1121,
               "loc": {
@@ -13822,7 +13822,7 @@
   "comments": [
     {
       "type": "CommentBlock",
-      "value": "*\n * Woopack dependecy injection container. This class is in charge of registering all the Woopack\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
+      "value": "*\n * This is projext dependecy injection container. This class is in charge of registering all the\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
       "start": 926,
       "end": 1121,
       "loc": {
@@ -13854,7 +13854,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Starts Woopack CLI interface.\n   ",
+      "value": "*\n   * Starts projext CLI interface.\n   ",
       "start": 2682,
       "end": 2726,
       "loc": {
@@ -13886,7 +13886,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.\n   * @ignore\n   * @access protected\n   ",
+      "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.\n   * @ignore\n   * @access protected\n   ",
       "start": 3419,
       "end": 3556,
       "loc": {
@@ -16827,7 +16827,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n * Woopack dependecy injection container. This class is in charge of registering all the Woopack\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
+      "value": "*\n * This is projext dependecy injection container. This class is in charge of registering all the\n * known services, load any existing plugin and add an error handler.\n * @extends {Jimple}\n ",
       "start": 926,
       "end": 1121,
       "loc": {
@@ -16881,7 +16881,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "Woopack",
+      "value": "Projext",
       "start": 1128,
       "end": 1135,
       "loc": {
@@ -19313,7 +19313,7 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "woopack-plugin",
+      "value": "projext-plugin",
       "start": 1644,
       "end": 1660,
       "loc": {
@@ -24474,7 +24474,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Starts Woopack CLI interface.\n   ",
+      "value": "*\n   * Starts projext CLI interface.\n   ",
       "start": 2682,
       "end": 2726,
       "loc": {
@@ -27576,7 +27576,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions Woopack may throw.\n   * @ignore\n   * @access protected\n   ",
+      "value": "*\n   * Makes the `errorHandler` service listen for any uncaught exceptions projext may throw.\n   * @ignore\n   * @access protected\n   ",
       "start": 3419,
       "end": 3556,
       "loc": {
@@ -28091,7 +28091,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "Woopack",
+      "value": "Projext",
       "start": 3635,
       "end": 3642,
       "loc": {

@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../">
-  <title data-ice="title">Manual | woopack</title>
+  <title data-ice="title">Manual | projext</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
   <script src="script/manual.js"></script>
-<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="woopack"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
+<meta name="description" content="Bundle and run your javascript project without configuring an specific module bundler."><meta property="twitter:card" content="summary"><meta property="twitter:title" content="projext"><meta property="twitter:description" content="Bundle and run your javascript project without configuring an specific module bundler."></head>
 <body class="layout-container manual-root" data-ice="rootContainer">
 
 <header>
@@ -24,7 +24,7 @@
   </span>
     <ul class="search-result"></ul>
   </div>
-<a style="position:relative; top:3px;" href="https://github.com/homer0/woopack"><img width="20px" src="./image/github.png"></a></header>
+<a style="position:relative; top:3px;" href="https://github.com/homer0/projext"><img width="20px" src="./image/github.png"></a></header>
 
 <nav class="navigation" data-ice="nav"><div class="manual-toc-root">
   
@@ -36,7 +36,6 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-source--code-" data-ice="link">source</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-build--code-" data-ice="link">build</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-privatemodules--code-" data-ice="link">privateModules</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targetstemplates--code-" data-ice="link">targetsTemplates</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-node--code-" data-ice="link">node</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-bundle--code-" data-ice="link">bundle</a></li>
@@ -46,6 +45,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-createfolder--code-" data-ice="link">createFolder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
@@ -58,6 +58,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-createfolder--code-" data-ice="link">createFolder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-sourcemap--code-" data-ice="link">sourceMap</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
@@ -74,11 +75,11 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-items--code-" data-ice="link">items</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild--code-" data-ice="link">copyOnBuild</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-onlyonproduction--code-" data-ice="link">onlyOnProduction</a></li>
-<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targets--code-" data-ice="link">targets</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild-enabled--code-" data-ice="link">copyOnBuild.enabled</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild-onlyonproduction--code-" data-ice="link">copyOnBuild.onlyOnProduction</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copyonbuild-targets--code-" data-ice="link">copyOnBuild.targets</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-version--code-" data-ice="link">version</a></li>
-<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-defineone--code-" data-ice="link">defineOne</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-defineon--code-" data-ice="link">defineOn</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-environmentvariable--code-" data-ice="link">environmentVariable</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision--code-" data-ice="link">revision</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-enabled--code-" data-ice="link">revision.enabled</a></li>
@@ -93,7 +94,7 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">woopack CLI</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/cli.html"><a href="manual/cli.html" data-ice="link">projext CLI</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/cli.html"><a href="manual/cli.html#available-commands" data-ice="link">Available commands</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#build-targets" data-ice="link">Build targets</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#running-a-target" data-ice="link">Running a target</a></li>
@@ -105,13 +106,13 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/overwrite.html"><a href="manual/overwrite.html" data-ice="link">Overwriting woopack</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/overwrite.html"><a href="manual/overwrite.html" data-ice="link">Overwriting projext</a></li>
 </ul>
   </div>
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/plugins.html"><a href="manual/plugins.html" data-ice="link">woopack plugins</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/plugins.html"><a href="manual/plugins.html" data-ice="link">projext plugins</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#naming-convention" data-ice="link">Naming convention</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#adding-services-to-the-container" data-ice="link">Adding services to the container</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/plugins.html"><a href="manual/plugins.html#events" data-ice="link">Events</a></li>
@@ -127,7 +128,7 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/engines.html"><a href="manual/engines.html" data-ice="link">woopack build engines</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/engines.html"><a href="manual/engines.html" data-ice="link">projext build engines</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/engines.html"><a href="manual/engines.html#implementing-a-build-engine" data-ice="link">Implementing a build engine</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/engines.html"><a href="manual/engines.html#creating-a-build-engine" data-ice="link">Creating a build engine</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/engines.html"><a href="manual/engines.html#let--39-s-create-a-plugin-for-browserify" data-ice="link">Let&apos;s create a plugin for browserify</a></li>
@@ -136,7 +137,7 @@
 <div data-ice="manual">
     <ul class="manual-toc">
       
-    <li data-ice="manualNav" class="indent-h1" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html" data-ice="link">woopack browser target configuration</a></li>
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html" data-ice="link">projext browser target configuration</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#settings" data-ice="link">Settings</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#-code-default--code-" data-ice="link">default</a></li>
@@ -152,7 +153,7 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="project-configuration">Project Configuration</h1><p>These are the settings that will determine how woopack wil handle your project.</p>
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="project-configuration">Project Configuration</h1><p>These are the settings that will determine how projext will handle your project.</p>
 <p><strong>The file must be created on <code>[YOUR-PROJECT-PATH]/config/project.config.js</code></strong></p>
 <p>There&apos;s no <em>&quot;top level&quot;</em> setting, everything is separated in different scopes relevant to one specific thing:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
@@ -181,20 +182,13 @@
     source: &apos;src&apos;,
     build: &apos;dist&apos;,
     privateModules: &apos;private&apos;,
-    output: {
-      js: &apos;statics/js&apos;,
-      fonts: &apos;statics/fonts&apos;,
-      css: &apos;statics/css&apos;,
-      images: &apos;statics/img&apos;,
-    },
   }
 }</code>
 </code></pre>
 <h3 id="-code-source--code-"><code>source</code></h3><p>The directory, relative to your project path, where your targets code is located. On the documentation is often referred as the <em>&quot;source directory&quot;</em>.</p>
 <h3 id="-code-build--code-"><code>build</code></h3><p>The directory, relative to your project path, where your targets bundled code will be located. On the documentation is often referred as the <em>&quot;distribution directory&quot;</em>.</p>
-<h3 id="-code-privatemodules--code-"><code>privateModules</code></h3><p>This is for the feature that copies when bundling. In case you are using the feature to copy an npm module that, let&apos;s say, is not published, woopack will save that module (without its dependencies) on that folder.</p>
-<h3 id="-code-output--code-"><code>output</code></h3><p>These are paths for static assets that may be generated when bundling a target.</p>
-<h2 id="-code-targetstemplates--code-"><code>targetsTemplates</code></h2><p>There was no way to have <em>&quot;smart defaults&quot;</em> for targets and at the same time allow woopack an unlimited amount of targets, and that&apos;s why the this setting exists.</p>
+<h3 id="-code-privatemodules--code-"><code>privateModules</code></h3><p>This is for the feature that copies when bundling. In case you are using the feature to copy an npm module that, let&apos;s say, is not published, projext will save that module (without its dependencies) on that folder.</p>
+<h2 id="-code-targetstemplates--code-"><code>targetsTemplates</code></h2><p>There was no way to have <em>&quot;smart defaults&quot;</em> for targets and at the same time allow projext an unlimited amount of targets, and that&apos;s why the this setting exists.</p>
 <p>The targets will extend the template which name is the same as their <code>type</code> property:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
   node: ...,
@@ -203,135 +197,245 @@
 </code></pre>
 <p>Since there are a lot of settings for the templates, will divide them by type and see each one on detail.</p>
 <h3 id="-code-node--code-"><code>node</code></h3><pre><code class="lang-js"><code class="source-code prettyprint">{
-  node: {
-    type: &apos;node&apos;,
-    bundle: false,
-    transpile: false,
-    engine: &apos;webpack&apos;,
-    hasFolder: true,
-    createFolder: false,
-    folder: &apos;&apos;,
-    entry: {
-      development: &apos;start.development.js&apos;,
-      production: &apos;start.production.js&apos;,
-    },
-    runOnDevelopment: false,
-    babel: {
-      features: [],
-      nodeVersion: &apos;current&apos;,
-      overwrites: {},
-    },
-    flow: false,
-    library: false,
-    libraryOptions: {
-      libraryTarget: &apos;commonjs2&apos;,
-    },
-    cleanBeforeBuild: true,
-  }
+  type: &apos;node&apos;,
+  bundle: false,
+  transpile: false,
+  engine: &apos;webpack&apos;,
+  hasFolder: true,
+  createFolder: false,
+  folder: &apos;&apos;,
+  entry: { ... },
+  output: { ... },
+  runOnDevelopment: false,
+  babel: { ... },
+  flow: false,
+  library: false,
+  libraryOptions: { ... },
+  cleanBeforeBuild: true,
 }</code>
 </code></pre>
-<h4 id="-code-bundle--code-"><code>bundle</code></h4><p>Whether or not the target needs to be bundled. Yes, it&apos;s kind of ironic that a tool that aims to simplify bundling would have an option like this, but there are a few scenarios where this may be useful:</p>
+<h4 id="-code-bundle--code-"><code>bundle</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not the target needs to be bundled. Yes, it&apos;s kind of ironic that a tool that aims to simplify bundling would have an option like this, but there are a few scenarios where this may be useful:</p>
 <ul>
 <li>You are bundling a frontend while you have your backend running on Node, you can bundle your frontend and just copy your backend.</li>
-<li>You have no frontend target and you are using woopack just to organize, run and prepare the distributable files.</li>
+<li>You have no frontend target and you are using projext just to organize, run and prepare the distributable files.</li>
 </ul>
 <p>If the value is <code>false</code>, when running on a development environment, and if the target doesn&apos;t need transpilation, the code won&apos;t be moved to the distribution directory.</p>
-<h4 id="-code-transpile--code-"><code>transpile</code></h4><p>This option is kind of tied to the previous one: You may not want to bundle your Node target, but you can transpile it with <a href="https://babeljs.io">Babel</a> if you want to use a feature not yet supported by the runtime.</p>
-<h4 id="-code-engine--code-"><code>engine</code></h4><p>In case <code>bundle</code> is <code>true</code>, this will tell woopack which build engine you are going to bundle the target code with.</p>
-<blockquote>
-<p>If you don&apos;t intend to change its default value, you need to have the package <a href="https://yarnpkg.com/en/package/woopack-plugin-webpack"><code>woopack-plugin-webpack</code></a> installed.</p>
+<h4 id="-code-transpile--code-"><code>transpile</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
 </blockquote>
-<h4 id="-code-hasfolder--code-"><code>hasFolder</code></h4><p>Whether your target code is on a sub folder of the source directory (<code>src/[target-name]/</code>) or the contents of the source directory are your target code (useful when working with a single target).</p>
-<h4 id="-code-createfolder--code-"><code>createFolder</code></h4><p>Whether or not to create a folder for your targets code on the distribution directory when the target is bundled/copied.</p>
-<h4 id="-code-folder--code-"><code>folder</code></h4><p>If either <code>hasFolder</code> or <code>createFolder</code> is <code>true</code>, this can be used to specify a different folder name than the target&apos;s name.</p>
-<h4 id="-code-entry--code-"><code>entry</code></h4><p>This object with the keys <code>development</code> and <code>production</code> tells woopack which is the main file (executable) of your target for each environment.</p>
-<h4 id="-code-runondevelopment--code-"><code>runOnDevelopment</code></h4><p>This tells woopack that when the target is builded (bundled/copied) on a development environment, it should execute it.</p>
-<p>When the target needs to be bundled, it will relay on the build engined to do it, otherwise, woopack will use its custom implementation of <a href="https://yarnpkg.com/en/package/nodemon"><code>nodemon</code></a> for watching and, if needed, transpile your target code.</p>
-<h4 id="-code-babel--code-"><code>babel</code></h4><p>These options are used in the case the target needs to be bundled or transpile to configure <a href="https://babeljs.io">Babel</a>:</p>
+<p>This option is kind of tied to the previous one: You may not want to bundle your Node target, but you can transpile it with <a href="https://babeljs.io">Babel</a> if you want to use a feature not yet supported by the runtime.</p>
+<h4 id="-code-engine--code-"><code>engine</code></h4><blockquote>
+<p>Default value: <code>webpack</code></p>
+</blockquote>
+<p>In case <code>bundle</code> is <code>true</code>, this will tell projext which build engine you are going to bundle the target code with.</p>
+<blockquote>
+<p>If you don&apos;t intend to change its default value, you need to have the package <a href="https://yarnpkg.com/en/package/projext-plugin-webpack"><code>projext-plugin-webpack</code></a> installed.</p>
+</blockquote>
+<h4 id="-code-hasfolder--code-"><code>hasFolder</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether your target code is on a sub folder of the source directory (<code>src/[target-name]/</code>) or the contents of the source directory are your target code (useful when working with a single target).</p>
+<h4 id="-code-createfolder--code-"><code>createFolder</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not to create a folder for your targets code on the distribution directory when the target is bundled/copied.</p>
+<h4 id="-code-folder--code-"><code>folder</code></h4><blockquote>
+<p>Default value: <code>&apos;&apos;</code></p>
+</blockquote>
+<p>If either <code>hasFolder</code> or <code>createFolder</code> is <code>true</code>, this can be used to specify a different folder name than the target&apos;s name.</p>
+<h4 id="-code-entry--code-"><code>entry</code></h4><blockquote>
+<p>Default value</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  default: &apos;index.js&apos;,
+  development: null,
+  production: null,
+}</code>
+</code></pre>
+</blockquote>
+<p>This object is the one that tells projext which is the main file (executable) of your target for each specific environment. If you set <code>null</code> to an entry for an specific environment, it will fallback to the value of the <code>default</code> setting.</p>
+<h4 id="-code-output--code-"><code>output</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  default: &apos;[target-name].js&apos;,
+  development: null,
+  production: null,
+}</code>
+</code></pre>
+</blockquote>
+<p>This tells projext where to place the generated bundle on each environment. You can also use the <code>[target-name]</code> placeholder on the paths.</p>
+<h4 id="-code-runondevelopment--code-"><code>runOnDevelopment</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>This tells projext that when the target is builded (bundled/copied) on a development environment, it should execute it.</p>
+<p>When the target needs to be bundled, it will relay on the build engined to do it, otherwise, projext will use its custom implementation of <a href="https://yarnpkg.com/en/package/nodemon"><code>nodemon</code></a> for watching and, if needed, transpile your target code.</p>
+<h4 id="-code-babel--code-"><code>babel</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  features: [],
+  nodeVersion: &apos;current&apos;,
+  overwrites: {},
+}</code>
+</code></pre>
+</blockquote>
+<p>These options are used in the case the target needs to be bundled or transpile to configure <a href="https://babeljs.io">Babel</a>:</p>
 <p><strong><code>babel.features</code></strong></p>
-<p>woopack includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p>
+<p>projext includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p>
 <p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p>
 <p><strong><code>babel.nodeVersion</code></strong></p>
-<p>When building the Babel configuration, woopack uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p>
+<p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p>
 <p><strong><code>babel.overwrites</code></strong></p>
-<p>If you know how to use Babel and need stuff that is not covered by woopack, you can use this setting to overwrite/add any value you may need.</p>
-<h4 id="-code-flow--code-"><code>flow</code></h4><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p>
-<h4 id="-code-library--code-"><code>library</code></h4><p>If the project is bundled, this will tell the build engine that it needs to be builded as a library to be <code>require</code>d.</p>
-<h4 id="-code-libraryoptions--code-"><code>libraryOptions</code></h4><p>In case <code>library</code> is <code>true</code>, these options are going to be used by the build engine to configure your library:</p>
-<p><strong><code>libraryOptions.libraryTarget</code></strong></p>
-<p>How the library will be exposed: <code>commonjs2</code>, <code>umd</code> and <code>window</code>.</p>
-<blockquote>
-<p>Since this was built based on the webpack API, if you are using it as a build engine, you can set any <code>libraryTarget</code> that webpack supports. The ones mentioned above will be the ones woopack will support for all the other build engines with different APIs.</p>
+<p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p>
+<h4 id="-code-flow--code-"><code>flow</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
 </blockquote>
-<h4 id="-code-cleanbeforebuild--code-"><code>cleanBeforeBuild</code></h4><p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p>
-<h3 id="-code-browser--code-"><code>browser</code></h3><pre><code class="lang-js"><code class="source-code prettyprint">browser: {
+<p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p>
+<h4 id="-code-library--code-"><code>library</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>If the project is bundled, this will tell the build engine that it needs to be builded as a library to be <code>require</code>d.</p>
+<h4 id="-code-libraryoptions--code-"><code>libraryOptions</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  libraryTarget: &apos;commonjs2&apos;,
+}</code>
+</code></pre>
+</blockquote>
+<p>In case <code>library</code> is <code>true</code>, these options are going to be used by the build engine to configure your library:</p>
+<p><strong><code>libraryOptions.libraryTarget</code></strong></p>
+<p>How the library will be exposed: <code>commonjs2</code>, <code>umd</code> or <code>window</code>.</p>
+<blockquote>
+<p>Since this was built based on the webpack API, if you are using it as a build engine, you can set any <code>libraryTarget</code> that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.</p>
+</blockquote>
+<h4 id="-code-cleanbeforebuild--code-"><code>cleanBeforeBuild</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p>
+<h3 id="-code-browser--code-"><code>browser</code></h3><pre><code class="lang-js"><code class="source-code prettyprint">{
   type: &apos;browser&apos;,
   engine: &apos;webpack&apos;,
   hasFolder: true,
   createFolder: true,
   folder: &apos;&apos;,
-  entry: {
-    development: &apos;index.js&apos;,
-    production: &apos;index.js&apos;,
-  },
-  sourceMap: {
-    development: false,
-    production: true,
-  },
-  html: {
-    template: &apos;index.html&apos;,
-    filename: &apos;index.html&apos;,
-  },
+  entry: { ... },
+  output: { ... },
+  sourceMap: { ... },
+  html: { ... },
   runOnDevelopment: false,
-  babel: {
-    features: [],
-    browserVersions: 2,
-    mobileSupport: true,
-    polyfill: true,
-    overwrites: {},
-  },
+  babel: { ... },
   flow: false,
   CSSModules: false,
   library: false,
-  libraryOptions: {},
+  libraryOptions: { ... },
   cleanBeforeBuild: true,
-  devServer: {
-    port: 2509,
-    reload: true,
-  },
-  configuration: {
-    enabled: false,
-    default: null,
-    path: &apos;config/&apos;,
-    hasFolder: true,
-    defineOn: &apos;process.env.CONFIG&apos;,
-    environmentVariable: &apos;CONFIG&apos;,
-    loadFromEnvironment: true,
-    filenameFormat: &apos;[target-name].[configuration-name].config.js&apos;,
-  },
+  devServer: { ... },
+  configuration: { ... },
 }</code>
 </code></pre>
-<h4 id="-code-engine--code-"><code>engine</code></h4><p>This will tell woopack which build engine you are going to bundle the target code with.</p>
-<blockquote>
-<p>If you don&apos;t intend to change its default value, you need to have the package <a href="https://yarnpkg.com/en/package/woopack-plugin-webpack"><code>woopack-plugin-webpack</code></a> installed.</p>
+<h4 id="-code-engine--code-"><code>engine</code></h4><blockquote>
+<p>Default value: <code>webpack</code></p>
 </blockquote>
-<h4 id="-code-hasfolder--code-"><code>hasFolder</code></h4><p>Whether your target code is on a sub folder of the source directory (<code>src/[target-name]/</code>) or the contents of the source directory are your target code (useful when working with a single target).</p>
-<h4 id="-code-createfolder--code-"><code>createFolder</code></h4><p>Whether or not to create a folder for your targets code on the distribution directory when the target is bundled/copied.</p>
-<h4 id="-code-folder--code-"><code>folder</code></h4><p>If either <code>hasFolder</code> or <code>createFolder</code> is <code>true</code>, this can be used to specify a different folder name than the target&apos;s name.</p>
-<h4 id="-code-entry--code-"><code>entry</code></h4><p>This object with the keys <code>development</code> and <code>production</code> tells woopack which is the main file (executable) of your target for each environment.</p>
-<h4 id="-code-sourcemap--code-"><code>sourceMap</code></h4><p>Whether or not to disable source map generation for each environment.</p>
-<h4 id="-code-html--code-"><code>html</code></h4><p>In the case the target is an app, these are the options for the <code>html</code> file that will include the bundle <code>&lt;script /&gt;</code>; and if your target is a library, this can be used to test your library.</p>
+<p>This will tell projext which build engine you are going to bundle the target code with.</p>
+<blockquote>
+<p>If you don&apos;t intend to change its default value, you need to have the package <a href="https://yarnpkg.com/en/package/projext-plugin-webpack"><code>projext-plugin-webpack</code></a> installed.</p>
+</blockquote>
+<h4 id="-code-hasfolder--code-"><code>hasFolder</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether your target code is on a sub folder of the source directory (<code>src/[target-name]/</code>) or the contents of the source directory are your target code (useful when working with a single target).</p>
+<h4 id="-code-createfolder--code-"><code>createFolder</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not to create a folder for your targets code on the distribution directory when the target is bundled/copied.</p>
+<h4 id="-code-folder--code-"><code>folder</code></h4><blockquote>
+<p>Default value: <code>&apos;&apos;</code></p>
+</blockquote>
+<p>If either <code>hasFolder</code> or <code>createFolder</code> is <code>true</code>, this can be used to specify a different folder name than the target&apos;s name.</p>
+<h4 id="-code-entry--code-"><code>entry</code></h4><blockquote>
+<p>Default value</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  default: &apos;index.js&apos;,
+  development: null,
+  production: null,
+}</code>
+</code></pre>
+</blockquote>
+<p>This object is the one that tells projext which is the main file (the one that fires the app) of your target for each specific environment. If you set <code>null</code> to an entry for an specific environment, it will fallback to the value of the <code>default</code> setting.</p>
+<h4 id="-code-output--code-"><code>output</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  default: {
+    js: &apos;statics/js/[target-name].[hash].js&apos;,
+    fonts: &apos;statics/fonts/[name].[hash].[ext]&apos;,
+    css: &apos;statics/styles/[target-name].[hash].css&apos;,
+    images: &apos;statics/images/[name].[hash].[ext]&apos;,
+  },
+  development: {
+    js: &apos;statics/js/[target-name].js&apos;,
+    fonts: &apos;statics/fonts/[name].[ext]&apos;,
+    css: &apos;statics/styles/[target-name].css&apos;,
+    images: &apos;statics/images/[name].[ext]&apos;,
+  },
+  production: null,
+}</code>
+</code></pre>
+</blockquote>
+<p>This tells projext where to place the files generated while bundling on each environment, depending on the file type.</p>
+<p>You can use the following placeholders:</p>
+<ul>
+<li><code>[target-name]</code>: The name of the target.</li>
+<li><code>[hash]</code>: A random hash generated for cache busting.</li>
+<li><code>[name]</code>: The file original name (Not available for <code>css</code> and <code>js</code>).</li>
+<li><code>[ext]</code>: The file original extension (Not available for <code>css</code> and <code>js</code>).</li>
+</ul>
+<h4 id="-code-sourcemap--code-"><code>sourceMap</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  development: false,
+  production: true,
+}</code>
+</code></pre>
+</blockquote>
+<p>Whether or not to disable source map generation for each environment.</p>
+<h4 id="-code-html--code-"><code>html</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  default: &apos;index.html&apos;,
+  template: null,
+  filename: null,
+}</code>
+</code></pre>
+</blockquote>
+<p>In the case the target is an app, these are the options for the <code>html</code> file that will include the bundle <code>&lt;script /&gt;</code>; and if your target is a library, this can be used to test your library.</p>
+<p><strong><code>html.default</code></strong></p>
+<p>This would be the fallback if either <code>template</code> or <code>filename</code> is <code>null</code>.</p>
 <p><strong><code>html.template</code></strong></p>
 <p>The file inside your target source that will be used to generate the <code>html</code>.</p>
 <p><strong><code>html.filename</code></strong></p>
 <p>The file that will be generated when your target is bundled. It will automatically include the <code>&lt;script /&gt;</code> tag to the generated bundle.</p>
-<h4 id="-code-runondevelopment--code-"><code>runOnDevelopment</code></h4><p>This will tell the build engine that when you build the target for a development environment, it should bring up an <code>http</code> server to <em>&quot;run&quot;</em> your target.</p>
-<h4 id="-code-babel--code-"><code>babel</code></h4><p>These options are used by the build engine to configure <a href="https://babeljs.io">Babel</a>:</p>
+<h4 id="-code-runondevelopment--code-"><code>runOnDevelopment</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>This will tell the build engine that when you build the target for a development environment, it should bring up an <code>http</code> server to <em>&quot;run&quot;</em> your target.</p>
+<h4 id="-code-babel--code-"><code>babel</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  features: [],
+  browserVersions: 2,
+  mobileSupport: true,
+  polyfill: true,
+  overwrites: {},
+}</code>
+</code></pre>
+</blockquote>
+<p>These options are used by the build engine to configure <a href="https://babeljs.io">Babel</a>:</p>
 <p><strong><code>babel.features</code></strong></p>
-<p>woopack includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p>
+<p>projext includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p>
 <p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p>
 <p><strong><code>babel.browserVersions</code></strong></p>
-<p>When building the Babel configuration, woopack uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p>
+<p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p>
 <blockquote>
 <p>Major browsers: Firefox, Chrome, Safari and Edge.</p>
 </blockquote>
@@ -340,23 +444,70 @@
 <p><strong><code>babel.polyfill</code></strong></p>
 <p>Whether or not the configuration should include the <a href="https://yarnpkg.com/en/package/babel-polyfill"><code>babel-polyfill</code></a> package.</p>
 <p><strong><code>babel.overwrites</code></strong></p>
-<p>If you know how to use Babel and need stuff that is not covered by woopack, you can use this setting to overwrite/add any value you may need.</p>
-<h4 id="-code-flow--code-"><code>flow</code></h4><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support for it.</p>
-<h4 id="-code-cssmodules--code-"><code>CSSModules</code></h4><p>Whether or not your application uses CSS Modules.</p>
-<h4 id="-code-library--code-"><code>library</code></h4><p>This will tell the build engine that it needs to be builded as a library to be <code>require</code>d.</p>
-<h4 id="-code-libraryoptions--code-"><code>libraryOptions</code></h4><p>In case <code>library</code> is <code>true</code>, these options are going to be used by the build engine to configure your library:</p>
-<p><strong><code>libraryOptions.libraryTarget</code></strong></p>
-<p>How the library will be exposed: <code>commonjs</code>, <code>umd</code> and <code>window</code>.</p>
-<blockquote>
-<p>Since this was built based on the webpack API, if you are using it as a build engine, you can set any <code>libraryTarget</code> that webpack supports. The ones mentioned above will be the ones woopack will support for all the other build engines with different APIs.</p>
+<p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p>
+<h4 id="-code-flow--code-"><code>flow</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
 </blockquote>
-<h4 id="-code-cleanbeforebuild--code-"><code>cleanBeforeBuild</code></h4><p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p>
-<h4 id="-code-devserver--code-"><code>devServer</code></h4><p>These are the options for the <code>http</code> server woopack will use when running the target on a development environment.</p>
+<p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support for it.</p>
+<h4 id="-code-cssmodules--code-"><code>CSSModules</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not your application uses CSS Modules.</p>
+<h4 id="-code-library--code-"><code>library</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>This will tell the build engine that it needs to be builded as a library to be <code>require</code>d.</p>
+<h4 id="-code-libraryoptions--code-"><code>libraryOptions</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  libraryTarget: &apos;umd&apos;,
+}</code>
+</code></pre>
+</blockquote>
+<p>In case <code>library</code> is <code>true</code>, these options are going to be used by the build engine to configure your library:</p>
+<p><strong><code>libraryOptions.libraryTarget</code></strong></p>
+<p>How the library will be exposed: <code>commonjs</code>, <code>umd</code> or <code>window</code>.</p>
+<blockquote>
+<p>Since this was built based on the webpack API, if you are using it as a build engine, you can set any <code>libraryTarget</code> that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.</p>
+</blockquote>
+<h4 id="-code-cleanbeforebuild--code-"><code>cleanBeforeBuild</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p>
+<h4 id="-code-devserver--code-"><code>devServer</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  port: 2509,
+  reload: true,
+  host: &apos;localhost&apos;,
+  https: false,
+}</code>
+</code></pre>
+</blockquote>
+<p>These are the options for the <code>http</code> server projext will use when running the target on a development environment.</p>
 <p><strong><code>devServer.port</code></strong></p>
 <p>The server port.</p>
 <p><strong><code>devServer.reload</code></strong></p>
 <p>Whether or not to reload the server when the code changes.</p>
-<h4 id="-code-configuration--code-"><code>configuration</code></h4><p>These are the settings for the feature that allows a browser target to have a dynamic configuration file.</p>
+<p><strong><code>devServer.host</code></strong></p>
+<p>The dev server hostname.</p>
+<p><strong><code>devServer.https</code></strong></p>
+<p>Whether or not the dev server host protocol should be <code>https</code>.</p>
+<h4 id="-code-configuration--code-"><code>configuration</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: false,
+  default: null,
+  path: &apos;config/&apos;,
+  hasFolder: true,
+  defineOn: &apos;process.env.CONFIG&apos;,
+  environmentVariable: &apos;CONFIG&apos;,
+  loadFromEnvironment: true,
+  filenameFormat: &apos;[target-name].[configuration-name].config.js&apos;,
+}</code>
+</code></pre>
+</blockquote>
+<p>These are the settings for the feature that allows a browser target to have a dynamic configuration file.</p>
 <blockquote>
 <p>For more precise information, check the document about Browser configuration</p>
 </blockquote>
@@ -371,9 +522,9 @@
 <p><strong><code>configuration.defineOn</code></strong></p>
 <p>The name of the variable where the configuration is going to be replaced on your code when bundled.</p>
 <p><strong><code>configuration.environmentVariable</code></strong></p>
-<p>The name of the environment variable woopack will check when building the target in order to load a dynamic configuration.</p>
+<p>The name of the environment variable projext will check when building the target in order to load a dynamic configuration.</p>
 <p><strong><code>configuration.loadFromEnvironment</code></strong></p>
-<p>Whether or not woopack should check for the environment variable value.</p>
+<p>Whether or not projext should check for the environment variable value.</p>
 <p><strong><code>configuration.filenameFormat</code></strong></p>
 <p>The name format of the configuration files.</p>
 <h2 id="-code-targets--code-"><code>targets</code></h2><p>This setting is an empty object because this is the only required setting. This is where you&apos;ll add your target(s) information, for example:</p>
@@ -388,61 +539,125 @@
   }
 }</code>
 </code></pre>
-<h2 id="-code-copy--code-"><code>copy</code></h2><p>These settings are for the feature that enables woopack to copy files when building targets:</p>
+<h2 id="-code-copy--code-"><code>copy</code></h2><p>These settings are for the feature that enables projext to copy files when building targets:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
-  copy: {
-    enabled: false,
-    items: [],
-    copyOnBuild: {
-      enabled: true,
-      onlyOnProduction: true,
-      targets: [],
-    },
-  }
+  enabled: false,
+  items: [],
+  copyOnBuild: { ... },
 }</code>
 </code></pre>
-<h3 id="-code-enabled--code-"><code>enabled</code></h3><p>Whether or not the feature is enabled.</p>
-<h3 id="-code-items--code-"><code>items</code></h3><p>A list of files and/or directories that will be copied. All with paths relative to the project directory.</p>
-<h3 id="-code-copyonbuild--code-"><code>copyOnBuild</code></h3><p>Since the feature is also available through the woopack CLI, you can configure how the feature behaves when building:</p>
-<h4 id="-code-enabled--code-"><code>enabled</code></h4><p>Whether or not to copy the files when building. If disabled, you can use the CLI to copy the files.</p>
-<h4 id="-code-onlyonproduction--code-"><code>onlyOnProduction</code></h4><p>This tells woopack if the files should be copied only when building for production, or if it should do it for development too.</p>
-<h4 id="-code-targets--code-"><code>targets</code></h4><p>This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.</p>
+<h3 id="-code-enabled--code-"><code>enabled</code></h3><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not the feature is enabled.</p>
+<h3 id="-code-items--code-"><code>items</code></h3><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
+<p>A list of files and/or directories that will be copied. All with paths relative to the project directory.</p>
+<h3 id="-code-copyonbuild--code-"><code>copyOnBuild</code></h3><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: true,
+  onlyOnProduction: true,
+  targets: [],
+}</code>
+</code></pre>
+</blockquote>
+<p>Since the feature is also available through the projext CLI, you can configure how the feature behaves when building:</p>
+<h4 id="-code-copyonbuild-enabled--code-"><code>copyOnBuild.enabled</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether or not to copy the files when building. If disabled, you can use the CLI to copy the files.</p>
+<h4 id="-code-copyonbuild-onlyonproduction--code-"><code>copyOnBuild.onlyOnProduction</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>This tells projext if the files should be copied only when building for production, or if it should do it for development too.</p>
+<h4 id="-code-copyonbuild-targets--code-"><code>copyOnBuild.targets</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
+<p>This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.</p>
 <h2 id="-code-version--code-"><code>version</code></h2><p>These settings are for the feature that manages your project version:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
-  version: {
-    defineOne: &apos;APP_VERSION&apos;,
-    environmentVariable: &apos;VERSION&apos;,
-    revision: {
-      enabled: false,
-      copy: true,
-      filename: &apos;revision&apos;,
-      createRevisionOnBuild: {
-        enabled: true,
-        onlyOnProduction: true,
-        targets: [],
-      },
-    },
-  }
+  defineOn: &apos;process.env.VERSION&apos;,
+  environmentVariable: &apos;VERSION&apos;,
+  revision: { ... },
 }</code>
 </code></pre>
-<h3 id="-code-defineone--code-"><code>defineOne</code></h3><p>The name of the variable where the version is going to be replaced on your code when bundled.</p>
-<h3 id="-code-environmentvariable--code-"><code>environmentVariable</code></h3><p>The name of the environment variable woopack should check to get the project version.</p>
-<h3 id="-code-revision--code-"><code>revision</code></h3><p>This is like a sub-feature. A revision file is a file that contains the version of your project. This is useful when deploying the project to an environment where you have no access to the environment variable.</p>
+<h3 id="-code-defineon--code-"><code>defineOn</code></h3><blockquote>
+<p>Default value: <code>process.env.VERSION</code></p>
+</blockquote>
+<p>The name of the variable where the version is going to be replaced on your code when bundled.</p>
+<h3 id="-code-environmentvariable--code-"><code>environmentVariable</code></h3><blockquote>
+<p>Default value: <code>VERSION</code></p>
+</blockquote>
+<p>The name of the environment variable projext should check to get the project version.</p>
+<h3 id="-code-revision--code-"><code>revision</code></h3><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: false,
+  copy: true,
+  filename: &apos;revision&apos;,
+  createRevisionOnBuild: { ... },
+}</code>
+</code></pre>
+</blockquote>
+<p>This is like a sub-feature. A revision file is a file that contains the version of your project. This is useful when deploying the project to an environment where you have no access to the environment variable.</p>
 <p>The way the revision file works is by first checking if the environment variable is available and, if not, it will check if the project is on a <code>GIT</code> repository and try to get the hash of the last commit.</p>
-<h4 id="-code-revision-enabled--code-"><code>revision.enabled</code></h4><p>Whether or not the revision file feature is enabled.</p>
-<h4 id="-code-revision-copy--code-"><code>revision.copy</code></h4><p>Whether or not to copy the revision file when the project files are being copied to the distribution directory.</p>
-<h4 id="-code-revision-filename--code-"><code>revision.filename</code></h4><p>The name of the revision file.</p>
-<h4 id="-code-revision-createrevisiononbuild--code-"><code>revision.createRevisionOnBuild</code></h4><p>Since the feature is also available through the woopack CLI, you can configure how the feature behaves when building:</p>
+<h4 id="-code-revision-enabled--code-"><code>revision.enabled</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not the revision file feature is enabled.</p>
+<h4 id="-code-revision-copy--code-"><code>revision.copy</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not to copy the revision file when the project files are being copied to the distribution directory.</p>
+<h4 id="-code-revision-filename--code-"><code>revision.filename</code></h4><blockquote>
+<p>Default value: <code>revision</code></p>
+</blockquote>
+<p>The name of the revision file.</p>
+<h4 id="-code-revision-createrevisiononbuild--code-"><code>revision.createRevisionOnBuild</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: true,
+  onlyOnProduction: true,
+  targets: [],
+}</code>
+</code></pre>
+</blockquote>
+<p>Since the feature is also available through the projext CLI, you can configure how the feature behaves when building:</p>
 <p><strong><code>revision.createRevisionOnBuild.enabled</code></strong></p>
+<blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
 <p>Whether or not to create the file when building. If disabled, you can use the CLI to copy the files.</p>
 <p><strong><code>revision.createRevisionOnBuild.onlyOnProduction</code></strong></p>
-<p>This tells woopack if the file should be created only when building for production, or if it should do it for development too.</p>
+<blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>This tells projext if the file should be created only when building for production, or if it should do it for development too.</p>
 <p><strong><code>revision.createRevisionOnBuild.targets</code></strong></p>
+<blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
 <p>This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.</p>
 <h2 id="-code-others--code-"><code>others</code></h2><p>Miscellaneous options.</p>
-<h3 id="-code-watch--code-"><code>watch</code></h3><p>This is used by woopack to configure <a href="https://yarnpkg.com/en/package/watchpack"><code>watchpack</code></a>, which is used to watch Node files that need to be transpiled.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  watch: { .. },
+}</code>
+</code></pre>
+<h3 id="-code-watch--code-"><code>watch</code></h3><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  poll: true,
+}</code>
+</code></pre>
+</blockquote>
+<p>This is used by projext to configure <a href="https://yarnpkg.com/en/package/watchpack"><code>watchpack</code></a>, which is used to watch Node files that need to be transpiled.</p>
 <p>The reason is outside the <code>targetsTemplate.node</code> is because this can be used for any other plugin that watches the file system.</p>
-<h4 id="-code-watch-poll--code-"><code>watch.poll</code></h4><p>Whether or not to use polling to get the changes on the file system, and if so, it can also be used to specify the ms interval.</p>
+<h4 id="-code-watch-poll--code-"><code>watch.poll</code></h4><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether or not to use polling to get the changes on the file system, and if so, it can also be used to specify the ms interval.</p>
 </div>
 </div>
 

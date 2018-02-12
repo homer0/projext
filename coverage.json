@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 300,
-  "actualCount": 300,
+  "expectCount": 307,
+  "actualCount": 307,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 16,
@@ -59,8 +59,8 @@
       "undocumentLines": []
     },
     "src/services/building/targets.js": {
-      "expectCount": 16,
-      "actualCount": 16,
+      "expectCount": 23,
+      "actualCount": 23,
       "undocumentLines": []
     },
     "src/services/cli/cli.js": {

@@ -1,386 +1,386 @@
 window.esdocSearchIndex = [
   [
-    "woopack/src/services/configurations/babelconfiguration.js~babelconfiguration",
+    "projext/src/services/configurations/babelconfiguration.js~babelconfiguration",
     "class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html",
-    "<span>BabelConfiguration</span> <span class=\"search-result-import-path\">woopack/src/services/configurations/babelConfiguration.js</span>",
+    "<span>BabelConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/babelConfiguration.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildcleaner.js~buildcleaner",
+    "projext/src/services/building/buildcleaner.js~buildcleaner",
     "class/src/services/building/buildCleaner.js~BuildCleaner.html",
-    "<span>BuildCleaner</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildCleaner.js</span>",
+    "<span>BuildCleaner</span> <span class=\"search-result-import-path\">projext/src/services/building/buildCleaner.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildcopier.js~buildcopier",
+    "projext/src/services/building/buildcopier.js~buildcopier",
     "class/src/services/building/buildCopier.js~BuildCopier.html",
-    "<span>BuildCopier</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildCopier.js</span>",
+    "<span>BuildCopier</span> <span class=\"search-result-import-path\">projext/src/services/building/buildCopier.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildengines.js~buildengines",
+    "projext/src/services/building/buildengines.js~buildengines",
     "class/src/services/building/buildEngines.js~BuildEngines.html",
-    "<span>BuildEngines</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildEngines.js</span>",
+    "<span>BuildEngines</span> <span class=\"search-result-import-path\">projext/src/services/building/buildEngines.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildnoderunner.js~buildnoderunner",
+    "projext/src/services/building/buildnoderunner.js~buildnoderunner",
     "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html",
-    "<span>BuildNodeRunner</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildNodeRunner.js</span>",
+    "<span>BuildNodeRunner</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeRunner.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess",
+    "projext/src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess",
     "class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html",
-    "<span>BuildNodeRunnerProcess</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildNodeRunnerProcess.js</span>",
+    "<span>BuildNodeRunnerProcess</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeRunnerProcess.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildtranspiler.js~buildtranspiler",
+    "projext/src/services/building/buildtranspiler.js~buildtranspiler",
     "class/src/services/building/buildTranspiler.js~BuildTranspiler.html",
-    "<span>BuildTranspiler</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildTranspiler.js</span>",
+    "<span>BuildTranspiler</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTranspiler.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/buildversion.js~buildversion",
+    "projext/src/services/building/buildversion.js~buildversion",
     "class/src/services/building/buildVersion.js~BuildVersion.html",
-    "<span>BuildVersion</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildVersion.js</span>",
+    "<span>BuildVersion</span> <span class=\"search-result-import-path\">projext/src/services/building/buildVersion.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/builder.js~builder",
+    "projext/src/services/building/builder.js~builder",
     "class/src/services/building/builder.js~Builder.html",
-    "<span>Builder</span> <span class=\"search-result-import-path\">woopack/src/services/building/builder.js</span>",
+    "<span>Builder</span> <span class=\"search-result-import-path\">projext/src/services/building/builder.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/cli.js~cli",
+    "projext/src/services/cli/cli.js~cli",
     "class/src/services/cli/cli.js~CLI.html",
-    "<span>CLI</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cli.js</span>",
+    "<span>CLI</span> <span class=\"search-result-import-path\">projext/src/services/cli/cli.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clibuild.js~clibuildcommand",
+    "projext/src/services/cli/clibuild.js~clibuildcommand",
     "class/src/services/cli/cliBuild.js~CLIBuildCommand.html",
-    "<span>CLIBuildCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliBuild.js</span>",
+    "<span>CLIBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliBuild.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/cliclean.js~clicleancommand",
+    "projext/src/services/cli/cliclean.js~clicleancommand",
     "class/src/services/cli/cliClean.js~CLICleanCommand.html",
-    "<span>CLICleanCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliClean.js</span>",
+    "<span>CLICleanCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliClean.js</span>",
     "class"
   ],
   [
-    "woopack/src/abstracts/clicommand.js~clicommand",
+    "projext/src/abstracts/clicommand.js~clicommand",
     "class/src/abstracts/cliCommand.js~CLICommand.html",
-    "<span>CLICommand</span> <span class=\"search-result-import-path\">woopack/src/abstracts/cliCommand.js</span>",
+    "<span>CLICommand</span> <span class=\"search-result-import-path\">projext/src/abstracts/cliCommand.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clicopyprojectfiles.js~clicopyprojectfilescommand",
+    "projext/src/services/cli/clicopyprojectfiles.js~clicopyprojectfilescommand",
     "class/src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand.html",
-    "<span>CLICopyProjectFilesCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliCopyProjectFiles.js</span>",
+    "<span>CLICopyProjectFilesCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliCopyProjectFiles.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clirevision.js~clirevisioncommand",
+    "projext/src/services/cli/clirevision.js~clirevisioncommand",
     "class/src/services/cli/cliRevision.js~CLIRevisionCommand.html",
-    "<span>CLIRevisionCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliRevision.js</span>",
+    "<span>CLIRevisionCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRevision.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clirun.js~cliruncommand",
+    "projext/src/services/cli/clirun.js~cliruncommand",
     "class/src/services/cli/cliRun.js~CLIRunCommand.html",
-    "<span>CLIRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliRun.js</span>",
+    "<span>CLIRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRun.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishbuild.js~clishbuildcommand",
+    "projext/src/services/cli/clishbuild.js~clishbuildcommand",
     "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html",
-    "<span>CLISHBuildCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHBuild.js</span>",
+    "<span>CLISHBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHBuild.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishcopy.js~clishcopycommand",
+    "projext/src/services/cli/clishcopy.js~clishcopycommand",
     "class/src/services/cli/cliSHCopy.js~CLISHCopyCommand.html",
-    "<span>CLISHCopyCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHCopy.js</span>",
+    "<span>CLISHCopyCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHCopy.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishnoderun.js~clishnoderuncommand",
+    "projext/src/services/cli/clishnoderun.js~clishnoderuncommand",
     "class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html",
-    "<span>CLISHNodeRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHNodeRun.js</span>",
+    "<span>CLISHNodeRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHNodeRun.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishrun.js~clishruncommand",
+    "projext/src/services/cli/clishrun.js~clishruncommand",
     "class/src/services/cli/cliSHRun.js~CLISHRunCommand.html",
-    "<span>CLISHRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHRun.js</span>",
+    "<span>CLISHRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHRun.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishtranspile.js~clishtranspilecommand",
+    "projext/src/services/cli/clishtranspile.js~clishtranspilecommand",
     "class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html",
-    "<span>CLISHTranspileCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHTranspile.js</span>",
+    "<span>CLISHTranspileCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHTranspile.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand",
+    "projext/src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand",
     "class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html",
-    "<span>CLISHValidateBuildCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHValidateBuild.js</span>",
+    "<span>CLISHValidateBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateBuild.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/cli/clishvalidaterun.js~clishvalidateruncommand",
+    "projext/src/services/cli/clishvalidaterun.js~clishvalidateruncommand",
     "class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html",
-    "<span>CLISHValidateRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHValidateRun.js</span>",
+    "<span>CLISHValidateRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateRun.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/common/cleaner.js~cleaner",
+    "projext/src/services/common/cleaner.js~cleaner",
     "class/src/services/common/cleaner.js~Cleaner.html",
-    "<span>Cleaner</span> <span class=\"search-result-import-path\">woopack/src/services/common/cleaner.js</span>",
+    "<span>Cleaner</span> <span class=\"search-result-import-path\">projext/src/services/common/cleaner.js</span>",
     "class"
   ],
   [
-    "woopack/src/abstracts/configurationfile.js~configurationfile",
+    "projext/src/abstracts/configurationfile.js~configurationfile",
     "class/src/abstracts/configurationFile.js~ConfigurationFile.html",
-    "<span>ConfigurationFile</span> <span class=\"search-result-import-path\">woopack/src/abstracts/configurationFile.js</span>",
+    "<span>ConfigurationFile</span> <span class=\"search-result-import-path\">projext/src/abstracts/configurationFile.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/common/copier.js~copier",
+    "projext/src/services/common/copier.js~copier",
     "class/src/services/common/copier.js~Copier.html",
-    "<span>Copier</span> <span class=\"search-result-import-path\">woopack/src/services/common/copier.js</span>",
+    "<span>Copier</span> <span class=\"search-result-import-path\">projext/src/services/common/copier.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/common/events.js~events",
+    "projext/src/services/common/events.js~events",
     "class/src/services/common/events.js~Events.html",
-    "<span>Events</span> <span class=\"search-result-import-path\">woopack/src/services/common/events.js</span>",
+    "<span>Events</span> <span class=\"search-result-import-path\">projext/src/services/common/events.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/common/plugins.js~plugins",
+    "projext/src/services/common/plugins.js~plugins",
     "class/src/services/common/plugins.js~Plugins.html",
-    "<span>Plugins</span> <span class=\"search-result-import-path\">woopack/src/services/common/plugins.js</span>",
+    "<span>Plugins</span> <span class=\"search-result-import-path\">projext/src/services/common/plugins.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/configurations/projectconfiguration.js~projectconfiguration",
+    "projext/src/services/configurations/projectconfiguration.js~projectconfiguration",
     "class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html",
-    "<span>ProjectConfiguration</span> <span class=\"search-result-import-path\">woopack/src/services/configurations/projectConfiguration.js</span>",
+    "<span>ProjectConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/projectConfiguration.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/configurations/targetconfiguration.js~targetconfiguration",
+    "projext/src/app/index.js~projext",
+    "class/src/app/index.js~Projext.html",
+    "<span>Projext</span> <span class=\"search-result-import-path\">projext/src/app/index.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/configurations/targetconfiguration.js~targetconfiguration",
     "class/src/services/configurations/targetConfiguration.js~TargetConfiguration.html",
-    "<span>TargetConfiguration</span> <span class=\"search-result-import-path\">woopack/src/services/configurations/targetConfiguration.js</span>",
+    "<span>TargetConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/targetConfiguration.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/building/targets.js~targets",
+    "projext/src/services/building/targets.js~targets",
     "class/src/services/building/targets.js~Targets.html",
-    "<span>Targets</span> <span class=\"search-result-import-path\">woopack/src/services/building/targets.js</span>",
+    "<span>Targets</span> <span class=\"search-result-import-path\">projext/src/services/building/targets.js</span>",
     "class"
   ],
   [
-    "woopack/src/services/common/versionutils.js~versionutils",
+    "projext/src/services/common/versionutils.js~versionutils",
     "class/src/services/common/versionUtils.js~VersionUtils.html",
-    "<span>VersionUtils</span> <span class=\"search-result-import-path\">woopack/src/services/common/versionUtils.js</span>",
+    "<span>VersionUtils</span> <span class=\"search-result-import-path\">projext/src/services/common/versionUtils.js</span>",
     "class"
   ],
   [
-    "woopack/src/app/index.js~woopack",
-    "class/src/app/index.js~Woopack.html",
-    "<span>Woopack</span> <span class=\"search-result-import-path\">woopack/src/app/index.js</span>",
-    "class"
-  ],
-  [
-    "woopack/src/services/configurations/babelconfiguration.js~babelconfiguration",
+    "projext/src/services/configurations/babelconfiguration.js~babelconfiguration",
     "variable/index.html#static-variable-babelConfiguration",
-    "<span>babelConfiguration</span> <span class=\"search-result-import-path\">woopack/src/services/configurations/babelConfiguration.js</span>",
+    "<span>babelConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/babelConfiguration.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildcleaner.js~buildcleaner",
+    "projext/src/services/building/buildcleaner.js~buildcleaner",
     "variable/index.html#static-variable-buildCleaner",
-    "<span>buildCleaner</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildCleaner.js</span>",
+    "<span>buildCleaner</span> <span class=\"search-result-import-path\">projext/src/services/building/buildCleaner.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildcopier.js~buildcopier",
+    "projext/src/services/building/buildcopier.js~buildcopier",
     "variable/index.html#static-variable-buildCopier",
-    "<span>buildCopier</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildCopier.js</span>",
+    "<span>buildCopier</span> <span class=\"search-result-import-path\">projext/src/services/building/buildCopier.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildengines.js~buildengines",
+    "projext/src/services/building/buildengines.js~buildengines",
     "variable/index.html#static-variable-buildEngines",
-    "<span>buildEngines</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildEngines.js</span>",
+    "<span>buildEngines</span> <span class=\"search-result-import-path\">projext/src/services/building/buildEngines.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildnoderunner.js~buildnoderunner",
+    "projext/src/services/building/buildnoderunner.js~buildnoderunner",
     "variable/index.html#static-variable-buildNodeRunner",
-    "<span>buildNodeRunner</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildNodeRunner.js</span>",
+    "<span>buildNodeRunner</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeRunner.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess",
+    "projext/src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess",
     "variable/index.html#static-variable-buildNodeRunnerProcess",
-    "<span>buildNodeRunnerProcess</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildNodeRunnerProcess.js</span>",
+    "<span>buildNodeRunnerProcess</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeRunnerProcess.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildtranspiler.js~buildtranspiler",
+    "projext/src/services/building/buildtranspiler.js~buildtranspiler",
     "variable/index.html#static-variable-buildTranspiler",
-    "<span>buildTranspiler</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildTranspiler.js</span>",
+    "<span>buildTranspiler</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTranspiler.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/buildversion.js~buildversion",
+    "projext/src/services/building/buildversion.js~buildversion",
     "variable/index.html#static-variable-buildVersion",
-    "<span>buildVersion</span> <span class=\"search-result-import-path\">woopack/src/services/building/buildVersion.js</span>",
+    "<span>buildVersion</span> <span class=\"search-result-import-path\">projext/src/services/building/buildVersion.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/builder.js~builder",
+    "projext/src/services/building/builder.js~builder",
     "variable/index.html#static-variable-builder",
-    "<span>builder</span> <span class=\"search-result-import-path\">woopack/src/services/building/builder.js</span>",
+    "<span>builder</span> <span class=\"search-result-import-path\">projext/src/services/building/builder.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/common/cleaner.js~cleaner",
+    "projext/src/services/common/cleaner.js~cleaner",
     "variable/index.html#static-variable-cleaner",
-    "<span>cleaner</span> <span class=\"search-result-import-path\">woopack/src/services/common/cleaner.js</span>",
+    "<span>cleaner</span> <span class=\"search-result-import-path\">projext/src/services/common/cleaner.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/cli.js~cli",
+    "projext/src/services/cli/cli.js~cli",
     "variable/index.html#static-variable-cli",
-    "<span>cli</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cli.js</span>",
+    "<span>cli</span> <span class=\"search-result-import-path\">projext/src/services/cli/cli.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clibuild.js~clibuildcommand",
+    "projext/src/services/cli/clibuild.js~clibuildcommand",
     "variable/index.html#static-variable-cliBuildCommand",
-    "<span>cliBuildCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliBuild.js</span>",
+    "<span>cliBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliBuild.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/cliclean.js~clicleancommand",
+    "projext/src/services/cli/cliclean.js~clicleancommand",
     "variable/index.html#static-variable-cliCleanCommand",
-    "<span>cliCleanCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliClean.js</span>",
+    "<span>cliCleanCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliClean.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clicopyprojectfiles.js~clicopyprojectfilescommand",
+    "projext/src/services/cli/clicopyprojectfiles.js~clicopyprojectfilescommand",
     "variable/index.html#static-variable-cliCopyProjectFilesCommand",
-    "<span>cliCopyProjectFilesCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliCopyProjectFiles.js</span>",
+    "<span>cliCopyProjectFilesCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliCopyProjectFiles.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clirevision.js~clirevisioncommand",
+    "projext/src/services/cli/clirevision.js~clirevisioncommand",
     "variable/index.html#static-variable-cliRevisionCommand",
-    "<span>cliRevisionCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliRevision.js</span>",
+    "<span>cliRevisionCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRevision.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clirun.js~cliruncommand",
+    "projext/src/services/cli/clirun.js~cliruncommand",
     "variable/index.html#static-variable-cliRunCommand",
-    "<span>cliRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliRun.js</span>",
+    "<span>cliRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRun.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishbuild.js~clishbuildcommand",
+    "projext/src/services/cli/clishbuild.js~clishbuildcommand",
     "variable/index.html#static-variable-cliSHBuildCommand",
-    "<span>cliSHBuildCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHBuild.js</span>",
+    "<span>cliSHBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHBuild.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishcopy.js~clishcopycommand",
+    "projext/src/services/cli/clishcopy.js~clishcopycommand",
     "variable/index.html#static-variable-cliSHCopyCommand",
-    "<span>cliSHCopyCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHCopy.js</span>",
+    "<span>cliSHCopyCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHCopy.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishnoderun.js~clishnoderuncommand",
+    "projext/src/services/cli/clishnoderun.js~clishnoderuncommand",
     "variable/index.html#static-variable-cliSHNodeRunCommand",
-    "<span>cliSHNodeRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHNodeRun.js</span>",
+    "<span>cliSHNodeRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHNodeRun.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishrun.js~clishruncommand",
+    "projext/src/services/cli/clishrun.js~clishruncommand",
     "variable/index.html#static-variable-cliSHRunCommand",
-    "<span>cliSHRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHRun.js</span>",
+    "<span>cliSHRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHRun.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishtranspile.js~clishtranspilecommand",
+    "projext/src/services/cli/clishtranspile.js~clishtranspilecommand",
     "variable/index.html#static-variable-cliSHTranspileCommand",
-    "<span>cliSHTranspileCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHTranspile.js</span>",
+    "<span>cliSHTranspileCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHTranspile.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand",
+    "projext/src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand",
     "variable/index.html#static-variable-cliSHValidateBuildCommand",
-    "<span>cliSHValidateBuildCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHValidateBuild.js</span>",
+    "<span>cliSHValidateBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateBuild.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/clishvalidaterun.js~clishvalidateruncommand",
+    "projext/src/services/cli/clishvalidaterun.js~clishvalidateruncommand",
     "variable/index.html#static-variable-cliSHValidateRunCommand",
-    "<span>cliSHValidateRunCommand</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cliSHValidateRun.js</span>",
+    "<span>cliSHValidateRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateRun.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/cli/cli.js~cliwithname",
+    "projext/src/services/cli/cli.js~cliwithname",
     "function/index.html#static-function-cliWithName",
-    "<span>cliWithName</span> <span class=\"search-result-import-path\">woopack/src/services/cli/cli.js</span>",
+    "<span>cliWithName</span> <span class=\"search-result-import-path\">projext/src/services/cli/cli.js</span>",
     "function"
   ],
   [
-    "woopack/src/services/common/copier.js~copier",
+    "projext/src/services/common/copier.js~copier",
     "variable/index.html#static-variable-copier",
-    "<span>copier</span> <span class=\"search-result-import-path\">woopack/src/services/common/copier.js</span>",
+    "<span>copier</span> <span class=\"search-result-import-path\">projext/src/services/common/copier.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/common/events.js~events",
+    "projext/src/services/common/events.js~events",
     "variable/index.html#static-variable-events",
-    "<span>events</span> <span class=\"search-result-import-path\">woopack/src/services/common/events.js</span>",
+    "<span>events</span> <span class=\"search-result-import-path\">projext/src/services/common/events.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/common/plugins.js~plugins",
+    "projext/src/services/common/plugins.js~plugins",
     "function/index.html#static-function-plugins",
-    "<span>plugins</span> <span class=\"search-result-import-path\">woopack/src/services/common/plugins.js</span>",
+    "<span>plugins</span> <span class=\"search-result-import-path\">projext/src/services/common/plugins.js</span>",
     "function"
   ],
   [
-    "woopack/src/services/configurations/projectconfiguration.js~projectconfiguration",
+    "projext/src/services/configurations/projectconfiguration.js~projectconfiguration",
     "variable/index.html#static-variable-projectConfiguration",
-    "<span>projectConfiguration</span> <span class=\"search-result-import-path\">woopack/src/services/configurations/projectConfiguration.js</span>",
+    "<span>projectConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/projectConfiguration.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/configurations/targetconfiguration.js~targetconfiguration",
+    "projext/src/services/configurations/targetconfiguration.js~targetconfiguration",
     "variable/index.html#static-variable-targetConfiguration",
-    "<span>targetConfiguration</span> <span class=\"search-result-import-path\">woopack/src/services/configurations/targetConfiguration.js</span>",
+    "<span>targetConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/targetConfiguration.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/building/targets.js~targets",
+    "projext/src/services/building/targets.js~targets",
     "variable/index.html#static-variable-targets",
-    "<span>targets</span> <span class=\"search-result-import-path\">woopack/src/services/building/targets.js</span>",
+    "<span>targets</span> <span class=\"search-result-import-path\">projext/src/services/building/targets.js</span>",
     "variable"
   ],
   [
-    "woopack/src/services/common/versionutils.js~versionutils",
+    "projext/src/services/common/versionutils.js~versionutils",
     "variable/index.html#static-variable-versionUtils",
-    "<span>versionUtils</span> <span class=\"search-result-import-path\">woopack/src/services/common/versionUtils.js</span>",
+    "<span>versionUtils</span> <span class=\"search-result-import-path\">projext/src/services/common/versionUtils.js</span>",
     "variable"
   ],
   [
@@ -828,9 +828,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/app/index.js~woopack#cli",
-    "class/src/app/index.js~Woopack.html#instance-method-cli",
-    "src/app/index.js~Woopack#cli",
+    "src/app/index.js~projext#cli",
+    "class/src/app/index.js~Projext.html#instance-method-cli",
+    "src/app/index.js~Projext#cli",
     "method"
   ],
   [
@@ -2226,24 +2226,6 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~browsertargetbabelsettings",
-    "typedef/index.html#static-typedef-BrowserTargetBabelSettings",
-    "src/typedef.js~BrowserTargetBabelSettings",
-    "typedef"
-  ],
-  [
-    "src/typedef.js~browsertargetconfigurationsettings",
-    "typedef/index.html#static-typedef-BrowserTargetConfigurationSettings",
-    "src/typedef.js~BrowserTargetConfigurationSettings",
-    "typedef"
-  ],
-  [
-    "src/typedef.js~browsertargetdevserversettings",
-    "typedef/index.html#static-typedef-BrowserTargetDevServerSettings",
-    "src/typedef.js~BrowserTargetDevServerSettings",
-    "typedef"
-  ],
-  [
     "src/typedef.js~buildengine",
     "typedef/index.html#static-typedef-BuildEngine",
     "src/typedef.js~BuildEngine",
@@ -2298,12 +2280,6 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~nodetargetbabelsettings",
-    "typedef/index.html#static-typedef-NodeTargetBabelSettings",
-    "src/typedef.js~NodeTargetBabelSettings",
-    "typedef"
-  ],
-  [
     "src/typedef.js~nodemon",
     "https://github.com/remy/nodemon/blob/master/doc/requireable.md",
     "src/typedef.js~Nodemon",
@@ -2322,15 +2298,45 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationbrowsertargettemplateentries",
-    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateEntries",
-    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateEntries",
+    "src/typedef.js~projectconfigurationbrowsertargettemplatebabelsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateBabelSettings",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateBabelSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplateconfigurationsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateConfigurationSettings",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateConfigurationSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplatedevserversettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateDevServerSettings",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateDevServerSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplatedevelopmentoutputpaths",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths",
     "typedef"
   ],
   [
     "src/typedef.js~projectconfigurationbrowsertargettemplatehtmlsettings",
     "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateHTMLSettings",
     "src/typedef.js~ProjectConfigurationBrowserTargetTemplateHTMLSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplateoutput",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateOutput",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateOutput",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplateproductionoutputpaths",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateProductionOutputPaths",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateProductionOutputPaths",
     "typedef"
   ],
   [
@@ -2358,21 +2364,21 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationnodetargettemplateentries",
-    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateEntries",
-    "src/typedef.js~ProjectConfigurationNodeTargetTemplateEntries",
+    "src/typedef.js~projectconfigurationnodetargettemplatebabelsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateBabelSettings",
+    "src/typedef.js~ProjectConfigurationNodeTargetTemplateBabelSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationnodetargettemplateoutput",
+    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateOutput",
+    "src/typedef.js~ProjectConfigurationNodeTargetTemplateOutput",
     "typedef"
   ],
   [
     "src/typedef.js~projectconfigurationothersettings",
     "typedef/index.html#static-typedef-ProjectConfigurationOtherSettings",
     "src/typedef.js~ProjectConfigurationOtherSettings",
-    "typedef"
-  ],
-  [
-    "src/typedef.js~projectconfigurationoutputpathsettings",
-    "typedef/index.html#static-typedef-ProjectConfigurationOutputPathSettings",
-    "src/typedef.js~ProjectConfigurationOutputPathSettings",
     "typedef"
   ],
   [
@@ -2385,6 +2391,18 @@ window.esdocSearchIndex = [
     "src/typedef.js~projectconfigurationsettings",
     "typedef/index.html#static-typedef-ProjectConfigurationSettings",
     "src/typedef.js~ProjectConfigurationSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationtargettemplateentry",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry",
+    "src/typedef.js~ProjectConfigurationTargetTemplateEntry",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationtargettemplatelibraryoptions",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateLibraryOptions",
+    "src/typedef.js~ProjectConfigurationTargetTemplateLibraryOptions",
     "typedef"
   ],
   [
@@ -2445,12 +2463,6 @@ window.esdocSearchIndex = [
     "src/typedef.js~targetfolders",
     "typedef/index.html#static-typedef-TargetFolders",
     "src/typedef.js~TargetFolders",
-    "typedef"
-  ],
-  [
-    "src/typedef.js~targetlibraryoptions",
-    "typedef/index.html#static-typedef-TargetLibraryOptions",
-    "src/typedef.js~TargetLibraryOptions",
     "typedef"
   ],
   [

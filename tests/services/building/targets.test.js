@@ -109,6 +109,7 @@ describe('services/building:targets', () => {
         name: 'targetOne',
         entry: {},
         output: {},
+        originalOutput: {},
         paths: {
           source: `${source}/targetOne`,
           build,
@@ -132,6 +133,7 @@ describe('services/building:targets', () => {
         name: 'targetTwo',
         entry: {},
         output: {},
+        originalOutput: {},
         type: 'node',
         paths: {
           source: `${source}/target-two`,
@@ -156,6 +158,7 @@ describe('services/building:targets', () => {
         name: 'targetThree',
         entry: {},
         output: {},
+        originalOutput: {},
         type: 'node',
         paths: {
           source: `${source}/target-three`,
@@ -177,6 +180,7 @@ describe('services/building:targets', () => {
         name: 'targetFour',
         entry: {},
         output: {},
+        originalOutput: {},
         paths: { source, build },
         folders: { source, build },
         is: {
@@ -349,6 +353,10 @@ describe('services/building:targets', () => {
           development: 'targetOne.js',
           production: 'targetOne.js',
         },
+        originalOutput: {
+          development: '[target-name].js',
+          production: '[target-name].js',
+        },
         paths: { source, build },
         folders: { source, build },
         hasFolder: false,
@@ -375,6 +383,20 @@ describe('services/building:targets', () => {
             js: 'statics/js/targetTwo.js',
             fonts: 'statics/fonts/[name].[ext]',
             css: 'statics/styles/targetTwo.css',
+            images: 'statics/images/[name].[ext]',
+          },
+        },
+        originalOutput: {
+          development: {
+            js: 'statics/js/[target-name].js',
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/[target-name].css',
+            images: 'statics/images/[name].[ext]',
+          },
+          production: {
+            js: 'statics/js/[target-name].js',
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/[target-name].css',
             images: 'statics/images/[name].[ext]',
           },
         },
@@ -408,6 +430,20 @@ describe('services/building:targets', () => {
             js: 'statics/js/targetThree.production.js',
           },
         },
+        originalOutput: {
+          development: {
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/[target-name].css',
+            images: 'statics/images/[name].[ext]',
+            js: 'statics/js/[target-name].development.js',
+          },
+          production: {
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/[target-name].css',
+            images: 'statics/images/[name].[ext]',
+            js: 'statics/js/[target-name].production.js',
+          },
+        },
         type: 'browser',
         paths: { source, build },
         folders: { source, build },
@@ -439,6 +475,20 @@ describe('services/building:targets', () => {
             images: `statics/images/[name].${hash}.[ext]`,
           },
         },
+        originalOutput: {
+          development: {
+            js: 'statics/js/[target-name].js',
+            fonts: 'statics/fonts/[name].[ext]',
+            css: 'statics/styles/[target-name].css',
+            images: 'statics/images/[name].[ext]',
+          },
+          production: {
+            js: 'statics/js/[target-name].[hash].js',
+            fonts: 'statics/fonts/[name].[hash].[ext]',
+            css: 'statics/styles/[target-name].[hash].css',
+            images: 'statics/images/[name].[hash].[ext]',
+          },
+        },
         paths: { source, build },
         folders: { source, build },
         hasFolder: false,
@@ -456,6 +506,10 @@ describe('services/building:targets', () => {
           production: 'index.js',
         },
         output: {
+          development: 'start.js',
+          production: 'start.js',
+        },
+        originalOutput: {
           development: 'start.js',
           production: 'start.js',
         },
@@ -479,6 +533,10 @@ describe('services/building:targets', () => {
           development: 'start.development.js',
           production: 'targetSix.js',
         },
+        originalOutput: {
+          development: 'start.development.js',
+          production: '[target-name].js',
+        },
         paths: { source, build },
         folders: { source, build },
         hasFolder: false,
@@ -496,6 +554,10 @@ describe('services/building:targets', () => {
           production: 'index.js',
         },
         output: {
+          development: null,
+          production: 'start.production.js',
+        },
+        originalOutput: {
           development: null,
           production: 'start.production.js',
         },
@@ -590,6 +652,7 @@ describe('services/building:targets', () => {
         defaultTargetName: 'browser',
         entry: {},
         output: {},
+        originalOutput: {},
         html: {
           template: 'index.html',
           filename: 'index.html',
@@ -608,6 +671,7 @@ describe('services/building:targets', () => {
         defaultTargetName: 'browser',
         entry: {},
         output: {},
+        originalOutput: {},
         html: {
           template: 'done.html',
           filename: 'index.html',
@@ -626,6 +690,7 @@ describe('services/building:targets', () => {
         defaultTargetName: 'browser',
         entry: {},
         output: {},
+        originalOutput: {},
         html: {
           template: 'index.html',
           filename: 'done.html',
@@ -644,6 +709,7 @@ describe('services/building:targets', () => {
         defaultTargetName: 'browser',
         entry: {},
         output: {},
+        originalOutput: {},
         html: {
           template: 'template.html',
           filename: 'filename.html',
@@ -717,6 +783,7 @@ describe('services/building:targets', () => {
       name: targetName,
       entry: {},
       output: {},
+      originalOutput: {},
       paths: {
         source: `${source}/targetOne`,
         build,

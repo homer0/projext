@@ -122,6 +122,11 @@ class Targets {
         } else {
           newTarget.output = this._normalizeBrowserTargetOutput(newTarget.output);
         }
+        /**
+         * Keep the original output settings without the placeholders so internal services or
+         * plugins can use them.
+         */
+        newTarget.originalOutput = extend(true, {}, newTarget.output);
         // Replace placeholders on the output settings
         newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
 

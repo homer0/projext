@@ -154,12 +154,15 @@ describe('services/building:buildCleaner', () => {
       },
       bundle: true,
       name: 'someTarget',
+      originalOutput: {
+        development: '[target-name].js',
+        production: '[target-name].js',
+      },
       paths: {
         source: 'some-target-source',
         build: 'some-target-build',
       },
     };
-    let targetNames = null;
     const buildPath = 'some-build-path';
     const appLogger = {
       success: jest.fn(),
@@ -174,16 +177,19 @@ describe('services/building:buildCleaner', () => {
       join: jest.fn((rest) => rest),
     };
     let sut = null;
+    const expectedItems = [
+      `${target.name}.js`,
+      `${target.name}.js`,
+    ];
     // When
     sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
-    targetNames = sut.getTargetNamesVariation(target.name);
     return sut.cleanTarget(target)
     .then(() => {
       // Then
       expect(pathUtils.join).toHaveBeenCalledTimes(1);
       expect(pathUtils.join).toHaveBeenCalledWith(buildPath);
       expect(cleaner).toHaveBeenCalledTimes(1);
-      expect(cleaner).toHaveBeenCalledWith(target.paths.build, targetNames);
+      expect(cleaner).toHaveBeenCalledWith(target.paths.build, expectedItems);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
     })
     .catch(() => {
@@ -201,13 +207,26 @@ describe('services/building:buildCleaner', () => {
         node: false,
       },
       name: 'someTarget',
+      originalOutput: {
+        development: {
+          js: 'statics/js/[target-name].js',
+          fonts: 'statics/fonts/[name].[ext]',
+          css: 'statics/styles/[target-name].css',
+          images: 'statics/images/[name].[ext]',
+        },
+        production: {
+          js: 'statics/js/[target-name].[hash].js',
+          fonts: 'statics/fonts/[name].[hash].[ext]',
+          css: 'statics/styles/[target-name].[hash].css',
+          images: 'statics/images/[name].[hash].[ext]',
+        },
+      },
       html,
       paths: {
         source: 'some-target-source',
         build: 'some-target-build',
       },
     };
-    let targetNames = null;
     const buildPath = 'some-build-path';
     const appLogger = {
       success: jest.fn(),
@@ -229,84 +248,39 @@ describe('services/building:buildCleaner', () => {
       join: jest.fn((rest) => rest),
     };
     let sut = null;
+    const expectedItems = [
+      `statics/js/${target.name}.js`,
+      `statics/js/${target.name}.js.map`,
+      `statics/styles/${target.name}.css`,
+      'statics/fonts/*.*',
+      'statics/images/*.*',
+      `statics/js/${target.name}.*.js`,
+      `statics/js/${target.name}.*.js.map`,
+      `statics/styles/${target.name}.*.css`,
+      'statics/fonts/*.*.*',
+      'statics/images/*.*.*',
+      html.filename,
+      `statics/js/${target.name}.js.gz`,
+      `statics/js/${target.name}.js.map.gz`,
+      `statics/styles/${target.name}.css.gz`,
+      'statics/fonts/*.*.gz',
+      'statics/images/*.*.gz',
+      `statics/js/${target.name}.*.js.gz`,
+      `statics/js/${target.name}.*.js.map.gz`,
+      `statics/styles/${target.name}.*.css.gz`,
+      'statics/fonts/*.*.*.gz',
+      'statics/images/*.*.*.gz',
+      `${html.filename}.gz`,
+    ];
     // When
     sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
-    targetNames = sut.getTargetNamesVariation(target.name);
     return sut.cleanTarget(target)
     .then(() => {
       // Then
       expect(pathUtils.join).toHaveBeenCalledTimes(1);
       expect(pathUtils.join).toHaveBeenCalledWith(buildPath);
       expect(cleaner).toHaveBeenCalledTimes(1);
-      expect(cleaner).toHaveBeenCalledWith(
-        target.paths.build,
-        [
-          ...targetNames,
-          ...Object.keys(output).map((folder) => output[folder]),
-          ...[
-            html.filename,
-            `${html.filename}.gz`,
-          ],
-        ]
-      );
-      expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
-    });
-  });
-
-  it('should clean a library browser target files from the distribution directory', () => {
-    // Given
-    const target = {
-      is: {
-        node: false,
-      },
-      name: 'someTarget',
-      paths: {
-        source: 'some-target-source',
-        build: 'some-target-build',
-      },
-      library: true,
-    };
-    let targetNames = null;
-    const buildPath = 'some-build-path';
-    const appLogger = {
-      success: jest.fn(),
-    };
-    const cleaner = jest.fn(() => Promise.resolve());
-    const output = {
-      js: 'statics/js',
-      fonts: 'statics/fonts',
-      css: 'statics/css',
-      images: 'statics/img',
-    };
-    const projectConfiguration = {
-      paths: {
-        build: buildPath,
-        output,
-      },
-    };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
-    };
-    let sut = null;
-    // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
-    targetNames = sut.getTargetNamesVariation(target.name);
-    return sut.cleanTarget(target)
-    .then(() => {
-      // Then
-      expect(pathUtils.join).toHaveBeenCalledTimes(1);
-      expect(pathUtils.join).toHaveBeenCalledWith(buildPath);
-      expect(cleaner).toHaveBeenCalledTimes(1);
-      expect(cleaner).toHaveBeenCalledWith(
-        target.paths.build,
-        [
-          ...targetNames,
-          ...Object.keys(output).map((folder) => output[folder]),
-        ]
-      );
+      expect(cleaner).toHaveBeenCalledWith(target.paths.build, expectedItems);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
     })
     .catch(() => {
@@ -322,12 +296,15 @@ describe('services/building:buildCleaner', () => {
       },
       bundle: true,
       name: 'someTarget',
+      originalOutput: {
+        development: '[target-name].js',
+        production: '[target-name].js',
+      },
       paths: {
         source: 'some-target-source',
         build: 'some-target-build',
       },
     };
-    let targetNames = null;
     const buildPath = 'some-build-path';
     const appLogger = {
       error: jest.fn(),
@@ -343,9 +320,12 @@ describe('services/building:buildCleaner', () => {
       join: jest.fn((rest) => rest),
     };
     let sut = null;
+    const expectedItems = [
+      `${target.name}.js`,
+      `${target.name}.js`,
+    ];
     // When
     sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
-    targetNames = sut.getTargetNamesVariation(target.name);
     return sut.cleanTarget(target)
     .then(() => {
       expect(true).toBeFalse();
@@ -355,10 +335,39 @@ describe('services/building:buildCleaner', () => {
       expect(pathUtils.join).toHaveBeenCalledTimes(1);
       expect(pathUtils.join).toHaveBeenCalledWith(buildPath);
       expect(cleaner).toHaveBeenCalledTimes(1);
-      expect(cleaner).toHaveBeenCalledWith(target.paths.build, targetNames);
+      expect(cleaner).toHaveBeenCalledWith(target.paths.build, expectedItems);
       expect(appLogger.error).toHaveBeenCalledTimes(1);
       expect(errorResult).toBe(error);
     });
+  });
+  /**
+   * @deprecated
+   */
+  it('should generate variations of a target bundled name', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const cleaner = 'cleaner';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = 'projectConfiguration';
+    const name = 'some-target';
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    result = sut.getTargetNamesVariation(name);
+    // Then
+    expect(result).toEqual([
+      `${name}`,
+      `${name}.js`,
+      `${name}.js.map`,
+      `${name}.*.js`,
+      `${name}.*.js.map`,
+      `${name}.gz`,
+      `${name}.js.gz`,
+      `${name}.js.map.gz`,
+      `${name}.*.js.gz`,
+      `${name}.*.js.map.gz`,
+    ]);
   });
 
   it('should include a provider for the DIC', () => {

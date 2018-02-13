@@ -379,6 +379,8 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationNodeTargetTemplateOutput} output
  * The target file paths for each specific build type.
+ * @property {ProjectConfigurationNodeTargetTemplateOutput} originalOutput
+ * The target file paths for each specific build type, without the placeholders replaced.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -479,6 +481,8 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationBrowserTargetTemplateOutput} output
  * The target output settings for each specific build type.
+ * @property {ProjectConfigurationBrowserTargetTemplateOutput} originalOutput
+ * The target output settings for each specific build type, without the placeholders replaced.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html

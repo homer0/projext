@@ -99,20 +99,22 @@ class BuildCleaner {
    * @return {Promise<undefined,undefined>}
    */
   cleanNodeTarget(target) {
-    const {
-      bundle,
-      name,
-      paths: {
-        source,
-        build,
-      },
-    } = target;
-    const firstStep = bundle ?
-      Promise.resolve(this.getTargetNamesVariation(name)) :
-      fs.readdir(source);
+    let firstStep;
+    if (target.bundle) {
+      const placeholders = {
+        'target-name': target.name,
+        hash: '*',
+      };
+      const items = Object.keys(target.originalOutput)
+      .map((type) => this._replacePlaceholdersOnString(target.originalOutput[type], placeholders));
+
+      firstStep = Promise.resolve(items);
+    } else {
+      firstStep = fs.readdir(target.paths.source);
+    }
 
     return firstStep
-    .then((items) => this.cleaner(build, items));
+    .then((items) => this.cleaner(target.paths.build, items));
   }
   /**
    * Removes the builded files of a browser target.
@@ -120,30 +122,37 @@ class BuildCleaner {
    * @return {Promise<undefined,undefined>}
    */
   cleanBrowserTarget(target) {
-    const { paths: { output } } = this.projectConfiguration;
-    const {
-      name,
-      html,
-      paths: { build },
-    } = target;
-    const items = [
-      ...this.getTargetNamesVariation(name),
-      ...Object.keys(output).map((folder) => output[folder]),
-    ];
-
-    if (!target.library) {
+    const items = [];
+    const placeholders = {
+      'target-name': target.name,
+      hash: '*',
+      name: '*',
+      ext: '*',
+    };
+    Object.keys(target.originalOutput).forEach((type) => {
+      const output = target.originalOutput[type];
+      // JS
+      const js = this._replacePlaceholdersOnString(output.js, placeholders);
+      items.push(js);
+      items.push(`${js}.map`);
+      // Others
       items.push(...[
-        html.filename,
-        `${html.filename}.gz`,
+        this._replacePlaceholdersOnString(output.css, placeholders),
+        this._replacePlaceholdersOnString(output.fonts, placeholders),
+        this._replacePlaceholdersOnString(output.images, placeholders),
       ]);
-    }
+    });
 
-    return this.cleaner(build, items);
+    items.push(target.html.filename);
+    items.push(...items.map((item) => `${item}.gz`));
+
+    return this.cleaner(target.paths.build, items);
   }
   /**
    * Get all the names variations for a target bundled file based on the target name.
    * @param {string} name The target name.
    * @return {Array} A list of all the possible names of files related to that target.
+   * @deprecated
    */
   getTargetNamesVariation(name) {
     const names = [
@@ -155,6 +164,26 @@ class BuildCleaner {
     ];
     names.push(...names.map((file) => `${file}.gz`));
     return names;
+  }
+  /**
+   * Replace a dictionary of given placeholders on a string.
+   * @param {string} string       The target string where the placeholders will be replaced.
+   * @param {Object} placeholders A dictionary of placeholders and their values.
+   * @return {string}
+   * @ignore
+   * @protected
+   * @todo Move to a shared placed so it can be used by Targets and this class without duplication.
+   */
+  _replacePlaceholdersOnString(string, placeholders) {
+    let newString = string;
+    Object.keys(placeholders).forEach((name) => {
+      newString = newString.replace(
+        RegExp(`\\[${name}\\]`, 'ig'),
+        placeholders[name]
+      );
+    });
+
+    return newString;
   }
 }
 /**

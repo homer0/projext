@@ -117,11 +117,7 @@ class Targets {
         // Check if there are missing entries and fill them with the default value.
         newTarget.entry = this._normalizeTargetEntry(newTarget.entry);
         // Check if there are missing entries and merge them with the default value.
-        if (newTarget.is.node) {
-          newTarget.output = this._normalizeNodeTargetOutput(newTarget.output);
-        } else {
-          newTarget.output = this._normalizeBrowserTargetOutput(newTarget.output);
-        }
+        newTarget.output = this._normalizeTargetOutput(newTarget.output);
         /**
          * Keep the original output settings without the placeholders so internal services or
          * plugins can use them.
@@ -284,13 +280,13 @@ class Targets {
    * Checks if there are missing output settings that need to be merged with the ones on the
    * default fallback, and in case there are, a new set of output settings will be generated and
    * returned.
-   * @param {ProjectConfigurationBrowserTargetTemplateOutput} currentOutput
+   * @param {ProjectConfigurationTargetTemplateOutput} currentOutput
    * The output settings defined on the target after merging it with its type template.
-   * @return {ProjectConfigurationBrowserTargetTemplateOutput}
+   * @return {ProjectConfigurationTargetTemplateOutput}
    * @ignore
    * @protected
    */
-  _normalizeBrowserTargetOutput(currentOutput) {
+  _normalizeTargetOutput(currentOutput) {
     const newOutput = Object.assign({}, currentOutput);
     const { default: defaultOutput } = newOutput;
     delete newOutput.default;
@@ -311,18 +307,6 @@ class Targets {
     }
 
     return newOutput;
-  }
-  /**
-   * Checks if there are missing output paths that need to be replaced with the  default fallback,
-   * and in case there are, a new set of settings will be generated and returned.
-   * @param {ProjectConfigurationNodeTargetTemplateOutput} currentOutput
-   * The output settings defined on the target after merging it with its type template.
-   * @return {ProjectConfigurationNodeTargetTemplateOutput}
-   * @ignore
-   * @protected
-   */
-  _normalizeNodeTargetOutput(currentOutput) {
-    return this._normalizeSettingsWithDefault(currentOutput);
   }
   /**
    * Replace the common placeholders from a target output paths.

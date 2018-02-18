@@ -73,11 +73,43 @@ class BuildCleaner {
   cleanTarget(target) {
     const { paths: { build } } = this.projectConfiguration;
     const dist = this.pathUtils.join(build);
-    const cleanStep = target.is.node ?
-      this.cleanNodeTarget(target) :
-      this.cleanBrowserTarget(target);
+    let firstStep;
+    if (target.is.node && !target.bundle) {
+      firstStep = fs.readdir(target.paths.source);
+    } else {
+      const items = [];
+      const placeholders = {
+        'target-name': target.name,
+        hash: '*',
+        name: '*',
+        ext: '*',
+      };
+      Object.keys(target.originalOutput).forEach((type) => {
+        const output = target.originalOutput[type];
+        // JS
+        const js = this._replacePlaceholdersOnString(output.js, placeholders);
+        items.push(js);
+        if (target.is.browser) {
+          items.push(`${js}.map`);
+        }
+        // Others
+        items.push(...[
+          this._replacePlaceholdersOnString(output.css, placeholders),
+          this._replacePlaceholdersOnString(output.fonts, placeholders),
+          this._replacePlaceholdersOnString(output.images, placeholders),
+        ]);
+      });
 
-    return cleanStep
+      if (target.is.browser && target.html) {
+        items.push(target.html.filename);
+      }
+
+      items.push(...items.map((item) => `${item}.gz`));
+      firstStep = Promise.resolve(items);
+    }
+
+    return firstStep
+    .then((items) => this.cleaner(target.paths.build, items))
     .then(() => {
       this.appLogger.success(
         `The files for ${target.name} have been was successfully removed from ` +
@@ -92,61 +124,6 @@ class BuildCleaner {
 
       return Promise.reject(error);
     });
-  }
-  /**
-   * Removes the builded files of a Node target.
-   * @param {Target} target The target information.
-   * @return {Promise<undefined,undefined>}
-   */
-  cleanNodeTarget(target) {
-    let firstStep;
-    if (target.bundle) {
-      const placeholders = {
-        'target-name': target.name,
-        hash: '*',
-      };
-      const items = Object.keys(target.originalOutput)
-      .map((type) => this._replacePlaceholdersOnString(target.originalOutput[type], placeholders));
-
-      firstStep = Promise.resolve(items);
-    } else {
-      firstStep = fs.readdir(target.paths.source);
-    }
-
-    return firstStep
-    .then((items) => this.cleaner(target.paths.build, items));
-  }
-  /**
-   * Removes the builded files of a browser target.
-   * @param {Target} target The target information.
-   * @return {Promise<undefined,undefined>}
-   */
-  cleanBrowserTarget(target) {
-    const items = [];
-    const placeholders = {
-      'target-name': target.name,
-      hash: '*',
-      name: '*',
-      ext: '*',
-    };
-    Object.keys(target.originalOutput).forEach((type) => {
-      const output = target.originalOutput[type];
-      // JS
-      const js = this._replacePlaceholdersOnString(output.js, placeholders);
-      items.push(js);
-      items.push(`${js}.map`);
-      // Others
-      items.push(...[
-        this._replacePlaceholdersOnString(output.css, placeholders),
-        this._replacePlaceholdersOnString(output.fonts, placeholders),
-        this._replacePlaceholdersOnString(output.images, placeholders),
-      ]);
-    });
-
-    items.push(target.html.filename);
-    items.push(...items.map((item) => `${item}.gz`));
-
-    return this.cleaner(target.paths.build, items);
   }
   /**
    * Get all the names variations for a target bundled file based on the target name.

@@ -155,8 +155,18 @@ describe('services/building:buildCleaner', () => {
       bundle: true,
       name: 'someTarget',
       originalOutput: {
-        development: '[target-name].js',
-        production: '[target-name].js',
+        development: {
+          js: '[target-name].js',
+          fonts: 'statics/fonts/[name].[ext]',
+          css: 'statics/styles/[target-name].css',
+          images: 'statics/images/[name].[ext]',
+        },
+        production: {
+          js: '[target-name].[hash].js',
+          fonts: 'statics/fonts/[name].[hash].[ext]',
+          css: 'statics/styles/[target-name].[hash].css',
+          images: 'statics/images/[name].[hash].[ext]',
+        },
       },
       paths: {
         source: 'some-target-source',
@@ -179,7 +189,21 @@ describe('services/building:buildCleaner', () => {
     let sut = null;
     const expectedItems = [
       `${target.name}.js`,
-      `${target.name}.js`,
+      `statics/styles/${target.name}.css`,
+      'statics/fonts/*.*',
+      'statics/images/*.*',
+      `${target.name}.*.js`,
+      `statics/styles/${target.name}.*.css`,
+      'statics/fonts/*.*.*',
+      'statics/images/*.*.*',
+      `${target.name}.js.gz`,
+      `statics/styles/${target.name}.css.gz`,
+      'statics/fonts/*.*.gz',
+      'statics/images/*.*.gz',
+      `${target.name}.*.js.gz`,
+      `statics/styles/${target.name}.*.css.gz`,
+      'statics/fonts/*.*.*.gz',
+      'statics/images/*.*.*.gz',
     ];
     // When
     sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
@@ -205,6 +229,7 @@ describe('services/building:buildCleaner', () => {
     const target = {
       is: {
         node: false,
+        browser: true,
       },
       name: 'someTarget',
       originalOutput: {
@@ -232,16 +257,9 @@ describe('services/building:buildCleaner', () => {
       success: jest.fn(),
     };
     const cleaner = jest.fn(() => Promise.resolve());
-    const output = {
-      js: 'statics/js',
-      fonts: 'statics/fonts',
-      css: 'statics/css',
-      images: 'statics/img',
-    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
-        output,
       },
     };
     const pathUtils = {
@@ -297,8 +315,18 @@ describe('services/building:buildCleaner', () => {
       bundle: true,
       name: 'someTarget',
       originalOutput: {
-        development: '[target-name].js',
-        production: '[target-name].js',
+        development: {
+          js: '[target-name].js',
+          fonts: 'statics/fonts/[name].[ext]',
+          css: 'statics/styles/[target-name].css',
+          images: 'statics/images/[name].[ext]',
+        },
+        production: {
+          js: '[target-name].[hash].js',
+          fonts: 'statics/fonts/[name].[hash].[ext]',
+          css: 'statics/styles/[target-name].[hash].css',
+          images: 'statics/images/[name].[hash].[ext]',
+        },
       },
       paths: {
         source: 'some-target-source',
@@ -322,7 +350,21 @@ describe('services/building:buildCleaner', () => {
     let sut = null;
     const expectedItems = [
       `${target.name}.js`,
-      `${target.name}.js`,
+      `statics/styles/${target.name}.css`,
+      'statics/fonts/*.*',
+      'statics/images/*.*',
+      `${target.name}.*.js`,
+      `statics/styles/${target.name}.*.css`,
+      'statics/fonts/*.*.*',
+      'statics/images/*.*.*',
+      `${target.name}.js.gz`,
+      `statics/styles/${target.name}.css.gz`,
+      'statics/fonts/*.*.gz',
+      'statics/images/*.*.gz',
+      `${target.name}.*.js.gz`,
+      `statics/styles/${target.name}.*.css.gz`,
+      'statics/fonts/*.*.*.gz',
+      'statics/images/*.*.*.gz',
     ];
     // When
     sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);

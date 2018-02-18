@@ -382,35 +382,6 @@ describe('services/building:buildCleaner', () => {
       expect(errorResult).toBe(error);
     });
   });
-  /**
-   * @deprecated
-   */
-  it('should generate variations of a target bundled name', () => {
-    // Given
-    const appLogger = 'appLogger';
-    const cleaner = 'cleaner';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
-    const name = 'some-target';
-    let sut = null;
-    let result = null;
-    // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
-    result = sut.getTargetNamesVariation(name);
-    // Then
-    expect(result).toEqual([
-      `${name}`,
-      `${name}.js`,
-      `${name}.js.map`,
-      `${name}.*.js`,
-      `${name}.*.js.map`,
-      `${name}.gz`,
-      `${name}.js.gz`,
-      `${name}.js.map.gz`,
-      `${name}.*.js.gz`,
-      `${name}.*.js.map.gz`,
-    ]);
-  });
 
   it('should include a provider for the DIC', () => {
     // Given

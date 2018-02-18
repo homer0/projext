@@ -126,23 +126,6 @@ class BuildCleaner {
     });
   }
   /**
-   * Get all the names variations for a target bundled file based on the target name.
-   * @param {string} name The target name.
-   * @return {Array} A list of all the possible names of files related to that target.
-   * @deprecated
-   */
-  getTargetNamesVariation(name) {
-    const names = [
-      name,
-      `${name}.js`,
-      `${name}.js.map`,
-      `${name}.*.js`,
-      `${name}.*.js.map`,
-    ];
-    names.push(...names.map((file) => `${file}.gz`));
-    return names;
-  }
-  /**
    * Replace a dictionary of given placeholders on a string.
    * @param {string} string       The target string where the placeholders will be replaced.
    * @param {Object} placeholders A dictionary of placeholders and their values.

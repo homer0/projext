@@ -146,13 +146,29 @@ This object is the one that tells projext which is the main file (executable) of
 >
 > ```js
 > {
->   default: '[target-name].js',
->   development: null,
+>   default: {
+>     js: '[target-name].js',
+>     fonts: 'statics/fonts/[name].[hash].[ext]',
+>     css: 'statics/styles/[target-name].[hash].css',
+>     images: 'statics/images/[name].[hash].[ext]',
+>   },
+>   development: {
+>     fonts: 'statics/fonts/[name].[ext]',
+>     css: 'statics/styles/[target-name].css',
+>     images: 'statics/images/[name].[ext]',
+>   },
 >   production: null,
 > }
 > ```
 
-This tells projext where to place the generated bundle on each environment. You can also use the `[target-name]` placeholder on the paths.
+This tells projext where to place the files generated while bundling on each environment, depending on the file type.
+
+You can use the following placeholders:
+
+- `[target-name]`: The name of the target.
+- `[hash]`: A random hash generated for cache busting.
+- `[name]`: The file original name (Not available for `css` and `js`).
+- `[ext]`: The file original extension (Not available for `css` and `js`).
 
 #### `runOnDevelopment`
 > Default value: `false`

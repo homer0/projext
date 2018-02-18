@@ -110,28 +110,80 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetTemplateOutputPaths
+ * @property {string} [js]
+ * The path to generated Javascript files on the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is:
+ * - For `node` targets, on all build types: `[taret-name].js`.
+ * - For `browser` targets:
+ *   - `development`: `'statics/js/[target-name].js'`.
+ *   - `production`: `'statics/js/[target-name].[hash].js'`.
+ * @property {string} [css]
+ * The path to generated stylesheets on the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is, for both `node` and `browser` targets:
+ * - `development`: `'statics/styles/[target-name].css'`.
+ * - `production`: `'statics/styles/[target-name].[hash].css'`.
+ * @property {string} [fonts]
+ * The path to font files once they are copied to the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is, for both `node` and `browser` targets:
+ * - `development`: `'statics/fonts/[name][ext]'`.
+ * - `production`: `'statics/fonts/[name].[hash].[ext]'`.
+ * @property {string} [fonts]
+ * The path to image files once they are copied to the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is, for both `node` and `browser` targets:
+ * - `development`: `'statics/images/[name][ext]'`.
+ * - `production`: `'statics/images/[name].[hash].[ext]'`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateOutput
+ * @property {ProjectConfigurationTargetTemplateOutputPaths} [default]
+ * The target output settings for all types of build that don't have specified settings.
+ * @property {ProjectConfigurationTargetTemplateOutputPaths} [development]
+ * The target output settings on a development build. If `null`, it will fallback to the ones
+ * specified on `default`.
+ * @property {ProjectConfigurationTargetTemplateOutputPaths} [production]
+ * The target output settings on a production build. If `null`, it will fallback to the ones
+ * specified on `default`.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationTargetTemplateLibraryOptions
  * @property {string} [libraryTarget='commonjs2']
- * How the library will be exposed: `commonjs2`, `umd` and `window`
+ * How the library will be exposed: `commonjs2`, `umd` and `window`.
+ * The default value is:
+ * - `browser`: `'umd'`.
+ * - `node`: `'commonjs2'`.
  */
 
 /**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
- */
-
-/**
- * @typedef {Object} ProjectConfigurationNodeTargetTemplateOutput
- * @property {string} [default='[target-name].js']
- * The target output file path for all types of build that are not specified. The only available
- * placeholder is `[target-name]`.
- * @property {string} [development=null]
- * The target output file path on a development build. If `null`, it will fallback to the
- * `default`. The only available placeholder is `[target-name]`.
- * @property {string} [production=null]
- * The target output file path on a production build. If `null`, it will fallback to the `default`.
- * The only available placeholder is `[target-name]`.
  */
 
 /**
@@ -153,72 +205,6 @@
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Browser
  * ================================================================================================
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths
- * @property {string} [js='statics/js/[target-name].js']
- * The path to generated Javascript files on the distribution directory. The available placeholders
- * are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/fonts/[name].[ext]']
- * The path to font files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [css='statics/styles/[name].css']
- * The path to generated stylesheets on the distribution directory. The available placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/images/[name].[ext]']
- * The path to image files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateProductionOutputPaths
- * @property {string} [js='statics/js/[target-name].[hash].js']
- * The path to generated Javascript files on the distribution directory. The available placeholders
- * are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/fonts/[name].[hash].[ext]']
- * The path to font files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [css='statics/styles/[target-name].[hash].css']
- * The path to generated stylesheets on the distribution directory. The available placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/images/[name].[hash].[ext]']
- * The path to image files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateOutput
- * @property {ProjectConfigurationBrowserTargetTemplateProductionOutputPaths} [default]
- * The target output settings for all types of build that don't have specified settings.
- * @property {ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths} [development]
- * The target output settings on a development build. If `null`, it will fallback to the ones
- * specified on `default`.
- * @property {ProjectConfigurationBrowserTargetTemplateProductionOutputPaths} [production=null]
- * The target output settings on a production build. If `null`, it will fallback to the ones
- * specified on `default`.
  */
 
 /**
@@ -331,8 +317,8 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} [entry]
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationNodeTargetTemplateOutput} [output]
- * The target file paths for each specific build type.
+ * @property {ProjectConfigurationTargetTemplateOutput} [output]
+ * The target output settings for each specific build type.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -377,10 +363,10 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} entry
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationNodeTargetTemplateOutput} output
- * The target file paths for each specific build type.
- * @property {ProjectConfigurationNodeTargetTemplateOutput} originalOutput
- * The target file paths for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationTargetTemplateOutput} output
+ * The target output settings for each specific build type.
+ * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
+ * The target output settings for each specific build type, without the placeholders replaced.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -430,7 +416,7 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} [entry]
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateOutput} [output]
+ * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]
  * The target source map settings for each specific environment build.
@@ -479,9 +465,9 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} entry
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateOutput} output
+ * @property {ProjectConfigurationTargetTemplateOutput} output
  * The target output settings for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateOutput} originalOutput
+ * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap
  * The target source map settings for each specific environment build.

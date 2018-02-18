@@ -42,8 +42,17 @@ class ProjectConfiguration extends ConfigurationFile {
             production: null,
           },
           output: {
-            default: '[target-name].js',
-            development: null,
+            default: {
+              js: '[target-name].js',
+              fonts: 'statics/fonts/[name].[hash].[ext]',
+              css: 'statics/styles/[target-name].[hash].css',
+              images: 'statics/images/[name].[hash].[ext]',
+            },
+            development: {
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
             production: null,
           },
           runOnDevelopment: false,

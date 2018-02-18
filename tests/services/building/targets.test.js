@@ -590,37 +590,154 @@ describe('services/building:targets', () => {
     };
     const source = 'source-path';
     const build = 'build-path';
-    const projectConfiguration = {
-      targets: {
-        targetOne: {
+    const targetsData = [
+      {
+        config: {
+          name: 'targetOne',
           type: 'browser',
         },
-        targetTwo: {
+        expected: {
+          name: 'targetOne',
+          defaultTargetName: 'browser',
+          entry: {},
+          output: {},
+          originalOutput: {},
+          html: {
+            template: 'index.html',
+            filename: 'index.html',
+          },
+          type: 'browser',
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: false,
+            browser: true,
+          },
+        },
+      },
+      {
+        config: {
+          name: 'targetTwo',
           type: 'browser',
           html: {
             template: 'done.html',
           },
         },
-        targetThree: {
+        expected: {
+          name: 'targetTwo',
+          defaultTargetName: 'browser',
+          entry: {},
+          output: {},
+          originalOutput: {},
+          html: {
+            template: 'done.html',
+            filename: 'index.html',
+          },
+          type: 'browser',
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: false,
+            browser: true,
+          },
+        },
+      },
+      {
+        config: {
+          name: 'targetThree',
           type: 'browser',
           html: {
             filename: 'done.html',
           },
         },
-        targetFour: {
+        expected: {
+          name: 'targetThree',
+          defaultTargetName: 'browser',
+          entry: {},
+          output: {},
+          originalOutput: {},
+          html: {
+            template: 'index.html',
+            filename: 'done.html',
+          },
+          type: 'browser',
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: false,
+            browser: true,
+          },
+        },
+      },
+      {
+        config: {
+          name: 'targetFour',
           type: 'browser',
           html: {
             template: 'template.html',
             filename: 'filename.html',
           },
         },
-        targetFive: {
+        expected: {
+          name: 'targetFour',
+          defaultTargetName: 'browser',
+          entry: {},
+          output: {},
+          originalOutput: {},
+          html: {
+            template: 'template.html',
+            filename: 'filename.html',
+          },
+          type: 'browser',
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: false,
+            browser: true,
+          },
+        },
+      },
+      {
+        config: {
+          name: 'targetFive',
           type: 'browser',
           html: {
             default: null,
           },
         },
+        expected: {
+          name: 'targetFive',
+          defaultTargetName: 'browser',
+          entry: {},
+          output: {},
+          originalOutput: {},
+          html: {
+            template: null,
+            filename: null,
+          },
+          type: 'browser',
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: false,
+            browser: true,
+          },
+        },
       },
+    ];
+    const targetsDict = {};
+    const expectedTargets = {};
+    targetsData.forEach((data) => {
+      targetsDict[data.config.name] = data.config;
+      expectedTargets[data.expected.name] = data.expected;
+    });
+    const projectConfiguration = {
+      targets: targetsDict,
       targetsTemplates: {
         browser: {
           defaultTargetName: 'browser',
@@ -638,104 +755,6 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
-    const expectedTargets = {
-      targetOne: {
-        name: 'targetOne',
-        defaultTargetName: 'browser',
-        entry: {},
-        output: {},
-        originalOutput: {},
-        html: {
-          template: 'index.html',
-          filename: 'index.html',
-        },
-        type: 'browser',
-        paths: { source, build },
-        folders: { source, build },
-        hasFolder: false,
-        is: {
-          node: false,
-          browser: true,
-        },
-      },
-      targetTwo: {
-        name: 'targetTwo',
-        defaultTargetName: 'browser',
-        entry: {},
-        output: {},
-        originalOutput: {},
-        html: {
-          template: 'done.html',
-          filename: 'index.html',
-        },
-        type: 'browser',
-        paths: { source, build },
-        folders: { source, build },
-        hasFolder: false,
-        is: {
-          node: false,
-          browser: true,
-        },
-      },
-      targetThree: {
-        name: 'targetThree',
-        defaultTargetName: 'browser',
-        entry: {},
-        output: {},
-        originalOutput: {},
-        html: {
-          template: 'index.html',
-          filename: 'done.html',
-        },
-        type: 'browser',
-        paths: { source, build },
-        folders: { source, build },
-        hasFolder: false,
-        is: {
-          node: false,
-          browser: true,
-        },
-      },
-      targetFour: {
-        name: 'targetFour',
-        defaultTargetName: 'browser',
-        entry: {},
-        output: {},
-        originalOutput: {},
-        html: {
-          template: 'template.html',
-          filename: 'filename.html',
-        },
-        type: 'browser',
-        paths: { source, build },
-        folders: { source, build },
-        hasFolder: false,
-        is: {
-          node: false,
-          browser: true,
-        },
-      },
-      targetFive: {
-        name: 'targetFive',
-        defaultTargetName: 'browser',
-        entry: {},
-        output: {},
-        originalOutput: {},
-        html: {
-          template: null,
-          filename: null,
-        },
-        type: 'browser',
-        paths: { source, build },
-        folders: { source, build },
-        hasFolder: false,
-        is: {
-          node: false,
-          browser: true,
-        },
-      },
-    };
-    const expectedTargetsNames = Object.keys(expectedTargets);
     let sut = null;
     let result = null;
     // When
@@ -749,11 +768,11 @@ describe('services/building:targets', () => {
     result = sut.getTargets();
     // Then
     expect(result).toEqual(expectedTargets);
-    expect(events.reduce).toHaveBeenCalledTimes(expectedTargetsNames.length);
-    expectedTargetsNames.forEach((targetName) => {
+    expect(events.reduce).toHaveBeenCalledTimes(targetsData.length);
+    targetsData.forEach((info) => {
       expect(events.reduce).toHaveBeenCalledWith(
         'target-load',
-        expectedTargets[targetName]
+        info.expected
       );
     });
   });

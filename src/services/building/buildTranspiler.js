@@ -9,18 +9,14 @@ const { provider } = require('jimple');
 class BuildTranspiler {
   /**
    * Class constructor.
-   * @param {BabelConfiguration}           babelConfiguration   To get a target Babel configuration.
-   * @param {Logger}                       appLogger            To print information messages after
-   *                                                            transpiling files.
-   * @param {PathUtils}                    pathUtils            To build paths for targets files.
-   * @param {ProjectConfigurationSettings} projectConfiguration To read the project paths.
-   * @param {Targets}                      targets              To access targets information.
+   * @param {BabelConfiguration} babelConfiguration To get a target Babel configuration.
+   * @param {Logger}             appLogger          To print information messages after transpiling
+   *                                                files.
+   * @param {Targets}            targets            To access targets information.
    */
   constructor(
     babelConfiguration,
     appLogger,
-    pathUtils,
-    projectConfiguration,
     targets
   ) {
     /**
@@ -34,16 +30,6 @@ class BuildTranspiler {
      */
     this.appLogger = appLogger;
     /**
-     * A local reference for the `pathUtils` service.
-     * @type {PathUtils}
-     */
-    this.pathUtils = pathUtils;
-    /**
-     * All the project settings.
-     * @type {ProjectConfigurationSettings}
-     */
-    this.projectConfiguration = projectConfiguration;
-    /**
      * A local reference for the `targets` service.
      * @type {Targets}
      */
@@ -52,25 +38,17 @@ class BuildTranspiler {
   /**
    * Transpile a target files for a given build type. This requires the target files to have been
    * previously copied to the distribution directory.
-   * @param {Target} target    The target information.
-   * @param {string} buildType Required in order to get the target entry file and use that
-   *                           directory as reference of what it needs to be transpiled.
+   * @param {Target} target The target information.
    * @return {Promise<undefined,Error}
    */
-  transpileTargetFiles(target, buildType) {
-    const { paths } = this.projectConfiguration;
-    // Get the target entry file for the given build type (on the distribution directory).
-    const targetFile = this.pathUtils.join(
-      paths.build,
-      target.entry[buildType]
-    );
-    /**
-     * Get the directory of the entry file.
-     * @todo This will cause issues if the entry file is on a sub directory.
-     */
-    const targetPath = path.dirname(targetFile);
-    // Find all the JS files on the directory.
-    return this.findFiles(targetPath)
+  transpileTargetFiles(target) {
+    const {
+      paths: { build: buildPath },
+      folders: { build: buildFolder },
+    } = target;
+
+    // Find all the JS files on the target path inside the distribution directory.
+    return this.findFiles(buildPath)
     .then((files) => {
       // Get the Babel configuration for the target.
       const babelConfig = this.babelConfiguration.getConfigForTarget(target);
@@ -79,12 +57,10 @@ class BuildTranspiler {
     })
     .then((files) => {
       this.appLogger.success('The following files have been successfully transpiled:');
-      // Remove the absolute path and the first `/`
-      const prefix = this.pathUtils.path.length + 1;
       // Log all the files that have been transpiled.
       files.forEach((file) => {
-        const filepath = file.substr(prefix);
-        this.appLogger.info(`> ${filepath}`);
+        const filepath = file.substr(buildPath.length);
+        this.appLogger.info(`> ${buildFolder}${filepath}`);
       });
     })
     .catch((error) => {
@@ -252,8 +228,6 @@ const buildTranspiler = provider((app) => {
   app.set('buildTranspiler', () => new BuildTranspiler(
     app.get('babelConfiguration'),
     app.get('appLogger'),
-    app.get('pathUtils'),
-    app.get('projectConfiguration').getConfig(),
     app.get('targets')
   ));
 });

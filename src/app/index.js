@@ -16,6 +16,7 @@ const {
   events,
   plugins,
   versionUtils,
+  utils,
 } = require('../services/common');
 
 const {
@@ -78,6 +79,7 @@ class Projext extends Jimple {
     this.register(events);
     this.register(plugins('projext-plugin'));
     this.register(versionUtils);
+    this.register(utils);
 
     this.register(buildCleaner);
     this.register(buildCopier);

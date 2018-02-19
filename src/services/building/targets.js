@@ -17,13 +17,16 @@ class Targets {
    *                                                            templates.
    * @param {RootRequire}                  rootRequire          To send to the configuration
    *                                                            service used by the browser targets.
+   * @param {Utils}                        utils                To replace plaholders on the targets
+   *                                                            paths.
    */
   constructor(
     events,
     environmentUtils,
     pathUtils,
     projectConfiguration,
-    rootRequire
+    rootRequire,
+    utils
   ) {
     /**
      * A local reference for the `events` service.
@@ -50,6 +53,11 @@ class Targets {
      * @type {RootRequire}
      */
     this.rootRequire = rootRequire;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
     /**
      * A dictionary that will be filled with the targets information.
      * @type {Object}
@@ -175,7 +183,6 @@ class Targets {
    * @param {string} file The path of the file that should match with a target path.
    * @return {Target}
    * @throws {Error} If no target is found.
-   * @todo The implementation of this method also throws an error if no target is found.
    */
   findTargetForFile(file) {
     const targets = this.getTargets();
@@ -185,7 +192,7 @@ class Targets {
     });
 
     if (!targetName) {
-      throw new Error(`A target for the following file couldn't be found: ${file}`);
+      throw new Error(`A target couldn't be find for the following file: ${file}`);
     }
 
     return targets[targetName];
@@ -327,10 +334,10 @@ class Targets {
     Object.keys(newOutput).forEach((name) => {
       const value = newOutput[name];
       if (typeof value === 'string') {
-        newOutput[name] = this._replacePlaceholdersOnString(value, placeholders);
+        newOutput[name] = this.utils.replacePlaceholders(value, placeholders);
       } else if (value) {
         Object.keys(value).forEach((propName) => {
-          newOutput[name][propName] = this._replacePlaceholdersOnString(
+          newOutput[name][propName] = this.utils.replacePlaceholders(
             newOutput[name][propName],
             placeholders
           );
@@ -339,25 +346,6 @@ class Targets {
     });
 
     return newOutput;
-  }
-  /**
-   * Replace a dictionary of given placeholders on a string.
-   * @param {string} string       The target string where the placeholders will be replaced.
-   * @param {Object} placeholders A dictionary of placeholders and their values.
-   * @return {string}
-   * @ignore
-   * @protected
-   */
-  _replacePlaceholdersOnString(string, placeholders) {
-    let newString = string;
-    Object.keys(placeholders).forEach((name) => {
-      newString = newString.replace(
-        RegExp(`\\[${name}\\]`, 'ig'),
-        placeholders[name]
-      );
-    });
-
-    return newString;
   }
   /**
    * Checks if there are missing HTML settings that need to be replaced with the default fallback,
@@ -413,7 +401,8 @@ const targets = provider((app) => {
     app.get('environmentUtils'),
     app.get('pathUtils'),
     app.get('projectConfiguration').getConfig(),
-    app.get('rootRequire')
+    app.get('rootRequire'),
+    app.get('utils')
   ));
 });
 

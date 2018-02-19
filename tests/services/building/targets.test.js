@@ -37,6 +37,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     let sut = null;
     // When
     sut = new Targets(
@@ -44,7 +45,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     // Then
     expect(sut).toBeInstanceOf(Targets);
@@ -53,6 +55,7 @@ describe('services/building:targets', () => {
     expect(sut.pathUtils).toBe(pathUtils);
     expect(sut.projectConfiguration).toEqual(projectConfiguration);
     expect(sut.rootRequire).toEqual(rootRequire);
+    expect(sut.utils).toEqual(utils);
   });
 
   it('should load the project targets', () => {
@@ -102,6 +105,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     const expectedTargets = {
       targetOne: {
         defaultTargetName: 'node',
@@ -198,7 +202,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getTargets();
     // Then
@@ -242,20 +247,6 @@ describe('services/building:targets', () => {
           },
           output: {
             development: {
-              js: 'targetOne.js',
-              fonts: 'statics/fonts/[name].[ext]',
-              css: 'statics/styles/targetOne.css',
-              images: 'statics/images/[name].[ext]',
-            },
-            production: {
-              js: 'targetOne.js',
-              fonts: `statics/fonts/[name].${hash}.[ext]`,
-              css: `statics/styles/targetOne.${hash}.css`,
-              images: `statics/images/[name].${hash}.[ext]`,
-            },
-          },
-          originalOutput: {
-            development: {
               js: '[target-name].js',
               fonts: 'statics/fonts/[name].[ext]',
               css: 'statics/styles/[target-name].css',
@@ -297,20 +288,6 @@ describe('services/building:targets', () => {
           },
           output: {
             development: {
-              js: 'targetTwo.js',
-              fonts: 'statics/fonts/[name].[ext]',
-              css: 'statics/styles/targetTwo.css',
-              images: 'statics/images/[name].[ext]',
-            },
-            production: {
-              js: 'targetTwo.js',
-              fonts: `statics/fonts/[name].${hash}.[ext]`,
-              css: `statics/styles/targetTwo.${hash}.css`,
-              images: `statics/images/[name].${hash}.[ext]`,
-            },
-          },
-          originalOutput: {
-            development: {
               js: '[target-name].js',
               fonts: 'statics/fonts/[name].[ext]',
               css: 'statics/styles/[target-name].css',
@@ -351,20 +328,6 @@ describe('services/building:targets', () => {
             production: null,
           },
           output: {
-            development: {
-              js: 'targetThree.js',
-              fonts: 'statics/fonts/[name].[ext]',
-              css: 'statics/styles/targetThree.css',
-              images: 'statics/images/[name].[ext]',
-            },
-            production: {
-              js: 'targetThree.js',
-              fonts: `statics/fonts/[name].${hash}.[ext]`,
-              css: `statics/styles/targetThree.${hash}.css`,
-              images: `statics/images/[name].${hash}.[ext]`,
-            },
-          },
-          originalOutput: {
             development: {
               js: '[target-name].js',
               fonts: 'statics/fonts/[name].[ext]',
@@ -412,20 +375,6 @@ describe('services/building:targets', () => {
             production: 'index.js',
           },
           output: {
-            development: {
-              js: 'app/targetFour.js',
-              fonts: 'app/fonts/[name].[ext]',
-              css: 'app/styles/targetFour.css',
-              images: 'app/images/[name].[ext]',
-            },
-            production: {
-              js: 'app/targetFour.js',
-              fonts: 'app/fonts/[name].[ext]',
-              css: 'app/styles/targetFour.css',
-              images: 'app/images/[name].[ext]',
-            },
-          },
-          originalOutput: {
             development: {
               js: 'app/[target-name].js',
               fonts: 'app/fonts/[name].[ext]',
@@ -483,20 +432,6 @@ describe('services/building:targets', () => {
           },
           output: {
             development: {
-              js: 'app/targetFive.development.js',
-              fonts: 'app/fonts/[name].[ext]',
-              css: 'app/styles/targetFive.css',
-              images: 'app/images/[name].[ext]',
-            },
-            production: {
-              js: 'app/targetFive.production.js',
-              fonts: 'app/fonts/[name].[ext]',
-              css: 'app/styles/targetFive.css',
-              images: 'app/images/[name].[ext]',
-            },
-          },
-          originalOutput: {
-            development: {
               js: 'app/[target-name].development.js',
               fonts: 'app/fonts/[name].[ext]',
               css: 'app/styles/[target-name].css',
@@ -521,9 +456,25 @@ describe('services/building:targets', () => {
     ];
     const targetsDict = {};
     const expectedTargets = {};
+    const expectedReplacements = [];
     targetsData.forEach((data) => {
       targetsDict[data.config.name] = data.config;
       expectedTargets[data.expected.name] = data.expected;
+      expectedTargets[data.expected.name].originalOutput = data.expected.output;
+      expectedReplacements.push(
+        ...Object.keys(data.expected.output.development)
+        .map((name) => ({
+          targetName: data.expected.name,
+          string: data.expected.output.development[name],
+        }))
+      );
+      expectedReplacements.push(
+        ...Object.keys(data.expected.output.production)
+        .map((name) => ({
+          targetName: data.expected.name,
+          string: data.expected.output.production[name],
+        }))
+      );
     });
     const projectConfiguration = {
       targets: targetsDict,
@@ -557,6 +508,9 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = {
+      replacePlaceholders: jest.fn((string) => string),
+    };
     let sut = null;
     let result = null;
     // When
@@ -565,7 +519,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getTargets();
     // Then
@@ -576,6 +531,13 @@ describe('services/building:targets', () => {
         'target-load',
         info.expected
       );
+    });
+    expect(utils.replacePlaceholders).toHaveBeenCalledTimes(expectedReplacements.length);
+    expectedReplacements.forEach((info) => {
+      expect(utils.replacePlaceholders).toHaveBeenCalledWith(info.string, {
+        'target-name': info.targetName,
+        hash,
+      });
     });
   });
 
@@ -755,6 +717,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     let sut = null;
     let result = null;
     // When
@@ -763,7 +726,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getTargets();
     // Then
@@ -807,6 +771,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     const expectedTarget = {
       defaultTargetName: 'node',
       type: 'node',
@@ -836,7 +801,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getTarget(targetName);
     // Then
@@ -867,13 +833,15 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     // When/Then
     expect(() => new Targets(
       events,
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     ))
     .toThrow(/invalid type/i);
   });
@@ -894,6 +862,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     let sut = null;
     // When
     sut = new Targets(
@@ -901,7 +870,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     // Then
     expect(() => sut.getTarget('some-target'))
@@ -941,6 +911,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     let sut = null;
     let result = null;
     // When
@@ -949,7 +920,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.findTargetForFile(file);
     // Then
@@ -971,6 +943,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     let sut = null;
     // When
     sut = new Targets(
@@ -978,11 +951,12 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     // Then
     expect(() => sut.findTargetForFile('some-file'))
-    .toThrow(/A target for the following file couldn't be found/i);
+    .toThrow(/A target couldn't be find for the following file/i);
   });
 
   it('should throw an error when trying to generate a configuration for a Node target', () => {
@@ -999,6 +973,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     const target = {
       is: {
         node: true,
@@ -1011,7 +986,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     // Then
     expect(() => sut.getBrowserTargetConfiguration(target))
@@ -1032,6 +1008,7 @@ describe('services/building:targets', () => {
       },
     };
     const rootRequire = 'rootRequire';
+    const utils = 'utils';
     const target = {
       name: 'my-target',
       is: {
@@ -1049,7 +1026,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
@@ -1073,6 +1051,7 @@ describe('services/building:targets', () => {
       someProp: 'someValue',
     };
     const rootRequire = jest.fn(() => defaultConfig);
+    const utils = 'utils';
     const getConfig = jest.fn(() => defaultConfig);
     WootilsAppConfigurationMock.mock('getConfig', getConfig);
     const target = {
@@ -1098,7 +1077,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
@@ -1138,6 +1118,7 @@ describe('services/building:targets', () => {
       someProp: 'someValue',
     };
     const rootRequire = jest.fn(() => defaultConfig);
+    const utils = 'utils';
     const getConfig = jest.fn(() => defaultConfig);
     WootilsAppConfigurationMock.mock('getConfig', getConfig);
     const target = {
@@ -1163,7 +1144,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
@@ -1203,6 +1185,7 @@ describe('services/building:targets', () => {
       someProp: 'someValue',
     };
     const rootRequire = jest.fn();
+    const utils = 'utils';
     const getConfig = jest.fn(() => defaultConfig);
     WootilsAppConfigurationMock.mock('getConfig', getConfig);
     const target = {
@@ -1228,7 +1211,8 @@ describe('services/building:targets', () => {
       environmentUtils,
       pathUtils,
       projectConfiguration,
-      rootRequire
+      rootRequire,
+      utils
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
@@ -1285,5 +1269,6 @@ describe('services/building:targets', () => {
     expect(sut.pathUtils).toBe('pathUtils');
     expect(sut.projectConfiguration).toEqual(projectConfiguration);
     expect(sut.rootRequire).toBe('rootRequire');
+    expect(sut.utils).toBe('utils');
   });
 });

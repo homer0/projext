@@ -19,15 +19,17 @@ describe('services/building:buildCleaner', () => {
     const cleaner = 'cleaner';
     const pathUtils = 'pathUtils';
     const projectConfiguration = 'projectConfiguration';
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     // Then
     expect(sut).toBeInstanceOf(BuildCleaner);
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.cleaner).toBe(cleaner);
     expect(sut.pathUtils).toBe(pathUtils);
     expect(sut.projectConfiguration).toBe(projectConfiguration);
+    expect(sut.utils).toBe(utils);
   });
 
   it('should clean the project distribution directory', () => {
@@ -37,17 +39,18 @@ describe('services/building:buildCleaner', () => {
       success: jest.fn(),
     };
     const cleaner = jest.fn(() => Promise.resolve());
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
       },
     };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
-    };
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     return sut.cleanAll()
     .then(() => {
       // Then
@@ -70,17 +73,18 @@ describe('services/building:buildCleaner', () => {
     };
     const error = new Error('Unknown error');
     const cleaner = jest.fn(() => Promise.reject(error));
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
       },
     };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
-    };
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     return sut.cleanAll()
     .then(() => {
       expect(true).toBeFalse();
@@ -119,17 +123,18 @@ describe('services/building:buildCleaner', () => {
       success: jest.fn(),
     };
     const cleaner = jest.fn(() => Promise.resolve());
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
       },
     };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
-    };
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     return sut.cleanTarget(target)
     .then(() => {
       // Then
@@ -157,14 +162,14 @@ describe('services/building:buildCleaner', () => {
       originalOutput: {
         development: {
           js: '[target-name].js',
-          fonts: 'statics/fonts/[name].[ext]',
           css: 'statics/styles/[target-name].css',
+          fonts: 'statics/fonts/[name].[ext]',
           images: 'statics/images/[name].[ext]',
         },
         production: {
           js: '[target-name].[hash].js',
-          fonts: 'statics/fonts/[name].[hash].[ext]',
           css: 'statics/styles/[target-name].[hash].css',
+          fonts: 'statics/fonts/[name].[hash].[ext]',
           images: 'statics/images/[name].[hash].[ext]',
         },
       },
@@ -178,35 +183,30 @@ describe('services/building:buildCleaner', () => {
       success: jest.fn(),
     };
     const cleaner = jest.fn(() => Promise.resolve());
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
       },
     };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
+    const utils = {
+      replacePlaceholders: jest.fn((string) => string),
     };
     let sut = null;
-    const expectedItems = [
-      `${target.name}.js`,
-      `statics/styles/${target.name}.css`,
-      'statics/fonts/*.*',
-      'statics/images/*.*',
-      `${target.name}.*.js`,
-      `statics/styles/${target.name}.*.css`,
-      'statics/fonts/*.*.*',
-      'statics/images/*.*.*',
-      `${target.name}.js.gz`,
-      `statics/styles/${target.name}.css.gz`,
-      'statics/fonts/*.*.gz',
-      'statics/images/*.*.gz',
-      `${target.name}.*.js.gz`,
-      `statics/styles/${target.name}.*.css.gz`,
-      'statics/fonts/*.*.*.gz',
-      'statics/images/*.*.*.gz',
+    const expectedPaths = [
+      ...Object.keys(target.originalOutput.development)
+      .map((name) => target.originalOutput.development[name]),
+      ...Object.keys(target.originalOutput.production)
+      .map((name) => target.originalOutput.production[name]),
     ];
+    const expectedItems = [
+      ...expectedPaths,
+    ];
+    expectedItems.push(...expectedItems.map((filepath) => `${filepath}.gz`));
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     return sut.cleanTarget(target)
     .then(() => {
       // Then
@@ -215,6 +215,15 @@ describe('services/building:buildCleaner', () => {
       expect(cleaner).toHaveBeenCalledTimes(1);
       expect(cleaner).toHaveBeenCalledWith(target.paths.build, expectedItems);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
+      expect(utils.replacePlaceholders).toHaveBeenCalledTimes(expectedPaths.length);
+      expectedPaths.forEach((expectedPath) => {
+        expect(utils.replacePlaceholders).toHaveBeenCalledWith(expectedPath, {
+          'target-name': target.name,
+          hash: '*',
+          name: '*',
+          ext: '*',
+        });
+      });
     })
     .catch(() => {
       expect(true).toBeFalse();
@@ -235,14 +244,14 @@ describe('services/building:buildCleaner', () => {
       originalOutput: {
         development: {
           js: 'statics/js/[target-name].js',
-          fonts: 'statics/fonts/[name].[ext]',
           css: 'statics/styles/[target-name].css',
+          fonts: 'statics/fonts/[name].[ext]',
           images: 'statics/images/[name].[ext]',
         },
         production: {
           js: 'statics/js/[target-name].[hash].js',
-          fonts: 'statics/fonts/[name].[hash].[ext]',
           css: 'statics/styles/[target-name].[hash].css',
+          fonts: 'statics/fonts/[name].[hash].[ext]',
           images: 'statics/images/[name].[hash].[ext]',
         },
       },
@@ -257,41 +266,39 @@ describe('services/building:buildCleaner', () => {
       success: jest.fn(),
     };
     const cleaner = jest.fn(() => Promise.resolve());
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
       },
     };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
+    const utils = {
+      replacePlaceholders: jest.fn((string) => string),
     };
     let sut = null;
-    const expectedItems = [
-      `statics/js/${target.name}.js`,
-      `statics/js/${target.name}.js.map`,
-      `statics/styles/${target.name}.css`,
-      'statics/fonts/*.*',
-      'statics/images/*.*',
-      `statics/js/${target.name}.*.js`,
-      `statics/js/${target.name}.*.js.map`,
-      `statics/styles/${target.name}.*.css`,
-      'statics/fonts/*.*.*',
-      'statics/images/*.*.*',
-      html.filename,
-      `statics/js/${target.name}.js.gz`,
-      `statics/js/${target.name}.js.map.gz`,
-      `statics/styles/${target.name}.css.gz`,
-      'statics/fonts/*.*.gz',
-      'statics/images/*.*.gz',
-      `statics/js/${target.name}.*.js.gz`,
-      `statics/js/${target.name}.*.js.map.gz`,
-      `statics/styles/${target.name}.*.css.gz`,
-      'statics/fonts/*.*.*.gz',
-      'statics/images/*.*.*.gz',
-      `${html.filename}.gz`,
+    const expectedPaths = [
+      ...Object.keys(target.originalOutput.development)
+      .map((name) => target.originalOutput.development[name]),
+      ...Object.keys(target.originalOutput.production)
+      .map((name) => target.originalOutput.production[name]),
     ];
+    const expectedItems = [
+      ...expectedPaths,
+      ...[html.filename],
+    ];
+    // Add the map for development
+    const devJSindex = expectedItems
+    .findIndex((path) => path === target.originalOutput.development.js);
+    expectedItems.splice(devJSindex + 1, 0, `${target.originalOutput.development.js}.map`);
+    // Add the map for production
+    const prodJSindex = expectedItems
+    .findIndex((path) => path === target.originalOutput.production.js);
+    expectedItems.splice(prodJSindex + 1, 0, `${target.originalOutput.production.js}.map`);
+    expectedItems.push(...expectedItems.map((filepath) => `${filepath}.gz`));
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     return sut.cleanTarget(target)
     .then(() => {
       // Then
@@ -300,6 +307,15 @@ describe('services/building:buildCleaner', () => {
       expect(cleaner).toHaveBeenCalledTimes(1);
       expect(cleaner).toHaveBeenCalledWith(target.paths.build, expectedItems);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
+      expect(utils.replacePlaceholders).toHaveBeenCalledTimes(expectedPaths.length);
+      expectedPaths.forEach((expectedPath) => {
+        expect(utils.replacePlaceholders).toHaveBeenCalledWith(expectedPath, {
+          'target-name': target.name,
+          hash: '*',
+          name: '*',
+          ext: '*',
+        });
+      });
     })
     .catch(() => {
       expect(true).toBeFalse();
@@ -317,14 +333,14 @@ describe('services/building:buildCleaner', () => {
       originalOutput: {
         development: {
           js: '[target-name].js',
-          fonts: 'statics/fonts/[name].[ext]',
           css: 'statics/styles/[target-name].css',
+          fonts: 'statics/fonts/[name].[ext]',
           images: 'statics/images/[name].[ext]',
         },
         production: {
           js: '[target-name].[hash].js',
-          fonts: 'statics/fonts/[name].[hash].[ext]',
           css: 'statics/styles/[target-name].[hash].css',
+          fonts: 'statics/fonts/[name].[hash].[ext]',
           images: 'statics/images/[name].[hash].[ext]',
         },
       },
@@ -339,35 +355,30 @@ describe('services/building:buildCleaner', () => {
     };
     const error = new Error('Unknown error');
     const cleaner = jest.fn(() => Promise.reject(error));
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       paths: {
         build: buildPath,
       },
     };
-    const pathUtils = {
-      join: jest.fn((rest) => rest),
+    const utils = {
+      replacePlaceholders: jest.fn((string) => string),
     };
     let sut = null;
-    const expectedItems = [
-      `${target.name}.js`,
-      `statics/styles/${target.name}.css`,
-      'statics/fonts/*.*',
-      'statics/images/*.*',
-      `${target.name}.*.js`,
-      `statics/styles/${target.name}.*.css`,
-      'statics/fonts/*.*.*',
-      'statics/images/*.*.*',
-      `${target.name}.js.gz`,
-      `statics/styles/${target.name}.css.gz`,
-      'statics/fonts/*.*.gz',
-      'statics/images/*.*.gz',
-      `${target.name}.*.js.gz`,
-      `statics/styles/${target.name}.*.css.gz`,
-      'statics/fonts/*.*.*.gz',
-      'statics/images/*.*.*.gz',
+    const expectedPaths = [
+      ...Object.keys(target.originalOutput.development)
+      .map((name) => target.originalOutput.development[name]),
+      ...Object.keys(target.originalOutput.production)
+      .map((name) => target.originalOutput.production[name]),
     ];
+    const expectedItems = [
+      ...expectedPaths,
+    ];
+    expectedItems.push(...expectedItems.map((filepath) => `${filepath}.gz`));
     // When
-    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration);
+    sut = new BuildCleaner(appLogger, cleaner, pathUtils, projectConfiguration, utils);
     return sut.cleanTarget(target)
     .then(() => {
       expect(true).toBeFalse();
@@ -379,6 +390,15 @@ describe('services/building:buildCleaner', () => {
       expect(cleaner).toHaveBeenCalledTimes(1);
       expect(cleaner).toHaveBeenCalledWith(target.paths.build, expectedItems);
       expect(appLogger.error).toHaveBeenCalledTimes(1);
+      expect(utils.replacePlaceholders).toHaveBeenCalledTimes(expectedPaths.length);
+      expectedPaths.forEach((expectedPath) => {
+        expect(utils.replacePlaceholders).toHaveBeenCalledWith(expectedPath, {
+          'target-name': target.name,
+          hash: '*',
+          name: '*',
+          ext: '*',
+        });
+      });
       expect(errorResult).toBe(error);
     });
   });
@@ -410,5 +430,6 @@ describe('services/building:buildCleaner', () => {
     expect(sut.cleaner).toBe('cleaner');
     expect(sut.pathUtils).toBe('pathUtils');
     expect(sut.projectConfiguration).toBe('projectConfiguration');
+    expect(sut.utils).toBe('utils');
   });
 });

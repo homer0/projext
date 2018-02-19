@@ -16,12 +16,15 @@ class BuildCleaner {
    *                                                            clean.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the project information and
    *                                                            get paths.
+   * @param {Utils}                        utils                To replace plaholders on the targets
+   *                                                            paths.
    */
   constructor(
     appLogger,
     cleaner,
     pathUtils,
-    projectConfiguration
+    projectConfiguration,
+    utils
   ) {
     /**
      * A local reference for the `appLogger` service.
@@ -43,6 +46,11 @@ class BuildCleaner {
      * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
   }
   /**
    * Removes the entire distribution directory (where are the targets build are located).
@@ -87,16 +95,16 @@ class BuildCleaner {
       Object.keys(target.originalOutput).forEach((type) => {
         const output = target.originalOutput[type];
         // JS
-        const js = this._replacePlaceholdersOnString(output.js, placeholders);
+        const js = this.utils.replacePlaceholders(output.js, placeholders);
         items.push(js);
         if (target.is.browser) {
           items.push(`${js}.map`);
         }
         // Others
         items.push(...[
-          this._replacePlaceholdersOnString(output.css, placeholders),
-          this._replacePlaceholdersOnString(output.fonts, placeholders),
-          this._replacePlaceholdersOnString(output.images, placeholders),
+          this.utils.replacePlaceholders(output.css, placeholders),
+          this.utils.replacePlaceholders(output.fonts, placeholders),
+          this.utils.replacePlaceholders(output.images, placeholders),
         ]);
       });
 
@@ -125,26 +133,6 @@ class BuildCleaner {
       return Promise.reject(error);
     });
   }
-  /**
-   * Replace a dictionary of given placeholders on a string.
-   * @param {string} string       The target string where the placeholders will be replaced.
-   * @param {Object} placeholders A dictionary of placeholders and their values.
-   * @return {string}
-   * @ignore
-   * @protected
-   * @todo Move to a shared placed so it can be used by Targets and this class without duplication.
-   */
-  _replacePlaceholdersOnString(string, placeholders) {
-    let newString = string;
-    Object.keys(placeholders).forEach((name) => {
-      newString = newString.replace(
-        RegExp(`\\[${name}\\]`, 'ig'),
-        placeholders[name]
-      );
-    });
-
-    return newString;
-  }
 }
 /**
  * The service provider that once registered on the app container will set an instance of
@@ -161,7 +149,8 @@ const buildCleaner = provider((app) => {
     app.get('appLogger'),
     app.get('cleaner'),
     app.get('pathUtils'),
-    app.get('projectConfiguration').getConfig()
+    app.get('projectConfiguration').getConfig(),
+    app.get('utils')
   ));
 });
 

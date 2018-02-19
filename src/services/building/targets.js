@@ -175,7 +175,6 @@ class Targets {
    * @param {string} file The path of the file that should match with a target path.
    * @return {Target}
    * @throws {Error} If no target is found.
-   * @todo The implementation of this method also throws an error if no target is found.
    */
   findTargetForFile(file) {
     const targets = this.getTargets();
@@ -185,7 +184,7 @@ class Targets {
     });
 
     if (!targetName) {
-      throw new Error(`A target for the following file couldn't be found: ${file}`);
+      throw new Error(`A target couldn't be find for the following file: ${file}`);
     }
 
     return targets[targetName];

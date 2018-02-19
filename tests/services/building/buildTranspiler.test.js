@@ -510,30 +510,6 @@ describe('services/building:buildTranspiler', () => {
     expect(fs.writeFileSync).toHaveBeenCalledTimes(0);
   });
 
-  it('should throw an error if it can\'t find a target for a file', () => {
-    // Given
-    const file = 'file.jsx';
-    const babelConfiguration = 'babelConfiguration';
-    const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
-    const targets = {
-      findTargetForFile: jest.fn(),
-    };
-    let sut = null;
-    // When
-    sut = new BuildTranspiler(
-      babelConfiguration,
-      appLogger,
-      pathUtils,
-      projectConfiguration,
-      targets
-    );
-    // Then
-    expect(() => sut.getTargetConfigurationForFile(file))
-    .toThrow(/A target couldn't be find/i);
-  });
-
   it('should include a provider for the DIC', () => {
     // Given
     let sut = null;

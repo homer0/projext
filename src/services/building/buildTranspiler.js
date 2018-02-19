@@ -227,15 +227,13 @@ class BuildTranspiler {
    * @param {string} file The file that will be used to obtain the target and then the Babel
    *                      configuration.
    * @return {Object}
-   * @throws {Error} If no target can be found.
    */
   getTargetConfigurationForFile(file) {
-    // Find target using the received filepath.
+    /**
+     * Find target using the received filepath. The method will throw an error if a target is not
+     * found.
+     */
     const target = this.targets.findTargetForFile(file);
-    // If no target was found...
-    if (!target) {
-      throw new Error(`A target couldn't be find for the following file: ${file}`);
-    }
     // Return the Babel configuration for the found target.
     return this.babelConfiguration.getConfigForTarget(target);
   }

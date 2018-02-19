@@ -982,7 +982,7 @@ describe('services/building:targets', () => {
     );
     // Then
     expect(() => sut.findTargetForFile('some-file'))
-    .toThrow(/A target for the following file couldn't be found/i);
+    .toThrow(/A target couldn't be find for the following file/i);
   });
 
   it('should throw an error when trying to generate a configuration for a Node target', () => {

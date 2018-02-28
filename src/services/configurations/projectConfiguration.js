@@ -123,7 +123,16 @@ class ProjectConfiguration extends ConfigurationFile {
             port: 2509,
             reload: true,
             host: 'localhost',
-            https: false,
+            ssl: {
+              key: null,
+              cert: null,
+              ca: null,
+            },
+            proxied: {
+              enabled: false,
+              host: null,
+              https: false,
+            },
           },
           configuration: {
             enabled: false,

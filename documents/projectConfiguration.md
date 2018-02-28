@@ -452,7 +452,12 @@ Whether or not to remove all code from previous builds from the distribution dir
 >   port: 2509,
 >   reload: true,
 >   host: 'localhost',
->   https: false,
+>   ssl: {
+>     key: null,
+>     cert: null,
+>     ca: null,
+>   },
+>   proxied: { ... },
 > }
 > ```
 
@@ -470,9 +475,34 @@ Whether or not to reload the server when the code changes.
 
 The dev server hostname.
 
-**`devServer.https`**
+**`devServer.ssl`**
 
-Whether or not the dev server host protocol should be `https`.
+This allows you to set your own SSL certificates in order to run the dev server over HTTPS. The paths must be relative to your project root directory, for example:
+
+```js
+ssl: {
+  key: 'ssl-files/server.key',
+  cert: 'ssl-files/server.crt',
+  ca: 'ssl-files/ca.pem',
+}
+```
+
+**`devServer.proxied`**
+> Default value:
+>
+> ```js
+> {
+>   enabled: false,
+>   hostname: null,
+>   https: null,
+> }
+> ```
+
+When the dev server is being proxied (using `nginx` for example), there are certain functionalities, like hot module replacement and live reload, that need to be aware of this, so you need to use these options:
+
+- `enabled`: Whether the server is being proxied or not.
+- `hostname`: The hostname used. If `null`, it will use the same as `devServer.hostname`.
+- `https`: Whether or not the server is being proxied over `https`. This settings has a boolean value, but if you let it as `null` it will set its value based on `devServer.ssl`, if you added the certificates it will be `true`, otherwise `false`.
 
 #### `configuration`
 > Default value:

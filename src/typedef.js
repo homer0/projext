@@ -252,6 +252,28 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings
+ * @property {string} [key=null]
+ * The path to the SSL key (`.key`).
+ * @property {string} [cert=null]
+ * The path to the SSL certificate (`.crt`).
+ * @property {string} [ca=null]
+ * The path to the SSL public file (`.pem`).
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerProxiedSettings
+ * @property {boolean} [enabled=false]
+ * Whether or not the dev server is being proxied.
+ * @property {?string} [host=null]
+ * The host used to proxy the dev server. If `null`, it will use the host defined on the dev server
+ * main settings.
+ * @property {?boolean} [https=null]
+ * Whether or not the proxied host uses `https`. If `null` and you have provided SSL certificates
+ * for the server, it will become `true`, otherwise it will be `false`.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerSettings
  * @property {number} [port=2509]
  * The server port.
@@ -259,8 +281,11 @@
  * Whether or not to reload the server when the code changes.
  * @property {string} [host='localhost']
  * The dev server hostname.
- * @property {boolean} [https=false]
- * Whether or not the dev server host protocol should be `https`.
+ * @property {ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings} [ssl]
+ * The paths to the files to enable SSL on the dev server.
+ * @property {ProjectConfigurationBrowserTargetTemplateDevServerProxiedSettings} [proxied]
+ * When the dev server is being proxied (using `nginx` for example), there are certain
+ * functionalities, like hot module replacement and live reload that need to be aware of this.
  */
 
 /**

@@ -498,7 +498,7 @@ ssl: {
 > }
 > ```
 
-When the dev server is being proxied (using `nginx` for example), there are certain functionalities, like hot module replacement and live reload, that need to be aware of this, so you need to use these options:
+When the dev server is being proxied (using `nginx` for example), there are certain functionalities, like hot module replacement and live reload that need to be aware of this, so you need to use these options:
 
 - `enabled`: Whether the server is being proxied or not.
 - `hostname`: The hostname used. If `null`, it will use the same as `devServer.hostname`.

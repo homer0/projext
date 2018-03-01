@@ -131,7 +131,7 @@ class ProjectConfiguration extends ConfigurationFile {
             proxied: {
               enabled: false,
               host: null,
-              https: false,
+              https: null,
             },
           },
           configuration: {

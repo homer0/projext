@@ -11,6 +11,10 @@ const mockFunctionConfig = require('/tests/mocks/mockFunction.config');
 const mocksRelativePath = path.join(__dirname, '../mocks');
 
 describe('abstracts:ConfigurationFile', () => {
+  beforeEach(() => {
+    fs.pathExistsSync.mockReset();
+  });
+
   it('should throw an error if used without subclassing it', () => {
     // Given/When/Then
     expect(() => new ConfigurationFile())
@@ -140,7 +144,10 @@ describe('abstracts:ConfigurationFile', () => {
     const argOne = 'c';
     const argTwo = 'd';
     const pathUtils = {
-      join: jest.fn((folder, rest) => `${mocksRelativePath}/${rest}`),
+      join: jest.fn((rest) => {
+        const withoutTheConfigFolder = rest.split('/').pop();
+        return `${mocksRelativePath}/${withoutTheConfigFolder}`;
+      }),
     };
     fs.pathExistsSync.mockReturnValueOnce(true);
     class Sut extends ConfigurationFile {}
@@ -169,7 +176,10 @@ describe('abstracts:ConfigurationFile', () => {
     const argOne = 'c';
     const argTwo = 'd';
     const pathUtils = {
-      join: jest.fn((folder, rest) => `${mocksRelativePath}/${rest}`),
+      join: jest.fn((rest) => {
+        const withoutTheConfigFolder = rest.split('/').pop();
+        return `${mocksRelativePath}/${withoutTheConfigFolder}`;
+      }),
     };
     fs.pathExistsSync.mockReturnValueOnce(true);
     class Sut extends ConfigurationFile {}
@@ -183,6 +193,77 @@ describe('abstracts:ConfigurationFile', () => {
     let secondCall = null;
     // When
     sut = new Sut(pathUtils, 'mockFunction.config.js');
+    sut.createConfig = createConfig;
+    firstCall = sut.getConfig(argOne, argTwo);
+    secondCall = sut.getConfig();
+    // Then
+    expect(createConfig).toHaveBeenCalledTimes(1);
+    expect(createConfig).toHaveBeenCalledWith(argOne, argTwo);
+    expect(firstCall).toEqual(expectedConfig);
+    expect(secondCall).toEqual(expectedConfig);
+  });
+
+  it('should overwrite the configuration using an object from a file on a list of files', () => {
+    // Given
+    const argOne = 'c';
+    const argTwo = 'd';
+    const pathUtils = {
+      join: jest.fn((rest) => {
+        const withoutTheConfigFolder = rest.split('/').pop();
+        return `${mocksRelativePath}/${withoutTheConfigFolder}`;
+      }),
+    };
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    class Sut extends ConfigurationFile {}
+    const files = [
+      'some-invalid-file',
+      'mockObject.config.js',
+      'mockFunction.config.js',
+    ];
+    const createConfig = jest.fn((a, b) => ({ a, b }));
+    const expectedConfig = Object.assign({
+      a: argOne,
+      b: argTwo,
+    }, mockObjectConfig);
+    let sut = null;
+    let firstCall = null;
+    let secondCall = null;
+    // When
+    sut = new Sut(pathUtils, files);
+    sut.createConfig = createConfig;
+    firstCall = sut.getConfig(argOne, argTwo);
+    secondCall = sut.getConfig();
+    // Then
+    expect(createConfig).toHaveBeenCalledTimes(1);
+    expect(createConfig).toHaveBeenCalledWith(argOne, argTwo);
+    expect(firstCall).toEqual(expectedConfig);
+    expect(secondCall).toEqual(expectedConfig);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(['invalidFile', 'fileToUse'].length);
+  });
+
+  it('shouldn\'t overwrite the configuration if the file doesn\'t export anything', () => {
+    // Given
+    const argOne = 'c';
+    const argTwo = 'd';
+    const pathUtils = {
+      join: jest.fn((rest) => {
+        const withoutTheConfigFolder = rest.split('/').pop();
+        return `${mocksRelativePath}/${withoutTheConfigFolder}`;
+      }),
+    };
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    class Sut extends ConfigurationFile {}
+    const createConfig = jest.fn((a, b) => ({ a, b }));
+    const expectedConfig = {
+      a: argOne,
+      b: argTwo,
+    };
+    let sut = null;
+    let firstCall = null;
+    let secondCall = null;
+    // When
+    sut = new Sut(pathUtils, 'empty.mock.js');
     sut.createConfig = createConfig;
     firstCall = sut.getConfig(argOne, argTwo);
     secondCall = sut.getConfig();

@@ -2,7 +2,13 @@
 
 These are the settings that will determine how projext will handle your project.
 
-**The file must be created on `[YOUR-PROJECT-PATH]/config/project.config.js`**
+**The file must be created on one of the following paths:**
+
+- `[YOUR-PROJECT-PATH]/projext.config.js`
+- `[YOUR-PROJECT-PATH]/config/projext.config.js`
+- `[YOUR-PROJECT-PATH]/config/project.config.js`
+
+> projext will evaluate the list of paths and use the first one it finds.
 
 There's no _"top level"_ setting, everything is separated in different scopes relevant to one specific thing:
 

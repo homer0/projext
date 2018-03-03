@@ -14,7 +14,11 @@ class ProjectConfiguration extends ConfigurationFile {
    */
   constructor(pathUtils) {
     // Set the overwrite file path.
-    super(pathUtils, 'project.config.js');
+    super(pathUtils, [
+      'projext.config.js',
+      'config/projext.config.js',
+      'config/project.config.js',
+    ]);
   }
   /**
    * Create the project configuration with all its _'smart defaults'_.

@@ -4,10 +4,10 @@ projext was built on the idea that everything could be overwritten, so if the de
 
 All the project structure was built using [Jimple](https://yarnpkg.com/en/package/jimple), a port of [Pimple Dependency Injection container](https://github.com/silexphp/Pimple/) for Node, and EVERYTHING is registered on the container. You can simple set your own version of a service with the same name in order to overwrite it.
 
-The way you get access to the container is by creating a file called `projext.config.js` on your project root directory, there you'll create your own instance of projext, register your custom/overwrite services and export it:
+The way you get access to the container is by creating a file called `projext.setup.js` on your project root directory, there you'll create your own instance of projext, register your custom/overwrite services and export it:
 
 ```js
-// projext.config.js
+// projext.setup.js
 
 // Get the main class
 const { Projext } = require('projext');

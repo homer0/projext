@@ -102,7 +102,15 @@ This tool is aimed to those who use bundlers everyday to build web sites, librar
 
 ### Project configuration and Targets
 
-The first thing you need to do is to create a **`config/project.config.js`** file, that's where all your project configuration goes.
+The first thing you need to do is to create a **`projext.config.js`** file, that's where all your project configuration goes.
+
+> The project configuration file can be located on the following paths:
+>
+> - `projext.config.js`
+> - `config/projext.config.js`
+> - `config/project.config.js`
+>
+> projext will evaluate the list of paths and use the first one it finds.
 
 Then you need to define your targets, the things you are going to bundle. You can have from one to all the targets you want, for example:
 

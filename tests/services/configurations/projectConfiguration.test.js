@@ -27,7 +27,11 @@ describe('services/configurations:projectConfiguration', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.constructorMock).toHaveBeenCalledWith(
       pathUtils,
-      'project.config.js'
+      [
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ]
     );
   });
 
@@ -52,7 +56,11 @@ describe('services/configurations:projectConfiguration', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.constructorMock).toHaveBeenCalledWith(
       pathUtils,
-      'project.config.js'
+      [
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ]
     );
     expect(result).toBeObject();
     expect(Object.keys(result)).toEqual(expectedKeys);

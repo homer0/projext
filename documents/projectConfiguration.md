@@ -233,7 +233,7 @@ In case `library` is `true`, these options are going to be used by the build eng
 
 **`libraryOptions.libraryTarget`**
 
-How the library will be exposed: `commonjs2`, `umd` or `window`.
+How the library will be exposed: `commonjs2` or `umd`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
 
@@ -434,6 +434,7 @@ This will tell the build engine that it needs to be builded as a library to be `
 > ```js
 > {
 >   libraryTarget: 'umd',
+>   compress: false,
 > }
 > ```
 
@@ -444,6 +445,11 @@ In case `library` is `true`, these options are going to be used by the build eng
 How the library will be exposed: `commonjs`, `umd` or `window`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
+
+
+**`libraryOptions.compress`**
+
+Whether or not to use gzip compression on the generated library file.
 
 #### `cleanBeforeBuild`
 > Default value: `true`

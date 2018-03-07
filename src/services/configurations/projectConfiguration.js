@@ -121,6 +121,7 @@ class ProjectConfiguration extends ConfigurationFile {
           library: false,
           libraryOptions: {
             libraryTarget: 'umd',
+            compress: false,
           },
           cleanBeforeBuild: true,
           devServer: {

@@ -4,7 +4,7 @@
     indent: ['error', 2, {
       MemberExpression: 0,
     }],
-    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true, "allowAfterSuper": true }],
     "comma-dangle": ["error", {
       arrays: "always-multiline",
       objects: "always-multiline",

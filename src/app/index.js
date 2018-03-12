@@ -51,6 +51,7 @@ const {
   babelConfiguration,
   projectConfiguration,
   targetConfiguration,
+  targetsFinder,
 } = require('../services/configurations');
 /**
  * This is projext dependecy injection container. This class is in charge of registering all the
@@ -108,6 +109,7 @@ class Projext extends Jimple {
     this.register(babelConfiguration);
     this.register(projectConfiguration);
     this.register(targetConfiguration);
+    this.register(targetsFinder);
 
     this._loadPlugins();
     this._addErrorHandler();

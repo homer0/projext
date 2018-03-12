@@ -61,11 +61,15 @@ class ConfigurationFile {
     /**
      * This will store the configuration after creating it.
      * @type {?Object}
+     * @ignore
+     * @access protected
      */
     this._config = null;
     /**
      * A flag to know if the overwrite file has been loaded or not.
      * @type {boolean}
+     * @ignore
+     * @access protected
      */
     this._fileConfigLoaded = false;
     /**
@@ -73,6 +77,8 @@ class ConfigurationFile {
      * is loaded, if the file exports a function, then it will replace this variable, otherwise, the
      * return value of this method will be become the exported configuration.
      * @return {Object}
+     * @ignore
+     * @access protected
      */
     this._fileConfig = () => ({});
   }
@@ -112,7 +118,6 @@ class ConfigurationFile {
    * This is the real method that creates the configuration.
    * @param  {Array} args A list of parameters for the service to use when creating the
    *                      configuration
-   * @return {Object}
    * @ignore
    * @access protected
    */
@@ -135,7 +140,7 @@ class ConfigurationFile {
       parentConfig = this.parentConfig.getConfig(...args);
     }
     /**
-     * Return the final configuration, which is a merge of the following things:
+     * Generate the final configuration, which is a merge of the following things:
      * - The parent configuration `getConfig` method result; or an empty object if no parent
      * configuration was received.
      * - The result of this instance `createConfig` method.

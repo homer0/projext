@@ -79,6 +79,7 @@ describe('services/cli:sh-build', () => {
     };
     test.targets = {
       getTarget: jest.fn(() => test.target),
+      getDefaultTarget: jest.fn(() => test.target),
     };
     test.sut = new CLISHBuildCommand(
       test.builder,
@@ -92,7 +93,12 @@ describe('services/cli:sh-build', () => {
       test.projectConfiguration,
       test.targets
     );
-    test.run = (type, run) => test.sut.handle(test.targetName, null, { type, run });
+    test.run = (
+      type,
+      run,
+      name = test.targetName
+    ) => test.sut.handle(name, null, { type, run });
+
     return test;
   };
 
@@ -155,6 +161,35 @@ describe('services/cli:sh-build', () => {
       false
     );
     expect(sut.hidden).toBeTrue();
+  });
+
+  it('should return the command to build the default target', () => {
+    // Given
+    const buildType = 'development';
+    const test = getTestForTheBuildCommand();
+    // When
+    test.run(buildType, false, null);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(0);
+    expect(test.targets.getDefaultTarget).toHaveBeenCalledTimes(1);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.buildCommand],
+      test.target,
+      buildType,
+      false
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.buildCommand,
+    ].join(';'));
   });
 
   it('should return the command to build a node target', () => {

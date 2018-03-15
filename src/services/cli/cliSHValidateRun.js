@@ -51,11 +51,14 @@ class CLISHValidateRunCommand extends CLICommand {
   }
   /**
    * Handle the execution of the command and validate the target existence.
-   * @param {string} name The name of the target.
+   * @param {?string} name The name of the target.
    */
   handle(name) {
-    // If the target doesn't exist, this will throw an error.
-    return this.targets.getTarget(name);
+    return name ?
+      // If the target doesn't exist, this will throw an error.
+      this.targets.getTarget(name) :
+      // Get the default target or throw an error if the project doesn't have targets.
+      this.targets.getDefaultTarget();
   }
 }
 /**

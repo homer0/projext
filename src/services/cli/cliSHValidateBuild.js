@@ -57,7 +57,7 @@ class CLISHValidateBuildCommand extends CLICommand {
   }
   /**
    * Handle the execution of the command and validate all the arguments.
-   * @param {string}  name         The name of the target.
+   * @param {?string} name         The name of the target.
    * @param {Command} command      The executed command (sent by `commander`).
    * @param {Object}  options      The command options.
    * @param {string}  options.type The type of build.
@@ -65,8 +65,11 @@ class CLISHValidateBuildCommand extends CLICommand {
    */
   handle(name, command, options) {
     const { run, type } = options;
-    // If the target doesn't exist, this will throw an error.
-    const target = this.targets.getTarget(name);
+    const target = name ?
+      // If the target doesn't exist, this will throw an error.
+      this.targets.getTarget(name) :
+      // Get the default target or throw an error if the project doesn't have targets.
+      this.targets.getDefaultTarget();
 
     if (
       target.is.node &&

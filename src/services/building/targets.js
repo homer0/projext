@@ -13,7 +13,7 @@ class Targets {
    * @param {EnvironmentUtils}             environmentUtils     To send to the configuration
    *                                                            service used by the browser targets.
    * @param {Object}                       packageInfo          The project's `package.json`,
-   *                                                            necessary to get the project name
+   *                                                            necessary to get the project's name
    *                                                            and use it as the name of the
    *                                                            default target.
    * @param {PathUtils}                    pathUtils            Used to build the targets paths.
@@ -190,7 +190,8 @@ class Targets {
   }
   /**
    * Returns the target with the name of project (specified on the `package.json`) and if there's
-   * no target with that name the first one, using a list of the targets name on alphabetical order.
+   * no target with that name, then the first one, using a list of the targets name on alphabetical
+   * order.
    * @return {Target}
    * @throws {Error} If the project has no targets
    */

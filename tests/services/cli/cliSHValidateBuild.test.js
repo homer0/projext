@@ -96,6 +96,32 @@ describe('services/cli:sh-validate-build', () => {
     expect(appLogger.warning).toHaveBeenCalledTimes(0);
   });
 
+  it('should validate the default target when no name is specified', () => {
+    // Given
+    const appLogger = {
+      warning: jest.fn(),
+    };
+    const target = {
+      is: {
+        node: true,
+      },
+      bundle: false,
+      transpile: false,
+    };
+    const targets = {
+      getDefaultTarget: jest.fn(() => target),
+    };
+    const run = false;
+    const type = 'development';
+    let sut = null;
+    // When
+    sut = new CLISHValidateBuildCommand(appLogger, targets);
+    sut.handle(null, null, { run, type });
+    // Then
+    expect(appLogger.warning).toHaveBeenCalledTimes(1);
+    expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
+  });
+
   it('should include a provider for the DIC', () => {
     // Given
     let sut = null;

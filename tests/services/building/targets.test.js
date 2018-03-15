@@ -27,6 +27,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -43,6 +44,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -52,6 +54,7 @@ describe('services/building:targets', () => {
     expect(sut).toBeInstanceOf(Targets);
     expect(sut.events).toBe(events);
     expect(sut.environmentUtils).toBe(environmentUtils);
+    expect(sut.packageInfo).toBe(packageInfo);
     expect(sut.pathUtils).toBe(pathUtils);
     expect(sut.projectConfiguration).toEqual(projectConfiguration);
     expect(sut.rootRequire).toEqual(rootRequire);
@@ -64,6 +67,7 @@ describe('services/building:targets', () => {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -200,6 +204,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -225,6 +230,7 @@ describe('services/building:targets', () => {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -517,6 +523,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -547,6 +554,7 @@ describe('services/building:targets', () => {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -724,6 +732,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -747,6 +756,7 @@ describe('services/building:targets', () => {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -780,11 +790,11 @@ describe('services/building:targets', () => {
       output: {},
       originalOutput: {},
       paths: {
-        source: `${source}/targetOne`,
+        source: `${source}/${targetName}`,
         build,
       },
       folders: {
-        source: `${source}/targetOne`,
+        source: `${source}/${targetName}`,
         build,
       },
       hasFolder: true,
@@ -799,6 +809,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -809,12 +820,204 @@ describe('services/building:targets', () => {
     expect(result).toEqual(expectedTarget);
   });
 
+  it('should get a target with the project\'s name as the default target', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const projectName = 'myAppForCharito';
+    const packageInfo = {
+      name: projectName,
+    };
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const source = 'source-path';
+    const build = 'build-path';
+    const projectConfiguration = {
+      targets: {
+        [projectName]: {
+          type: 'node',
+        },
+        someOtherTarget: {
+          type: 'browser',
+        },
+        abc: {
+          type: 'node',
+        },
+      },
+      targetsTemplates: {
+        node: {
+          defaultTargetName: 'node',
+          hasFolder: true,
+        },
+        browser: {},
+      },
+      paths: {
+        source,
+        build,
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const expectedTarget = {
+      defaultTargetName: 'node',
+      type: 'node',
+      name: projectName,
+      entry: {},
+      output: {},
+      originalOutput: {},
+      paths: {
+        source: `${source}/${projectName}`,
+        build,
+      },
+      folders: {
+        source: `${source}/${projectName}`,
+        build,
+      },
+      hasFolder: true,
+      is: {
+        node: true,
+        browser: false,
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.getDefaultTarget();
+    // Then
+    expect(result).toEqual(expectedTarget);
+  });
+
+  it('should get the first target (by alphabetical order) as the default target', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = {
+      name: 'myAppForCharito',
+    };
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const source = 'source-path';
+    const build = 'build-path';
+    const targetName = 'aaa';
+    const projectConfiguration = {
+      targets: {
+        abc: {
+          type: 'node',
+        },
+        [targetName]: {
+          type: 'node',
+        },
+        someOtherTarget: {
+          type: 'browser',
+        },
+      },
+      targetsTemplates: {
+        node: {
+          defaultTargetName: 'node',
+          hasFolder: true,
+        },
+        browser: {},
+      },
+      paths: {
+        source,
+        build,
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const expectedTarget = {
+      defaultTargetName: 'node',
+      type: 'node',
+      name: targetName,
+      entry: {},
+      output: {},
+      originalOutput: {},
+      paths: {
+        source: `${source}/${targetName}`,
+        build,
+      },
+      folders: {
+        source: `${source}/${targetName}`,
+        build,
+      },
+      hasFolder: true,
+      is: {
+        node: true,
+        browser: false,
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.getDefaultTarget();
+    // Then
+    expect(result).toEqual(expectedTarget);
+  });
+
+  it('should throw an error while trying to get the default target without having targets', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    let sut = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    // Then
+    expect(() => sut.getDefaultTarget()).toThrow(/the project doesn't have any targets/i);
+  });
+
   it('should throw an error while trying to load a target with an invalid type', () => {
     // Given
     const events = {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -838,6 +1041,7 @@ describe('services/building:targets', () => {
     expect(() => new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -852,6 +1056,7 @@ describe('services/building:targets', () => {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -868,6 +1073,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -888,6 +1094,7 @@ describe('services/building:targets', () => {
       reduce: jest.fn((name, target) => target),
     };
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = {
       join: (...args) => path.join(...args),
     };
@@ -918,6 +1125,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -933,6 +1141,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -949,6 +1158,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -963,6 +1173,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -984,6 +1195,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -998,6 +1210,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -1024,6 +1237,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -1038,6 +1252,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -1075,6 +1290,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -1105,6 +1321,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -1142,6 +1359,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -1172,6 +1390,7 @@ describe('services/building:targets', () => {
     // Given
     const events = 'events';
     const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
     const pathUtils = 'pathUtils';
     const projectConfiguration = {
       targets: {},
@@ -1209,6 +1428,7 @@ describe('services/building:targets', () => {
     sut = new Targets(
       events,
       environmentUtils,
+      packageInfo,
       pathUtils,
       projectConfiguration,
       rootRequire,
@@ -1266,6 +1486,7 @@ describe('services/building:targets', () => {
     expect(sut).toBeInstanceOf(Targets);
     expect(sut.events).toBe('events');
     expect(sut.environmentUtils).toBe('environmentUtils');
+    expect(sut.packageInfo).toBe('packageInfo');
     expect(sut.pathUtils).toBe('pathUtils');
     expect(sut.projectConfiguration).toEqual(projectConfiguration);
     expect(sut.rootRequire).toBe('rootRequire');

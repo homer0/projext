@@ -12,6 +12,10 @@ class Targets {
    *                                                            after loading it.
    * @param {EnvironmentUtils}             environmentUtils     To send to the configuration
    *                                                            service used by the browser targets.
+   * @param {Object}                       packageInfo          The project's `package.json`,
+   *                                                            necessary to get the project name
+   *                                                            and use it as the name of the
+   *                                                            default target.
    * @param {PathUtils}                    pathUtils            Used to build the targets paths.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the targets and their
    *                                                            templates.
@@ -23,6 +27,7 @@ class Targets {
   constructor(
     events,
     environmentUtils,
+    packageInfo,
     pathUtils,
     projectConfiguration,
     rootRequire,
@@ -38,6 +43,11 @@ class Targets {
      * @type {EnvironmentUtils}
      */
     this.environmentUtils = environmentUtils;
+    /**
+     * The information of the project's `package.json`.
+     * @type {Object}
+     */
+    this.packageInfo = packageInfo;
     /**
      * A local reference for the `pathUtils` service.
      * @type {PathUtils}
@@ -179,6 +189,25 @@ class Targets {
     return target;
   }
   /**
+   * Returns the target with the name of project (specified on the `package.json`) and if there's
+   * no target with that name the first one, using a list of the targets name on alphabetical order.
+   * @return {Target}
+   * @throws {Error} If the project has no targets
+   */
+  getDefaultTarget() {
+    const targets = this.getTargets();
+    const names = Object.keys(targets).sort();
+    let target;
+    if (names.length) {
+      const { name: projectName } = this.packageInfo;
+      target = targets[projectName] || targets[names[0]];
+    } else {
+      throw new Error('The project doesn\'t have any targets');
+    }
+
+    return target;
+  }
+  /**
    * Find a target by a given filepath.
    * @param {string} file The path of the file that should match with a target path.
    * @return {Target}
@@ -186,10 +215,8 @@ class Targets {
    */
   findTargetForFile(file) {
     const targets = this.getTargets();
-    const targetName = Object.keys(targets).find((name) => {
-      const target = targets[name];
-      return file.includes(target.paths.source);
-    });
+    const targetName = Object.keys(targets)
+    .find((name) => file.includes(targets[name].paths.source));
 
     if (!targetName) {
       throw new Error(`A target couldn't be find for the following file: ${file}`);
@@ -399,6 +426,7 @@ const targets = provider((app) => {
   app.set('targets', () => new Targets(
     app.get('events'),
     app.get('environmentUtils'),
+    app.get('packageInfo'),
     app.get('pathUtils'),
     app.get('projectConfiguration').getConfig(),
     app.get('rootRequire'),

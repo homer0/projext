@@ -16,8 +16,11 @@ describe('services/common:tempFiles', () => {
     fs.ensureDir.mockReset();
     fs.ensureDirSync.mockReset();
     fs.readFile.mockReset();
+    fs.readFileSync.mockReset();
     fs.writeFile.mockReset();
+    fs.writeFileSync.mockReset();
     fs.unlink.mockReset();
+    fs.unlinkSync.mockReset();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -89,7 +92,7 @@ describe('services/common:tempFiles', () => {
     expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
   });
 
-  it('should ensure that the temp directory exists (Sync)', () => {
+  it('should synchronously ensure that the temp directory exists', () => {
     // Given
     const message = 'it exists';
     fs.ensureDirSync.mockImplementationOnce(() => message);
@@ -149,6 +152,36 @@ describe('services/common:tempFiles', () => {
     });
   });
 
+  it('should read a file synchronously', () => {
+    // Given
+    const filepath = 'file.tmp';
+    const contents = 'Hello Charito!';
+    fs.readFileSync.mockImplementationOnce(() => contents);
+    const info = {
+      name: 'projext',
+    };
+    const pathUtils = {
+      addLocation: () => {},
+      getLocation: jest.fn((name) => name),
+      joinFrom: jest.fn((from, rest) => rest),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TempFiles(info, pathUtils);
+    result = sut.readSync(filepath);
+    // Then
+    expect(result).toBe(contents);
+    expect(pathUtils.getLocation).toHaveBeenCalledTimes(1);
+    expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
+    expect(pathUtils.joinFrom).toHaveBeenCalledTimes(1);
+    expect(pathUtils.joinFrom).toHaveBeenCalledWith(sut.locationName, filepath);
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDirSync).toHaveBeenCalledWith(sut.locationName);
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith(filepath, 'utf-8');
+  });
+
   it('should read a file with custom encoding', () => {
     // Given
     fs.ensureDir.mockImplementationOnce(() => Promise.resolve());
@@ -183,6 +216,37 @@ describe('services/common:tempFiles', () => {
     .catch(() => {
       expect(true).toBeFalse();
     });
+  });
+
+  it('should read a file with custom encoding synchronously', () => {
+    // Given
+    const filepath = 'file.tmp';
+    const contents = 'Hello Charito!';
+    const encoding = 'utf-12';
+    fs.readFileSync.mockImplementationOnce(() => contents);
+    const info = {
+      name: 'projext',
+    };
+    const pathUtils = {
+      addLocation: () => {},
+      getLocation: jest.fn((name) => name),
+      joinFrom: jest.fn((from, rest) => rest),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TempFiles(info, pathUtils);
+    result = sut.readSync(filepath, encoding);
+    // Then
+    expect(result).toBe(contents);
+    expect(pathUtils.getLocation).toHaveBeenCalledTimes(1);
+    expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
+    expect(pathUtils.joinFrom).toHaveBeenCalledTimes(1);
+    expect(pathUtils.joinFrom).toHaveBeenCalledWith(sut.locationName, filepath);
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDirSync).toHaveBeenCalledWith(sut.locationName);
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith(filepath, encoding);
   });
 
   it('should write on a file', () => {
@@ -220,6 +284,35 @@ describe('services/common:tempFiles', () => {
     });
   });
 
+  it('should write on a file synchronously', () => {
+    // Given
+    const filepath = 'file.tmp';
+    const contents = 'Charito!';
+    const info = {
+      name: 'projext',
+    };
+    const pathUtils = {
+      addLocation: () => {},
+      getLocation: jest.fn((name) => name),
+      joinFrom: jest.fn((from, rest) => rest),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TempFiles(info, pathUtils);
+    result = sut.writeSync(filepath, contents);
+    // Then
+    expect(result).toBe(filepath);
+    expect(pathUtils.getLocation).toHaveBeenCalledTimes(1);
+    expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
+    expect(pathUtils.joinFrom).toHaveBeenCalledTimes(1);
+    expect(pathUtils.joinFrom).toHaveBeenCalledWith(sut.locationName, filepath);
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDirSync).toHaveBeenCalledWith(sut.locationName);
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(filepath, contents);
+  });
+
   it('should delete a file', () => {
     // Given
     fs.ensureDir.mockImplementationOnce(() => Promise.resolve());
@@ -252,6 +345,34 @@ describe('services/common:tempFiles', () => {
     .catch(() => {
       expect(true).toBeFalse();
     });
+  });
+
+  it('should delete a file synchronously', () => {
+    // Given
+    const filepath = 'file.tmp';
+    const info = {
+      name: 'projext',
+    };
+    const pathUtils = {
+      addLocation: () => {},
+      getLocation: jest.fn((name) => name),
+      joinFrom: jest.fn((from, rest) => rest),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TempFiles(info, pathUtils);
+    result = sut.deleteSync(filepath);
+    // Then
+    expect(result).toBe(filepath);
+    expect(pathUtils.getLocation).toHaveBeenCalledTimes(1);
+    expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
+    expect(pathUtils.joinFrom).toHaveBeenCalledTimes(1);
+    expect(pathUtils.joinFrom).toHaveBeenCalledWith(sut.locationName, filepath);
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDirSync).toHaveBeenCalledWith(sut.locationName);
+    expect(fs.unlinkSync).toHaveBeenCalledTimes(1);
+    expect(fs.unlinkSync).toHaveBeenCalledWith(filepath);
   });
 
   it('should include a provider for the DIC', () => {

@@ -54,6 +54,17 @@ class TempFiles {
     .then(() => fs.readFile(this.path(filepath), encoding));
   }
   /**
+   * Read a file from the temp directory, sync version.
+   * @param {string} filepath           The path to the file.
+   * @param {string} [encoding='utf-8'] The text encoding in which the file should be read.
+   * @return {string}
+   * @throws {Error} If the file can't be read.
+   */
+  readSync(filepath, encoding = 'utf-8') {
+    this.ensureDirectorySync();
+    return fs.readFileSync(this.path(filepath), encoding);
+  }
+  /**
    * Write a file on the temp directory.
    * @param {string} filepath The path to the file.
    * @param {string} data     The contents of the file.
@@ -67,6 +78,19 @@ class TempFiles {
     .then(() => tempFilepath);
   }
   /**
+   * Write a file on the temp directory, sync version.
+   * @param {string} filepath The path to the file.
+   * @param {string} data     The contents of the file.
+   * @return {string} The absolute path to the file.
+   * @throws {Error} If the method couldn't write on the file.
+   */
+  writeSync(filepath, data) {
+    this.ensureDirectorySync();
+    const tempFilepath = this.path(filepath);
+    fs.writeFileSync(tempFilepath, data);
+    return tempFilepath;
+  }
+  /**
    * Delete a file from the temp directory.
    * @param {string} filepath The path to the file.
    * @return {Promise<string,Error>} On success, the promise resolves with the absolute path to
@@ -77,6 +101,18 @@ class TempFiles {
     return this.ensureDirectory()
     .then(() => fs.unlink(tempFilepath))
     .then(() => tempFilepath);
+  }
+  /**
+   * Delete a file from the temp directory, sync version.
+   * @param {string} filepath The path to the file.
+   * @return {string} The absolute path to the file.
+   * @throws {Error} If the method couldn't delete the file.
+   */
+  deleteSync(filepath) {
+    this.ensureDirectorySync();
+    const tempFilepath = this.path(filepath);
+    fs.unlinkSync(tempFilepath);
+    return tempFilepath;
   }
   /**
    * Ensure that the temp directory exists

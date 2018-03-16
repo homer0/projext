@@ -80,7 +80,7 @@ describe('services/targets:targetsHTML', () => {
     const expectedEventNames = Object.keys(expectedEvents);
     // When
     sut = new TargetsHTML(events, tempFiles);
-    result = sut.getHTMLFilepath(target);
+    result = sut.getFilepath(target);
     // Then
     expect(result).toBe(expectedFilepath);
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -153,7 +153,7 @@ describe('services/targets:targetsHTML', () => {
     const expectedEventNames = Object.keys(expectedEvents);
     // When
     sut = new TargetsHTML(events, tempFiles);
-    result = sut.getHTMLFilepath(target);
+    result = sut.getFilepath(target);
     // Then
     expect(result).toBe(expectedFilepath);
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
@@ -184,7 +184,7 @@ describe('services/targets:targetsHTML', () => {
     const expectedFilepath = `${target.paths.source}/${target.html.template}`;
     // When
     sut = new TargetsHTML(events, tempFiles);
-    result = sut.getHTMLFilepath(target);
+    result = sut.getFilepath(target);
     // Then
     expect(result).toBe(expectedFilepath);
     expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);

@@ -27,7 +27,7 @@ class TargetsHTML {
      * Bind the method so it can be registered as the service itself.
      * @ignore
      */
-    this.getHTMLFilepath = this.getHTMLFilepath.bind(this);
+    this.getFilepath = this.getFilepath.bind(this);
   }
   /**
    * Given a target, this method will validate if the target has an HTML template file and return
@@ -36,7 +36,7 @@ class TargetsHTML {
    * @param {Target} target The target information.
    * @return {string}
    */
-  getHTMLFilepath(target) {
+  getFilepath(target) {
     const htmlPath = path.join(target.paths.source, target.html.template);
     return fs.pathExistsSync(htmlPath) ? htmlPath : this._generateHTML(target);
   }
@@ -89,7 +89,7 @@ class TargetsHTML {
 }
 /**
  * The service provider that once registered on the app container will create an instance of
- * `TargetsHTML` and set its `getHTMLFilepath` method as the `targetsHTML` service.
+ * `TargetsHTML` and set its `getFilepath` method as the `targetsHTML` service.
  * @example
  * // Register it on the container
  * container.register(targetsHTML);
@@ -101,7 +101,7 @@ const targetsHTML = provider((app) => {
   app.set('targetsHTML', () => new TargetsHTML(
     app.get('events'),
     app.get('tempFiles')
-  ).getHTMLFilepath);
+  ).getFilepath);
 });
 
 module.exports = {

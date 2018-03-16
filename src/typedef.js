@@ -672,6 +672,13 @@
  */
 
 /**
+ * @typedef {Object} TargetDefaultHTMLSettings
+ * @property {string} title The value of the `<title />` tag.
+ * @property {string} bodyAttributes Extra attributes for the `<body />` tag.
+ * @property {string} bodyContents The content of the `<body />` tag.
+ */
+
+/**
  * @typedef {function} BuildEngineGetCommand
  * @param {Target} target
  * The target information.

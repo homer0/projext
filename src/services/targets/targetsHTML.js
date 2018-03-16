@@ -44,9 +44,8 @@ class TargetsHTML {
    * This method generates a default HTML file template for a target, saves it on the temp
    * directory and returns its path.
    * This method emits two reducer events:
-   * - `target-default-html-settings`: It receives the template settings as an object with the
-   *  keys `title`, `bodyAttributes` and `bodyContents`; and the target information. It expects
-   *  another settings object in return.
+   * - `target-default-html-settings`: It receives a {@link TargetDefaultHTMLSettings}, the target
+   *  information and it expects another {@link TargetDefaultHTMLSettings} in return.
    * - `target-default-html`: It receives the HTML code for the file, the target information and
    *  it expects a new HTML code in return.
    * @param {Target} target The target information.

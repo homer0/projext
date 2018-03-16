@@ -28,7 +28,6 @@ const {
   buildTranspiler,
   buildVersion,
   builder,
-  targets,
 } = require('../services/building');
 
 const {
@@ -51,8 +50,12 @@ const {
   babelConfiguration,
   projectConfiguration,
   targetConfiguration,
-  targetsFinder,
 } = require('../services/configurations');
+
+const {
+  targets,
+  targetsFinder,
+} = require('../services/targets');
 /**
  * This is projext dependecy injection container. This class is in charge of registering all the
  * known services, load any existing plugin and add an error handler.
@@ -90,7 +93,6 @@ class Projext extends Jimple {
     this.register(buildTranspiler);
     this.register(buildVersion);
     this.register(builder);
-    this.register(targets);
 
     this.register(cli);
     this.register(cliBuildCommand);
@@ -109,6 +111,8 @@ class Projext extends Jimple {
     this.register(babelConfiguration);
     this.register(projectConfiguration);
     this.register(targetConfiguration);
+
+    this.register(targets);
     this.register(targetsFinder);
 
     this._loadPlugins();

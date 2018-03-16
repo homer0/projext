@@ -6,15 +6,15 @@ jest.mock('wootils/node/appConfiguration', () => ({
   AppConfiguration: WootilsAppConfigurationMock,
 }));
 
-jest.unmock('/src/services/building/targets');
+jest.unmock('/src/services/targets/targets');
 
 const path = require('path');
 require('jasmine-expect');
-const { Targets, targets } = require('/src/services/building/targets');
+const { Targets, targets } = require('/src/services/targets/targets');
 
 const originalNow = Date.now;
 
-describe('services/building:targets', () => {
+describe('services/targets:targets', () => {
   beforeEach(() => {
     WootilsAppConfigurationMock.reset();
   });

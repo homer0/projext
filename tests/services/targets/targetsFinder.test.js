@@ -2,7 +2,7 @@ const JimpleMock = require('/tests/mocks/jimple.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('fs-extra');
-jest.unmock('/src/services/configurations/targetsFinder');
+jest.unmock('/src/services/targets/targetsFinder');
 
 require('jasmine-expect');
 
@@ -10,9 +10,9 @@ const fs = require('fs-extra');
 const {
   TargetsFinder,
   targetsFinder,
-} = require('/src/services/configurations/targetsFinder');
+} = require('/src/services/targets/targetsFinder');
 
-describe('services/configurations:targetsFinder', () => {
+describe('services/targets:targetsFinder', () => {
   beforeEach(() => {
     fs.pathExistsSync.mockReset();
     fs.readdirSync.mockReset();

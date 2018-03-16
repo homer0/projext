@@ -34,12 +34,11 @@ class TargetsHTML {
    * its absolute path; if the file doesn't exists, it will generate a new one, save it on the
    * temp directory and return its path.
    * @param {Target} target The target information.
-   * @return {Promise<string,Error>}
+   * @return {string}
    */
   getHTMLFilepath(target) {
     const htmlPath = path.join(target.paths.source, target.html.template);
-    return fs.pathExists(htmlPath)
-    .then((exists) => (exists ? htmlPath : this._generateHTML(target)));
+    return fs.pathExistsSync(htmlPath) ? htmlPath : this._generateHTML(target);
   }
   /**
    * This method generates a default HTML file template for a target, saves it on the temp
@@ -51,7 +50,8 @@ class TargetsHTML {
    * - `target-default-html`: It receives the HTML code for the file, the target information and
    *  it expects a new HTML code in return.
    * @param {Target} target The target information.
-   * @return {Promise<string,Error>}
+   * @return {string}
+   * @throws {Error} If the file couldn't be saved on the temp directory.
    * @ignore
    * @access protected
    */
@@ -84,7 +84,7 @@ class TargetsHTML {
     // Reduce the HTML code.
     const html = this.events.reduce('target-default-html', htmlTpl, target);
     // Write the file on the temp directory.
-    return this.tempFiles.write(`${target.name}.index.html`, html);
+    return this.tempFiles.writeSync(`${target.name}.index.html`, html);
   }
 }
 /**

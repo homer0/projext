@@ -14,7 +14,7 @@ const {
 
 describe('services/targets:targetsHTML', () => {
   beforeEach(() => {
-    fs.pathExists.mockReset();
+    fs.pathExistsSync.mockReset();
   });
 
   it('should be instantiated with all its dependencies', () => {
@@ -32,12 +32,12 @@ describe('services/targets:targetsHTML', () => {
 
   it('should generate a default HTML file for the target and return its path', () => {
     // Given
-    fs.pathExists.mockImplementationOnce(() => Promise.resolve(false));
+    fs.pathExistsSync.mockReturnValueOnce(false);
     const events = {
       reduce: jest.fn((eventName, variableToReduce) => variableToReduce),
     };
     const tempFiles = {
-      write: jest.fn((filepath) => Promise.resolve(filepath)),
+      writeSync: jest.fn((filepath) => filepath),
     };
     const target = {
       name: 'charito',
@@ -49,6 +49,7 @@ describe('services/targets:targetsHTML', () => {
       },
     };
     let sut = null;
+    let result = null;
     const expectedFilepath = `${target.name}.index.html`;
     const expectedHTML = '<!doctype html>' +
       '<html lang="en">' +
@@ -79,27 +80,22 @@ describe('services/targets:targetsHTML', () => {
     const expectedEventNames = Object.keys(expectedEvents);
     // When
     sut = new TargetsHTML(events, tempFiles);
-    return sut.getHTMLFilepath(target)
-    .then((result) => {
-      // Then
-      expect(result).toBe(expectedFilepath);
-      expect(fs.pathExists).toHaveBeenCalledTimes(1);
-      expect(fs.pathExists).toHaveBeenCalledWith(`${target.paths.source}/${target.html.template}`);
-      expect(events.reduce).toHaveBeenCalledTimes(expectedEventNames.length);
-      expectedEventNames.forEach((eventName) => {
-        expect(events.reduce).toHaveBeenCalledWith(eventName, ...expectedEvents[eventName]);
-      });
-      expect(tempFiles.write).toHaveBeenCalledTimes(1);
-      expect(tempFiles.write).toHaveBeenCalledWith(expectedFilepath, expectedHTML);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
+    result = sut.getHTMLFilepath(target);
+    // Then
+    expect(result).toBe(expectedFilepath);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(`${target.paths.source}/${target.html.template}`);
+    expect(events.reduce).toHaveBeenCalledTimes(expectedEventNames.length);
+    expectedEventNames.forEach((eventName) => {
+      expect(events.reduce).toHaveBeenCalledWith(eventName, ...expectedEvents[eventName]);
     });
+    expect(tempFiles.writeSync).toHaveBeenCalledTimes(1);
+    expect(tempFiles.writeSync).toHaveBeenCalledWith(expectedFilepath, expectedHTML);
   });
 
   it('should generate a default HTML file with custom settings', () => {
     // Given
-    fs.pathExists.mockImplementationOnce(() => Promise.resolve(false));
+    fs.pathExistsSync.mockReturnValueOnce(false);
     const settingsEventName = 'target-default-html-settings';
     const settings = {
       title: 'My App',
@@ -114,7 +110,7 @@ describe('services/targets:targetsHTML', () => {
       )),
     };
     const tempFiles = {
-      write: jest.fn((filepath) => Promise.resolve(filepath)),
+      writeSync: jest.fn((filepath) => filepath),
     };
     const target = {
       name: 'charito',
@@ -126,6 +122,7 @@ describe('services/targets:targetsHTML', () => {
       },
     };
     let sut = null;
+    let result = null;
     const expectedFilepath = `${target.name}.index.html`;
     const expectedHTML = '<!doctype html>' +
       '<html lang="en">' +
@@ -156,27 +153,22 @@ describe('services/targets:targetsHTML', () => {
     const expectedEventNames = Object.keys(expectedEvents);
     // When
     sut = new TargetsHTML(events, tempFiles);
-    return sut.getHTMLFilepath(target)
-    .then((result) => {
-      // Then
-      expect(result).toBe(expectedFilepath);
-      expect(fs.pathExists).toHaveBeenCalledTimes(1);
-      expect(fs.pathExists).toHaveBeenCalledWith(`${target.paths.source}/${target.html.template}`);
-      expect(events.reduce).toHaveBeenCalledTimes(expectedEventNames.length);
-      expectedEventNames.forEach((eventName) => {
-        expect(events.reduce).toHaveBeenCalledWith(eventName, ...expectedEvents[eventName]);
-      });
-      expect(tempFiles.write).toHaveBeenCalledTimes(1);
-      expect(tempFiles.write).toHaveBeenCalledWith(expectedFilepath, expectedHTML);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
+    result = sut.getHTMLFilepath(target);
+    // Then
+    expect(result).toBe(expectedFilepath);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(`${target.paths.source}/${target.html.template}`);
+    expect(events.reduce).toHaveBeenCalledTimes(expectedEventNames.length);
+    expectedEventNames.forEach((eventName) => {
+      expect(events.reduce).toHaveBeenCalledWith(eventName, ...expectedEvents[eventName]);
     });
+    expect(tempFiles.writeSync).toHaveBeenCalledTimes(1);
+    expect(tempFiles.writeSync).toHaveBeenCalledWith(expectedFilepath, expectedHTML);
   });
 
   it('should return the path for a custom HTML file', () => {
     // Given
-    fs.pathExists.mockImplementationOnce(() => Promise.resolve(true));
+    fs.pathExistsSync.mockReturnValueOnce(true);
     const events = 'events';
     const tempFiles = 'tempFiles';
     const target = {
@@ -188,19 +180,15 @@ describe('services/targets:targetsHTML', () => {
       },
     };
     let sut = null;
+    let result = null;
     const expectedFilepath = `${target.paths.source}/${target.html.template}`;
     // When
     sut = new TargetsHTML(events, tempFiles);
-    return sut.getHTMLFilepath(target)
-    .then((result) => {
-      // Then
-      expect(result).toBe(expectedFilepath);
-      expect(fs.pathExists).toHaveBeenCalledTimes(1);
-      expect(fs.pathExists).toHaveBeenCalledWith(expectedFilepath);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
-    });
+    result = sut.getHTMLFilepath(target);
+    // Then
+    expect(result).toBe(expectedFilepath);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(expectedFilepath);
   });
 
   it('should include a provider for the DIC', () => {

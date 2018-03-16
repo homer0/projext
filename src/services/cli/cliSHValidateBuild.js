@@ -10,10 +10,11 @@ const CLICommand = require('../../abstracts/cliCommand');
 class CLISHValidateBuildCommand extends CLICommand {
   /**
    * Class constructor.
-   * @param {Logger}  appLogger To inform the user if something goes wrong.
-   * @param {Targets} targets   To validate a target existence.
+   * @param {Logger}    appLogger To inform the user if something goes wrong.
+   * @param {Targets}   targets   To validate a target existence.
+   * @param {TempFiles} tempFiles To validate that the temp directory can be created.
    */
-  constructor(appLogger, targets) {
+  constructor(appLogger, targets, tempFiles) {
     super();
     /**
      * A local reference for the `appLogger` service.
@@ -25,6 +26,11 @@ class CLISHValidateBuildCommand extends CLICommand {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `tempFiles` service.
+     * @type {TempFiles}
+     */
+    this.tempFiles = tempFiles;
     /**
      * The instruction needed to trigger the command.
      * @type {string}
@@ -83,6 +89,8 @@ class CLISHValidateBuildCommand extends CLICommand {
         `The target '${name}' doesn't need bundling nor transpilation, ` +
         'so there\'s no need to build it'
       );
+    } else if (target.is.browser) {
+      this.tempFiles.ensureDirectorySync();
     }
   }
 }
@@ -99,7 +107,8 @@ class CLISHValidateBuildCommand extends CLICommand {
 const cliSHValidateBuildCommand = provider((app) => {
   app.set('cliSHValidateBuildCommand', () => new CLISHValidateBuildCommand(
     app.get('appLogger'),
-    app.get('targets')
+    app.get('targets'),
+    app.get('tempFiles')
   ));
 });
 

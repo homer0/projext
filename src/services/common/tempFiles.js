@@ -50,7 +50,7 @@ class TempFiles {
    * @return {Promise<string,Error>}
    */
   read(filepath, encoding = 'utf-8') {
-    return this._ensureDirectory()
+    return this.ensureDirectory()
     .then(() => fs.readFile(this.path(filepath), encoding));
   }
   /**
@@ -62,7 +62,7 @@ class TempFiles {
    */
   write(filepath, data) {
     const tempFilepath = this.path(filepath);
-    return this._ensureDirectory()
+    return this.ensureDirectory()
     .then(() => fs.writeFile(tempFilepath, data))
     .then(() => tempFilepath);
   }
@@ -74,18 +74,23 @@ class TempFiles {
    */
   delete(filepath) {
     const tempFilepath = this.path(filepath);
-    return this._ensureDirectory()
+    return this.ensureDirectory()
     .then(() => fs.unlink(tempFilepath))
     .then(() => tempFilepath);
   }
   /**
    * Ensure that the temp directory exists
    * @return {Promise<undefined,Error>}
-   * @ignore
-   * @access protected
    */
-  _ensureDirectory() {
+  ensureDirectory() {
     return fs.ensureDir(this.pathUtils.getLocation(this.locationName));
+  }
+  /**
+   * Ensure that the temp directory exists, sync version.
+   * @throws {Error} If the directory can't be created.
+   */
+  ensureDirectorySync() {
+    return fs.ensureDirSync(this.pathUtils.getLocation(this.locationName));
   }
 }
 /**

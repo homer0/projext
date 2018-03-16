@@ -14,6 +14,7 @@ const {
 describe('services/common:tempFiles', () => {
   beforeEach(() => {
     fs.ensureDir.mockReset();
+    fs.ensureDirSync.mockReset();
     fs.readFile.mockReset();
     fs.writeFile.mockReset();
     fs.unlink.mockReset();
@@ -61,6 +62,56 @@ describe('services/common:tempFiles', () => {
       location,
       `node_modules/${info.name}/${directory}`
     );
+  });
+
+  it('should ensure that the temp directory exists', () => {
+    // Given
+    const message = 'it exists';
+    fs.ensureDir.mockImplementationOnce(() => message);
+    const info = {
+      name: 'projext',
+    };
+    const location = 'some/path/.tmp';
+    const pathUtils = {
+      addLocation: jest.fn(),
+      getLocation: jest.fn(() => location),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TempFiles(info, pathUtils);
+    result = sut.ensureDirectory();
+    // Then
+    expect(result).toBe(message);
+    expect(fs.ensureDir).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDir).toHaveBeenCalledWith(location);
+    expect(pathUtils.getLocation).toHaveBeenCalledTimes(1);
+    expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
+  });
+
+  it('should ensure that the temp directory exists (Sync)', () => {
+    // Given
+    const message = 'it exists';
+    fs.ensureDirSync.mockImplementationOnce(() => message);
+    const info = {
+      name: 'projext',
+    };
+    const location = 'some/path/.tmp';
+    const pathUtils = {
+      addLocation: jest.fn(),
+      getLocation: jest.fn(() => location),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TempFiles(info, pathUtils);
+    result = sut.ensureDirectorySync();
+    // Then
+    expect(result).toBe(message);
+    expect(fs.ensureDirSync).toHaveBeenCalledTimes(1);
+    expect(fs.ensureDirSync).toHaveBeenCalledWith(location);
+    expect(pathUtils.getLocation).toHaveBeenCalledTimes(1);
+    expect(pathUtils.getLocation).toHaveBeenCalledWith(sut.locationName);
   });
 
   it('should read a file', () => {

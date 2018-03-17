@@ -14,7 +14,7 @@ describe('services/common:utils', () => {
       name: 'Charito',
       birthday: 'September 25, 2015',
     };
-    const strings = [
+    const cases = [
       // One placeholder
       {
         original: 'Hello [name]',
@@ -33,9 +33,9 @@ describe('services/common:utils', () => {
     ];
     let results = null;
     // When
-    results = strings.map((info) => Utils.replacePlaceholders(info.original, placeholders));
+    results = cases.map((info) => Utils.replacePlaceholders(info.original, placeholders));
     // Then
-    strings.forEach((info, index) => {
+    cases.forEach((info, index) => {
       expect(results[index]).toBe(info.expected);
     });
   });
@@ -46,7 +46,7 @@ describe('services/common:utils', () => {
       name: 'Charito',
       birthday: 'September 25, 2015',
     };
-    const strings = [
+    const cases = [
       // One placeholder
       {
         original: 'Hello [name]',
@@ -71,15 +71,61 @@ describe('services/common:utils', () => {
     ];
     let results = null;
     // When
-    results = strings.map((info) => Utils.replacePlaceholders(
+    results = cases.map((info) => Utils.replacePlaceholders(
       info.original,
       placeholders,
       info.beforePlaceholder,
       info.afterPlaceholder
     ));
     // Then
-    strings.forEach((info, index) => {
+    cases.forEach((info, index) => {
       expect(results[index]).toBe(info.expected);
+    });
+  });
+
+  it('should format a list of strings into a human readable list', () => {
+    // Given
+    const cases = [
+      {
+        list: [],
+        expected: '',
+      },
+      {
+        list: ['a'],
+        expected: 'a',
+      },
+      {
+        list: ['a', 'b'],
+        expected: 'a or b',
+      },
+      {
+        list: ['a', 'b'],
+        conjunction: 'and',
+        expected: 'a and b',
+      },
+      {
+        list: ['a', 'b', 'c'],
+        expected: 'a, b or c',
+      },
+      {
+        list: ['a', 'b', 'c'],
+        conjunction: 'and',
+        expected: 'a, b and c',
+      },
+    ];
+    let results = null;
+    // When
+    results = cases.map((info) => {
+      const caseArgs = [info.list];
+      if (info.conjunction) {
+        caseArgs.push(info.conjunction);
+      }
+
+      return Utils.humanReadableList(...caseArgs);
+    });
+    // Then
+    results.forEach((result, index) => {
+      expect(result).toBe(cases[index].expected);
     });
   });
 

@@ -34,8 +34,35 @@ class Utils {
 
     return newString;
   }
-}
+  /**
+   * Formats a list of strings into a _"human readable list".
+   * @example
+   * console.log(Utils.humanReadableList(['one', 'two', 'three']));
+   * // Will output 'one, two or three'
+   *
+   * console.log(Utils.humanReadableList(['one', 'two', 'three'], 'and'));
+   * // Will output 'one, two and three'
+   *
+   * @param {Array}  list                A list of strings to format.
+   * @param {string} [conjunction='or'] The conjunction to be added between the last two items.
+   * @return {string}
+   */
+  static humanReadableList(list, conjunction = 'or') {
+    let result = '';
+    if (list.length === 1) {
+      [result] = list;
+    } else if (list.length > 1) {
+      const comma = ', ';
+      const str = list.join(comma);
+      const lastComma = str.lastIndexOf(comma);
+      const before = str.substr(0, lastComma);
+      const after = str.substr(lastComma + comma.length);
+      result = `${before} ${conjunction} ${after}`;
+    }
 
+    return result;
+  }
+}
 /**
  * The service provider that once registered on the app container will set a reference of
  * `Utils` as the `utils` service.

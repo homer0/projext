@@ -30,6 +30,33 @@ describe('services/targets:targetsHTML', () => {
     expect(sut.tempFiles).toBe(tempFiles);
   });
 
+  it('should validate a target HTML template exists and return its path', () => {
+    // Given
+    const exists = true;
+    fs.pathExistsSync.mockReturnValueOnce(exists);
+    const events = 'events';
+    const tempFiles = 'tempFiles';
+    const target = {
+      name: 'charito',
+      paths: {
+        source: 'src',
+      },
+      html: {
+        template: 'index.html',
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new TargetsHTML(events, tempFiles);
+    result = sut.validate(target);
+    // Then
+    expect(result).toEqual({
+      path: `${target.paths.source}/${target.html.template}`,
+      exists,
+    });
+  });
+
   it('should generate a default HTML file for the target and return its path', () => {
     // Given
     fs.pathExistsSync.mockReturnValueOnce(false);

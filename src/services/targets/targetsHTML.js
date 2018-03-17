@@ -30,6 +30,20 @@ class TargetsHTML {
     this.getFilepath = this.getFilepath.bind(this);
   }
   /**
+   * Validate if a target HTML template exists or not.
+   * @param {Target} target The target information.
+   * @return {Object}
+   * @property {string}  path   The absolute path to the HTML template.
+   * @property {boolean} exists Whether or notthe HTML template exists.
+   */
+  validate(target) {
+    const htmlPath = path.join(target.paths.source, target.html.template);
+    return {
+      path: htmlPath,
+      exists: fs.pathExistsSync(htmlPath),
+    };
+  }
+  /**
    * Given a target, this method will validate if the target has an HTML template file and return
    * its absolute path; if the file doesn't exists, it will generate a new one, save it on the
    * temp directory and return its path.
@@ -37,8 +51,8 @@ class TargetsHTML {
    * @return {string}
    */
   getFilepath(target) {
-    const htmlPath = path.join(target.paths.source, target.html.template);
-    return fs.pathExistsSync(htmlPath) ? htmlPath : this._generateHTML(target);
+    const validation = this.validate(target);
+    return validation.exists ? validation.path : this._generateHTML(target);
   }
   /**
    * This method generates a default HTML file template for a target, saves it on the temp

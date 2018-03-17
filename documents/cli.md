@@ -14,7 +14,7 @@ It builds a target and moves it bundle to the distribution directory.
 projext build [target] [--type [type]] [--run]
 ```
 
-- **target:** The name of the target you intend to build.
+- **target:** The name of the target you intend to build. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
 - **type:** Which build type: `development` (default) or `production`.
 - **run:** Run the target after the build is completed. It only works when the build type is `development`.
 
@@ -25,7 +25,7 @@ If the target is a Node app, it will execute it, otherwise, it will bring up an 
 ```bash
 projext run [target]
 ```
-- **target:** The name of the target you intend to build and run.
+- **target:** The name of the target you intend to build and run. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
 
 > This is basically an alias of `projext build` that uses the `--run` flag by default.
 
@@ -36,6 +36,7 @@ Removes the files from previous builds from the distribution directory.
 ```bash
 projext clean [target]
 ```
+- **target:** The name of the target you intend to remove builds from. If no target is specified, the build directory will be deleted.
 
 > This gets automatically called when building if the target `cleanBeforeBuild` setting is `true`.
 
@@ -56,3 +57,14 @@ If the feature is enabled (check the project configuration document), this will 
 ```bash
 projext create-revision
 ```
+
+> This gets automatically called when building if the feature is configured to run when building.
+
+### Read the project settings
+
+It logs all the project settings on the console. You can also specify a directory-like path to access specific settings.
+
+```bash
+projext info [path]
+```
+- **path:** A directory-like path for an specific setting, for example: `targetsTemplates/browser/html`. If no path is specified, it will log all the project settings.

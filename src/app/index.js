@@ -36,6 +36,7 @@ const {
   cliBuildCommand,
   cliCleanCommand,
   cliCopyProjectFilesCommand,
+  cliInfoCommand,
   cliRevisionCommand,
   cliRunCommand,
   cliSHBuildCommand,
@@ -101,6 +102,7 @@ class Projext extends Jimple {
     this.register(cliBuildCommand);
     this.register(cliCleanCommand);
     this.register(cliCopyProjectFilesCommand);
+    this.register(cliInfoCommand);
     this.register(cliRevisionCommand);
     this.register(cliRunCommand);
     this.register(cliSHBuildCommand);
@@ -131,6 +133,7 @@ class Projext extends Jimple {
       this.get('cliRunCommand'),
       this.get('cliCleanCommand'),
       this.get('cliCopyProjectFilesCommand'),
+      this.get('cliInfoCommand'),
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),

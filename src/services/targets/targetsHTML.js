@@ -47,12 +47,13 @@ class TargetsHTML {
    * Given a target, this method will validate if the target has an HTML template file and return
    * its absolute path; if the file doesn't exists, it will generate a new one, save it on the
    * temp directory and return its path.
-   * @param {Target} target The target information.
+   * @param {Target}  target        The target information.
+   * @param {boolean} [force=false] Optional. If this is `true`, the file will be created anyways.
    * @return {string}
    */
-  getFilepath(target) {
+  getFilepath(target, force = false) {
     const validation = this.validate(target);
-    return validation.exists ? validation.path : this._generateHTML(target);
+    return validation.exists && !force ? validation.path : this._generateHTML(target);
   }
   /**
    * This method generates a default HTML file template for a target, saves it on the temp
@@ -102,7 +103,7 @@ class TargetsHTML {
 }
 /**
  * The service provider that once registered on the app container will create an instance of
- * `TargetsHTML` and set its `getFilepath` method as the `targetsHTML` service.
+ * `TargetsHTML` and set it as the `targetsHTML` service.
  * @example
  * // Register it on the container
  * container.register(targetsHTML);
@@ -114,7 +115,7 @@ const targetsHTML = provider((app) => {
   app.set('targetsHTML', () => new TargetsHTML(
     app.get('events'),
     app.get('tempFiles')
-  ).getFilepath);
+  ));
 });
 
 module.exports = {

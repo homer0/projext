@@ -1229,7 +1229,6 @@ describe('services/targets:targets', () => {
     const build = 'build-path';
     const validTargetName = 'charito';
     const invalidTargetName = 'something';
-    const type = 'browser';
     const projectConfiguration = {
       targets: {
         [validTargetName]: {

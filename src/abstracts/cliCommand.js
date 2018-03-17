@@ -25,6 +25,13 @@ class CLICommand {
      */
     this.description = '';
     /**
+     * A more complete description of the command to show when the command help interface is
+     * invoked.
+     * If left empty, it won't be used.
+     * @type {string}
+     */
+    this.fullDescription = '';
+    /**
      * A list with the name of the options the command supports. New options can be added using
      * the `addOption` method.
      * @type {Array}
@@ -62,6 +69,14 @@ class CLICommand {
      * @type {string}
      */
     this.cliName = '';
+    /**
+     * Once registered on the program, this property will hold a reference to the real command
+     * the program generates.
+     * @type {?Command}
+     * @ignore
+     * @access protected
+     */
+    this._command = null;
   }
   /**
    * Add a new option for the command.
@@ -104,6 +119,13 @@ class CLICommand {
    * @see https://yarnpkg.com/en/package/commander
    */
   register(program, cli) {
+    // Get the real name of the command.
+    const commandName = this.command.replace(/\[\w+\]/g, '').trim();
+    /**
+     * Set a listener on the program so when the command gets executed, the description will, if
+     * needed, change to the active one.
+     */
+    program.on(`command:${commandName}`, () => this._updateDescription());
     // Get the name of the program
     this.cliName = cli.name;
     const options = {};
@@ -137,6 +159,8 @@ class CLICommand {
     });
     // Add the handler for when the command gets executed.
     command.action(this._handle.bind(this));
+    // Save the reference
+    this._command = command;
   }
   /**
    * Generate an instruction for this command.
@@ -279,6 +303,22 @@ class CLICommand {
     newArgs.push(options);
     // Call the abstract method that handles the execution.
     this.handle(...newArgs);
+  }
+  /**
+   * This method gets called when the command is executed on the program and before reaching the
+   * handle method. It checks if the command has a different description for when it gets
+   * executed, and if needed, it switches it on the program.
+   * @ignore
+   * @access protected
+   */
+  _updateDescription() {
+    // If the command reference is available and there's a full description...
+    if (this._command && this.fullDescription) {
+      // ...normalize it by adding the indentation the program uses to show descriptions and help.
+      const normalizedDescription = this.fullDescription.replace(/\n/g, '\n  ');
+      // Change the command description.
+      this._command.description(normalizedDescription);
+    }
   }
 }
 

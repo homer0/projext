@@ -10,11 +10,12 @@ const CLICommand = require('../../abstracts/cliCommand');
 class CLISHValidateBuildCommand extends CLICommand {
   /**
    * Class constructor.
-   * @param {Logger}    appLogger To inform the user if something goes wrong.
-   * @param {Targets}   targets   To validate a target existence.
-   * @param {TempFiles} tempFiles To validate that the temp directory can be created.
+   * @param {Logger}      appLogger   To inform the user if something goes wrong.
+   * @param {Targets}     targets     To validate a target existence.
+   * @param {TargetsHTML} targetsHTML To validate a browser target HTML file.
+   * @param {TempFiles}   tempFiles   To validate that the temp directory can be created.
    */
-  constructor(appLogger, targets, tempFiles) {
+  constructor(appLogger, targets, targetsHTML, tempFiles) {
     super();
     /**
      * A local reference for the `appLogger` service.
@@ -26,6 +27,11 @@ class CLISHValidateBuildCommand extends CLICommand {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `targetsHTML` service.
+     * @type {TargetsHTML}
+     */
+    this.targetsHTML = targetsHTML;
     /**
      * A local reference for the `tempFiles` service.
      * @type {TempFiles}
@@ -91,6 +97,13 @@ class CLISHValidateBuildCommand extends CLICommand {
       );
     } else if (target.is.browser) {
       this.tempFiles.ensureDirectorySync();
+      const htmlStatus = this.targetsHTML.validate(target);
+      if (!htmlStatus.exists) {
+        this.appLogger.warning(
+          `The target '${name}' doesn't have an HTML template, projext will generate one for ` +
+          'this build, but it would be best for you to create'
+        );
+      }
     }
   }
 }
@@ -108,6 +121,7 @@ const cliSHValidateBuildCommand = provider((app) => {
   app.set('cliSHValidateBuildCommand', () => new CLISHValidateBuildCommand(
     app.get('appLogger'),
     app.get('targets'),
+    app.get('targetsHTML'),
     app.get('tempFiles')
   ));
 });

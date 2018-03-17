@@ -20,15 +20,17 @@ describe('services/cli:sh-validate-build', () => {
     // Given
     const appLogger = 'appLogger';
     const targets = 'targets';
+    const targetsHTML = 'targetsHTML';
     const tempFiles = 'tempFiles';
     let sut = null;
     // When
-    sut = new CLISHValidateBuildCommand(appLogger, targets, tempFiles);
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
     // Then
     expect(sut).toBeInstanceOf(CLISHValidateBuildCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.targets).toBe(targets);
+    expect(sut.targetsHTML).toBe(targetsHTML);
     expect(sut.tempFiles).toBe(tempFiles);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
@@ -64,12 +66,13 @@ describe('services/cli:sh-validate-build', () => {
     const targets = {
       getTarget: jest.fn(() => target),
     };
+    const targetsHTML = 'targetsHTML';
     const tempFiles = 'tempFiles';
     const run = false;
     const type = 'development';
     let sut = null;
     // When
-    sut = new CLISHValidateBuildCommand(appLogger, targets, tempFiles);
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
     sut.handle(targetName, null, { run, type });
     // Then
     expect(appLogger.warning).toHaveBeenCalledTimes(1);
@@ -90,12 +93,13 @@ describe('services/cli:sh-validate-build', () => {
     const targets = {
       getTarget: jest.fn(() => target),
     };
+    const targetsHTML = 'targetsHTML';
     const tempFiles = 'tempFiles';
     const run = false;
     const type = 'development';
     let sut = null;
     // When
-    sut = new CLISHValidateBuildCommand(appLogger, targets, tempFiles);
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
     sut.handle(targetName, null, { run, type });
     // Then
     expect(appLogger.warning).toHaveBeenCalledTimes(0);
@@ -114,6 +118,9 @@ describe('services/cli:sh-validate-build', () => {
     const targets = {
       getTarget: jest.fn(() => target),
     };
+    const targetsHTML = {
+      validate: jest.fn(() => ({ exists: true })),
+    };
     const tempFiles = {
       ensureDirectorySync: jest.fn(),
     };
@@ -121,10 +128,46 @@ describe('services/cli:sh-validate-build', () => {
     const type = 'development';
     let sut = null;
     // When
-    sut = new CLISHValidateBuildCommand(appLogger, targets, tempFiles);
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
     sut.handle(targetName, null, { run, type });
     // Then
     expect(tempFiles.ensureDirectorySync).toHaveBeenCalledTimes(1);
+    expect(targetsHTML.validate).toHaveBeenCalledTimes(1);
+    expect(targetsHTML.validate).toHaveBeenCalledWith(target);
+  });
+
+  it('should log a warning when a browser target doesn\'t have an HTML template', () => {
+    // Given
+    const appLogger = {
+      warning: jest.fn(),
+    };
+    const targetName = 'some-target';
+    const target = {
+      is: {
+        node: false,
+        browser: true,
+      },
+    };
+    const targets = {
+      getTarget: jest.fn(() => target),
+    };
+    const targetsHTML = {
+      validate: jest.fn(() => ({ exists: false })),
+    };
+    const tempFiles = {
+      ensureDirectorySync: jest.fn(),
+    };
+    const run = false;
+    const type = 'development';
+    let sut = null;
+    // When
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
+    sut.handle(targetName, null, { run, type });
+    // Then
+    expect(tempFiles.ensureDirectorySync).toHaveBeenCalledTimes(1);
+    expect(targetsHTML.validate).toHaveBeenCalledTimes(1);
+    expect(targetsHTML.validate).toHaveBeenCalledWith(target);
+    expect(appLogger.warning).toHaveBeenCalledTimes(1);
   });
 
   it('should validate the default target when no name is specified', () => {
@@ -142,12 +185,13 @@ describe('services/cli:sh-validate-build', () => {
     const targets = {
       getDefaultTarget: jest.fn(() => target),
     };
+    const targetsHTML = 'targetsHTML';
     const tempFiles = 'tempFiles';
     const run = false;
     const type = 'development';
     let sut = null;
     // When
-    sut = new CLISHValidateBuildCommand(appLogger, targets, tempFiles);
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
     sut.handle(null, null, { run, type });
     // Then
     expect(appLogger.warning).toHaveBeenCalledTimes(1);
@@ -173,6 +217,7 @@ describe('services/cli:sh-validate-build', () => {
     expect(sut).toBeInstanceOf(CLISHValidateBuildCommand);
     expect(sut.appLogger).toBe('appLogger');
     expect(sut.targets).toBe('targets');
+    expect(sut.targetsHTML).toBe('targetsHTML');
     expect(sut.tempFiles).toBe('tempFiles');
   });
 });

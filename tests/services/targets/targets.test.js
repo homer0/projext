@@ -978,6 +978,88 @@ describe('services/targets:targets', () => {
     expect(result).toEqual(expectedTarget);
   });
 
+  it('should get a target with an specific type as the default target', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const projectName = 'myAppForCharito';
+    const packageInfo = {
+      name: projectName,
+    };
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const source = 'source-path';
+    const build = 'build-path';
+    const targetName = 'charito';
+    const type = 'browser';
+    const projectConfiguration = {
+      targets: {
+        [projectName]: {
+          type: 'node',
+        },
+        [targetName]: {
+          type,
+        },
+        abc: {
+          type: 'node',
+        },
+      },
+      targetsTemplates: {
+        node: {
+          defaultTargetName: 'node',
+          hasFolder: true,
+        },
+        browser: {
+          hasFolder: false,
+        },
+      },
+      paths: {
+        source,
+        build,
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const expectedTarget = {
+      type,
+      name: targetName,
+      entry: {},
+      output: {},
+      originalOutput: {},
+      paths: {
+        source,
+        build,
+      },
+      folders: {
+        source,
+        build,
+      },
+      hasFolder: false,
+      is: {
+        node: false,
+        browser: true,
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.getDefaultTarget(type);
+    // Then
+    expect(result).toEqual(expectedTarget);
+  });
+
   it('should throw an error while trying to get the default target without having targets', () => {
     // Given
     const events = {
@@ -1009,6 +1091,89 @@ describe('services/targets:targets', () => {
     );
     // Then
     expect(() => sut.getDefaultTarget()).toThrow(/the project doesn't have any targets/i);
+  });
+
+  it('should throw an error while trying to get the default target with an specific type', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const type = 'browser';
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'node',
+        },
+        abc: {
+          type: 'node',
+        },
+      },
+      targetsTemplates: {
+        node: {
+          defaultTargetName: 'node',
+          hasFolder: true,
+        },
+      },
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    let sut = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    // Then
+    expect(() => sut.getDefaultTarget(type))
+    .toThrow(/the project doesn't have any targets of the required type/i);
+  });
+
+  it('should throw an error while trying to get the default target with an invalid type', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    let sut = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    // Then
+    expect(() => sut.getDefaultTarget('batman'))
+    .toThrow(/invalid target type/i);
   });
 
   it('should throw an error while trying to load a target with an invalid type', () => {
@@ -1048,6 +1213,60 @@ describe('services/targets:targets', () => {
       utils
     ))
     .toThrow(/invalid type/i);
+  });
+
+  it('should validate that a target exists', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const source = 'source-path';
+    const build = 'build-path';
+    const validTargetName = 'charito';
+    const invalidTargetName = 'something';
+    const type = 'browser';
+    const projectConfiguration = {
+      targets: {
+        [validTargetName]: {
+          type: 'node',
+        },
+      },
+      targetsTemplates: {
+        node: {
+          defaultTargetName: 'node',
+          hasFolder: true,
+        },
+      },
+      paths: {
+        source,
+        build,
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    let sut = null;
+    let validResult = null;
+    let invalidResult = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    validResult = sut.targetExists(validTargetName);
+    invalidResult = sut.targetExists(invalidTargetName);
+    // Then
+    expect(validResult).toBeTrue();
+    expect(invalidResult).toBeFalse();
   });
 
   it('should throw an error when trying to get a target that doesn\'t exist', () => {

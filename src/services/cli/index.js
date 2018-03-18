@@ -2,6 +2,7 @@ const { cliWithName, cli } = require('./cli');
 const { cliBuildCommand } = require('./cliBuild');
 const { cliCleanCommand } = require('./cliClean');
 const { cliCopyProjectFilesCommand } = require('./cliCopyProjectFiles');
+const { cliGenerateCommand } = require('./cliGenerate');
 const { cliInfoCommand } = require('./cliInfo');
 const { cliRevisionCommand } = require('./cliRevision');
 const { cliRunCommand } = require('./cliRun');
@@ -12,6 +13,7 @@ const { cliSHRunCommand } = require('./cliSHRun');
 const { cliSHTranspileCommand } = require('./cliSHTranspile');
 const { cliSHValidateBuildCommand } = require('./cliSHValidateBuild');
 const { cliSHValidateRunCommand } = require('./cliSHValidateRun');
+const cliGenerators = require('./generators');
 
 module.exports = {
   cliWithName,
@@ -19,6 +21,7 @@ module.exports = {
   cliBuildCommand,
   cliCleanCommand,
   cliCopyProjectFilesCommand,
+  cliGenerateCommand,
   cliInfoCommand,
   cliRevisionCommand,
   cliRunCommand,
@@ -29,4 +32,5 @@ module.exports = {
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
   cliSHValidateRunCommand,
+  cliGenerators,
 };

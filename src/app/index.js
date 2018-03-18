@@ -15,6 +15,7 @@ const {
   copier,
   events,
   plugins,
+  appPrompt,
   tempFiles,
   utils,
   versionUtils,
@@ -36,6 +37,7 @@ const {
   cliBuildCommand,
   cliCleanCommand,
   cliCopyProjectFilesCommand,
+  cliGenerateCommand,
   cliInfoCommand,
   cliRevisionCommand,
   cliRunCommand,
@@ -46,6 +48,7 @@ const {
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
   cliSHValidateRunCommand,
+  cliGenerators,
 } = require('../services/cli');
 
 const {
@@ -85,6 +88,7 @@ class Projext extends Jimple {
     this.register(copier);
     this.register(events);
     this.register(plugins('projext-plugin'));
+    this.register(appPrompt);
     this.register(tempFiles);
     this.register(utils);
     this.register(versionUtils);
@@ -102,6 +106,7 @@ class Projext extends Jimple {
     this.register(cliBuildCommand);
     this.register(cliCleanCommand);
     this.register(cliCopyProjectFilesCommand);
+    this.register(cliGenerateCommand);
     this.register(cliInfoCommand);
     this.register(cliRevisionCommand);
     this.register(cliRunCommand);
@@ -112,6 +117,8 @@ class Projext extends Jimple {
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
     this.register(cliSHValidateRunCommand);
+    this.register(cliGenerators.targetHTMLGenerator);
+    this.register(cliGenerators.projectConfigurationFileGenerator);
 
     this.register(babelConfiguration);
     this.register(projectConfiguration);
@@ -133,6 +140,7 @@ class Projext extends Jimple {
       this.get('cliRunCommand'),
       this.get('cliCleanCommand'),
       this.get('cliCopyProjectFilesCommand'),
+      this.get('cliGenerateCommand'),
       this.get('cliInfoCommand'),
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),

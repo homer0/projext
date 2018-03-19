@@ -89,6 +89,7 @@ describe('abstracts:CLICommand', () => {
       option: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -131,6 +132,7 @@ describe('abstracts:CLICommand', () => {
       option: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -181,6 +183,7 @@ describe('abstracts:CLICommand', () => {
       option: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -216,6 +219,7 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -250,6 +254,7 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -281,6 +286,7 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -315,6 +321,7 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -352,6 +359,7 @@ describe('abstracts:CLICommand', () => {
       option: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -394,6 +402,7 @@ describe('abstracts:CLICommand', () => {
       option: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -468,6 +477,7 @@ describe('abstracts:CLICommand', () => {
       option: jest.fn(() => program),
       action: jest.fn(() => program),
       on: jest.fn(),
+      allowUnknownOption: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -518,5 +528,87 @@ describe('abstracts:CLICommand', () => {
         [optionThree.name]: '',
       }
     );
+  });
+
+  it('should receive unknown options, normalize them and send them to the handle method', () => {
+    // Given
+    //
+    const unknownArgs = [
+      '--include=something',
+      '-i',
+      'somes',
+      '--exclude',
+      '--type',
+      'building',
+      '-x=y',
+      'ignored',
+    ];
+    // This is what the previous list would look like once normalized by Commander.
+    const normalizedUnknownArgs = [
+      '--include',
+      'something',
+      '-i',
+      'somes',
+      '--exclude',
+      '--type',
+      'building',
+      '-x',
+      '-=',
+      '-y',
+      'ignored',
+    ];
+    const program = {
+      command: jest.fn(() => program),
+      description: jest.fn(() => program),
+      option: jest.fn(() => program),
+      action: jest.fn(() => program),
+      on: jest.fn(),
+      allowUnknownOption: jest.fn(),
+      normalize: jest.fn(() => normalizedUnknownArgs),
+    };
+    const cli = {
+      name: 'some-program',
+    };
+    const command = 'test-command';
+    const description = 'Test description';
+    const allowUnknownOptions = true;
+    const handle = jest.fn();
+    const handlerArgs = [{}];
+    class Sut extends CLICommand {}
+    let sut = null;
+    let listener = null;
+    let handler = null;
+    const expectedUknownOptions = {
+      include: 'something',
+      i: 'somes',
+      exclude: true,
+      type: 'building',
+      x: 'y',
+    };
+    // When
+    sut = new Sut();
+    sut.command = command;
+    sut.description = description;
+    sut.allowUnknownOptions = allowUnknownOptions;
+    sut.handle = handle;
+    sut.register(program, cli);
+    [[, listener]] = program.on.mock.calls;
+    [[handler]] = program.action.mock.calls;
+    listener([], unknownArgs);
+    handler(...handlerArgs);
+    // Then
+    expect(sut.cliName).toBe(cli.name);
+    expect(program.command).toHaveBeenCalledTimes(1);
+    expect(program.command).toHaveBeenCalledWith(command, '', {});
+    expect(program.description).toHaveBeenCalledTimes(1);
+    expect(program.description).toHaveBeenCalledWith(description);
+    expect(program.action).toHaveBeenCalledTimes(1);
+    expect(program.action).toHaveBeenCalledWith(expect.any(Function));
+    expect(program.on).toHaveBeenCalledTimes(1);
+    expect(program.on).toHaveBeenCalledWith(`command:${command}`, expect.any(Function));
+    expect(program.normalize).toHaveBeenCalledTimes(1);
+    expect(program.normalize).toHaveBeenCalledWith(unknownArgs);
+    expect(handle).toHaveBeenCalledTimes(1);
+    expect(handle).toHaveBeenCalledWith({}, {}, expectedUknownOptions);
   });
 });

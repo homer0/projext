@@ -135,12 +135,19 @@ class Projext extends Jimple {
    * Starts projext CLI interface.
    */
   cli() {
+    // Get the `generate` command and register the available generators.
+    const generateCommand = this.get('cliGenerateCommand');
+    generateCommand.addGenerators([
+      this.get('projectConfigurationFileGenerator'),
+      this.get('targetHTMLGenerator'),
+    ]);
+    // Start the CLI with the available commands.
     this.get('cli').start([
       this.get('cliBuildCommand'),
       this.get('cliRunCommand'),
       this.get('cliCleanCommand'),
       this.get('cliCopyProjectFilesCommand'),
-      this.get('cliGenerateCommand'),
+      generateCommand,
       this.get('cliInfoCommand'),
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),

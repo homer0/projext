@@ -1,6 +1,8 @@
 const JimpleMock = require('/tests/mocks/jimple.mock');
+const CLIGeneratorSubCommandMock = require('/tests/mocks/cliGeneratorSubCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
+jest.mock('/src/abstracts/cliGeneratorSubCommand', () => CLIGeneratorSubCommandMock);
 jest.mock('fs-extra');
 jest.unmock('/src/services/cli/generators/targetHTML');
 
@@ -14,6 +16,7 @@ const {
 
 describe('services/cli/generators:html', () => {
   beforeEach(() => {
+    CLIGeneratorSubCommandMock.reset();
     fs.pathExistsSync.mockReset();
     fs.move.mockReset();
   });
@@ -34,6 +37,9 @@ describe('services/cli/generators:html', () => {
     );
     // Then
     expect(sut).toBeInstanceOf(TargetHTMLGenerator);
+    expect(sut.constructorMock).toHaveBeenCalledTimes(1);
+    expect(sut.resource).not.toBeEmptyString();
+    expect(sut.description).not.toBeEmptyString();
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.appPrompt).toBe(appPrompt);
     expect(sut.targets).toBe(targets);

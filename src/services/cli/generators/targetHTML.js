@@ -1,10 +1,14 @@
 const path = require('path');
 const fs = require('fs-extra');
 const { provider } = require('jimple');
+const CLIGeneratorSubCommand = require('../../../abstracts/cliGeneratorSubCommand');
 /**
- * This service allows you to generate an HTML file for a browser target.
+ * This is a CLI generator that allows the user to create an HTML file for a browser target.
+ * What it does is to force projext to create the default HTML file it would create if the target
+ * didn't have one and then it moves it to the target directory.
+ * @extends {CLIGeneratorSubCommand}
  */
-class TargetHTMLGenerator {
+class TargetHTMLGenerator extends CLIGeneratorSubCommand {
   /**
    * Class constructor.
    * @param {Logger}      appLogger   To inform the user when the file has been generated, or if
@@ -14,6 +18,7 @@ class TargetHTMLGenerator {
    * @param {TargetsHTML} targetsHTML To generate the HTML file.
    */
   constructor(appLogger, appPrompt, targets, targetsHTML) {
+    super();
     /**
      * A local reference for the `appLogger` service.
      * @type {Logger}
@@ -34,6 +39,12 @@ class TargetHTMLGenerator {
      * @type {TargetsHTML}
      */
     this.targetsHTML = targetsHTML;
+    /**
+     * The resource type the user will have to select on the CLI command that manages the
+     * generator.
+     * @type {string}
+     */
+    this.resource = 'html';
     /**
      * A short description of what the generator does.
      * @type {string}

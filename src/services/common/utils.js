@@ -1,3 +1,4 @@
+const extend = require('extend');
 const { provider } = require('jimple');
 /**
  * A set of generic utilities that can be used in any context.
@@ -58,6 +59,94 @@ class Utils {
       const before = str.substr(0, lastComma);
       const after = str.substr(lastComma + comma.length);
       result = `${before} ${conjunction} ${after}`;
+    }
+
+    return result;
+  }
+  /**
+   * Returns the value of an object property using a path.
+   * @example
+   * const obj = {
+   *   propOne: {
+   *     propOneSub: 'Charito!',
+   *   },
+   *   propTwo: '!!!',
+   * };
+   * console.log(Utils.getPropertyWithPath(
+   *   obj,
+   *   'propOne/propOneSub'
+   * ));
+   * // Will output `Charito!`
+   *
+   * @param {Object} obj                 The object from where the property will be read.
+   * @param {string} objPath             The path to the property.
+   * @param {string} [pathDelimiter='/'] The delimiter that will separate the path components.
+   * @return {*}
+   * @throws {Error} If the path is invalid.
+   */
+  static getPropertyWithPath(obj, objPath, pathDelimiter = '/') {
+    const parts = objPath.split(pathDelimiter);
+    const first = parts.shift();
+    let currentElement = obj[first];
+    if (typeof currentElement === 'undefined') {
+      throw new Error(`There's nothing on '${objPath}'`);
+    } else if (parts.length) {
+      let currentPath = first;
+      parts.forEach((currentPart) => {
+        currentPath += `/${currentPart}`;
+        currentElement = currentElement[currentPart];
+        if (typeof currentElement === 'undefined') {
+          throw new Error(`There's nothing on '${currentPath}'`);
+        }
+      });
+    }
+
+    return currentElement;
+  }
+  /**
+   * Deletes a property of an object using a path.
+   * @example
+   * const obj = {
+   *   propOne: {
+   *     propOneSub: 'Charito!',
+   *   },
+   *   propTwo: '!!!',
+   * };
+   * console.log(Utils.deletePropertyWithPath(
+   *   obj,
+   *   'propOne/propOneSub'
+   * ));
+   * // Will output `{ propTwo: '!!!' }`
+   *
+   * @param {Object}  obj                         The object from where the property will be
+   *                                              removed.
+   * @param {string}  objPath                     The path to the property.
+   * @param {String}  [pathDelimiter='/']         The delimiter that will separate the path
+   *                                              components.
+   * @param {Boolean} [cleanEmptyProperties=true] If this flag is `true` and after removing the
+   *                                              property the parent object is empty, it will
+   *                                              remove it recursively until a non empty parent
+   *                                              object is found.
+   * @return {Object} A copy of the original object with the removed property/properties.
+   */
+  static deletePropertyWithPath(obj, objPath, pathDelimiter = '/', cleanEmptyProperties = true) {
+    const parts = objPath.split(pathDelimiter);
+    const last = parts.pop();
+    let result = extend(true, {}, obj);
+    if (parts.length) {
+      const parentPath = parts.join(pathDelimiter);
+      const parentObj = Utils.getPropertyWithPath(result, parentPath, pathDelimiter);
+      delete parentObj[last];
+      if (cleanEmptyProperties && !Object.keys(parentObj).length) {
+        result = Utils.deletePropertyWithPath(
+          result,
+          parentPath,
+          pathDelimiter,
+          cleanEmptyProperties
+        );
+      }
+    } else {
+      delete result[last];
     }
 
     return result;

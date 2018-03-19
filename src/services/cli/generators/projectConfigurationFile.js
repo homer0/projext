@@ -9,7 +9,7 @@ class ProjectConfigurationFileGenerator {
   /**
    * Class constructor.
    * @param {Logger}                       appLogger            To inform the user when the file
-   *                                                            has been generated or if something
+   *                                                            has been generated, or if something
    *                                                            went wrong.
    * @param {Prompt}                       appPrompt            To ask the user the path to the
    *                                                            file.
@@ -47,7 +47,7 @@ class ProjectConfigurationFileGenerator {
      */
     this.utils = utils;
     /**
-     * A small description of what the generator does.
+     * A short description of what the generator does.
      * @type {string}
      */
     this.description = 'Generate a configuration based on what projext knows of your project';
@@ -114,7 +114,7 @@ class ProjectConfigurationFileGenerator {
       // Check if the file already exists.
       const exists = fs.pathExistsSync(filepath);
       let nextStep;
-      // If the file doesn't exists or if it exists but the user choose to overwrite it...
+      // If the file doesn't exist or if it exists but the user choose to overwrite it...
       if (!exists || (exists && results.overwrite)) {
         creating = true;
         // ...write the file.

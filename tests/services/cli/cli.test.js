@@ -66,6 +66,8 @@ describe('services/cli:program', () => {
     sut = new CLI(info);
     sut.start(commands);
     // Then
+    expect(commander.name).toHaveBeenCalledTimes(1);
+    expect(commander.name).toHaveBeenCalledWith(info.name);
     expect(commander.version).toHaveBeenCalledTimes(1);
     expect(commander.version).toHaveBeenCalledWith(
       info.version,

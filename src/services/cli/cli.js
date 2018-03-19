@@ -28,9 +28,8 @@ class CLI {
    * @param {Array<CLICommand>} commands A list of commands to register.
    */
   start(commands) {
-    // eslint-disable-next-line no-underscore-dangle
-    commander._name = this.name;
-    // Set the version and the description of the program.
+    // Set the name, version and the description of the program.
+    commander.name(this.name);
     commander.version(this.info.version, '-v, --version');
     commander.description(this.info.description);
     // Loop all the commands and register them.

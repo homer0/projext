@@ -16,77 +16,104 @@ describe('services/cli:generate', () => {
     CLICommandMock.reset();
   });
 
-  it('should be instantiated with all its dependencies', () => {
+  it('should be instantiated', () => {
     // Given
-    const projectConfigurationFileGenerator = 'projectConfigurationFileGenerator';
-    const targetHTMLGenerator = 'targetHTMLGenerator';
     let sut = null;
     // When
-    sut = new CLIGenerateCommand(projectConfigurationFileGenerator, targetHTMLGenerator);
+    sut = new CLIGenerateCommand();
     // Then
     expect(sut).toBeInstanceOf(CLIGenerateCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
-    expect(sut.generators.config).toBe(projectConfigurationFileGenerator);
-    expect(sut.generators.html).toBe(targetHTMLGenerator);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.fullDescription).not.toBeEmptyString();
   });
 
-  it('should call the configuration generator when executed', () => {
+  it('should register new generators', () => {
     // Given
-    const message = 'Done!';
-    const projectConfigurationFileGenerator = {
-      generate: jest.fn(() => message),
+    const generatorOne = {
+      resource: 'js',
+      description: 'generatorOneDescription',
+      getHelpInformation: jest.fn(() => generatorOne.description),
     };
-    const targetHTMLGenerator = 'targetHTMLGenerator';
+    const generatorTwo = {
+      resource: 'jsx',
+      description: 'generatorTwoDescription',
+      getHelpInformation: jest.fn(() => generatorTwo.description),
+    };
+    const generators = [generatorOne, generatorTwo];
+    let sut = null;
+    const expectedDescription = 'Generate a projext resource:' +
+      `${generatorOne.description}` +
+      `${generatorTwo.description}`;
+    // When
+    sut = new CLIGenerateCommand();
+    sut.addGenerators(generators);
+    // Then
+    expect(sut.generators[generatorOne.resource]).toEqual(generatorOne);
+    expect(generatorOne.getHelpInformation).toHaveBeenCalledTimes(1);
+    expect(sut.generators[generatorTwo.resource]).toEqual(generatorTwo);
+    expect(generatorTwo.getHelpInformation).toHaveBeenCalledTimes(1);
+    expect(sut.fullDescription).toBe(expectedDescription);
+  });
+
+  it('should call a generator when executed', () => {
+    // Given
+    const generatorOptions = {
+      target: {
+        instruction: '-t, --target [name]',
+      },
+      buildType: {
+        instruction: '-bt, --build-type [type]',
+        defaultValue: 'development',
+      },
+      run: {
+        instruction: '-r, --run',
+        defaultValue: false,
+      },
+    };
+    const message = 'Done!';
+    const generator = {
+      resource: 'js',
+      getHelpInformation: jest.fn(() => 'description'),
+      generate: jest.fn(() => message),
+      optionsByName: generatorOptions,
+      options: Object.keys(generatorOptions),
+    };
+    const unknownOptions = {
+      t: 'my-target',
+      r: true,
+      run: false,
+    };
     let sut = null;
     let result = null;
     // When
-    sut = new CLIGenerateCommand(projectConfigurationFileGenerator, targetHTMLGenerator);
-    result = sut.handle('config');
+    sut = new CLIGenerateCommand();
+    sut.addGenerators([generator]);
+    result = sut.handle(generator.resource, {}, {}, unknownOptions);
     // Then
     expect(result).toBe(message);
-    expect(projectConfigurationFileGenerator.generate).toHaveBeenCalledTimes(1);
-  });
-
-  it('should call the configuration generator when executed', () => {
-    // Given
-    const message = 'Done!';
-    const projectConfigurationFileGenerator = 'projectConfigurationFileGenerator';
-    const targetHTMLGenerator = {
-      generate: jest.fn(() => message),
-    };
-    let sut = null;
-    let result = null;
-    // When
-    sut = new CLIGenerateCommand(projectConfigurationFileGenerator, targetHTMLGenerator);
-    result = sut.handle('html');
-    // Then
-    expect(result).toBe(message);
-    expect(targetHTMLGenerator.generate).toHaveBeenCalledTimes(1);
+    expect(generator.generate).toHaveBeenCalledTimes(1);
+    expect(generator.generate).toHaveBeenCalledWith({
+      target: unknownOptions.t,
+      buildType: generatorOptions.buildType.defaultValue,
+      run: unknownOptions.r,
+    });
   });
 
   it('should throw an error when trying to generate an invalid resource', () => {
     // Given
-    const projectConfigurationFileGenerator = 'projectConfigurationFileGenerator';
-    const targetHTMLGenerator = 'targetHTMLGenerator';
     let sut = null;
     // When
-    sut = new CLIGenerateCommand(projectConfigurationFileGenerator, targetHTMLGenerator);
-    // Then
-    expect(() => sut.handle('lala')).toThrow(/invalid resource type/i);
-  });
-
-  it('should throw an error when executed without a resource type', () => {
-    // Given
-    const projectConfigurationFileGenerator = 'projectConfigurationFileGenerator';
-    const targetHTMLGenerator = 'targetHTMLGenerator';
-    let sut = null;
-    // When
-    sut = new CLIGenerateCommand(projectConfigurationFileGenerator, targetHTMLGenerator);
-    // Then
-    expect(() => sut.handle()).toThrow(/invalid resource type/i);
+    sut = new CLIGenerateCommand();
+    return sut.handle('lala')
+    .then(() => {
+      expect(true).toBeFalse();
+    })
+    .catch((result) => {
+      // Then
+      expect(result).toBeInstanceOf(Error);
+      expect(result.message).toMatch(/invalid resource type/i);
+    });
   });
 
   it('should include a provider for the DIC', () => {
@@ -94,7 +121,6 @@ describe('services/cli:generate', () => {
     let sut = null;
     const container = {
       set: jest.fn(),
-      get: jest.fn((service) => service),
     };
     let serviceName = null;
     let serviceFn = null;
@@ -106,7 +132,5 @@ describe('services/cli:generate', () => {
     expect(serviceName).toBe('cliGenerateCommand');
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(CLIGenerateCommand);
-    expect(sut.generators.config).toBe('projectConfigurationFileGenerator');
-    expect(sut.generators.html).toBe('targetHTMLGenerator');
   });
 });

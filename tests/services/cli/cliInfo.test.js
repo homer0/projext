@@ -23,14 +23,16 @@ describe('services/cli:info', () => {
     // Given
     const appLogger = 'appLogger';
     const projectConfiguration = 'projectConfiguration';
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration);
+    sut = new CLIInfoCommand(appLogger, projectConfiguration, utils);
     // Then
     expect(sut).toBeInstanceOf(CLIInfoCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.projectConfiguration).toBe(projectConfiguration);
+    expect(sut.utils).toBe(utils);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
   });
@@ -45,9 +47,10 @@ describe('services/cli:info', () => {
     const projectConfiguration = {
       hello: 'charito!',
     };
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration);
+    sut = new CLIInfoCommand(appLogger, projectConfiguration, utils);
     sut.handle();
     // Then
     expect(appLogger.success).toHaveBeenCalledTimes(1);
@@ -74,11 +77,16 @@ describe('services/cli:info', () => {
     const projectConfiguration = {
       [settingName]: 'charito!',
     };
+    const utils = {
+      getPropertyWithPath: jest.fn(() => projectConfiguration[settingName]),
+    };
     let sut = null;
     // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration);
+    sut = new CLIInfoCommand(appLogger, projectConfiguration, utils);
     sut.handle(settingName);
     // Then
+    expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+    expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, settingName);
     expect(appLogger.success).toHaveBeenCalledTimes(1);
     expect(appLogger.success).toHaveBeenCalledWith(
       expect.stringMatching(new RegExp(`showing '${settingName}'`, 'i'))
@@ -90,74 +98,6 @@ describe('services/cli:info', () => {
     });
     expect(sut.output).toHaveBeenCalledTimes(1);
     expect(sut.output).toHaveBeenCalledWith(message);
-  });
-
-  it('should log an specific setting using a path', () => {
-    // Given
-    const message = 'done';
-    util.inspect.mockReturnValueOnce(message);
-    const appLogger = {
-      success: jest.fn(),
-    };
-    const mainSettingName = 'hello';
-    const subSettingName = 'charito';
-    const settingPath = `${mainSettingName}/${subSettingName}`;
-    const projectConfiguration = {
-      [mainSettingName]: {
-        [subSettingName]: '!!!',
-      },
-    };
-    let sut = null;
-    // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration);
-    sut.handle(settingPath);
-    // Then
-    expect(appLogger.success).toHaveBeenCalledTimes(1);
-    expect(appLogger.success).toHaveBeenCalledWith(
-      expect.stringMatching(new RegExp(`showing '${settingPath}'`, 'i'))
-    );
-    expect(util.inspect).toHaveBeenCalledTimes(1);
-    expect(util.inspect).toHaveBeenCalledWith(
-      projectConfiguration[mainSettingName][subSettingName],
-      {
-        colors: true,
-        depth: 7,
-      }
-    );
-    expect(sut.output).toHaveBeenCalledTimes(1);
-    expect(sut.output).toHaveBeenCalledWith(message);
-  });
-
-  it('should throw an error if an specified setting doesn\'t exists', () => {
-    // Given
-    const appLogger = 'appLogger';
-    const projectConfiguration = {};
-    const settingName = 'hello';
-    let sut = null;
-    // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration);
-    // Then
-    expect(() => sut.handle(settingName))
-    .toThrow(new RegExp(`There are no settings on the path '${settingName}'`));
-  });
-
-  it('should throw an error if a setting can\'t be found on a path', () => {
-    // Given
-    const appLogger = 'appLogger';
-    const mainSettingName = 'hello';
-    const subSettingName = 'charito';
-    const settingPath = `${mainSettingName}/${subSettingName}/something`;
-    const projectConfiguration = {
-      [mainSettingName]: {
-        [subSettingName]: '!!!',
-      },
-    };
-    let sut = null;
-    // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration);
-    // Then
-    expect(() => sut.handle(settingPath))
-    .toThrow(new RegExp(`There are no settings on the path '${settingPath}'`));
   });
 
   it('should include a provider for the DIC', () => {
@@ -185,5 +125,6 @@ describe('services/cli:info', () => {
     expect(sut).toBeInstanceOf(CLIInfoCommand);
     expect(sut.appLogger).toBe('appLogger');
     expect(sut.projectConfiguration).toBe('projectConfiguration');
+    expect(sut.utils).toBe('utils');
   });
 });

@@ -11,8 +11,10 @@ class CLIInfoCommand extends CLICommand {
    * @param {Logger}                       appLogger            To log the configuration on the
    *                                                            console.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the configuration.
+   * @param {Utils}                        utils                To navigate the configuration using
+   *                                                            paths.
    */
-  constructor(appLogger, projectConfiguration) {
+  constructor(appLogger, projectConfiguration, utils) {
     super();
     /**
      * A local reference for the `appLogger` service.
@@ -24,6 +26,11 @@ class CLIInfoCommand extends CLICommand {
      * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
     /**
      * The instruction needed to trigger the command.
      * @type {string}
@@ -37,38 +44,25 @@ class CLIInfoCommand extends CLICommand {
       'You can use a directory-like (/) path to see specific settings';
   }
   /**
-   * Handle the execution of the command and shows the project configuration..
+   * Handle the execution of the command and shows the project configuration.
    * @param {?string} path The path to specific settings.
    */
   handle(path) {
     let title;
     let settings;
+    // If a path has been specified...
     if (path) {
+      // ...use the `utils` service to get the settings on that path.
       title = `Showing '${path}'`;
-      const parts = path.split('/');
-      const first = parts.shift();
-      let currentSetting = this.projectConfiguration[first];
-      if (typeof currentSetting === 'undefined') {
-        throw new Error(`There are no settings on the path '${path}'`);
-      } else if (parts.length) {
-        let currentPath = first;
-        for (let i = 0; i < parts.length; i++) {
-          const currentPart = parts[i];
-          currentPath += `/${currentPart}`;
-          currentSetting = currentSetting[currentPart];
-          if (typeof currentSetting === 'undefined') {
-            throw new Error(`There are no settings on the path '${currentPath}'`);
-          }
-        }
-      }
-
-      settings = currentSetting;
+      settings = this.utils.getPropertyWithPath(this.projectConfiguration, path);
     } else {
+      // ...otherwise, show everything.
       title = 'Showing all the project settings';
       settings = this.projectConfiguration;
     }
-
+    // Inform the user of what's going to be shown.
     this.appLogger.success(title);
+    // Log the selected settings.
     this.output(util.inspect(settings, {
       colors: true,
       depth: 7,
@@ -88,7 +82,8 @@ class CLIInfoCommand extends CLICommand {
 const cliInfoCommand = provider((app) => {
   app.set('cliInfoCommand', () => new CLIInfoCommand(
     app.get('appLogger'),
-    app.get('projectConfiguration').getConfig()
+    app.get('projectConfiguration').getConfig(),
+    app.get('utils')
   ));
 });
 

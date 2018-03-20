@@ -423,6 +423,138 @@ describe('services/common:utils', () => {
     });
   });
 
+  describe('setPropertyWithPath', () => {
+    it('should insert a property on an object', () => {
+      // Given
+      const obj = {
+        defineOn: 'process.env.VERSION',
+        environmentVariable: 'VERSION',
+        revision: {
+          enabled: false,
+          copy: true,
+          filename: 'revision',
+          createRevisionOnBuild: {
+            enabled: true,
+            onlyOnProduction: true,
+            targets: [],
+          },
+        },
+      };
+      const cases = [
+        {
+          path: 'appVersion',
+          value: 'development',
+          expected: {
+            appVersion: 'development',
+            defineOn: obj.defineOn,
+            environmentVariable: obj.environmentVariable,
+            revision: obj.revision,
+          },
+        },
+        {
+          path: 'copy/enabled',
+          value: true,
+          expected: {
+            copy: {
+              enabled: true,
+            },
+            defineOn: obj.defineOn,
+            environmentVariable: obj.environmentVariable,
+            revision: obj.revision,
+          },
+        },
+        {
+          path: 'revision/createRevisionOnBuild/node',
+          value: {
+            version: 'current',
+            npm: '> 3',
+          },
+          expected: {
+            defineOn: obj.defineOn,
+            environmentVariable: obj.environmentVariable,
+            revision: {
+              enabled: obj.revision.enabled,
+              copy: obj.revision.copy,
+              filename: obj.revision.filename,
+              createRevisionOnBuild: {
+                enabled: obj.revision.createRevisionOnBuild.enabled,
+                onlyOnProduction: obj.revision.createRevisionOnBuild.onlyOnProduction,
+                targets: obj.revision.createRevisionOnBuild.targets,
+                node: {
+                  version: 'current',
+                  npm: '> 3',
+                },
+              },
+            },
+          },
+        },
+        {
+          path: 'revision,enabled',
+          value: false,
+          expected: {
+            defineOn: obj.defineOn,
+            environmentVariable: obj.environmentVariable,
+            revision: {
+              enabled: false,
+              copy: obj.revision.copy,
+              filename: obj.revision.filename,
+              createRevisionOnBuild: obj.revision.createRevisionOnBuild,
+            },
+          },
+          delimiter: ',',
+        },
+      ];
+      let results = null;
+      // When
+      results = cases.map((info) => {
+        const caseArgs = [obj, info.path, info.value];
+        if (info.delimiter) {
+          caseArgs.push(info.delimiter);
+        }
+
+        return Utils.setPropertyWithPath(...caseArgs);
+      });
+      // Then
+      results.forEach((result, index) => {
+        const info = cases[index];
+        expect(result).toEqual(info.expected);
+      });
+    });
+
+    it('should throw an error when trying to set a value on a non object property', () => {
+      // Given
+      const obj = {
+        defineOn: 'process.env.VERSION',
+        environmentVariable: 'VERSION',
+        revision: {
+          enabled: false,
+          copy: true,
+          filename: 'revision',
+          createRevisionOnBuild: {
+            enabled: true,
+            onlyOnProduction: true,
+            targets: [],
+          },
+        },
+      };
+      const cases = [
+        {
+          path: 'defineOn/property',
+          expected: /element of type 'string' on 'defineOn'/i,
+        },
+        {
+          path: 'revision/createRevisionOnBuild/targets/property',
+          expected: /element of type 'array' on 'revision\/createRevisionOnBuild\/targets'/i,
+        },
+      ];
+      // When/Then
+      cases.forEach((info) => {
+        expect(() => Utils.setPropertyWithPath(obj, info.path, 'value'))
+        .toThrow(info.expected);
+      });
+    });
+  });
+
   it('should include a provider for the DIC', () => {
     // Given
     const container = {

@@ -151,6 +151,44 @@ class Utils {
 
     return result;
   }
+  /**
+   * Sets a property on an object using a path. If the path doesn't exist, it will be created.
+   * @example
+   * const obj = {};
+   * console.log(Utils.setPropertyWithPath(obj, 'some/prop/path', 'some-value'));
+   * // Will output `{ some: { prop: { path: 'some-value' } } }`
+   *
+   * @param {Object} obj                 The object where the property will be set.
+   * @param {string} objPath             The path for the property.
+   * @param {*}      value               The value to set on the property.
+   * @param {string} [pathDelimiter='/'] The delimiter that will separate the path components.
+   * @return {Object} A copy of the original object with the added property/properties.
+   */
+  static setPropertyWithPath(obj, objPath, value, pathDelimiter = '/') {
+    const result = extend(true, {}, obj);
+    const parts = objPath.split(pathDelimiter);
+    const last = parts.pop();
+    let currentElement = result;
+    let currentPath = '';
+    parts.forEach((part) => {
+      currentPath += `/${part}`;
+      const element = currentElement[part];
+      const elementType = typeof element;
+      if (elementType === 'undefined') {
+        currentElement[part] = {};
+        currentElement = currentElement[part];
+      } else if (elementType === 'object' && !Array.isArray(element)) {
+        currentElement = currentElement[part];
+      } else {
+        const type = elementType === 'object' ? 'array' : elementType;
+        const errorPath = currentPath.substr(1);
+        throw new Error(`There's already an element of type '${type}' on '${errorPath}'`);
+      }
+    });
+
+    currentElement[last] = value;
+    return result;
+  }
 }
 /**
  * The service provider that once registered on the app container will set a reference of

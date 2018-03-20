@@ -1,6 +1,8 @@
 const JimpleMock = require('/tests/mocks/jimple.mock');
+const CLIGeneratorSubCommandMock = require('/tests/mocks/cliGeneratorSubCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
+jest.mock('/src/abstracts/cliGeneratorSubCommand', () => CLIGeneratorSubCommandMock);
 jest.mock('fs-extra');
 jest.unmock('/src/services/cli/generators/projectConfigurationFile');
 
@@ -14,6 +16,7 @@ const {
 
 describe('services/cli/generators:config', () => {
   beforeEach(() => {
+    CLIGeneratorSubCommandMock.reset();
     fs.pathExistsSync.mockReset();
     fs.writeFile.mockReset();
   });
@@ -36,6 +39,9 @@ describe('services/cli/generators:config', () => {
     );
     // Then
     expect(sut).toBeInstanceOf(ProjectConfigurationFileGenerator);
+    expect(sut.constructorMock).toHaveBeenCalledTimes(1);
+    expect(sut.resource).not.toBeEmptyString();
+    expect(sut.description).not.toBeEmptyString();
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.appPrompt).toBe(appPrompt);
     expect(sut.pathUtils).toBe(pathUtils);
@@ -43,7 +49,7 @@ describe('services/cli/generators:config', () => {
     expect(sut.utils).toBe(utils);
   });
 
-  it('should generate a configuration file', () => {
+  it('should generate a configuration file with the targets information', () => {
     // Given
     fs.pathExistsSync.mockReturnValueOnce(false);
     fs.writeFile.mockImplementationOnce(() => Promise.resolve());
@@ -61,43 +67,41 @@ describe('services/cli/generators:config', () => {
       join: jest.fn((rest) => rest),
     };
     const projectConfiguration = {
-      targetsTemplates: {
-        brower: {
+      targets: {
+        targetOne: {
           type: 'browser',
           some: 'va\'l\'ue',
         },
-        node: {
+        targetTwo: {
           type: 'node',
           something: 'else',
         },
       },
-      files: [
-        'a.js',
-        'b.html',
-        'c.css',
-      ],
+      targetsTemplates: {
+        browser: {},
+        node: {},
+      },
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     let sut = null;
     const expectedConfiguration = 'module.exports = ' +
       '{\n' +
-      '  targetsTemplates: {\n' +
-      '    brower: {\n' +
+      '  targets: {\n' +
+      '    targetOne: {\n' +
       '      type: \'browser\',\n' +
       '      some: \'va\\\'l\\\'ue\',\n' +
       '    },\n' +
-      '    node: {\n' +
+      '    targetTwo: {\n' +
       '      type: \'node\',\n' +
       '      something: \'else\',\n' +
       '    },\n' +
       '  },\n' +
-      '  files: [\n' +
-      '    \'a.js\',\n' +
-      '    \'b.html\',\n' +
-      '    \'c.css\',\n' +
-      '  ],\n' +
       '};\n';
     // When
     sut = new ProjectConfigurationFileGenerator(
@@ -138,6 +142,563 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+        {},
+        'targets',
+        projectConfiguration.targets
+      );
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(appLogger.success).toHaveBeenCalledTimes(1);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
+  });
+
+  it('should generate a configuration file with specific settings', () => {
+    // Given
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.writeFile.mockImplementationOnce(() => Promise.resolve());
+    const appLogger = {
+      success: jest.fn(),
+    };
+    const input = {
+      filename: 'projext.config.js',
+      overwrite: true,
+    };
+    const appPrompt = {
+      ask: jest.fn(() => Promise.resolve(input)),
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'browser',
+        },
+      },
+      targetsTemplates: {
+        browser: {
+          html: {
+            template: 'index.html',
+          },
+        },
+        node: {
+          bundle: false,
+        },
+      },
+    };
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targetsTemplates.browser),
+      setPropertyWithPath: jest.fn(() => ({
+        targetsTemplates: {
+          browser: projectConfiguration.targetsTemplates.browser,
+        },
+      })),
+    };
+    const options = {
+      include: 'targetsTemplates/browser',
+    };
+    let sut = null;
+    const expectedConfiguration = 'module.exports = ' +
+      '{\n' +
+      '  targetsTemplates: {\n' +
+      '    browser: {\n' +
+      '      html: {\n' +
+      '        template: \'index.html\',\n' +
+      '      },\n' +
+      '    },\n' +
+      '  },\n' +
+      '};\n';
+    // When
+    sut = new ProjectConfigurationFileGenerator(
+      appLogger,
+      appPrompt,
+      pathUtils,
+      projectConfiguration,
+      utils
+    );
+    return sut.generate(options)
+    .then(() => {
+      // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
+      expect(appPrompt.ask).toHaveBeenCalledTimes(1);
+      expect(appPrompt.ask).toHaveBeenCalledWith({
+        filename: {
+          default: 'projext.config.js',
+          description: expect.any(String),
+          message: expect.any(String),
+          required: true,
+          conform: expect.any(Function),
+          before: expect.any(Function),
+        },
+        overwrite: {
+          type: 'boolean',
+          default: 'yes',
+          description: expect.any(String),
+          required: true,
+          ask: expect.any(Function),
+        },
+      });
+      expect(pathUtils.join).toHaveBeenCalledTimes(1);
+      expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(
+        projectConfiguration,
+        options.include
+      );
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+        {},
+        options.include,
+        projectConfiguration.targetsTemplates.browser
+      );
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(appLogger.success).toHaveBeenCalledTimes(1);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
+  });
+
+  it('should generate a configuration file with multiple specific settings', () => {
+    // Given
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.writeFile.mockImplementationOnce(() => Promise.resolve());
+    const appLogger = {
+      success: jest.fn(),
+    };
+    const input = {
+      filename: 'projext.config.js',
+      overwrite: true,
+    };
+    const appPrompt = {
+      ask: jest.fn(() => Promise.resolve(input)),
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {};
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn((obj, objPath) => objPath),
+      setPropertyWithPath: jest.fn((obj, objPath) => {
+        const newObj = Object.assign({}, obj);
+        if (!newObj.paths) {
+          newObj.paths = [];
+        }
+        newObj.paths.push(objPath);
+        return newObj;
+      }),
+    };
+    const paths = [
+      'some-property',
+      'some/other/path',
+      'and/another',
+    ];
+    const options = {
+      include: paths.join(','),
+    };
+    let sut = null;
+    const expectedPathsObjects = paths
+    .map((pathInfo) => `    '${pathInfo}',\n`)
+    .join('');
+    const expectedConfiguration = 'module.exports = ' +
+      '{\n' +
+      '  paths: [\n' +
+      `${expectedPathsObjects}` +
+      '  ],\n' +
+      '};\n';
+    // When
+    sut = new ProjectConfigurationFileGenerator(
+      appLogger,
+      appPrompt,
+      pathUtils,
+      projectConfiguration,
+      utils
+    );
+    return sut.generate(options)
+    .then(() => {
+      // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
+      expect(appPrompt.ask).toHaveBeenCalledTimes(1);
+      expect(appPrompt.ask).toHaveBeenCalledWith({
+        filename: {
+          default: 'projext.config.js',
+          description: expect.any(String),
+          message: expect.any(String),
+          required: true,
+          conform: expect.any(Function),
+          before: expect.any(Function),
+        },
+        overwrite: {
+          type: 'boolean',
+          default: 'yes',
+          description: expect.any(String),
+          required: true,
+          ask: expect.any(Function),
+        },
+      });
+      expect(pathUtils.join).toHaveBeenCalledTimes(1);
+      expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(paths.length);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(paths.length);
+      paths.forEach((pathInfo) => {
+        expect(utils.getPropertyWithPath).toHaveBeenCalledWith(
+          projectConfiguration,
+          pathInfo
+        );
+        expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+          expect.any(Object),
+          pathInfo,
+          pathInfo
+        );
+      });
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(appLogger.success).toHaveBeenCalledTimes(1);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
+  });
+
+  it('should generate a configuration file with all the settings', () => {
+    // Given
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.writeFile.mockImplementationOnce(() => Promise.resolve());
+    const appLogger = {
+      success: jest.fn(),
+    };
+    const input = {
+      filename: 'projext.config.js',
+      overwrite: true,
+    };
+    const appPrompt = {
+      ask: jest.fn(() => Promise.resolve(input)),
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {
+      targetsTemplates: {
+        browser: {
+          type: 'browser',
+          some: 'va\'l\'ue',
+        },
+        node: {
+          type: 'node',
+          something: 'else',
+        },
+      },
+      files: [
+        'a.js',
+        'b.html',
+        'c.css',
+      ],
+    };
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+    };
+    const options = {
+      all: true,
+    };
+    let sut = null;
+    const expectedConfiguration = 'module.exports = ' +
+      '{\n' +
+      '  targetsTemplates: {\n' +
+      '    browser: {\n' +
+      '      type: \'browser\',\n' +
+      '      some: \'va\\\'l\\\'ue\',\n' +
+      '    },\n' +
+      '    node: {\n' +
+      '      type: \'node\',\n' +
+      '      something: \'else\',\n' +
+      '    },\n' +
+      '  },\n' +
+      '  files: [\n' +
+      '    \'a.js\',\n' +
+      '    \'b.html\',\n' +
+      '    \'c.css\',\n' +
+      '  ],\n' +
+      '};\n';
+    // When
+    sut = new ProjectConfigurationFileGenerator(
+      appLogger,
+      appPrompt,
+      pathUtils,
+      projectConfiguration,
+      utils
+    );
+    return sut.generate(options)
+    .then(() => {
+      // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
+      expect(appPrompt.ask).toHaveBeenCalledTimes(1);
+      expect(appPrompt.ask).toHaveBeenCalledWith({
+        filename: {
+          default: 'projext.config.js',
+          description: expect.any(String),
+          message: expect.any(String),
+          required: true,
+          conform: expect.any(Function),
+          before: expect.any(Function),
+        },
+        overwrite: {
+          type: 'boolean',
+          default: 'yes',
+          description: expect.any(String),
+          required: true,
+          ask: expect.any(Function),
+        },
+      });
+      expect(pathUtils.join).toHaveBeenCalledTimes(1);
+      expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(appLogger.success).toHaveBeenCalledTimes(1);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
+  });
+
+  it('should generate a configuration file with all the settings excluding some of them', () => {
+    // Given
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.writeFile.mockImplementationOnce(() => Promise.resolve());
+    const appLogger = {
+      success: jest.fn(),
+    };
+    const input = {
+      filename: 'projext.config.js',
+      overwrite: true,
+    };
+    const appPrompt = {
+      ask: jest.fn(() => Promise.resolve(input)),
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {
+      targetsTemplates: {
+        browser: {
+          type: 'browser',
+          some: 'va\'l\'ue',
+        },
+        node: {
+          type: 'node',
+          something: 'else',
+        },
+      },
+      files: [
+        'a.js',
+        'b.html',
+        'c.css',
+      ],
+    };
+    const options = {
+      all: true,
+      exclude: 'files',
+    };
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+      deletePropertyWithPath: jest.fn((obj) => {
+        const newObj = Object.assign({}, obj);
+        delete newObj[options.exclude];
+        return newObj;
+      }),
+    };
+    let sut = null;
+    const expectedConfiguration = 'module.exports = ' +
+      '{\n' +
+      '  targetsTemplates: {\n' +
+      '    browser: {\n' +
+      '      type: \'browser\',\n' +
+      '      some: \'va\\\'l\\\'ue\',\n' +
+      '    },\n' +
+      '    node: {\n' +
+      '      type: \'node\',\n' +
+      '      something: \'else\',\n' +
+      '    },\n' +
+      '  },\n' +
+      '};\n';
+    // When
+    sut = new ProjectConfigurationFileGenerator(
+      appLogger,
+      appPrompt,
+      pathUtils,
+      projectConfiguration,
+      utils
+    );
+    return sut.generate(options)
+    .then(() => {
+      // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
+      expect(appPrompt.ask).toHaveBeenCalledTimes(1);
+      expect(appPrompt.ask).toHaveBeenCalledWith({
+        filename: {
+          default: 'projext.config.js',
+          description: expect.any(String),
+          message: expect.any(String),
+          required: true,
+          conform: expect.any(Function),
+          before: expect.any(Function),
+        },
+        overwrite: {
+          type: 'boolean',
+          default: 'yes',
+          description: expect.any(String),
+          required: true,
+          ask: expect.any(Function),
+        },
+      });
+      expect(pathUtils.join).toHaveBeenCalledTimes(1);
+      expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.deletePropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.deletePropertyWithPath).toHaveBeenCalledWith(
+        projectConfiguration,
+        options.exclude
+      );
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(appLogger.success).toHaveBeenCalledTimes(1);
+    })
+    .catch(() => {
+      expect(true).toBeFalse();
+    });
+  });
+
+  it('should generate a configuration file excluding specific settings', () => {
+    // Given
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.writeFile.mockImplementationOnce(() => Promise.resolve());
+    const appLogger = {
+      success: jest.fn(),
+    };
+    const input = {
+      filename: 'projext.config.js',
+      overwrite: true,
+    };
+    const appPrompt = {
+      ask: jest.fn(() => Promise.resolve(input)),
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {};
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+      deletePropertyWithPath: jest.fn((obj, objPath) => {
+        const newObj = Object.assign({}, obj);
+        if (!newObj.paths) {
+          newObj.paths = [];
+        }
+        newObj.paths.push(objPath);
+        return newObj;
+      }),
+    };
+    const paths = [
+      'some-property',
+      'some/other/path',
+      'and/another',
+    ];
+    const options = {
+      all: true,
+      exclude: paths.join(','),
+    };
+    let sut = null;
+    const expectedPathsObjects = paths
+    .map((pathInfo) => `    '${pathInfo}',\n`)
+    .join('');
+    const expectedConfiguration = 'module.exports = ' +
+      '{\n' +
+      '  paths: [\n' +
+      `${expectedPathsObjects}` +
+      '  ],\n' +
+      '};\n';
+    // When
+    sut = new ProjectConfigurationFileGenerator(
+      appLogger,
+      appPrompt,
+      pathUtils,
+      projectConfiguration,
+      utils
+    );
+    return sut.generate(options)
+    .then(() => {
+      // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
+      expect(appPrompt.ask).toHaveBeenCalledTimes(1);
+      expect(appPrompt.ask).toHaveBeenCalledWith({
+        filename: {
+          default: 'projext.config.js',
+          description: expect.any(String),
+          message: expect.any(String),
+          required: true,
+          conform: expect.any(Function),
+          before: expect.any(Function),
+        },
+        overwrite: {
+          type: 'boolean',
+          default: 'yes',
+          description: expect.any(String),
+          required: true,
+          ask: expect.any(Function),
+        },
+      });
+      expect(pathUtils.join).toHaveBeenCalledTimes(1);
+      expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+      expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.deletePropertyWithPath).toHaveBeenCalledTimes(paths.length);
+      expect(utils.deletePropertyWithPath).toHaveBeenCalledTimes(paths.length);
+      paths.forEach((pathInfo) => {
+        expect(utils.deletePropertyWithPath).toHaveBeenCalledWith(
+          expect.any(Object),
+          pathInfo
+        );
+      });
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
@@ -165,43 +726,41 @@ describe('services/cli/generators:config', () => {
       join: jest.fn((rest) => rest),
     };
     const projectConfiguration = {
-      targetsTemplates: {
-        brower: {
+      targets: {
+        targetOne: {
           type: 'browser',
           some: 'va\'l\'ue',
         },
-        node: {
+        targetTwo: {
           type: 'node',
           something: 'else',
         },
       },
-      files: [
-        'a.js',
-        'b.html',
-        'c.css',
-      ],
+      targetsTemplates: {
+        browser: {},
+        node: {},
+      },
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     let sut = null;
     const expectedConfiguration = 'module.exports = ' +
       '{\n' +
-      '  targetsTemplates: {\n' +
-      '    brower: {\n' +
+      '  targets: {\n' +
+      '    targetOne: {\n' +
       '      type: \'browser\',\n' +
       '      some: \'va\\\'l\\\'ue\',\n' +
       '    },\n' +
-      '    node: {\n' +
+      '    targetTwo: {\n' +
       '      type: \'node\',\n' +
       '      something: \'else\',\n' +
       '    },\n' +
       '  },\n' +
-      '  files: [\n' +
-      '    \'a.js\',\n' +
-      '    \'b.html\',\n' +
-      '    \'c.css\',\n' +
-      '  ],\n' +
       '};\n';
     // When
     sut = new ProjectConfigurationFileGenerator(
@@ -242,6 +801,14 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+        {},
+        'targets',
+        projectConfiguration.targets
+      );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
@@ -268,9 +835,28 @@ describe('services/cli/generators:config', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const projectConfiguration = 'projectConfiguration';
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'browser',
+          some: 'va\'l\'ue',
+        },
+        targetTwo: {
+          type: 'node',
+          something: 'else',
+        },
+      },
+      targetsTemplates: {
+        browser: {},
+        node: {},
+      },
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     let sut = null;
     // When
@@ -284,6 +870,12 @@ describe('services/cli/generators:config', () => {
     return sut.generate()
     .then(() => {
       // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
       expect(appPrompt.ask).toHaveBeenCalledTimes(1);
       expect(appPrompt.ask).toHaveBeenCalledWith({
         filename: {
@@ -306,6 +898,14 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+        {},
+        'targets',
+        projectConfiguration.targets
+      );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
       expect(appLogger.success).toHaveBeenCalledTimes(0);
     })
@@ -325,10 +925,31 @@ describe('services/cli/generators:config', () => {
     const appPrompt = {
       ask: jest.fn(() => Promise.reject(error)),
     };
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'browser',
+          some: 'va\'l\'ue',
+        },
+        targetTwo: {
+          type: 'node',
+          something: 'else',
+        },
+      },
+      targetsTemplates: {
+        browser: {},
+        node: {},
+      },
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     let sut = null;
     // When
@@ -342,6 +963,12 @@ describe('services/cli/generators:config', () => {
     return sut.generate()
     .then(() => {
       // Then
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
       expect(appPrompt.ask).toHaveBeenCalledTimes(1);
       expect(appPrompt.ask).toHaveBeenCalledWith({
         filename: {
@@ -360,7 +987,16 @@ describe('services/cli/generators:config', () => {
           ask: expect.any(Function),
         },
       });
+      expect(pathUtils.join).toHaveBeenCalledTimes(0);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+        {},
+        'targets',
+        projectConfiguration.targets
+      );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
       expect(appLogger.success).toHaveBeenCalledTimes(0);
     })
@@ -381,10 +1017,31 @@ describe('services/cli/generators:config', () => {
     const appPrompt = {
       ask: jest.fn(() => Promise.reject(error)),
     };
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'browser',
+          some: 'va\'l\'ue',
+        },
+        targetTwo: {
+          type: 'node',
+          something: 'else',
+        },
+      },
+      targetsTemplates: {
+        browser: {},
+        node: {},
+      },
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     let sut = null;
     // When
@@ -402,6 +1059,12 @@ describe('services/cli/generators:config', () => {
     .catch((result) => {
       // Then
       expect(result).toBe(error);
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
+      expect(utils.humanReadableList).toHaveBeenCalledWith([
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ].map((file) => `'${file}'`));
       expect(appPrompt.ask).toHaveBeenCalledTimes(1);
       expect(appPrompt.ask).toHaveBeenCalledWith({
         filename: {
@@ -420,13 +1083,75 @@ describe('services/cli/generators:config', () => {
           ask: expect.any(Function),
         },
       });
+      expect(pathUtils.join).toHaveBeenCalledTimes(0);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
+      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
+      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
+        {},
+        'targets',
+        projectConfiguration.targets
+      );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
       expect(appLogger.success).toHaveBeenCalledTimes(0);
       expect(appLogger.error).toHaveBeenCalledTimes(1);
       expect(appLogger.error).toHaveBeenCalledWith(
         expect.stringMatching(/there was an error while generating the configuration file/i)
       );
+    });
+  });
+
+  it('should fail because the required settings don\'t exist', () => {
+    // Given
+    fs.pathExistsSync.mockReturnValueOnce(false);
+    fs.writeFile.mockImplementationOnce(() => Promise.resolve());
+    const appLogger = {
+      success: jest.fn(),
+    };
+    const input = {
+      filename: 'projext.config.js',
+      overwrite: true,
+    };
+    const appPrompt = {
+      ask: jest.fn(() => Promise.resolve(input)),
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    const projectConfiguration = {};
+    const error = new Error('Something went wrong');
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => {
+        throw error;
+      }),
+    };
+    const options = {
+      include: 'targetsTemplates/browser',
+    };
+    let sut = null;
+    // When
+    sut = new ProjectConfigurationFileGenerator(
+      appLogger,
+      appPrompt,
+      pathUtils,
+      projectConfiguration,
+      utils
+    );
+    return sut.generate(options)
+    .then(() => {
+      expect(true).toBeFalse();
+    })
+    .catch((result) => {
+      // Then
+      expect(result).toBe(error);
+      expect(utils.humanReadableList).toHaveBeenCalledTimes(0);
+      expect(appPrompt.ask).toHaveBeenCalledTimes(0);
+      expect(pathUtils.join).toHaveBeenCalledTimes(0);
+      expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
+      expect(fs.writeFile).toHaveBeenCalledTimes(0);
+      expect(appLogger.success).toHaveBeenCalledTimes(0);
     });
   });
 
@@ -447,9 +1172,15 @@ describe('services/cli/generators:config', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const projectConfiguration = {};
+    const projectConfiguration = {
+      targets: {},
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     const validationCases = {
       'projext.config.js': true,
@@ -499,9 +1230,15 @@ describe('services/cli/generators:config', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const projectConfiguration = {};
+    const projectConfiguration = {
+      targets: {},
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     const validationCases = [
       'proJEXT.confIG.js',
@@ -554,9 +1291,15 @@ describe('services/cli/generators:config', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const projectConfiguration = {};
+    const projectConfiguration = {
+      targets: {},
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
+      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
+      setPropertyWithPath: jest.fn(() => ({
+        targets: projectConfiguration.targets,
+      })),
     };
     let sut = null;
     let overwriteValidation = null;

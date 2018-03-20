@@ -49,8 +49,8 @@ class CLIGenerateCommand extends CLICommand {
     // Set an empty description.
     let descriptionList = '';
     // Loop all the registered generators and add their help information to the description.
-    this.generators.forEach((generator) => {
-      descriptionList += generator.getHelpInformation();
+    Object.keys(this.generators).forEach((resource) => {
+      descriptionList += this.generators[resource].getHelpInformation();
     });
     // Update the detailed description of the command.
     this.fullDescription = `Generate a projext resource:${descriptionList}`;

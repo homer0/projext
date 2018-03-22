@@ -68,3 +68,21 @@ It logs all the project settings on the console. You can also specify a director
 projext info [path]
 ```
 - **path:** A directory-like path for an specific setting, for example: `targetsTemplates/browser/html`. If no path is specified, it will log all the project settings.
+
+
+### Generate resources
+
+projext zero configuration assumes a lot of things about your project in order to run it without a configuration file: Your target(s) settings and, for browser targets, the default HTML.
+
+This command allows you to write down those resources on your project so you can manually modify them:
+
+```bash
+projext generate [resource] [options]
+```
+
+Resources:
+
+- `config`: Writes a configuration file with your target information.
+- `html`: Writes a browser target default HTML file.
+
+For more information about the generators, please check the Zero configuration document.

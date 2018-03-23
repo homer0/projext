@@ -723,9 +723,26 @@ Miscellaneous options.
 
 ```js
 {
-  watch: { .. },
+  findTargets: { ... },
+  watch: { ... },
 }
 ```
+
+### `findTargets`
+> Default value:
+>
+> ```js
+> {
+>   enabled: true,
+> }
+> ```
+
+By default, projext will look in your source directory and try to identify as much information as possible about your target(s), but if for some reason you don't want it to do it, you can use this setting to disable that functionality.
+
+#### `findTargets.enabled`
+> Default value: `true`
+
+Whether or not you want projext to read your project files and try to assume information about your targets.
 
 ### `watch`
 > Default value:

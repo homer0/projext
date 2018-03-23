@@ -10,10 +10,12 @@ const CLICommand = require('../../abstracts/cliCommand');
 class CLISHValidateBuildCommand extends CLICommand {
   /**
    * Class constructor.
-   * @param {Logger}  appLogger To inform the user if something goes wrong.
-   * @param {Targets} targets   To validate a target existence.
+   * @param {Logger}      appLogger   To inform the user if something goes wrong.
+   * @param {Targets}     targets     To validate a target existence.
+   * @param {TargetsHTML} targetsHTML To validate a browser target HTML file.
+   * @param {TempFiles}   tempFiles   To validate that the temp directory can be created.
    */
-  constructor(appLogger, targets) {
+  constructor(appLogger, targets, targetsHTML, tempFiles) {
     super();
     /**
      * A local reference for the `appLogger` service.
@@ -25,6 +27,16 @@ class CLISHValidateBuildCommand extends CLICommand {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `targetsHTML` service.
+     * @type {TargetsHTML}
+     */
+    this.targetsHTML = targetsHTML;
+    /**
+     * A local reference for the `tempFiles` service.
+     * @type {TempFiles}
+     */
+    this.tempFiles = tempFiles;
     /**
      * The instruction needed to trigger the command.
      * @type {string}
@@ -57,7 +69,7 @@ class CLISHValidateBuildCommand extends CLICommand {
   }
   /**
    * Handle the execution of the command and validate all the arguments.
-   * @param {string}  name         The name of the target.
+   * @param {?string} name         The name of the target.
    * @param {Command} command      The executed command (sent by `commander`).
    * @param {Object}  options      The command options.
    * @param {string}  options.type The type of build.
@@ -65,8 +77,11 @@ class CLISHValidateBuildCommand extends CLICommand {
    */
   handle(name, command, options) {
     const { run, type } = options;
-    // If the target doesn't exist, this will throw an error.
-    const target = this.targets.getTarget(name);
+    const target = name ?
+      // If the target doesn't exist, this will throw an error.
+      this.targets.getTarget(name) :
+      // Get the default target or throw an error if the project doesn't have targets.
+      this.targets.getDefaultTarget();
 
     if (
       target.is.node &&
@@ -80,6 +95,15 @@ class CLISHValidateBuildCommand extends CLICommand {
         `The target '${name}' doesn't need bundling nor transpilation, ` +
         'so there\'s no need to build it'
       );
+    } else if (target.is.browser) {
+      this.tempFiles.ensureDirectorySync();
+      const htmlStatus = this.targetsHTML.validate(target);
+      if (!htmlStatus.exists) {
+        this.appLogger.warning(
+          `The target '${name}' doesn't have an HTML template, projext will generate one for ` +
+          'this build, but it would be best for you to create'
+        );
+      }
     }
   }
 }
@@ -96,7 +120,9 @@ class CLISHValidateBuildCommand extends CLICommand {
 const cliSHValidateBuildCommand = provider((app) => {
   app.set('cliSHValidateBuildCommand', () => new CLISHValidateBuildCommand(
     app.get('appLogger'),
-    app.get('targets')
+    app.get('targets'),
+    app.get('targetsHTML'),
+    app.get('tempFiles')
   ));
 });
 

@@ -172,15 +172,6 @@
  */
 
 /**
- * @typedef {Object} ProjectConfigurationTargetTemplateLibraryOptions
- * @property {string} [libraryTarget='commonjs2']
- * How the library will be exposed: `commonjs2`, `umd` and `window`.
- * The default value is:
- * - `browser`: `'umd'`.
- * - `node`: `'commonjs2'`.
- */
-
-/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -199,6 +190,12 @@
  * @property {Object} [overwrites={}]
  * If you know how to use Babel and need stuff that is not covered by projext, you can use this
  * setting to overwrite/add any value you may need.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationNodeTargetTemplateLibraryOptions
+ * @property {string} [libraryTarget='commonjs2']
+ * How the library will be exposed: `commonjs2` or `umd`.
  */
 
 /**
@@ -312,6 +309,14 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateLibraryOptions
+ * @property {string} [libraryTarget='umd']
+ * How the library will be exposed: `commonjs2`, `umd` or `window`.
+ * @property {boolean} [compress=false]
+ * Whether or not to use gzip compression on the generated library file.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets and target templates > Node
  * ================================================================================================
@@ -355,7 +360,7 @@
  * @property {boolean} [library=false]
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} [libraryOptions]
+ * @property {ProjectConfigurationNodeTargetTemplateLibraryOptions} [libraryOptions]
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library
  * @property {boolean} [cleanBeforeBuild=true]
@@ -403,7 +408,7 @@
  * @property {boolean} library
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} libraryOptions
+ * @property {ProjectConfigurationNodeTargetTemplateLibraryOptions} libraryOptions
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library
  * @property {boolean} cleanBeforeBuild
@@ -460,7 +465,7 @@
  * Whether or not your application uses CSS Modules.
  * @property {boolean} [library=false]
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} [libraryOptions]
+ * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} [libraryOptions]
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library.
  * @property {boolean} [cleanBeforeBuild=true]
@@ -511,7 +516,7 @@
  * Whether or not your application uses CSS Modules.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} libraryOptions
+ * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} libraryOptions
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library.
  * @property {boolean} cleanBeforeBuild
@@ -664,6 +669,13 @@
  * @param {ConfigurationFile} baseConfiguration
  * The configuration service that will be extended.
  * @return {ConfigurationFile}
+ */
+
+/**
+ * @typedef {Object} TargetDefaultHTMLSettings
+ * @property {string} title The value of the `<title />` tag.
+ * @property {string} bodyAttributes Extra attributes for the `<body />` tag.
+ * @property {string} bodyContents The content of the `<body />` tag.
  */
 
 /**

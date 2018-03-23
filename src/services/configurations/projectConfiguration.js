@@ -1,3 +1,4 @@
+const extend = require('extend');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
@@ -9,16 +10,24 @@ const ConfigurationFile = require('../../abstracts/configurationFile');
 class ProjectConfiguration extends ConfigurationFile {
   /**
    * Class constructor.
-   * @param {PathUtils} pathUtils Because `ConfigurationFile` needs it in order to build the
-   *                              overwrite path.
+   * @param {PathUtils}     pathUtils          Because `ConfigurationFile` needs it in order to
+   *                                           build the overwrite path.
+   * @param {TargetsFinder#find} targetsFinder If the configuration is not overwritten, the service
+   *                                           will use this to look for existing targets based on
+   *                                           the files and/or folders on the source directory.
    */
-  constructor(pathUtils) {
+  constructor(pathUtils, targetsFinder) {
     // Set the overwrite file path.
     super(pathUtils, [
       'projext.config.js',
       'config/projext.config.js',
       'config/project.config.js',
     ]);
+    /**
+     * A local reference for the `targetsFinder` service.
+     * @type {TargetsFinder#find}
+     */
+    this.targetsFinder = targetsFinder;
   }
   /**
    * Create the project configuration with all its _'smart defaults'_.
@@ -121,6 +130,7 @@ class ProjectConfiguration extends ConfigurationFile {
           library: false,
           libraryOptions: {
             libraryTarget: 'umd',
+            compress: false,
           },
           cleanBeforeBuild: true,
           devServer: {
@@ -175,11 +185,47 @@ class ProjectConfiguration extends ConfigurationFile {
         },
       },
       others: {
+        findTargets: {
+          enabled: true,
+        },
         watch: {
           poll: true,
         },
       },
     };
+  }
+  /**
+   * This is the real method that creates and extends the configuration. It's being overwritten in
+   * order to check if the targets finder should try to find the targets information by reading
+   * the source directory or not.
+   * @param  {Array} args A list of parameters for the service to use when creating the
+   *                      configuration. This gets send from {@link ConfigurationFile#getConfig}
+   * @ignore
+   * @access protected
+   */
+  _loadConfig(...args) {
+    super._loadConfig(...args);
+    if (this._config.others.findTargets.enabled) {
+      const originalTargets = extend(true, {}, this._config.targets);
+      const foundTargets = this._findTargets();
+      this._config.targets = extend(true, {}, foundTargets, originalTargets);
+    }
+  }
+  /**
+   * It tries to find basic targets information by reading the source directory.
+   * @return {Object} If there were targets to be found, this will be a dictionary of
+   *                  {@link TargetsFinderTarget}, with the targets name as keys.
+   * @ignore
+   * @access protected
+   */
+  _findTargets() {
+    const result = {};
+    this.targetsFinder(this._config.paths.source)
+    .forEach((target) => {
+      result[target.name] = target;
+    });
+
+    return result;
   }
 }
 /**
@@ -194,7 +240,8 @@ class ProjectConfiguration extends ConfigurationFile {
  */
 const projectConfiguration = provider((app) => {
   app.set('projectConfiguration', () => new ProjectConfiguration(
-    app.get('pathUtils')
+    app.get('pathUtils'),
+    app.get('targetsFinder')
   ));
 });
 

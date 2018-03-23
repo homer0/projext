@@ -135,7 +135,7 @@ class CLISHBuildCommand extends CLICommand {
    * This method emits the event reducer `build-target-commands-list` with the list of commands,
    * the target information, the type of build and whether or not the target should be executed;
    * and it expects a list of commands on return.
-   * @param {string}  name         The name of the target.
+   * @param {?string} name         The name of the target.
    * @param {Command} command      The executed command (sent by `commander`).
    * @param {Object}  options      The command options.
    * @param {string}  options.type The type of build.
@@ -144,7 +144,11 @@ class CLISHBuildCommand extends CLICommand {
   handle(name, command, options) {
     const { type } = options;
     // Get the target information
-    const target = this.targets.getTarget(name);
+    const target = name ?
+      // If the target doesn't exist, this will throw an error.
+      this.targets.getTarget(name) :
+      // Get the default target or throw an error if the project doesn't have targets.
+      this.targets.getDefaultTarget();
     // Check if there's a reason for the target to be executed.
     const run = type === 'development' && (target.runOnDevelopment || options.run);
     // Based on the target type, get the list of commands.

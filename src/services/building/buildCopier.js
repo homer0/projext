@@ -130,7 +130,7 @@ class BuildCopier {
               {};
           })
           .catch((error) => {
-            this.appLogger.error('There was an error copying the files');
+            this.appLogger.error('There was an error while copying the files');
             return Promise.reject(error);
           });
         } else {

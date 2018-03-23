@@ -6,7 +6,6 @@ const { buildNodeRunnerProcess } = require('./buildNodeRunnerProcess');
 const { buildTranspiler } = require('./buildTranspiler');
 const { buildVersion } = require('./buildVersion');
 const { builder } = require('./builder');
-const { targets } = require('./targets');
 
 module.exports = {
   buildCleaner,
@@ -17,5 +16,4 @@ module.exports = {
   buildTranspiler,
   buildVersion,
   builder,
-  targets,
 };

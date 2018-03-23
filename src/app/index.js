@@ -15,8 +15,10 @@ const {
   copier,
   events,
   plugins,
-  versionUtils,
+  appPrompt,
+  tempFiles,
   utils,
+  versionUtils,
 } = require('../services/common');
 
 const {
@@ -28,7 +30,6 @@ const {
   buildTranspiler,
   buildVersion,
   builder,
-  targets,
 } = require('../services/building');
 
 const {
@@ -36,6 +37,8 @@ const {
   cliBuildCommand,
   cliCleanCommand,
   cliCopyProjectFilesCommand,
+  cliGenerateCommand,
+  cliInfoCommand,
   cliRevisionCommand,
   cliRunCommand,
   cliSHBuildCommand,
@@ -45,6 +48,7 @@ const {
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
   cliSHValidateRunCommand,
+  cliGenerators,
 } = require('../services/cli');
 
 const {
@@ -52,6 +56,12 @@ const {
   projectConfiguration,
   targetConfiguration,
 } = require('../services/configurations');
+
+const {
+  targets,
+  targetsFinder,
+  targetsHTML,
+} = require('../services/targets');
 /**
  * This is projext dependecy injection container. This class is in charge of registering all the
  * known services, load any existing plugin and add an error handler.
@@ -78,8 +88,10 @@ class Projext extends Jimple {
     this.register(copier);
     this.register(events);
     this.register(plugins('projext-plugin'));
-    this.register(versionUtils);
+    this.register(appPrompt);
+    this.register(tempFiles);
     this.register(utils);
+    this.register(versionUtils);
 
     this.register(buildCleaner);
     this.register(buildCopier);
@@ -89,12 +101,13 @@ class Projext extends Jimple {
     this.register(buildTranspiler);
     this.register(buildVersion);
     this.register(builder);
-    this.register(targets);
 
     this.register(cli);
     this.register(cliBuildCommand);
     this.register(cliCleanCommand);
     this.register(cliCopyProjectFilesCommand);
+    this.register(cliGenerateCommand);
+    this.register(cliInfoCommand);
     this.register(cliRevisionCommand);
     this.register(cliRunCommand);
     this.register(cliSHBuildCommand);
@@ -104,10 +117,16 @@ class Projext extends Jimple {
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
     this.register(cliSHValidateRunCommand);
+    this.register(cliGenerators.targetHTMLGenerator);
+    this.register(cliGenerators.projectConfigurationFileGenerator);
 
     this.register(babelConfiguration);
     this.register(projectConfiguration);
     this.register(targetConfiguration);
+
+    this.register(targets);
+    this.register(targetsFinder);
+    this.register(targetsHTML);
 
     this._loadPlugins();
     this._addErrorHandler();
@@ -116,11 +135,20 @@ class Projext extends Jimple {
    * Starts projext CLI interface.
    */
   cli() {
+    // Get the `generate` command and register the available generators.
+    const generateCommand = this.get('cliGenerateCommand');
+    generateCommand.addGenerators([
+      this.get('projectConfigurationFileGenerator'),
+      this.get('targetHTMLGenerator'),
+    ]);
+    // Start the CLI with the available commands.
     this.get('cli').start([
       this.get('cliBuildCommand'),
       this.get('cliRunCommand'),
       this.get('cliCleanCommand'),
       this.get('cliCopyProjectFilesCommand'),
+      generateCommand,
+      this.get('cliInfoCommand'),
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),

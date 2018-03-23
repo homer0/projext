@@ -233,7 +233,7 @@ In case `library` is `true`, these options are going to be used by the build eng
 
 **`libraryOptions.libraryTarget`**
 
-How the library will be exposed: `commonjs2`, `umd` or `window`.
+How the library will be exposed: `commonjs2` or `umd`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
 
@@ -434,6 +434,7 @@ This will tell the build engine that it needs to be builded as a library to be `
 > ```js
 > {
 >   libraryTarget: 'umd',
+>   compress: false,
 > }
 > ```
 
@@ -444,6 +445,11 @@ In case `library` is `true`, these options are going to be used by the build eng
 How the library will be exposed: `commonjs`, `umd` or `window`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
+
+
+**`libraryOptions.compress`**
+
+Whether or not to use gzip compression on the generated library file.
 
 #### `cleanBeforeBuild`
 > Default value: `true`
@@ -717,9 +723,26 @@ Miscellaneous options.
 
 ```js
 {
-  watch: { .. },
+  findTargets: { ... },
+  watch: { ... },
 }
 ```
+
+### `findTargets`
+> Default value:
+>
+> ```js
+> {
+>   enabled: true,
+> }
+> ```
+
+By default, projext will look in your source directory and try to identify as much information as possible about your target(s), but if for some reason you don't want it to do it, you can use this setting to disable that functionality.
+
+#### `findTargets.enabled`
+> Default value: `true`
+
+Whether or not you want projext to read your project files and try to assume information about your targets.
 
 ### `watch`
 > Default value:

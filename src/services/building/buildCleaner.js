@@ -120,13 +120,13 @@ class BuildCleaner {
     .then((items) => this.cleaner(target.paths.build, items))
     .then(() => {
       this.appLogger.success(
-        `The files for ${target.name} have been was successfully removed from ` +
+        `The files for '${target.name}' have been was successfully removed from ` +
         `the distribution directory (${dist})`
       );
     })
     .catch((error) => {
       this.appLogger.error(
-        `Error: There was an error while removing the files for ${target.name} ` +
+        `Error: There was an error while removing the files for '${target.name}' ` +
         `from the distribution directory (${dist})`
       );
 

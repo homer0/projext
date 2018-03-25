@@ -237,11 +237,11 @@ class BuildCopier {
     ))
     .then(() => {
       this.appLogger.success(
-        `The files for ${target.name} have been successfully copied (${target.paths.build})`
+        `The files for '${target.name}' have been successfully copied (${target.paths.build})`
       );
     })
     .catch((error) => {
-      this.appLogger.error(`The files for ${target.name} couldn't be copied`);
+      this.appLogger.error(`The files for '${target.name}' couldn't be copied`);
       return Promise.reject(error);
     });
   }

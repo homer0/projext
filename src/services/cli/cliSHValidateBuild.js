@@ -101,7 +101,8 @@ class CLISHValidateBuildCommand extends CLICommand {
       if (!htmlStatus.exists) {
         this.appLogger.warning(
           `The target '${name}' doesn't have an HTML template, projext will generate one for ` +
-          'this build, but it would be best for you to create'
+          'this build, but it would be best for you to create one. You can use the ' +
+          '\'generate\' command'
         );
       }
     }

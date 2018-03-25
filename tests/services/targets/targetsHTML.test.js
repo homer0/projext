@@ -78,18 +78,20 @@ describe('services/targets:targetsHTML', () => {
     let sut = null;
     let result = null;
     const expectedFilepath = `${target.name}.index.html`;
-    const expectedHTML = '<!doctype html>' +
-      '<html lang="en">' +
-      '<head>' +
-      ' <meta charset="utf-8" />' +
-      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />' +
-      ' <meta name="viewport" content="width=device-width, initial-scale=1" />' +
-      ` <title>${target.name}</title>` +
-      '</head>' +
-      '<body>' +
-      ' <div id="app"></div>' +
-      '</body>' +
-      '</html>';
+    const expectedHTML = [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      ' <meta charset="utf-8" />',
+      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />',
+      ' <meta name="viewport" content="width=device-width, initial-scale=1" />',
+      ` <title>${target.name}</title>`,
+      '</head>',
+      '<body>',
+      ' <div id="app"></div>',
+      '</body>',
+      '</html>',
+    ].join('\n');
     const expectedEvents = {
       'target-default-html-settings': [
         {
@@ -141,18 +143,20 @@ describe('services/targets:targetsHTML', () => {
     let sut = null;
     let result = null;
     const expectedFilepath = `${target.name}.index.html`;
-    const expectedHTML = '<!doctype html>' +
-      '<html lang="en">' +
-      '<head>' +
-      ' <meta charset="utf-8" />' +
-      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />' +
-      ' <meta name="viewport" content="width=device-width, initial-scale=1" />' +
-      ` <title>${target.name}</title>` +
-      '</head>' +
-      '<body>' +
-      ' <div id="app"></div>' +
-      '</body>' +
-      '</html>';
+    const expectedHTML = [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      ' <meta charset="utf-8" />',
+      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />',
+      ' <meta name="viewport" content="width=device-width, initial-scale=1" />',
+      ` <title>${target.name}</title>`,
+      '</head>',
+      '<body>',
+      ' <div id="app"></div>',
+      '</body>',
+      '</html>',
+    ].join('\n');
     const expectedEvents = {
       'target-default-html-settings': [
         {
@@ -214,18 +218,20 @@ describe('services/targets:targetsHTML', () => {
     let sut = null;
     let result = null;
     const expectedFilepath = `${target.name}.index.html`;
-    const expectedHTML = '<!doctype html>' +
-      '<html lang="en">' +
-      '<head>' +
-      ' <meta charset="utf-8" />' +
-      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />' +
-      ' <meta name="viewport" content="width=device-width, initial-scale=1" />' +
-      ` <title>${settings.title}</title>` +
-      '</head>' +
-      `<body ${settings.bodyAttributes}>` +
-      ` ${settings.bodyContents}` +
-      '</body>' +
-      '</html>';
+    const expectedHTML = [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      ' <meta charset="utf-8" />',
+      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />',
+      ' <meta name="viewport" content="width=device-width, initial-scale=1" />',
+      ` <title>${settings.title}</title>`,
+      '</head>',
+      `<body ${settings.bodyAttributes}>`,
+      ` ${settings.bodyContents}`,
+      '</body>',
+      '</html>',
+    ].join('\n');
     const expectedEvents = {
       [settingsEventName]: [
         {

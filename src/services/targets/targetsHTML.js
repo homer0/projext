@@ -83,18 +83,20 @@ class TargetsHTML {
     // Normalize the body attributes to avoid unnecessary spaces on the tag.
     const bodyAttrs = info.bodyAttributes ? ` ${info.bodyAttributes}` : '';
     // Generate the HTML code.
-    const htmlTpl = '<!doctype html>' +
-    '<html lang="en">' +
-    '<head>' +
-    ' <meta charset="utf-8" />' +
-    ' <meta http-equiv="x-ua-compatible" content="ie=edge" />' +
-    ' <meta name="viewport" content="width=device-width, initial-scale=1" />' +
-    ` <title>${info.title}</title>` +
-    '</head>' +
-    `<body${bodyAttrs}>` +
-    ` ${info.bodyContents}` +
-    '</body>' +
-    '</html>';
+    const htmlTpl = [
+      '<!doctype html>',
+      '<html lang="en">',
+      '<head>',
+      ' <meta charset="utf-8" />',
+      ' <meta http-equiv="x-ua-compatible" content="ie=edge" />',
+      ' <meta name="viewport" content="width=device-width, initial-scale=1" />',
+      ` <title>${info.title}</title>`,
+      '</head>',
+      `<body${bodyAttrs}>`,
+      ` ${info.bodyContents}`,
+      '</body>',
+      '</html>',
+    ].join('\n');
     // Reduce the HTML code.
     const html = this.events.reduce('target-default-html', htmlTpl, target);
     // Write the file on the temp directory.

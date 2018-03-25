@@ -257,7 +257,6 @@ describe('services/targets:targetsFinder', () => {
       },
       type: 'node',
       library: false,
-      transpile: false,
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);
@@ -329,6 +328,59 @@ describe('services/targets:targetsFinder', () => {
     expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${indexFile}`, 'utf-8');
   });
 
+  it('should find a Node target that requires bundling', () => {
+    // Given
+    const packageInfo = {
+      name: 'my-app',
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    // 1 - When checking if the source directory exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    // 2 - When checking if the default index exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    const indexFile = 'index.js';
+    const sourceDirectoryContents = ['..', '.', indexFile, 'some-other-file.js'];
+    // 1 - When reading the source directory.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    // 2 - When parsing the target.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    const fileContents = 'import charito from \'charito.png\';';
+    fs.readFileSync.mockReturnValueOnce(fileContents);
+    const directory = 'src';
+    let sut = null;
+    let result = null;
+    const expectedTargets = [{
+      name: packageInfo.name,
+      hasFolder: false,
+      createFolder: false,
+      entry: {
+        default: indexFile,
+        development: null,
+        production: null,
+      },
+      type: 'node',
+      library: false,
+      bundle: true,
+    }];
+    // When
+    sut = new TargetsFinder(packageInfo, pathUtils);
+    result = sut.find(directory);
+    // Then
+    expect(result).toEqual(expectedTargets);
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith(directory);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(['sourceDirectory', 'index'].length);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(directory);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(`${directory}/${indexFile}`);
+    expect(fs.readdirSync).toHaveBeenCalledTimes(['sourceDirectory', 'parsingTarget'].length);
+    expect(fs.readdirSync).toHaveBeenCalledWith(directory);
+    expect(fs.readdirSync).toHaveBeenCalledWith(directory);
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${indexFile}`, 'utf-8');
+  });
+
   it('should find a Node target with a single file', () => {
     // Given
     const packageInfo = {
@@ -363,7 +415,6 @@ describe('services/targets:targetsFinder', () => {
       },
       type: 'node',
       library: false,
-      transpile: false,
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);
@@ -417,7 +468,6 @@ describe('services/targets:targetsFinder', () => {
       },
       type: 'node',
       library: false,
-      transpile: false,
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);
@@ -436,7 +486,7 @@ describe('services/targets:targetsFinder', () => {
     expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${productionEntryFile}`, 'utf-8');
   });
 
-  it('should find a Node target library', () => {
+  it('should find a library Node target', () => {
     // Given
     const packageInfo = {
       name: 'my-app',
@@ -470,7 +520,6 @@ describe('services/targets:targetsFinder', () => {
       },
       type: 'node',
       library: true,
-      transpile: false,
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);
@@ -489,7 +538,7 @@ describe('services/targets:targetsFinder', () => {
     expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${indexFile}`, 'utf-8');
   });
 
-  it('should find a Node target library that requires transpiling', () => {
+  it('should find a library Node target that requires transpiling', () => {
     // Given
     const packageInfo = {
       name: 'my-app',
@@ -524,6 +573,66 @@ describe('services/targets:targetsFinder', () => {
       type: 'node',
       library: true,
       transpile: true,
+    }];
+    // When
+    sut = new TargetsFinder(packageInfo, pathUtils);
+    result = sut.find(directory);
+    // Then
+    expect(result).toEqual(expectedTargets);
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith(directory);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(['sourceDirectory', 'index'].length);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(directory);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(`${directory}/${indexFile}`);
+    expect(fs.readdirSync).toHaveBeenCalledTimes(['sourceDirectory', 'parsingTarget'].length);
+    expect(fs.readdirSync).toHaveBeenCalledWith(directory);
+    expect(fs.readdirSync).toHaveBeenCalledWith(directory);
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${indexFile}`, 'utf-8');
+  });
+
+  it('should find a library browser target', () => {
+    // Given
+    const packageInfo = {
+      name: 'my-app',
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    // 1 - When checking if the source directory exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    // 2 - When checking if the default index exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    const indexFile = 'index.js';
+    const sourceDirectoryContents = ['..', '.', indexFile, 'some-other-file.js'];
+    // 1 - When reading the source directory.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    // 2 - When parsing the target.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    const fileContents = 'module.exports = () => document.querySelector(\'#app\').remove()';
+    fs.readFileSync.mockReturnValueOnce(fileContents);
+    const directory = 'src';
+    let sut = null;
+    let result = null;
+    const expectedTargets = [{
+      name: packageInfo.name,
+      hasFolder: false,
+      createFolder: false,
+      entry: {
+        default: indexFile,
+        development: null,
+        production: null,
+      },
+      output: {
+        default: {
+          js: '[target-name].js',
+        },
+        development: {
+          js: '[target-name].js',
+        },
+      },
+      type: 'browser',
+      library: true,
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);

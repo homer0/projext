@@ -65,7 +65,7 @@ class BuildTranspiler {
     })
     .catch((error) => {
       this.appLogger.error(
-        `There was an error while transpiling the ${target.name} code`
+        `There was an error while transpiling the target '${target.name}' code`
       );
       return Promise.reject(error);
     });

@@ -43,6 +43,7 @@ class TargetsFinder {
      */
     this._extensions = {
       js: /\.jsx?$/i,
+      asset: /\.(png|jpe?g|gif|s?css|html|svg|woff2?|ttf|eot)$/i,
     };
     /**
      * A dictionary of _"import methods"_ a file can use. They're separated in two categories:
@@ -296,12 +297,39 @@ class TargetsFinder {
     if (framework) {
       // ...set it as the framework property.
       info.framework = framework;
-    } else if (info.type === 'node') {
+    } else if (!isBrowser) {
       /**
-       * ...otherwise, it means that the target type can be `node`, so set the `transpile` flag
-       * value by checking if the code uses unsupported syntax.
+       * ...otherwise, it means that the target type can be `node`, so validate if the target needs
+       * bundling or transpilation.
+       *
+       * Loop all the import statements and check if the file is importing an asset file type (
+       * images, fonts, stylesheets, etc.).
        */
-      info.transpile = (importInfo.from.includes('next') || exportInfo.from.includes('next'));
+      const importingAssets = importInfo.items.find((file) => file.match(this._extensions.asset));
+      // If the file is importing an asset, turn the `bundle` flag to `true`.
+      if (importingAssets) {
+        info.bundle = true;
+      } else if (importInfo.from.includes('next') || exportInfo.from.includes('next')) {
+        /**
+         * If the target is using `import` or `export` but is not importing assets, then turn
+         * the `transpile` flag to true.
+         */
+        info.transpile = true;
+      }
+    }
+    /**
+     * If the target is a library for the browser, change the output so it won't be adding hashes
+     * to the bundled filename nor saving it on a sub directory.
+     */
+    if (isBrowser && info.library) {
+      info.output = {
+        default: {
+          js: '[target-name].js',
+        },
+        development: {
+          js: '[target-name].js',
+        },
+      };
     }
     // Return the result of the analysis.
     return info;
@@ -406,7 +434,10 @@ class TargetsFinder {
  * @type {Provider}
  */
 const targetsFinder = provider((app) => {
-  app.set('targetsFinder', () => new TargetsFinder(app.get('pathUtils')).find);
+  app.set('targetsFinder', () => new TargetsFinder(
+    app.get('packageInfo'),
+    app.get('pathUtils')
+  ).find);
 });
 
 module.exports = {

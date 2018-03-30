@@ -226,6 +226,13 @@ class CLICommand {
           // ...add it to the list.
           cmdOptions.push(instruction);
         }
+      } else {
+        let instruction = `--${name}`;
+        if (value !== true) {
+          instruction += ` ${value}`;
+        }
+
+        cmdOptions.push(instruction);
       }
     });
 

@@ -39,6 +39,7 @@ describe('services/cli:build', () => {
       expect.any(String),
       false
     );
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should include a provider for the DIC', () => {

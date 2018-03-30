@@ -41,23 +41,35 @@ class CLISHRunCommand extends CLICommand {
      * @type {boolean}
      */
     this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and outputs the list of commands to run.
    * @param {?string} name The name of the target.
+   * @param {Command} command        The executed command (sent by `commander`).
+   * @param {Object}  options        The command options.
+   * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
    */
-  handle(name) {
+  handle(name, command, options, unknownOptions) {
     const target = name ?
       // If the target doesn't exist, this will throw an error.
       this.targets.getTarget(name) :
       // Get the default target or throw an error if the project doesn't have targets.
       this.targets.getDefaultTarget();
 
-    this.output(this.cliBuildCommand.generate({
-      target: target.name,
-      type: 'development',
-      run: true,
-    }));
+    this.output(this.cliBuildCommand.generate(Object.assign(
+      {},
+      unknownOptions,
+      {
+        target: target.name,
+        type: 'development',
+        run: true,
+      }
+    )));
   }
 }
 /**

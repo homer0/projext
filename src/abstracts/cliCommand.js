@@ -227,11 +227,13 @@ class CLICommand {
           cmdOptions.push(instruction);
         }
       } else {
+        // Finally, if is not on the command options, just add it.
         let instruction = `--${name}`;
+        // If the option is not a flag, add its value.
         if (value !== true) {
           instruction += ` ${value}`;
         }
-
+        // Push it to the list
         cmdOptions.push(instruction);
       }
     });

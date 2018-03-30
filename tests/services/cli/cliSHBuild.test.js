@@ -96,8 +96,9 @@ describe('services/cli:sh-build', () => {
     test.run = (
       type,
       run,
-      name = test.targetName
-    ) => test.sut.handle(name, null, { type, run });
+      name = test.targetName,
+      unknownOptions = {}
+    ) => test.sut.handle(name, null, { type, run }, unknownOptions);
 
     return test;
   };
@@ -184,7 +185,8 @@ describe('services/cli:sh-build', () => {
       [test.buildCommand],
       test.target,
       buildType,
-      false
+      false,
+      {}
     );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
@@ -213,7 +215,8 @@ describe('services/cli:sh-build', () => {
       [test.buildCommand],
       test.target,
       buildType,
-      false
+      false,
+      {}
     );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
@@ -640,6 +643,39 @@ describe('services/cli:sh-build', () => {
       test.buildCommand,
       test.copyCommand,
       test.transpileCommand,
+    ].join(';'));
+  });
+
+  it('should return the command to build a node target and include unknown options', () => {
+    // Given
+    const buildType = 'development';
+    const unknownOptions = {
+      name: 'Rosario',
+    };
+    const test = getTestForTheBuildCommand();
+    // When
+    test.run(buildType, false, test.targetName, unknownOptions);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
+    expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.buildCommand],
+      test.target,
+      buildType,
+      false,
+      unknownOptions
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.buildCommand,
     ].join(';'));
   });
 

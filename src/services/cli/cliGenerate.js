@@ -31,7 +31,7 @@ class CLIGenerateCommand extends CLICommand {
     this.description = 'Generate a projext resource. Use the --help flag on this command ' +
       'for more information';
     /**
-     * Enable unkonwn options in order to pick the generator options.
+     * Enable unknown options in order to pick the generator options.
      * @type {Boolean}
      */
     this.allowUnknownOptions = true;

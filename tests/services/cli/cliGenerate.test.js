@@ -26,6 +26,7 @@ describe('services/cli:generate', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should register new generators', () => {

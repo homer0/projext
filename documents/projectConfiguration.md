@@ -88,6 +88,8 @@ Since there are a lot of settings for the templates, will divide them by type an
   folder: '',
   entry: { ... },
   output: { ... },
+  css: { ... },
+  includeModules: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
@@ -176,6 +178,30 @@ You can use the following placeholders:
 - `[name]`: The file original name (Not available for `css` and `js`).
 - `[ext]`: The file original extension (Not available for `css` and `js`).
 
+#### `css`
+> Default value:
+>
+> ```js
+> {
+>   modules: false,
+> }
+> ```
+
+These options help you customize the way the bundling process handles your CSS code.
+
+**`css.modules`**
+
+Whether or not your application uses [CSS Modules](https://github.com/css-modules/css-modules). If this is enabled, all your styles will be prefixed with a unique identifier.
+
+#### `includeModules`
+> Default value: `[]`
+
+This setting can be used to specify a list of node modules you want to process on your bundle.
+
+For example, let's say you are using a library that exports a native `Class` that you are `extend`ing, but you are transpiling for a browser that doesn't support native `Class`es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.
+
+> At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.
+
 #### `runOnDevelopment`
 > Default value: `false`
 
@@ -255,10 +281,11 @@ Whether or not to remove all code from previous builds from the distribution dir
   output: { ... },
   sourceMap: { ... },
   html: { ... },
+  css: { ... },
+  includeModules: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
-  CSSModules: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -369,6 +396,35 @@ The file inside your target source that will be used to generate the `html`.
 
 The file that will be generated when your target is bundled. It will automatically include the `<script />` tag to the generated bundle.
 
+#### `css`
+> Default value:
+>
+> ```js
+> {
+>   modules: false,
+>   inject: false,
+> }
+> ```
+
+These options help you customize the way the bundling process handles your CSS code.
+
+**`css.modules`**
+
+Whether or not your application uses [CSS Modules](https://github.com/css-modules/css-modules). If this is enabled, all your styles will be prefixed with a unique identifier.
+
+**`css.inject`**
+
+If this setting is set to `true`, instead of generating a CSS file with your styles, they'll be dynamically injected on HTML when the bundle gets executed.
+
+#### `includeModules`
+> Default value: `[]`
+
+This setting can be used to specify a list of node modules you want to process on your bundle.
+
+For example, let's say you are using a library that exports a native `Class` that you are `extend`ing, but you are transpiling for a browser that doesn't support native `Class`es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.
+
+> At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.
+
 #### `runOnDevelopment`
 > Default value: `false`
 
@@ -417,11 +473,6 @@ If you know how to use Babel and need stuff that is not covered by projext, you 
 > Default value: `false`
 
 Whether or not your target uses [flow](https://flow.org/). This will update the Babel configuration in order to add support for it.
-
-#### `CSSModules`
-> Default value: `false`
-
-Whether or not your application uses CSS Modules.
 
 #### `library`
 > Default value: `false`

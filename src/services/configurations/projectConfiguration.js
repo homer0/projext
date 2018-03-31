@@ -68,6 +68,10 @@ class ProjectConfiguration extends ConfigurationFile {
             },
             production: null,
           },
+          css: {
+            modules: false,
+          },
+          includeModules: [],
           runOnDevelopment: false,
           babel: {
             features: [],
@@ -116,6 +120,11 @@ class ProjectConfiguration extends ConfigurationFile {
             template: null,
             filename: null,
           },
+          css: {
+            modules: false,
+            inject: false,
+          },
+          includeModules: [],
           runOnDevelopment: false,
           babel: {
             features: [],
@@ -125,7 +134,6 @@ class ProjectConfiguration extends ConfigurationFile {
             overwrites: {},
           },
           flow: false,
-          CSSModules: false,
           hot: false,
           library: false,
           libraryOptions: {

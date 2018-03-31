@@ -199,6 +199,13 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationNodeTargetTemplateCSSSettings
+ * @property {boolean} [modules=false]
+ * Whether or not your application uses CSS Modules. If this is enabled, all your styles will be
+ * prefixed with a unique identifier.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Browser
  * ================================================================================================
@@ -225,6 +232,16 @@
  * The file that will be generated when your target is bundled. It will automatically include
  * the `<script />` tag to the generated bundle. If `null`, it will fallback to the value of the
  * `default` setting.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateCSSSettings
+ * @property {boolean} [modules=false]
+ * Whether or not your application uses CSS Modules. If this is enabled, all your styles will be
+ * prefixed with a unique identifier.
+ * @property {boolean} [inject=false]
+ * If this setting is set to `true`, instead of generating a CSS file with your styles, they'll be
+ * dynamically injected on HTML when the bundle gets executed.
  */
 
 /**
@@ -349,6 +366,11 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
+ * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} [css]
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} [includeModules=[]]
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -397,6 +419,11 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} css
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} includeModules
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -453,6 +480,11 @@
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]
  * In the case the target is an app, these are the options for the `html` file that will include
  * the bundle `<script />`; and if your target is a library, this can be used to test your library.
+ * @property {ProjectConfigurationBrowserTargetTemplateCSSSettings} [css]
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} [includeModules=[]]
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
@@ -461,8 +493,6 @@
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
  * configuration in order to add support for it.
- * @property {boolean} [CSSModules=false]
- * Whether or not your application uses CSS Modules.
  * @property {boolean} [library=false]
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
  * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} [libraryOptions]
@@ -504,6 +534,11 @@
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html
  * In the case the target is an app, these are the options for the `html` file that will include
  * the bundle `<script />`; and if your target is a library, this can be used to test your library.
+ * @property {ProjectConfigurationBrowserTargetTemplateCSSSettings} css
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} includeModules
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.

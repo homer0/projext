@@ -57,12 +57,12 @@ class ProjectConfiguration extends ConfigurationFile {
           output: {
             default: {
               js: '[target-name].js',
-              fonts: 'statics/fonts/[name].[hash].[ext]',
+              fonts: 'statics/fonts/[name]/[name].[hash].[ext]',
               css: 'statics/styles/[target-name].[hash].css',
               images: 'statics/images/[name].[hash].[ext]',
             },
             development: {
-              fonts: 'statics/fonts/[name].[ext]',
+              fonts: 'statics/fonts/[name]/[name].[ext]',
               css: 'statics/styles/[target-name].css',
               images: 'statics/images/[name].[ext]',
             },
@@ -99,13 +99,13 @@ class ProjectConfiguration extends ConfigurationFile {
           output: {
             default: {
               js: 'statics/js/[target-name].[hash].js',
-              fonts: 'statics/fonts/[name].[hash].[ext]',
+              fonts: 'statics/fonts/[name]/[name].[hash].[ext]',
               css: 'statics/styles/[target-name].[hash].css',
               images: 'statics/images/[name].[hash].[ext]',
             },
             development: {
               js: 'statics/js/[target-name].js',
-              fonts: 'statics/fonts/[name].[ext]',
+              fonts: 'statics/fonts/[name]/[name].[ext]',
               css: 'statics/styles/[target-name].css',
               images: 'statics/images/[name].[ext]',
             },

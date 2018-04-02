@@ -143,8 +143,8 @@
  * - `[hash]`: A random hash generated for cache busting.
  *
  * The default value is, for both `node` and `browser` targets:
- * - `development`: `'statics/fonts/[name][ext]'`.
- * - `production`: `'statics/fonts/[name].[hash].[ext]'`.
+ * - `development`: `'statics/fonts/[name]/[name][ext]'`.
+ * - `production`: `'statics/fonts/[name]/[name].[hash].[ext]'`.
  * @property {string} [fonts]
  * The path to image files once they are copied to the distribution directory.
  *

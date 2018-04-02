@@ -32,12 +32,12 @@ describe('services/cli:generate', () => {
   it('should register new generators', () => {
     // Given
     const generatorOne = {
-      resource: 'js',
+      name: 'js',
       description: 'generatorOneDescription',
       getHelpInformation: jest.fn(() => generatorOne.description),
     };
     const generatorTwo = {
-      resource: 'jsx',
+      name: 'jsx',
       description: 'generatorTwoDescription',
       getHelpInformation: jest.fn(() => generatorTwo.description),
     };
@@ -50,9 +50,9 @@ describe('services/cli:generate', () => {
     sut = new CLIGenerateCommand();
     sut.addGenerators(generators);
     // Then
-    expect(sut.generators[generatorOne.resource]).toEqual(generatorOne);
+    expect(sut.generators[generatorOne.name]).toEqual(generatorOne);
     expect(generatorOne.getHelpInformation).toHaveBeenCalledTimes(1);
-    expect(sut.generators[generatorTwo.resource]).toEqual(generatorTwo);
+    expect(sut.generators[generatorTwo.name]).toEqual(generatorTwo);
     expect(generatorTwo.getHelpInformation).toHaveBeenCalledTimes(1);
     expect(sut.fullDescription).toBe(expectedDescription);
   });
@@ -74,9 +74,9 @@ describe('services/cli:generate', () => {
     };
     const message = 'Done!';
     const generator = {
-      resource: 'js',
+      name: 'js',
       getHelpInformation: jest.fn(() => 'description'),
-      generate: jest.fn(() => message),
+      handle: jest.fn(() => message),
       optionsByName: generatorOptions,
       options: Object.keys(generatorOptions),
     };
@@ -90,11 +90,11 @@ describe('services/cli:generate', () => {
     // When
     sut = new CLIGenerateCommand();
     sut.addGenerators([generator]);
-    result = sut.handle(generator.resource, {}, {}, unknownOptions);
+    result = sut.handle(generator.name, {}, {}, unknownOptions);
     // Then
     expect(result).toBe(message);
-    expect(generator.generate).toHaveBeenCalledTimes(1);
-    expect(generator.generate).toHaveBeenCalledWith({
+    expect(generator.handle).toHaveBeenCalledTimes(1);
+    expect(generator.handle).toHaveBeenCalledWith({
       target: unknownOptions.t,
       buildType: generatorOptions.buildType.defaultValue,
       run: unknownOptions.r,

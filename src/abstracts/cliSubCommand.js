@@ -1,26 +1,25 @@
 /**
- * A helper class for creating generator commands for the CLI. A generator command works like a
- * {@link CLICommand} inside a regular {@link CLICommand}. It has a resource type that is in charge
- * of generating and it supports options for customzation.
+ * A helper class for creating sub commands for the CLI. A sub command works like a
+ * {@link CLICommand} inside a regular {@link CLICommand}.
  * @abstract
  */
-class CLIGeneratorSubCommand {
+class CLISubCommand {
   /**
    * Class constructor.
    * @throws {TypeError} If instantiated directly.
    * @abstract
    */
   constructor() {
-    if (new.target === CLIGeneratorSubCommand) {
+    if (new.target === CLISubCommand) {
       throw new TypeError(
-        'CLIGeneratorSubCommand is an abstract class, it can\'t be instantiated directly'
+        'CLISubCommand is an abstract class, it can\'t be instantiated directly'
       );
     }
     /**
-     * An identifier for the resource the generator creates.
+     * The name of the sub command for the help interface.
      * @type {string}
      */
-    this.resource = '';
+    this.name = '';
     /**
      * A short description for what the generator does.
      * @type {string}
@@ -73,13 +72,13 @@ class CLIGeneratorSubCommand {
     this.options.push(name);
   }
   /**
-   * Generate a complete description of the generator and its options in order to be used on the
+   * Generates a complete description of the sub command and its options in order to be used on the
    * help interface of the {@link CLICommand} that implements it.
    * @return {string}
    */
   getHelpInformation() {
     // Define the basic description line.
-    let description = ` - '${this.resource}': ${this.description}`;
+    let description = ` - '${this.name}': ${this.description}`;
     // If the generator has options...
     if (this.options.length) {
       // ...add the options subtitle.
@@ -114,15 +113,14 @@ class CLIGeneratorSubCommand {
     return description;
   }
   /**
-   * The method called by the {@link CLICommand} that implements the generator in order to create
-   * the resource.
+   * The method called by the {@link CLICommand} that implements the sub command.
    * It receives a dicitionary with the parsed options the command received.
-   * @return {Promise<undefined,Error>}
+   * @throws {Error} if not overwritten.
    * @abstract
    */
-  generate() {
-    return Promise.reject(Error('This method must to be overwritten'));
+  handle() {
+    throw new Error('This method must to be overwritten');
   }
 }
 
-module.exports = CLIGeneratorSubCommand;
+module.exports = CLISubCommand;

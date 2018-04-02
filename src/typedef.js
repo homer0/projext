@@ -371,6 +371,11 @@
  * @property {Array} [includeModules=[]]
  * This setting can be used to specify a list of node modules you want to process on your bundle.
  * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} [excludeModules=[]]
+ * This setting can be used to specify a list of modules that should never be bundled. By default,
+ * projext will exclude all the dependencies from the `package.json`, but if you import modules
+ * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
+ * so the build engine won't try to put it inside the bundle it.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -424,6 +429,11 @@
  * @property {Array} includeModules
  * This setting can be used to specify a list of node modules you want to process on your bundle.
  * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} excludeModules
+ * This setting can be used to specify a list of modules that should never be bundled. By default,
+ * projext will exclude all the dependencies from the `package.json`, but if you import modules
+ * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
+ * so the build engine won't try to put it inside the bundle it.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.

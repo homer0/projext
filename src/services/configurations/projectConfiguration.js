@@ -72,6 +72,7 @@ class ProjectConfiguration extends ConfigurationFile {
             modules: false,
           },
           includeModules: [],
+          excludeModules: [],
           runOnDevelopment: false,
           babel: {
             features: [],

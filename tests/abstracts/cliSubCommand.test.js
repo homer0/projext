@@ -1,24 +1,24 @@
-jest.unmock('/src/abstracts/cliGeneratorSubCommand');
+jest.unmock('/src/abstracts/cliSubCommand');
 
 require('jasmine-expect');
-const CLIGeneratorSubCommand = require('/src/abstracts/cliGeneratorSubCommand');
+const CLISubCommand = require('/src/abstracts/cliSubCommand');
 
-describe('abstracts:CLIGeneratorSubCommand', () => {
+describe('abstracts:CLISubCommand', () => {
   it('should throw an error if used without subclassing it', () => {
     // Given/When/Then
-    expect(() => new CLIGeneratorSubCommand())
-    .toThrow(/CLIGeneratorSubCommand is an abstract class/i);
+    expect(() => new CLISubCommand())
+    .toThrow(/CLISubCommand is an abstract class/i);
   });
 
   it('should be able to be instantiated when subclassed', () => {
     // Given
-    class Sut extends CLIGeneratorSubCommand {}
+    class Sut extends CLISubCommand {}
     let sut = null;
     // When
     sut = new Sut();
     // Then
     expect(sut).toBeInstanceOf(Sut);
-    expect(sut).toBeInstanceOf(CLIGeneratorSubCommand);
+    expect(sut).toBeInstanceOf(CLISubCommand);
   });
 
   it('should be able to register new options', () => {
@@ -39,7 +39,7 @@ describe('abstracts:CLIGeneratorSubCommand', () => {
       defaultValue: true,
     };
     const numberOfOptions = 3;
-    class Sut extends CLIGeneratorSubCommand {}
+    class Sut extends CLISubCommand {}
     let sut = null;
     // When
     sut = new Sut();
@@ -76,15 +76,15 @@ describe('abstracts:CLIGeneratorSubCommand', () => {
 
   it('should be able to generate a help for the CLI', () => {
     // Given
-    const resource = 'my-resource';
+    const name = 'my-name';
     const description = 'Something';
-    class Sut extends CLIGeneratorSubCommand {}
+    class Sut extends CLISubCommand {}
     let sut = null;
     let result = null;
-    const expectedDescription = ` - '${resource}': ${description}`;
+    const expectedDescription = ` - '${name}': ${description}`;
     // When
     sut = new Sut();
-    sut.resource = resource;
+    sut.name = name;
     sut.description = description;
     result = sut.getHelpInformation();
     // Then
@@ -108,19 +108,19 @@ describe('abstracts:CLIGeneratorSubCommand', () => {
       instruction: '-b, --build',
       description: 'Set the build',
     };
-    const resource = 'my-resource';
+    const name = 'my-name';
     const description = 'Something';
-    class Sut extends CLIGeneratorSubCommand {}
+    class Sut extends CLISubCommand {}
     let sut = null;
     let result = null;
-    const expectedDescription = ` - '${resource}': ${description}` +
+    const expectedDescription = ` - '${name}': ${description}` +
       '\n   Options:\n' +
       `\n   -t, --type [type]  ${optionOne.description}` +
       `\n   -e, --env [env]    ${optionTwo.description}` +
       `\n   -b, --build        ${optionThree.description}`;
     // When
     sut = new Sut();
-    sut.resource = resource;
+    sut.name = name;
     sut.description = description;
     sut.addOption(optionOne.name, optionOne.instruction, optionOne.description);
     sut.addOption(optionTwo.name, optionTwo.instruction, optionTwo.description);
@@ -130,19 +130,12 @@ describe('abstracts:CLIGeneratorSubCommand', () => {
     expect(result).toBe(expectedDescription);
   });
 
-  it('should throw an error if the `generate` method is not overwritten', () => {
+  it('should throw an error if the `handle` method is not overwritten', () => {
     // Given
-    class Sut extends CLIGeneratorSubCommand {}
+    class Sut extends CLISubCommand {}
     let sut = null;
     // When/Then
     sut = new Sut();
-    return sut.generate()
-    .then(() => {
-      expect(true).toBeFalse();
-    })
-    .catch((result) => {
-      expect(result).toBeInstanceOf(Error);
-      expect(result.message).toMatch(/This method must to be overwritten/i);
-    });
+    expect(() => sut.handle()).toThrow(/This method must to be overwritten/i);
   });
 });

@@ -226,8 +226,11 @@ class CLICommand {
           // ...add it to the list.
           cmdOptions.push(instruction);
         }
-      } else {
-        // Finally, if is not on the command options, just add it.
+      } else if (this.allowUnknownOptions) {
+        /**
+         * Finally, if is not on the command options and the command supports unknown options,
+         * just add it.
+         */
         let instruction = `--${name}`;
         // If the option is not a flag, add its value.
         if (value !== true) {

@@ -3,7 +3,7 @@ const mocks = {
   addOption: jest.fn(),
 };
 
-class CLIGeneratorSubCommandMock {
+class CLISubCommandMock {
   static mock(name, mock) {
     mocks[name] = mock;
   }
@@ -21,4 +21,4 @@ class CLIGeneratorSubCommandMock {
   }
 }
 
-module.exports = CLIGeneratorSubCommandMock;
+module.exports = CLISubCommandMock;

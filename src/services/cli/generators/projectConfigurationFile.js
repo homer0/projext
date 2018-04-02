@@ -1,13 +1,13 @@
 const extend = require('extend');
 const fs = require('fs-extra');
 const { provider } = require('jimple');
-const CLIGeneratorSubCommand = require('../../../abstracts/cliGeneratorSubCommand');
+const CLISubCommand = require('../../../abstracts/cliSubCommand');
 /**
  * This is a CLI generator that allows the user to create a configuration file with all the
  * default settings and all the information projext assumes about the project.
- * @extends {CLIGeneratorSubCommand}
+ * @extends {CLISubCommand}
  */
-class ProjectConfigurationFileGenerator extends CLIGeneratorSubCommand {
+class ProjectConfigurationFileGenerator extends CLISubCommand {
   /**
    * Class constructor.
    * @param {Logger}                       appLogger            To inform the user when the file
@@ -54,7 +54,7 @@ class ProjectConfigurationFileGenerator extends CLIGeneratorSubCommand {
      * generator.
      * @type {string}
      */
-    this.resource = 'config';
+    this.name = 'config';
     /**
      * A short description of what the generator does.
      * @type {string}
@@ -104,7 +104,7 @@ class ProjectConfigurationFileGenerator extends CLIGeneratorSubCommand {
    *                                  ignore.
    * @return {Promise<undefined,Error>}
    */
-  generate(options = {}) {
+  handle(options = {}) {
     // Define the variable for the promise that will be returned.
     let result;
     // Define the variable for the object that will contain the settings to write.

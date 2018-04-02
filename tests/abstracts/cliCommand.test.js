@@ -415,6 +415,7 @@ describe('abstracts:CLICommand', () => {
     const command = 'test-command';
     const description = 'Test description';
     const subProgram = true;
+    const allowUnknownOptions = true;
     const unknownOptName = 'plugin';
     const unknownOptValue = 'pluginName';
     const unknownFlag = 'flagish';
@@ -432,6 +433,60 @@ describe('abstracts:CLICommand', () => {
     sut.command = command;
     sut.description = description;
     sut.subProgram = subProgram;
+    sut.allowUnknownOptions = allowUnknownOptions;
+    sut.addOption(option.name, option.instruction);
+    sut.register(program, cli);
+    result = sut.generate(generateOptions);
+    // Then
+    expect(sut.cliName).toBe(cli.name);
+    expect(program.command).toHaveBeenCalledTimes(1);
+    expect(program.command).toHaveBeenCalledWith(command, description, {});
+    expect(program.description).toHaveBeenCalledTimes(0);
+    expect(program.action).toHaveBeenCalledTimes(1);
+    expect(program.action).toHaveBeenCalledWith(expect.any(Function));
+    expect(result).toBe(`${cli.name} ${command} ${expectedOptions}`);
+  });
+
+  it('shouldn\'t include unknown options on a generated command if they are not supported', () => {
+    // Given
+    const program = {
+      command: jest.fn(() => program),
+      description: jest.fn(() => program),
+      option: jest.fn(() => program),
+      action: jest.fn(() => program),
+      on: jest.fn(),
+      allowUnknownOption: jest.fn(),
+    };
+    const cli = {
+      name: 'some-program',
+    };
+    const option = {
+      name: 'env',
+      instruction: '-e, --env [env]',
+    };
+    const env = 'charito';
+    const command = 'test-command';
+    const description = 'Test description';
+    const subProgram = true;
+    const allowUnknownOptions = false;
+    const unknownOptName = 'plugin';
+    const unknownOptValue = 'pluginName';
+    const unknownFlag = 'flagish';
+    const generateOptions = {
+      env,
+      [unknownOptName]: unknownOptValue,
+      [unknownFlag]: true,
+    };
+    class Sut extends CLICommand {}
+    let sut = null;
+    let result = '';
+    const expectedOptions = `--env ${env}`;
+    // When
+    sut = new Sut();
+    sut.command = command;
+    sut.description = description;
+    sut.subProgram = subProgram;
+    sut.allowUnknownOptions = allowUnknownOptions;
     sut.addOption(option.name, option.instruction);
     sut.register(program, cli);
     result = sut.generate(generateOptions);

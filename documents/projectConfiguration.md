@@ -156,12 +156,12 @@ This object is the one that tells projext which is the main file (executable) of
 > {
 >   default: {
 >     js: '[target-name].js',
->     fonts: 'statics/fonts/[name].[hash].[ext]',
+>     fonts: 'statics/fonts/[name]/[name].[hash].[ext]',
 >     css: 'statics/styles/[target-name].[hash].css',
 >     images: 'statics/images/[name].[hash].[ext]',
 >   },
 >   development: {
->     fonts: 'statics/fonts/[name].[ext]',
+>     fonts: 'statics/fonts/[name]/[name].[ext]',
 >     css: 'statics/styles/[target-name].css',
 >     images: 'statics/images/[name].[ext]',
 >   },
@@ -336,13 +336,13 @@ This object is the one that tells projext which is the main file (the one that f
 > {
 >   default: {
 >     js: 'statics/js/[target-name].[hash].js',
->     fonts: 'statics/fonts/[name].[hash].[ext]',
+>     fonts: 'statics/fonts/[name]/[name].[hash].[ext]',
 >     css: 'statics/styles/[target-name].[hash].css',
 >     images: 'statics/images/[name].[hash].[ext]',
 >   },
 >   development: {
 >     js: 'statics/js/[target-name].js',
->     fonts: 'statics/fonts/[name].[ext]',
+>     fonts: 'statics/fonts/[name]/[name].[ext]',
 >     css: 'statics/styles/[target-name].css',
 >     images: 'statics/images/[name].[ext]',
 >   },

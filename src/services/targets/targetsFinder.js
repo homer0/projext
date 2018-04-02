@@ -87,6 +87,14 @@ class TargetsFinder {
       react: /react(?:(?!(?:-dom\/server)))/i,
     };
     /**
+     * A dictionary of known frameworks that can be used on Node, and regular expressions that
+     * match their module name.
+     * @type {Object}
+     */
+    this._nodeFrameworks = {
+      react: /react-dom\/server/i,
+    };
+    /**
      * A list of regular expressions that would only match code present on a browser target.
      * @type {Array}
      * @ignore
@@ -273,7 +281,7 @@ class TargetsFinder {
 
     // Loop all the known browser frameworks.
     const framework = Object.keys(this._browserFrameworks)
-    // Try to find an import statement that matches the framework regular expression.
+    // Try to find an import statement that matches the browser framework regular expression.
     .find((name) => {
       const regex = this._browserFrameworks[name];
       return !!importInfo.items.find((file) => file.match(regex));
@@ -283,9 +291,25 @@ class TargetsFinder {
      * Try to determine if the target type is `browser` by either checking if a browser framework
      * was found or by trying to find a known browser code.
      */
-    const isBrowser = !!(
+    let isBrowser = !!(
       framework || this._browserExpressions.find((regex) => contents.match(regex))
     );
+    /**
+     * Try to find a framework that can also be used on the Node, which will mean that if
+     * `isBrowser` is `true`, is a false positive.
+     */
+    const nodeFramework = Object.keys(this._nodeFrameworks)
+    .find((name) => {
+      const regex = this._nodeFrameworks[name];
+      return !!importInfo.items.find((file) => file.match(regex));
+    });
+    /**
+     * If the target was marked as `browser`, but it uses a version of the framework that also runs
+     * on Node, using SSR maybe, fix the false positive.
+     */
+    if (isBrowser && nodeFramework) {
+      isBrowser = false;
+    }
 
     // Define the basic properties of the return object.
     const info = {

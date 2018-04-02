@@ -1,8 +1,8 @@
 const JimpleMock = require('/tests/mocks/jimple.mock');
-const CLIGeneratorSubCommandMock = require('/tests/mocks/cliGeneratorSubCommand.mock');
+const CLISubCommandMock = require('/tests/mocks/cliSubCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
-jest.mock('/src/abstracts/cliGeneratorSubCommand', () => CLIGeneratorSubCommandMock);
+jest.mock('/src/abstracts/cliSubCommand', () => CLISubCommandMock);
 jest.mock('fs-extra');
 jest.unmock('/src/services/cli/generators/projectConfigurationFile');
 
@@ -16,7 +16,7 @@ const {
 
 describe('services/cli/generators:config', () => {
   beforeEach(() => {
-    CLIGeneratorSubCommandMock.reset();
+    CLISubCommandMock.reset();
     fs.pathExistsSync.mockReset();
     fs.writeFile.mockReset();
   });
@@ -40,7 +40,7 @@ describe('services/cli/generators:config', () => {
     // Then
     expect(sut).toBeInstanceOf(ProjectConfigurationFileGenerator);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
-    expect(sut.resource).not.toBeEmptyString();
+    expect(sut.name).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.appPrompt).toBe(appPrompt);
@@ -111,7 +111,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -224,7 +224,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate(options)
+    return sut.handle(options)
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -331,7 +331,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate(options)
+    return sut.handle(options)
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -451,7 +451,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate(options)
+    return sut.handle(options)
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -559,7 +559,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate(options)
+    return sut.handle(options)
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -660,7 +660,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate(options)
+    return sut.handle(options)
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -770,7 +770,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -867,7 +867,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -960,7 +960,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
@@ -1052,7 +1052,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       expect(true).toBeFalse();
     })
@@ -1139,7 +1139,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate(options)
+    return sut.handle(options)
     .then(() => {
       expect(true).toBeFalse();
     })
@@ -1200,7 +1200,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       [[{ filename: { conform: fileValidation } }]] = appPrompt.ask.mock.calls;
@@ -1255,7 +1255,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       [[{ filename: { before: fileFormatter } }]] = appPrompt.ask.mock.calls;
@@ -1315,7 +1315,7 @@ describe('services/cli/generators:config', () => {
       projectConfiguration,
       utils
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       [[{ overwrite: { ask: overwriteValidation } }]] = appPrompt.ask.mock.calls;

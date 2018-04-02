@@ -1,8 +1,8 @@
 const JimpleMock = require('/tests/mocks/jimple.mock');
-const CLIGeneratorSubCommandMock = require('/tests/mocks/cliGeneratorSubCommand.mock');
+const CLISubCommandMock = require('/tests/mocks/cliSubCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
-jest.mock('/src/abstracts/cliGeneratorSubCommand', () => CLIGeneratorSubCommandMock);
+jest.mock('/src/abstracts/cliSubCommand', () => CLISubCommandMock);
 jest.mock('fs-extra');
 jest.unmock('/src/services/cli/generators/targetHTML');
 
@@ -16,7 +16,7 @@ const {
 
 describe('services/cli/generators:html', () => {
   beforeEach(() => {
-    CLIGeneratorSubCommandMock.reset();
+    CLISubCommandMock.reset();
     fs.pathExistsSync.mockReset();
     fs.move.mockReset();
   });
@@ -38,7 +38,7 @@ describe('services/cli/generators:html', () => {
     // Then
     expect(sut).toBeInstanceOf(TargetHTMLGenerator);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
-    expect(sut.resource).not.toBeEmptyString();
+    expect(sut.name).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.appPrompt).toBe(appPrompt);
@@ -88,7 +88,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
@@ -174,7 +174,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
@@ -258,7 +258,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
@@ -334,7 +334,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
@@ -409,7 +409,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       expect(true).toBeFalse();
     })
@@ -521,7 +521,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       [[{ target: { conform: targetValidation } }]] = appPrompt.ask.mock.calls;
@@ -587,7 +587,7 @@ describe('services/cli/generators:html', () => {
       targets,
       targetsHTML
     );
-    return sut.generate()
+    return sut.handle()
     .then(() => {
       // Then
       [[{ overwrite: { ask: overwriteValidation } }]] = appPrompt.ask.mock.calls;

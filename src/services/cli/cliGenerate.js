@@ -2,7 +2,7 @@ const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
  * This commands allows the user to generate new projext resources by makeing use of _"generators"_,
- * which are subclasses of {@link CLIGeneratorSubCommand}.
+ * which are subclasses of {@link CLISubCommand}.
  * @extends {CLICommand}
  */
 class CLIGenerateCommand extends CLICommand {
@@ -39,12 +39,12 @@ class CLIGenerateCommand extends CLICommand {
   /**
    * Add the list of generators this command can use. After saving the reference to the services,
    * this method will also update the `fullDescription` property with the generators information.
-   * @param {Array} generators A list of {@link CLIGeneratorSubCommand} services.
+   * @param {Array} generators A list of {@link CLISubCommand} services.
    */
   addGenerators(generators) {
     // Register the generators on the local property.
     generators.forEach((generator) => {
-      this.generators[generator.resource] = generator;
+      this.generators[generator.name] = generator;
     });
     // Set an empty description.
     let descriptionList = '';
@@ -73,7 +73,7 @@ class CLIGenerateCommand extends CLICommand {
     } else {
       const generator = this.generators[resource];
       const generatorOptions = this._parseGeneratorOptions(generator, unknownOptions);
-      result = generator.generate(generatorOptions);
+      result = generator.handle(generatorOptions);
     }
 
     return result;
@@ -82,8 +82,8 @@ class CLIGenerateCommand extends CLICommand {
    * This method is called when the command is executed and it takes care of parse and match the
    * received unkown options with the selected generator options, so they can be sent to the
    * generator.
-   * @param {CLIGeneratorSubCommand} generator The generator from which options will be matched.
-   * @param {Object}                 options   A dictionary of unkown options the command received.
+   * @param {CLISubCommand} generator The generator from which options will be matched.
+   * @param {Object}        options   A dictionary of unkown options the command received.
    * @return {Object}
    * @ignore
    * @access protected

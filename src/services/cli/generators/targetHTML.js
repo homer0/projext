@@ -1,14 +1,14 @@
 const path = require('path');
 const fs = require('fs-extra');
 const { provider } = require('jimple');
-const CLIGeneratorSubCommand = require('../../../abstracts/cliGeneratorSubCommand');
+const CLISubCommand = require('../../../abstracts/cliSubCommand');
 /**
  * This is a CLI generator that allows the user to create an HTML file for a browser target.
  * What it does is to force projext to create the default HTML file it would create if the target
  * didn't have one and then it moves it to the target directory.
- * @extends {CLIGeneratorSubCommand}
+ * @extends {CLISubCommand}
  */
-class TargetHTMLGenerator extends CLIGeneratorSubCommand {
+class TargetHTMLGenerator extends CLISubCommand {
   /**
    * Class constructor.
    * @param {Logger}      appLogger   To inform the user when the file has been generated, or if
@@ -44,7 +44,7 @@ class TargetHTMLGenerator extends CLIGeneratorSubCommand {
      * generator.
      * @type {string}
      */
-    this.resource = 'html';
+    this.name = 'html';
     /**
      * A short description of what the generator does.
      * @type {string}
@@ -57,7 +57,7 @@ class TargetHTMLGenerator extends CLIGeneratorSubCommand {
    * finally moves it to the selected path.
    * @return {Promise<undefined,Error>}
    */
-  generate() {
+  handle() {
     // Get the _"default browser target"_.
     const defaultTarget = this.targets.getDefaultTarget('browser');
     // Define the prompt schema.

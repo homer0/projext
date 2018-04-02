@@ -34,9 +34,10 @@ projext run [target]
 Removes the files from previous builds from the distribution directory.
 
 ```bash
-projext clean [target]
+projext clean [target] [--all]
 ```
-- **target:** The name of the target you intend to remove builds from. If no target is specified, the build directory will be deleted.
+- **target:** The name of the target you intend to remove builds from. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
+- **all:** Instead of just removing a target files, it removes the entire distribution directory.
 
 > This gets automatically called when building if the target `cleanBeforeBuild` setting is `true`.
 

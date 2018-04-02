@@ -386,7 +386,7 @@ describe('services/building:builder', () => {
     });
   });
 
-  it('should clean a target files', () => {
+  it('should clean a target files using the target name', () => {
     // Given
     const buildCleaner = {
       cleanTarget: jest.fn(),
@@ -418,6 +418,41 @@ describe('services/building:builder', () => {
     // Then
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target.name);
+    expect(buildCleaner.cleanTarget).toHaveBeenCalledTimes(1);
+    expect(buildCleaner.cleanTarget).toHaveBeenCalledWith(target);
+  });
+
+  it('should clean a target files using the target information', () => {
+    // Given
+    const buildCleaner = {
+      cleanTarget: jest.fn(),
+    };
+    const buildCopier = 'buildCopier';
+    const buildEngines = 'buildEngines';
+    const buildTranspiler = 'buildTranspiler';
+    const target = {
+      name: 'some-target',
+      bundle: false,
+      transpile: true,
+      is: {
+        node: true,
+      },
+    };
+    const targets = {
+      getTarget: jest.fn(),
+    };
+    let sut = null;
+    // When
+    sut = new Builder(
+      buildCleaner,
+      buildCopier,
+      buildEngines,
+      buildTranspiler,
+      targets
+    );
+    sut.cleanTarget(target);
+    // Then
+    expect(targets.getTarget).toHaveBeenCalledTimes(0);
     expect(buildCleaner.cleanTarget).toHaveBeenCalledTimes(1);
     expect(buildCleaner.cleanTarget).toHaveBeenCalledWith(target);
   });

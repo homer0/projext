@@ -26,6 +26,7 @@ describe('services/cli:build', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should include a provider for the DIC', () => {

@@ -34,6 +34,11 @@ class CLIBuildCommand extends CLICommand {
         'build type is development',
       false
     );
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
 }
 /**

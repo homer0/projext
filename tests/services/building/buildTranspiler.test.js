@@ -30,24 +30,18 @@ describe('services/building:buildTranspiler', () => {
     // Given
     const babelConfiguration = 'babelConfiguration';
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const targets = 'targets';
     let sut = null;
     // When
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     // Then
     expect(sut).toBeInstanceOf(BuildTranspiler);
     expect(sut.babelConfiguration).toBe(babelConfiguration);
     expect(sut.appLogger).toBe(appLogger);
-    expect(sut.pathUtils).toBe(pathUtils);
-    expect(sut.projectConfiguration).toBe(projectConfiguration);
     expect(sut.targets).toBe(targets);
   });
 
@@ -73,20 +67,13 @@ describe('services/building:buildTranspiler', () => {
       success: jest.fn(),
       info: jest.fn(),
     };
-    const pathUtils = {
-      path: 'some-path',
-      join: jest.fn((...args) => path.join(...args)),
-    };
-    const projectConfiguration = {
-      paths: {
-        build: 'build-path',
-      },
-    };
     const targets = 'targets';
-    const buildType = 'development';
     const target = {
-      entry: {
-        [buildType]: 'index.js',
+      paths: {
+        build: '/some-absolute-path/to-the/build/directory',
+      },
+      folders: {
+        build: 'build/directory',
       },
     };
     let sut = null;
@@ -94,23 +81,16 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
-    return sut.transpileTargetFiles(target, buildType)
+    return sut.transpileTargetFiles(target)
     .then(() => {
       // Then
-      expect(pathUtils.join).toHaveBeenCalledTimes(1);
-      expect(pathUtils.join).toHaveBeenCalledWith(
-        projectConfiguration.paths.build,
-        target.entry[buildType]
-      );
       expect(glob).toHaveBeenCalledTimes(1);
       expect(glob).toHaveBeenCalledWith(
         '**/*.{js,jsx}',
         {
-          cwd: projectConfiguration.paths.build,
+          cwd: target.paths.build,
         },
         expect.any(Function)
       );
@@ -120,18 +100,12 @@ describe('services/building:buildTranspiler', () => {
       expect(fs.writeFile).toHaveBeenCalledTimes(files.length);
       files.forEach((file) => {
         expect(babel.transformFile).toHaveBeenCalledWith(
-          path.join(
-            projectConfiguration.paths.build,
-            file
-          ),
+          path.join(target.paths.build, file),
           {},
           expect.any(Function)
         );
         expect(fs.writeFile).toHaveBeenCalledWith(
-          path.join(
-            projectConfiguration.paths.build,
-            file
-          ),
+          path.join(target.paths.build, file),
           code
         );
       });
@@ -154,20 +128,13 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = {
       error: jest.fn(),
     };
-    const pathUtils = {
-      path: 'some-path',
-      join: jest.fn((...args) => path.join(...args)),
-    };
-    const projectConfiguration = {
-      paths: {
-        build: 'build-path',
-      },
-    };
     const targets = 'targets';
-    const buildType = 'development';
     const target = {
-      entry: {
-        [buildType]: 'index.js',
+      paths: {
+        build: '/some-absolute-path/to-the/build/directory',
+      },
+      folders: {
+        build: 'build/directory',
       },
     };
     let sut = null;
@@ -175,26 +142,19 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
-    return sut.transpileTargetFiles(target, buildType)
+    return sut.transpileTargetFiles(target)
     .then(() => {
       expect(true).toBeFalse();
     })
     .catch((errorResult) => {
       // Then
-      expect(pathUtils.join).toHaveBeenCalledTimes(1);
-      expect(pathUtils.join).toHaveBeenCalledWith(
-        projectConfiguration.paths.build,
-        target.entry[buildType]
-      );
       expect(glob).toHaveBeenCalledTimes(1);
       expect(glob).toHaveBeenCalledWith(
         '**/*.{js,jsx}',
         {
-          cwd: projectConfiguration.paths.build,
+          cwd: target.paths.build,
         },
         expect.any(Function)
       );
@@ -215,8 +175,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -228,8 +186,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     return sut.transpileFile(file)
@@ -263,8 +219,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -276,8 +230,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     return sut.transpileFile({
@@ -313,8 +265,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -326,8 +276,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     return sut.transpileFile(file, {}, false)
@@ -361,8 +309,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -374,8 +320,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     return sut.transpileFile(file)
@@ -405,8 +349,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -418,8 +360,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     sut.transpileFileSync(file);
@@ -442,8 +382,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -455,8 +393,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     sut.transpileFileSync({
@@ -481,8 +417,6 @@ describe('services/building:buildTranspiler', () => {
       getConfigForTarget: jest.fn(() => ({})),
     };
     const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
     const target = {
       name: 'some-target',
     };
@@ -495,8 +429,6 @@ describe('services/building:buildTranspiler', () => {
     sut = new BuildTranspiler(
       babelConfiguration,
       appLogger,
-      pathUtils,
-      projectConfiguration,
       targets
     );
     result = sut.transpileFileSync(file, {}, false);
@@ -510,42 +442,12 @@ describe('services/building:buildTranspiler', () => {
     expect(fs.writeFileSync).toHaveBeenCalledTimes(0);
   });
 
-  it('should throw an error if it can\'t find a target for a file', () => {
-    // Given
-    const file = 'file.jsx';
-    const babelConfiguration = 'babelConfiguration';
-    const appLogger = 'appLogger';
-    const pathUtils = 'pathUtils';
-    const projectConfiguration = 'projectConfiguration';
-    const targets = {
-      findTargetForFile: jest.fn(),
-    };
-    let sut = null;
-    // When
-    sut = new BuildTranspiler(
-      babelConfiguration,
-      appLogger,
-      pathUtils,
-      projectConfiguration,
-      targets
-    );
-    // Then
-    expect(() => sut.getTargetConfigurationForFile(file))
-    .toThrow(/A target couldn't be find/i);
-  });
-
   it('should include a provider for the DIC', () => {
     // Given
     let sut = null;
     const container = {
       set: jest.fn(),
-      get: jest.fn(
-        (service) => (
-          service === 'projectConfiguration' ?
-            { getConfig: () => service } :
-            service
-        )
-      ),
+      get: jest.fn((service) => service),
     };
     let serviceName = null;
     let serviceFn = null;
@@ -559,8 +461,6 @@ describe('services/building:buildTranspiler', () => {
     expect(sut).toBeInstanceOf(BuildTranspiler);
     expect(sut.babelConfiguration).toBe('babelConfiguration');
     expect(sut.appLogger).toBe('appLogger');
-    expect(sut.pathUtils).toBe('pathUtils');
-    expect(sut.projectConfiguration).toBe('projectConfiguration');
     expect(sut.targets).toBe('targets');
   });
 });

@@ -13,6 +13,8 @@ Let's start with this:
 
 Now, this is a tool that allows you to configure a project bundling options on an _"almost-human"_ readable format so you don't have to deal with very complex rules and structures.
 
+> projext also has _"zero configuration"_ support so you can start coding right away. Read more about this on the [Zero Configuration document](manual/zeroConfiguration.html).
+
 The idea is to divide your project bundling on a 4 layers architecture:
 
 | Layer                 |                                                                   |
@@ -30,7 +32,7 @@ You want to create an [AngularJS](https://angularjs.org/) app and you want to bu
 - [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack)
 - [`projext-plugin-webpack-angularjs`](https://yarnpkg.com/en/package/projext-plugin-webpack-angularjs)
 
-Then, on your project configuration you would write this:
+Then, if you want to use a configuration file, you would write something like this:
 
 ```js
 module.exports = {
@@ -44,6 +46,17 @@ module.exports = {
 };
 ```
 
+Or you can just create your `src/index.js` and start coding:
+
+```js
+// src/index.js
+
+import angular from 'angular';
+...
+```
+
+projext will look at your code and automatically assume a configuration like the one above.
+
 > There are a lot of _"smart defaults"_ on the project configuration, but since this we just want a quick example, we are going to modify just what we need.
 
 That's all you need to do in terms of configuration, after that you can start coding your app.
@@ -52,7 +65,7 @@ That's all you need to do in terms of configuration, after that you can start co
 
 Module bundlers have been around for quite some time now and they are amazing tools, they allow us to do so much, from just putting the files together to transpiling, tree shaking, splitting for lazy load, etc.
 
-I've been bundling projects since [require.js](http://requirejs.org/) was popular, and since mid 2016 I've been using [webpack](https://webpack.js.org/) for almost everything. You can configure every detail, [Babel](https://babeljs.io/) integration, optimizing files, [Express](https://expressjs.com) middlewares, etc; But after year and half, and more than 20 projects built with it... I'm sick and tire of writing the configuration.
+I've been bundling projects since [require.js](http://requirejs.org/) was popular, and since mid 2016 I've been using [webpack](https://webpack.js.org/) for almost everything. You can configure every detail, [Babel](https://babeljs.io/) integration, files optimization, [Express](https://expressjs.com) middlewares, etc; But after year and half, and more than 20 projects built with it... I'm sick and tired of writing the configuration.
 
 I even [wrote a plugin](https://github.com/homer0/webpack-node-utils/) to manage the configurations, but at the end of the day, I always ended up with huge configurations files, tons of rules and a lot of plugins/dependencies that needed to be up to date and comply with each other versions.
 
@@ -88,7 +101,7 @@ My plan is to ask the community for help putting these plugins/recipes together.
 
 Of course there's no way this will be helpful for everyone: a tool that works as an abstraction of other tool could never cover all the possible scenarios.
 
-This tool is aimed to those who use bundlers everyday to build web sites, libraries and apps without the need to go to the last optimal detail. If you need to do that, then use the bundler directly, it's the best choice.
+This is aimed to those who use bundlers everyday to build web sites, libraries and apps without the need to go to the last optimal detail. If you need to do that, then use the bundler directly, it's the best choice.
 
 ## Information
 
@@ -100,11 +113,46 @@ This tool is aimed to those who use bundlers everyday to build web sites, librar
 
 ## Usage
 
-### Project configuration and Targets
+### Zero configuration
 
-The first thing you need to do is to create a **`config/project.config.js`** file, that's where all your project configuration goes.
+After installing projext and the necessary dependencies for bundling (and framework possibly), you can start coding by just creating a `src/index.js` file on your project.
 
-Then you need to define your targets, the things you are going to bundle. You can have from one to all the targets you want, for example:
+When you run the CLI commands, projext will automatically find your file, it will check its contents and try to determine if you are writing a browser or a Node app based on the modules and syntax you are using.
+
+[Read more about projext Zero Configuration](manual/zeroConfiguration.html)
+
+
+### Project configuration
+
+In case you need to overwrite targets settings or enable other projext features, you can create a project configuration file called  `projext.config.js`.
+
+> The project configuration file can be located on the following paths:
+>
+> - `projext.config.js`
+> - `config/projext.config.js`
+> - `config/project.config.js`
+>
+> projext will evaluate the list of paths and use the first one it finds.
+
+The file needs to export a single object that projext will use to merge on top of the _"smart defaults"_.
+
+For example, you want to enable the feature that executes a target when bundled on development:
+
+```js
+module.exports = {
+  targets: {
+    myTarget: {
+      runOnDevelopment: true,
+    },
+  },
+};
+```
+
+[Read more about the project configuration](manual/projectConfiguration.html).
+
+### Bundling the code
+
+For this example, we are going to assume this is what your targets look like:
 
 ```js
 module.exports = {
@@ -114,45 +162,12 @@ module.exports = {
     },
     frontend: {
       type: 'browser',
-      engine: 'webpack',
     },
   },
 };
 ```
 
-> That's actually the configuration of a real project.
-
-As you can see, the there's only one thing you need to define on your target: The `type`. If it's a Node app, you would use `node`; but if the target is going to run on a browser, go with `browser`.
-
-By default, projext doesn't bundle Node apps (yes, it's ironic): For development, it runs them from the source directory, unless they need transpilation, then it moves them to the distribution directory and transpile them. For production, they are moved to the distribution directory whether they need transpilation or not (as a way to creating a deployable directory).
-
-Now, it doesn't do it by default, but if you add a setting `bundle: true` in there, projext will bundle it.
-
-Regarding browser targets, they are always bundled, and as on any target with bundling, it needs a bundling engine. On the configuration above we defined `webpack`, which is also its default value, and in order to use webpack, we need to install the plugin for it: [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack).
-
-And that's all there is for a basic configuration, but I encourage you to [read more about the project configuration](manual/projectConfiguration.html).
-
-### Writing your app code
-
-projext relays a lot on the project configuration _"smart defaults"_, which are the default values of the settings that I consider to have pre set as there's not a lot of chances that you'd want to change them.
-
-Based on those defaults, the configuration from the previous step assumes the following things:
-
-- For your `backend` target:
- - It's code is located on `src/backend/...`.
- - The main file on development is `start.development.js`.
- - The main file on production is `start.production.js`.
-- For your `frontend` target:
- - It's code is located on `src/frontend/...`.
- - The main file for both development and production is `index.js`.
-
-> Those assumptions are really easy to change from the [project configuration](manual/projectConfiguration.html).
-
-Having that in mind, you can go ahead and create those files with some code on them to try.
-
-### Bundling the code
-
-And we got to the final part, you have your configuration and your targets code, time to bundle them, and the way you do it is by using the `build` command from the `projext` CLI:
+The way you bundle your targets is by using the `build` command from the projext CLI:
 
 > You can use scripts from the `package.json`, `$(npm bin)/` or `npx` too, but for these examples I'll be using `yarn`
 
@@ -166,6 +181,8 @@ Really simple right? For the `frontend` target, it will take all the source, bun
 
 For the `backend` target it will give you a warning (not cool, I know), because the default build type is for a development environment and we didn't specify that the target needed to be bundled nor that it needed transpilation, so projext doesn't see the need to move it.
 
+> By default, projext doesn't bundle nor transpile Node targets code, but you can enable it by changing the `bundle` and/or `transpile` target settings. More about this after the following example.
+
 Now, time to build for production:
 
 ```bash
@@ -177,6 +194,15 @@ yarn projext build frontend --type production
 Done, the `--type` argument set to `production` tells projext that you are preparing a build production, so it will move everything to the distribution directory.
 
 [Read more about projext CLI](manual/cli.html)
+
+### projext and Node apps
+
+By default, projext doesn't bundle nor transpile Node targets code (yes, it sounds ironic) as there's not a lot of advantages on doing it and the support for ES+ syntaxs on Node is pretty great.
+
+When you try to bundle a Node target for development, if you didn't change the settings, you'll get a warning that says that there's no need for it; but if you do it for production, the code will be copied to the distribution directory as you may want to deploy it.
+
+Now, Node targets have two special settings: `bundle` and `transpile`. With `bundle` you can specify whether you want to bundle the entire code on a single file or not; and with `transpile` you can tell projext to just transpile the files content using Babel but keeping all the files.
+
 
 ## Other features
 

@@ -10,8 +10,9 @@ class CLICleanCommand extends CLICommand {
    * Class constructor.
    * @param {Builder}      builder      Needed to remove a target files.
    * @param {BuildCleaner} buildCleaner Needed to remove the distribution directory.
+   * @param {Targets}      targets      To get the default target in case none is specified.
    */
-  constructor(builder, buildCleaner) {
+  constructor(builder, buildCleaner, targets) {
     super();
     /**
      * A local reference for the `builder` service function.
@@ -24,6 +25,11 @@ class CLICleanCommand extends CLICommand {
      */
     this.buildCleaner = buildCleaner;
     /**
+     * A local reference for the `targets` service function.
+     * @type {Targets}
+     */
+    this.targets = targets;
+    /**
      * The instruction needed to trigger the command.
      * @type {string}
      */
@@ -32,20 +38,41 @@ class CLICleanCommand extends CLICommand {
      * A description of the command for the help interface.
      * @type {string}
      */
-    this.description = 'Delete builded files for a target. If no target is ' +
-      'specified, the build directory will be deleted';
+    this.description = 'Delete builded files from the distribution directory';
+    this.addOption(
+      'all',
+      '-a, --all',
+      'Delete the entire distribution directory',
+      false
+    );
   }
   /**
    * Handle the execution of the command.
-   * @param {?string} target A target name. If specified, only that target files will be removed
-   *                         from the distribution directory; otherwise, the entire directory will
-   *                         be removed.
+   * @param {?string} name        The name of the target that will be removed from the distribution
+   *                              directory. If none is specified, it will fallback to the default
+   *                              target.
+   * @param {Command} command     The executed command (sent by `commander`).
+   * @param {Object}  options     The commands options.
+   * @param {boolean} options.all If this is `true`, instead of just removing the target files, the
+   *                              entire distribution directory will be deleted.
    * @return {Promise<undefined,Error>}
    */
-  handle(target) {
-    return target ?
-      this.builder.cleanTarget(target) :
-      this.buildCleaner.cleanAll();
+  handle(name, command, options) {
+    // Define the variable that will hold the return Promise.
+    let result;
+    // If the `all` flag was used...
+    if (options.all) {
+      // ...then remove the entire distribution directory.
+      result = this.buildCleaner.cleanAll();
+    } else {
+      // ...otherwise, check if a target name was specified, or fallback to the default target.
+      const target = name || this.targets.getDefaultTarget();
+      // Set the method to remove the targets files as return Promise.
+      result = this.builder.cleanTarget(target);
+    }
+
+    // Return the Promise for whichever clean method was used.
+    return result;
   }
 }
 /**
@@ -61,7 +88,8 @@ class CLICleanCommand extends CLICommand {
 const cliCleanCommand = provider((app) => {
   app.set('cliCleanCommand', () => new CLICleanCommand(
     app.get('builder'),
-    app.get('buildCleaner')
+    app.get('buildCleaner'),
+    app.get('targets')
   ));
 });
 

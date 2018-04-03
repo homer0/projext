@@ -110,28 +110,71 @@
  */
 
 /**
- * @typedef {Object} ProjectConfigurationTargetTemplateLibraryOptions
- * @property {string} [libraryTarget='commonjs2']
- * How the library will be exposed: `commonjs2`, `umd` and `window`
+ * @typedef {Object} ProjectConfigurationTargetTemplateOutputPaths
+ * @property {string} [js]
+ * The path to generated Javascript files on the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is:
+ * - For `node` targets, on all build types: `[taret-name].js`.
+ * - For `browser` targets:
+ *   - `development`: `'statics/js/[target-name].js'`.
+ *   - `production`: `'statics/js/[target-name].[hash].js'`.
+ * @property {string} [css]
+ * The path to generated stylesheets on the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is, for both `node` and `browser` targets:
+ * - `development`: `'statics/styles/[target-name].css'`.
+ * - `production`: `'statics/styles/[target-name].[hash].css'`.
+ * @property {string} [fonts]
+ * The path to font files once they are copied to the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is, for both `node` and `browser` targets:
+ * - `development`: `'statics/fonts/[name]/[name][ext]'`.
+ * - `production`: `'statics/fonts/[name]/[name].[hash].[ext]'`.
+ * @property {string} [fonts]
+ * The path to image files once they are copied to the distribution directory.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[name]`: The file original name.
+ * - `[ext]`: The file original extension.
+ * - `[hash]`: A random hash generated for cache busting.
+ *
+ * The default value is, for both `node` and `browser` targets:
+ * - `development`: `'statics/images/[name][ext]'`.
+ * - `production`: `'statics/images/[name].[hash].[ext]'`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateOutput
+ * @property {ProjectConfigurationTargetTemplateOutputPaths} [default]
+ * The target output settings for all types of build that don't have specified settings.
+ * @property {ProjectConfigurationTargetTemplateOutputPaths} [development]
+ * The target output settings on a development build. If `null`, it will fallback to the ones
+ * specified on `default`.
+ * @property {ProjectConfigurationTargetTemplateOutputPaths} [production]
+ * The target output settings on a production build. If `null`, it will fallback to the ones
+ * specified on `default`.
  */
 
 /**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
- */
-
-/**
- * @typedef {Object} ProjectConfigurationNodeTargetTemplateOutput
- * @property {string} [default='[target-name].js']
- * The target output file path for all types of build that are not specified. The only available
- * placeholder is `[target-name]`.
- * @property {string} [development=null]
- * The target output file path on a development build. If `null`, it will fallback to the
- * `default`. The only available placeholder is `[target-name]`.
- * @property {string} [production=null]
- * The target output file path on a production build. If `null`, it will fallback to the `default`.
- * The only available placeholder is `[target-name]`.
  */
 
 /**
@@ -150,75 +193,22 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationNodeTargetTemplateLibraryOptions
+ * @property {string} [libraryTarget='commonjs2']
+ * How the library will be exposed: `commonjs2` or `umd`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationNodeTargetTemplateCSSSettings
+ * @property {boolean} [modules=false]
+ * Whether or not your application uses CSS Modules. If this is enabled, all your styles will be
+ * prefixed with a unique identifier.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Browser
  * ================================================================================================
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths
- * @property {string} [js='statics/js/[target-name].js']
- * The path to generated Javascript files on the distribution directory. The available placeholders
- * are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/fonts/[name].[ext]']
- * The path to font files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [css='statics/styles/[name].css']
- * The path to generated stylesheets on the distribution directory. The available placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/images/[name].[ext]']
- * The path to image files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateProductionOutputPaths
- * @property {string} [js='statics/js/[target-name].[hash].js']
- * The path to generated Javascript files on the distribution directory. The available placeholders
- * are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/fonts/[name].[hash].[ext]']
- * The path to font files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [css='statics/styles/[target-name].[hash].css']
- * The path to generated stylesheets on the distribution directory. The available placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[hash]`: A random hash generated for cache busting.
- * @property {string} [fonts='statics/images/[name].[hash].[ext]']
- * The path to image files once they are copied to the distribution directory. The available
- * placeholders are:
- * - `[target-name]`: The name of the target.
- * - `[name]`: The file original name.
- * - `[ext]`: The file original extension.
- * - `[hash]`: A random hash generated for cache busting.
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateOutput
- * @property {ProjectConfigurationBrowserTargetTemplateProductionOutputPaths} [default]
- * The target output settings for all types of build that don't have specified settings.
- * @property {ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths} [development]
- * The target output settings on a development build. If `null`, it will fallback to the ones
- * specified on `default`.
- * @property {ProjectConfigurationBrowserTargetTemplateProductionOutputPaths} [production=null]
- * The target output settings on a production build. If `null`, it will fallback to the ones
- * specified on `default`.
  */
 
 /**
@@ -245,6 +235,16 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateCSSSettings
+ * @property {boolean} [modules=false]
+ * Whether or not your application uses CSS Modules. If this is enabled, all your styles will be
+ * prefixed with a unique identifier.
+ * @property {boolean} [inject=false]
+ * If this setting is set to `true`, instead of generating a CSS file with your styles, they'll be
+ * dynamically injected on HTML when the bundle gets executed.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateBabelSettings
  * @property {Array} [features=[]]
  * projext includes by default two Babel plugins: `transform-class-properties` and
@@ -266,6 +266,28 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings
+ * @property {string} [key=null]
+ * The path to the SSL key (`.key`).
+ * @property {string} [cert=null]
+ * The path to the SSL certificate (`.crt`).
+ * @property {string} [ca=null]
+ * The path to the SSL public file (`.pem`).
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerProxiedSettings
+ * @property {boolean} [enabled=false]
+ * Whether or not the dev server is being proxied.
+ * @property {?string} [host=null]
+ * The host used to proxy the dev server. If `null`, it will use the host defined on the dev server
+ * main settings.
+ * @property {?boolean} [https=null]
+ * Whether or not the proxied host uses `https`. If `null` and you have provided SSL certificates
+ * for the server, it will become `true`, otherwise it will be `false`.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateDevServerSettings
  * @property {number} [port=2509]
  * The server port.
@@ -273,8 +295,11 @@
  * Whether or not to reload the server when the code changes.
  * @property {string} [host='localhost']
  * The dev server hostname.
- * @property {boolean} [https=false]
- * Whether or not the dev server host protocol should be `https`.
+ * @property {ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings} [ssl]
+ * The paths to the files to enable SSL on the dev server.
+ * @property {ProjectConfigurationBrowserTargetTemplateDevServerProxiedSettings} [proxied]
+ * When the dev server is being proxied (using `nginx` for example), there are certain
+ * functionalities, like hot module replacement and live reload that need to be aware of this.
  */
 
 /**
@@ -298,6 +323,14 @@
  * Whether or not projext should check for the environment variable value.
  * @property {string} [filenameFormat='[target-name].[configuration-name].config.js']
  * The name format of the configuration files.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationBrowserTargetTemplateLibraryOptions
+ * @property {string} [libraryTarget='umd']
+ * How the library will be exposed: `commonjs2`, `umd` or `window`.
+ * @property {boolean} [compress=false]
+ * Whether or not to use gzip compression on the generated library file.
  */
 
 /**
@@ -331,8 +364,18 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} [entry]
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationNodeTargetTemplateOutput} [output]
- * The target file paths for each specific build type.
+ * @property {ProjectConfigurationTargetTemplateOutput} [output]
+ * The target output settings for each specific build type.
+ * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} [css]
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} [includeModules=[]]
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} [excludeModules=[]]
+ * This setting can be used to specify a list of modules that should never be bundled. By default,
+ * projext will exclude all the dependencies from the `package.json`, but if you import modules
+ * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
+ * so the build engine won't try to put it inside the bundle it.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -344,7 +387,7 @@
  * @property {boolean} [library=false]
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} [libraryOptions]
+ * @property {ProjectConfigurationNodeTargetTemplateLibraryOptions} [libraryOptions]
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library
  * @property {boolean} [cleanBeforeBuild=true]
@@ -377,10 +420,20 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} entry
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationNodeTargetTemplateOutput} output
- * The target file paths for each specific build type.
- * @property {ProjectConfigurationNodeTargetTemplateOutput} originalOutput
- * The target file paths for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationTargetTemplateOutput} output
+ * The target output settings for each specific build type.
+ * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
+ * The target output settings for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} css
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} includeModules
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} excludeModules
+ * This setting can be used to specify a list of modules that should never be bundled. By default,
+ * projext will exclude all the dependencies from the `package.json`, but if you import modules
+ * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
+ * so the build engine won't try to put it inside the bundle it.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -392,7 +445,7 @@
  * @property {boolean} library
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} libraryOptions
+ * @property {ProjectConfigurationNodeTargetTemplateLibraryOptions} libraryOptions
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library
  * @property {boolean} cleanBeforeBuild
@@ -430,13 +483,18 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} [entry]
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateOutput} [output]
+ * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]
  * In the case the target is an app, these are the options for the `html` file that will include
  * the bundle `<script />`; and if your target is a library, this can be used to test your library.
+ * @property {ProjectConfigurationBrowserTargetTemplateCSSSettings} [css]
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} [includeModules=[]]
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
@@ -445,11 +503,9 @@
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
  * configuration in order to add support for it.
- * @property {boolean} [CSSModules=false]
- * Whether or not your application uses CSS Modules.
  * @property {boolean} [library=false]
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} [libraryOptions]
+ * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} [libraryOptions]
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library.
  * @property {boolean} [cleanBeforeBuild=true]
@@ -479,15 +535,20 @@
  * folder name than the target's name.
  * @property {ProjectConfigurationTargetTemplateEntry} entry
  * The target entry files for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateOutput} output
+ * @property {ProjectConfigurationTargetTemplateOutput} output
  * The target output settings for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateOutput} originalOutput
+ * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
  * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html
  * In the case the target is an app, these are the options for the `html` file that will include
  * the bundle `<script />`; and if your target is a library, this can be used to test your library.
+ * @property {ProjectConfigurationBrowserTargetTemplateCSSSettings} css
+ * These options help you customize the way the bundling process handles your CSS code.
+ * @property {Array} includeModules
+ * This setting can be used to specify a list of node modules you want to process on your bundle.
+ * This means that JS files from modules on this list will be transpiled.
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
@@ -500,7 +561,7 @@
  * Whether or not your application uses CSS Modules.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
- * @property {ProjectConfigurationTargetTemplateLibraryOptions} libraryOptions
+ * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} libraryOptions
  * In case `library` is `true`, these options are going to be used by the build engine to configure
  * your library.
  * @property {boolean} cleanBeforeBuild
@@ -653,6 +714,13 @@
  * @param {ConfigurationFile} baseConfiguration
  * The configuration service that will be extended.
  * @return {ConfigurationFile}
+ */
+
+/**
+ * @typedef {Object} TargetDefaultHTMLSettings
+ * @property {string} title The value of the `<title />` tag.
+ * @property {string} bodyAttributes Extra attributes for the `<body />` tag.
+ * @property {string} bodyContents The content of the `<body />` tag.
  */
 
 /**

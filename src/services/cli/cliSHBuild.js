@@ -129,22 +129,32 @@ class CLISHBuildCommand extends CLICommand {
      * @type {boolean}
      */
     this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and outputs the list of commands to run.
    * This method emits the event reducer `build-target-commands-list` with the list of commands,
    * the target information, the type of build and whether or not the target should be executed;
    * and it expects a list of commands on return.
-   * @param {string}  name         The name of the target.
-   * @param {Command} command      The executed command (sent by `commander`).
-   * @param {Object}  options      The command options.
-   * @param {string}  options.type The type of build.
-   * @param {boolean} options.run  Whether or not the target also needs to be executed.
+   * @param {?string} name           The name of the target.
+   * @param {Command} command        The executed command (sent by `commander`).
+   * @param {Object}  options        The command options.
+   * @param {string}  options.type   The type of build.
+   * @param {boolean} options.run    Whether or not the target also needs to be executed.
+   * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
    */
-  handle(name, command, options) {
+  handle(name, command, options, unknownOptions) {
     const { type } = options;
     // Get the target information
-    const target = this.targets.getTarget(name);
+    const target = name ?
+      // If the target doesn't exist, this will throw an error.
+      this.targets.getTarget(name) :
+      // Get the default target or throw an error if the project doesn't have targets.
+      this.targets.getDefaultTarget();
     // Check if there's a reason for the target to be executed.
     const run = type === 'development' && (target.runOnDevelopment || options.run);
     // Based on the target type, get the list of commands.
@@ -157,7 +167,8 @@ class CLISHBuildCommand extends CLICommand {
       commands.filter((cmd) => !!cmd),
       target,
       type,
-      run
+      run,
+      unknownOptions
     )
     // Join the commands on a single string.
     .join(';');

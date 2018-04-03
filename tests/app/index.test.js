@@ -68,10 +68,12 @@ describe('app:Projext', () => {
     const loadPlugins = jest.fn();
     const listenErrors = jest.fn();
     const startCLI = jest.fn();
+    const addGenerators = jest.fn();
     const get = jest.fn(() => ({
       load: loadPlugins,
       listen: listenErrors,
       start: startCLI,
+      addGenerators,
     }));
     JimpleMock.mock('get', get);
     // When
@@ -83,5 +85,7 @@ describe('app:Projext', () => {
     expect(listenErrors).toHaveBeenCalledTimes(1);
     expect(startCLI).toHaveBeenCalledTimes(1);
     expect(startCLI).toHaveBeenCalledWith(expect.any(Array));
+    expect(addGenerators).toHaveBeenCalledTimes(1);
+    expect(addGenerators).toHaveBeenCalledWith(expect.any(Array));
   });
 });

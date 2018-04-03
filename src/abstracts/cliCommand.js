@@ -1,6 +1,7 @@
 /**
- * A helper class for creating commands for the CLI interface.
+ * A helper class for creating commands for the CLI.
  * @abstract
+ * @version 1.0
  */
 class CLICommand {
   /**
@@ -24,6 +25,13 @@ class CLICommand {
      * @type {string}
      */
     this.description = '';
+    /**
+     * A more complete description of the command to show when the command help interface is
+     * invoked.
+     * If left empty, it won't be used.
+     * @type {string}
+     */
+    this.fullDescription = '';
     /**
      * A list with the name of the options the command supports. New options can be added using
      * the `addOption` method.
@@ -62,6 +70,27 @@ class CLICommand {
      * @type {string}
      */
     this.cliName = '';
+    /**
+     * Whether or not the command supports unknown options. If it does, it will be sent to the
+     * `onActivation` method as a parameter.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = false;
+    /**
+     * This dictionary will be completed when the command gets activated. If the command supports
+     * unknown options (`allowUnknownOptions`), they'll be parsed and sent to the `handle` method
+     * as the last parameter.
+     * @type {Object}
+     */
+    this._unknownOptions = {};
+    /**
+     * Once registered on the program, this property will hold a reference to the real command
+     * the program generates.
+     * @type {?Command}
+     * @ignore
+     * @access protected
+     */
+    this._command = null;
   }
   /**
    * Add a new option for the command.
@@ -104,6 +133,10 @@ class CLICommand {
    * @see https://yarnpkg.com/en/package/commander
    */
   register(program, cli) {
+    // Get the real name of the command.
+    const commandName = this.command.replace(/\[\w+\]/g, '').trim();
+    // Set a listener on the program in order to detect when it gets executed.
+    program.on(`command:${commandName}`, (args, unknown) => this._onActivation(args, unknown));
     // Get the name of the program
     this.cliName = cli.name;
     const options = {};
@@ -137,6 +170,10 @@ class CLICommand {
     });
     // Add the handler for when the command gets executed.
     command.action(this._handle.bind(this));
+    // Enable unknown options if the command supports it
+    command.allowUnknownOption(this.allowUnknownOptions);
+    // Save the reference
+    this._command = command;
   }
   /**
    * Generate an instruction for this command.
@@ -189,6 +226,18 @@ class CLICommand {
           // ...add it to the list.
           cmdOptions.push(instruction);
         }
+      } else if (this.allowUnknownOptions) {
+        /**
+         * Finally, if is not on the command options and the command supports unknown options,
+         * just add it.
+         */
+        let instruction = `--${name}`;
+        // If the option is not a flag, add its value.
+        if (value !== true) {
+          instruction += ` ${value}`;
+        }
+        // Push it to the list
+        cmdOptions.push(instruction);
       }
     });
 
@@ -275,10 +324,130 @@ class CLICommand {
 
     // Copy the arguments list.
     const newArgs = args.slice();
-    // Add the new options dictionary at the end.
+    // Add the new options dictionary.
     newArgs.push(options);
+    // If the method supports unknown options, add them as the last argument.
+    if (this.allowUnknownOptions) {
+      newArgs.push(this._unknownOptions);
+    }
     // Call the abstract method that handles the execution.
     this.handle(...newArgs);
+  }
+  /**
+   * This method gets called by the program when the command is executed and it takes care of
+   * switching the descriptions, if needed, and parsing the unknown options, if supported.
+   * @param {Array} args        The list of known arguments the command received.
+   * @param {Array} unknownArgs The list of unknown arguments the command received.
+   * @ignore
+   * @protected
+   */
+  _onActivation(args, unknownArgs) {
+    // Switch the descriptions.
+    this._updateDescription();
+    // If unknown options are allowed, parsed them and save them on the local property.
+    if (this.allowUnknownOptions && unknownArgs && unknownArgs.length) {
+      this._unknownOptions = this._parseArgs(unknownArgs);
+    }
+  }
+  /**
+   * This method gets called when the command is executed on the program and before reaching the
+   * handle method. It checks if the command has a different description for when it gets
+   * executed, and if needed, it switches it on the program.
+   * @ignore
+   * @access protected
+   */
+  _updateDescription() {
+    // If the command reference is available and there's a full description...
+    if (this.fullDescription) {
+      // ...normalize it by adding the indentation the program uses to show descriptions and help.
+      const normalizedDescription = this.fullDescription.replace(/\n/g, '\n  ');
+      // Change the command description.
+      this._command.description(normalizedDescription);
+    }
+  }
+  /**
+   * This method parses a list of CLI arguments into a dicitionary.
+   * @example
+   * const args = [
+   *   '--include=something',
+   *   '-i',
+   *   'somes',
+   *   '--exclude',
+   *   '--type',
+   *   'building',
+   *   '-x=y',
+   * ];
+   * console.log(this._parseArgs(args));
+   * // Will output `{include: 'something', i: 'somes', exclude: true, type: 'building', x: 'y'}`
+   * @param {Array} args A list of arguments.
+   * @return {Object}
+   * @ignore
+   * @access protected
+   */
+  _parseArgs(args) {
+    // Use Commander to normalize the arguments list.
+    const list = this._command.normalize(args);
+    // Define the dictionary to return.
+    const parsed = {};
+    /**
+     * Define the regex that will validate if an argument is an _"option header"_ (`--[something]`)
+     * or a value.
+     */
+    const headerRegex = /^-(?:-)?/;
+    /**
+     * Every time the loop finds a header, it will be set on this variable, so the next time a value
+     * is found, it can be assigned to that header on the return dictionary.
+     */
+    let currentHeader;
+    /**
+     * The commander `normalize` method transforms `-x=y` into `['-x', '-=', '-y']`. On the first
+     * iteration, `-x` will be marked as a header, on the following iteration, the loop will check
+     * for `-=`, ignore it and mark this variable as `true` so on the final iteration, despite the
+     * fact that the value starts `-`, the method should remove the `-` and save it as a value for
+     * `-x`.
+     */
+    let nextValue = false;
+    // Loop the list...
+    list.forEach((item) => {
+      // Check whether the current item is a header or not.
+      const isHeader = item.match(headerRegex);
+      // If it is a header...
+      if (isHeader) {
+        // ...and the flag for short instructions is `true`...
+        if (nextValue) {
+          // ...remove the leading `-` and save it as a value for the current header.
+          parsed[currentHeader] = item.substr(1);
+          // Reset the flags.
+          currentHeader = null;
+          nextValue = false;
+        } else if (currentHeader && item === '-=') {
+          /**
+           * If there's a header and the current argument is `-=`, set the flag for short
+           * instructions to `true`.
+           */
+          nextValue = true;
+        } else if (currentHeader) {
+          /**
+           * If this is another header, it means that the argument is a flag, so save the current
+           * header as `true` and change the current header to the current item.
+           */
+          parsed[currentHeader] = true;
+          currentHeader = item.replace(headerRegex, '');
+        } else {
+          // Set the current header to the current item.
+          currentHeader = item.replace(headerRegex, '');
+        }
+      } else if (currentHeader) {
+        /**
+         * If there's a header, this means the current item is a value, so set it to the current
+         * header and reset the variable.
+         */
+        parsed[currentHeader] = item;
+        currentHeader = null;
+      }
+    });
+    // Return the parsed object.
+    return parsed;
   }
 }
 

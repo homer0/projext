@@ -44,7 +44,7 @@ describe('services/cli:validate-run', () => {
     expect(sut.hidden).toBeTrue();
   });
 
-  it('should validate the exist when executed', () => {
+  it('should validate the target exists when executed', () => {
     // Given
     const message = 'done';
     const target = 'some-target';
@@ -60,6 +60,22 @@ describe('services/cli:validate-run', () => {
     expect(result).toBe(message);
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target);
+  });
+
+  it('should validate the default target when no name is specified', () => {
+    // Given
+    const message = 'done';
+    const targets = {
+      getDefaultTarget: jest.fn(() => message),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new CLISHValidateRunCommand(targets);
+    result = sut.handle();
+    // Then
+    expect(result).toBe(message);
+    expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
   });
 
   it('should include a provider for the DIC', () => {

@@ -16,12 +16,15 @@ class BuildCleaner {
    *                                                            clean.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the project information and
    *                                                            get paths.
+   * @param {Utils}                        utils                To replace plaholders on the targets
+   *                                                            paths.
    */
   constructor(
     appLogger,
     cleaner,
     pathUtils,
-    projectConfiguration
+    projectConfiguration,
+    utils
   ) {
     /**
      * A local reference for the `appLogger` service.
@@ -43,6 +46,11 @@ class BuildCleaner {
      * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
   }
   /**
    * Removes the entire distribution directory (where are the targets build are located).
@@ -73,117 +81,57 @@ class BuildCleaner {
   cleanTarget(target) {
     const { paths: { build } } = this.projectConfiguration;
     const dist = this.pathUtils.join(build);
-    const cleanStep = target.is.node ?
-      this.cleanNodeTarget(target) :
-      this.cleanBrowserTarget(target);
+    let firstStep;
+    if (target.is.node && !target.bundle) {
+      firstStep = fs.readdir(target.paths.source);
+    } else {
+      const items = [];
+      const placeholders = {
+        'target-name': target.name,
+        hash: '*',
+        name: '*',
+        ext: '*',
+      };
+      Object.keys(target.originalOutput).forEach((type) => {
+        const output = target.originalOutput[type];
+        // JS
+        const js = this.utils.replacePlaceholders(output.js, placeholders);
+        items.push(js);
+        if (target.is.browser) {
+          items.push(`${js}.map`);
+        }
+        // Others
+        items.push(...[
+          this.utils.replacePlaceholders(output.css, placeholders),
+          this.utils.replacePlaceholders(output.fonts, placeholders),
+          this.utils.replacePlaceholders(output.images, placeholders),
+        ]);
+      });
 
-    return cleanStep
+      if (target.is.browser && target.html) {
+        items.push(target.html.filename);
+      }
+
+      items.push(...items.map((item) => `${item}.gz`));
+      firstStep = Promise.resolve(items);
+    }
+
+    return firstStep
+    .then((items) => this.cleaner(target.paths.build, items))
     .then(() => {
       this.appLogger.success(
-        `The files for ${target.name} have been was successfully removed from ` +
+        `The files for '${target.name}' have been was successfully removed from ` +
         `the distribution directory (${dist})`
       );
     })
     .catch((error) => {
       this.appLogger.error(
-        `Error: There was an error while removing the files for ${target.name} ` +
+        `Error: There was an error while removing the files for '${target.name}' ` +
         `from the distribution directory (${dist})`
       );
 
       return Promise.reject(error);
     });
-  }
-  /**
-   * Removes the builded files of a Node target.
-   * @param {Target} target The target information.
-   * @return {Promise<undefined,undefined>}
-   */
-  cleanNodeTarget(target) {
-    let firstStep;
-    if (target.bundle) {
-      const placeholders = {
-        'target-name': target.name,
-        hash: '*',
-      };
-      const items = Object.keys(target.originalOutput)
-      .map((type) => this._replacePlaceholdersOnString(target.originalOutput[type], placeholders));
-
-      firstStep = Promise.resolve(items);
-    } else {
-      firstStep = fs.readdir(target.paths.source);
-    }
-
-    return firstStep
-    .then((items) => this.cleaner(target.paths.build, items));
-  }
-  /**
-   * Removes the builded files of a browser target.
-   * @param {Target} target The target information.
-   * @return {Promise<undefined,undefined>}
-   */
-  cleanBrowserTarget(target) {
-    const items = [];
-    const placeholders = {
-      'target-name': target.name,
-      hash: '*',
-      name: '*',
-      ext: '*',
-    };
-    Object.keys(target.originalOutput).forEach((type) => {
-      const output = target.originalOutput[type];
-      // JS
-      const js = this._replacePlaceholdersOnString(output.js, placeholders);
-      items.push(js);
-      items.push(`${js}.map`);
-      // Others
-      items.push(...[
-        this._replacePlaceholdersOnString(output.css, placeholders),
-        this._replacePlaceholdersOnString(output.fonts, placeholders),
-        this._replacePlaceholdersOnString(output.images, placeholders),
-      ]);
-    });
-
-    items.push(target.html.filename);
-    items.push(...items.map((item) => `${item}.gz`));
-
-    return this.cleaner(target.paths.build, items);
-  }
-  /**
-   * Get all the names variations for a target bundled file based on the target name.
-   * @param {string} name The target name.
-   * @return {Array} A list of all the possible names of files related to that target.
-   * @deprecated
-   */
-  getTargetNamesVariation(name) {
-    const names = [
-      name,
-      `${name}.js`,
-      `${name}.js.map`,
-      `${name}.*.js`,
-      `${name}.*.js.map`,
-    ];
-    names.push(...names.map((file) => `${file}.gz`));
-    return names;
-  }
-  /**
-   * Replace a dictionary of given placeholders on a string.
-   * @param {string} string       The target string where the placeholders will be replaced.
-   * @param {Object} placeholders A dictionary of placeholders and their values.
-   * @return {string}
-   * @ignore
-   * @protected
-   * @todo Move to a shared placed so it can be used by Targets and this class without duplication.
-   */
-  _replacePlaceholdersOnString(string, placeholders) {
-    let newString = string;
-    Object.keys(placeholders).forEach((name) => {
-      newString = newString.replace(
-        RegExp(`\\[${name}\\]`, 'ig'),
-        placeholders[name]
-      );
-    });
-
-    return newString;
   }
 }
 /**
@@ -201,7 +149,8 @@ const buildCleaner = provider((app) => {
     app.get('appLogger'),
     app.get('cleaner'),
     app.get('pathUtils'),
-    app.get('projectConfiguration').getConfig()
+    app.get('projectConfiguration').getConfig(),
+    app.get('utils')
   ));
 });
 

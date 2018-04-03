@@ -2,7 +2,13 @@
 
 These are the settings that will determine how projext will handle your project.
 
-**The file must be created on `[YOUR-PROJECT-PATH]/config/project.config.js`**
+**The file must be created on one of the following paths:**
+
+- `[YOUR-PROJECT-PATH]/projext.config.js`
+- `[YOUR-PROJECT-PATH]/config/projext.config.js`
+- `[YOUR-PROJECT-PATH]/config/project.config.js`
+
+> projext will evaluate the list of paths and use the first one it finds.
 
 There's no _"top level"_ setting, everything is separated in different scopes relevant to one specific thing:
 
@@ -82,6 +88,9 @@ Since there are a lot of settings for the templates, will divide them by type an
   folder: '',
   entry: { ... },
   output: { ... },
+  css: { ... },
+  includeModules: [],
+  excludeModules: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
@@ -146,13 +155,58 @@ This object is the one that tells projext which is the main file (executable) of
 >
 > ```js
 > {
->   default: '[target-name].js',
->   development: null,
+>   default: {
+>     js: '[target-name].js',
+>     fonts: 'statics/fonts/[name]/[name].[hash].[ext]',
+>     css: 'statics/styles/[target-name].[hash].css',
+>     images: 'statics/images/[name].[hash].[ext]',
+>   },
+>   development: {
+>     fonts: 'statics/fonts/[name]/[name].[ext]',
+>     css: 'statics/styles/[target-name].css',
+>     images: 'statics/images/[name].[ext]',
+>   },
 >   production: null,
 > }
 > ```
 
-This tells projext where to place the generated bundle on each environment. You can also use the `[target-name]` placeholder on the paths.
+This tells projext where to place the files generated while bundling on each environment, depending on the file type.
+
+You can use the following placeholders:
+
+- `[target-name]`: The name of the target.
+- `[hash]`: A random hash generated for cache busting.
+- `[name]`: The file original name (Not available for `css` and `js`).
+- `[ext]`: The file original extension (Not available for `css` and `js`).
+
+#### `css`
+> Default value:
+>
+> ```js
+> {
+>   modules: false,
+> }
+> ```
+
+These options help you customize the way the bundling process handles your CSS code.
+
+**`css.modules`**
+
+Whether or not your application uses [CSS Modules](https://github.com/css-modules/css-modules). If this is enabled, all your styles will be prefixed with a unique identifier.
+
+#### `includeModules`
+> Default value: `[]`
+
+This setting can be used to specify a list of node modules you want to process on your bundle.
+
+For example, let's say you are using a library that exports a native `Class` that you are `extend`ing, but you are transpiling for an environment that doesn't support native `Class`es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.
+
+> At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.
+
+#### `excludeModules`
+> Default value: `[]`
+
+This setting can be used to specify a list of modules that should never be bundled. By default, projext will exclude all the dependencies from the `package.json`, but if you import modules using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list so the build engine won't try to put it inside the bundle it.
 
 #### `runOnDevelopment`
 > Default value: `false`
@@ -211,7 +265,7 @@ In case `library` is `true`, these options are going to be used by the build eng
 
 **`libraryOptions.libraryTarget`**
 
-How the library will be exposed: `commonjs2`, `umd` or `window`.
+How the library will be exposed: `commonjs2` or `umd`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
 
@@ -233,10 +287,11 @@ Whether or not to remove all code from previous builds from the distribution dir
   output: { ... },
   sourceMap: { ... },
   html: { ... },
+  css: { ... },
+  includeModules: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
-  CSSModules: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -287,13 +342,13 @@ This object is the one that tells projext which is the main file (the one that f
 > {
 >   default: {
 >     js: 'statics/js/[target-name].[hash].js',
->     fonts: 'statics/fonts/[name].[hash].[ext]',
+>     fonts: 'statics/fonts/[name]/[name].[hash].[ext]',
 >     css: 'statics/styles/[target-name].[hash].css',
 >     images: 'statics/images/[name].[hash].[ext]',
 >   },
 >   development: {
 >     js: 'statics/js/[target-name].js',
->     fonts: 'statics/fonts/[name].[ext]',
+>     fonts: 'statics/fonts/[name]/[name].[ext]',
 >     css: 'statics/styles/[target-name].css',
 >     images: 'statics/images/[name].[ext]',
 >   },
@@ -347,6 +402,35 @@ The file inside your target source that will be used to generate the `html`.
 
 The file that will be generated when your target is bundled. It will automatically include the `<script />` tag to the generated bundle.
 
+#### `css`
+> Default value:
+>
+> ```js
+> {
+>   modules: false,
+>   inject: false,
+> }
+> ```
+
+These options help you customize the way the bundling process handles your CSS code.
+
+**`css.modules`**
+
+Whether or not your application uses [CSS Modules](https://github.com/css-modules/css-modules). If this is enabled, all your styles will be prefixed with a unique identifier.
+
+**`css.inject`**
+
+If this setting is set to `true`, instead of generating a CSS file with your styles, they'll be dynamically injected on HTML when the bundle gets executed.
+
+#### `includeModules`
+> Default value: `[]`
+
+This setting can be used to specify a list of node modules you want to process on your bundle.
+
+For example, let's say you are using a library that exports a native `Class` that you are `extend`ing, but you are transpiling for a browser that doesn't support native `Class`es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.
+
+> At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.
+
 #### `runOnDevelopment`
 > Default value: `false`
 
@@ -396,11 +480,6 @@ If you know how to use Babel and need stuff that is not covered by projext, you 
 
 Whether or not your target uses [flow](https://flow.org/). This will update the Babel configuration in order to add support for it.
 
-#### `CSSModules`
-> Default value: `false`
-
-Whether or not your application uses CSS Modules.
-
 #### `library`
 > Default value: `false`
 
@@ -412,6 +491,7 @@ This will tell the build engine that it needs to be builded as a library to be `
 > ```js
 > {
 >   libraryTarget: 'umd',
+>   compress: false,
 > }
 > ```
 
@@ -422,6 +502,11 @@ In case `library` is `true`, these options are going to be used by the build eng
 How the library will be exposed: `commonjs`, `umd` or `window`.
 
 > Since this was built based on the webpack API, if you are using it as a build engine, you can set any `libraryTarget` that webpack supports. The ones mentioned above will be the ones projext will support for all the other build engines with different APIs.
+
+
+**`libraryOptions.compress`**
+
+Whether or not to use gzip compression on the generated library file.
 
 #### `cleanBeforeBuild`
 > Default value: `true`
@@ -436,7 +521,12 @@ Whether or not to remove all code from previous builds from the distribution dir
 >   port: 2509,
 >   reload: true,
 >   host: 'localhost',
->   https: false,
+>   ssl: {
+>     key: null,
+>     cert: null,
+>     ca: null,
+>   },
+>   proxied: { ... },
 > }
 > ```
 
@@ -454,9 +544,34 @@ Whether or not to reload the server when the code changes.
 
 The dev server hostname.
 
-**`devServer.https`**
+**`devServer.ssl`**
 
-Whether or not the dev server host protocol should be `https`.
+This allows you to set your own SSL certificates in order to run the dev server over HTTPS. The paths must be relative to your project root directory, for example:
+
+```js
+ssl: {
+  key: 'ssl-files/server.key',
+  cert: 'ssl-files/server.crt',
+  ca: 'ssl-files/ca.pem',
+}
+```
+
+**`devServer.proxied`**
+> Default value:
+>
+> ```js
+> {
+>   enabled: false,
+>   hostname: null,
+>   https: null,
+> }
+> ```
+
+When the dev server is being proxied (using `nginx` for example), there are certain functionalities, like hot module replacement and live reload that need to be aware of this, so you need to use these options:
+
+- `enabled`: Whether the server is being proxied or not.
+- `hostname`: The hostname used. If `null`, it will use the same as `devServer.hostname`.
+- `https`: Whether or not the server is being proxied over `https`. This settings has a boolean value, but if you let it as `null` it will set its value based on `devServer.ssl`, if you added the certificates it will be `true`, otherwise `false`.
 
 #### `configuration`
 > Default value:
@@ -665,9 +780,26 @@ Miscellaneous options.
 
 ```js
 {
-  watch: { .. },
+  findTargets: { ... },
+  watch: { ... },
 }
 ```
+
+### `findTargets`
+> Default value:
+>
+> ```js
+> {
+>   enabled: true,
+> }
+> ```
+
+By default, projext will look in your source directory and try to identify as much information as possible about your target(s), but if for some reason you don't want it to do it, you can use this setting to disable that functionality.
+
+#### `findTargets.enabled`
+> Default value: `true`
+
+Whether or not you want projext to read your project files and try to assume information about your targets.
 
 ### `watch`
 > Default value:

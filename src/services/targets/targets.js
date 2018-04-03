@@ -12,18 +12,26 @@ class Targets {
    *                                                            after loading it.
    * @param {EnvironmentUtils}             environmentUtils     To send to the configuration
    *                                                            service used by the browser targets.
+   * @param {Object}                       packageInfo          The project's `package.json`,
+   *                                                            necessary to get the project's name
+   *                                                            and use it as the name of the
+   *                                                            default target.
    * @param {PathUtils}                    pathUtils            Used to build the targets paths.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the targets and their
    *                                                            templates.
    * @param {RootRequire}                  rootRequire          To send to the configuration
    *                                                            service used by the browser targets.
+   * @param {Utils}                        utils                To replace plaholders on the targets
+   *                                                            paths.
    */
   constructor(
     events,
     environmentUtils,
+    packageInfo,
     pathUtils,
     projectConfiguration,
-    rootRequire
+    rootRequire,
+    utils
   ) {
     /**
      * A local reference for the `events` service.
@@ -35,6 +43,11 @@ class Targets {
      * @type {EnvironmentUtils}
      */
     this.environmentUtils = environmentUtils;
+    /**
+     * The information of the project's `package.json`.
+     * @type {Object}
+     */
+    this.packageInfo = packageInfo;
     /**
      * A local reference for the `pathUtils` service.
      * @type {PathUtils}
@@ -50,6 +63,11 @@ class Targets {
      * @type {RootRequire}
      */
     this.rootRequire = rootRequire;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
     /**
      * A dictionary that will be filled with the targets information.
      * @type {Object}
@@ -117,11 +135,7 @@ class Targets {
         // Check if there are missing entries and fill them with the default value.
         newTarget.entry = this._normalizeTargetEntry(newTarget.entry);
         // Check if there are missing entries and merge them with the default value.
-        if (newTarget.is.node) {
-          newTarget.output = this._normalizeNodeTargetOutput(newTarget.output);
-        } else {
-          newTarget.output = this._normalizeBrowserTargetOutput(newTarget.output);
-        }
+        newTarget.output = this._normalizeTargetOutput(newTarget.output);
         /**
          * Keep the original output settings without the placeholders so internal services or
          * plugins can use them.
@@ -161,6 +175,14 @@ class Targets {
     return this.targets;
   }
   /**
+   * Validate whether a target exists or not.
+   * @param {string} name The target name.
+   * @return {boolean}
+   */
+  targetExists(name) {
+    return !!this.getTargets()[name];
+  }
+  /**
    * Get a target information by its name.
    * @param {string} name The target name.
    * @return {Target}
@@ -175,21 +197,57 @@ class Targets {
     return target;
   }
   /**
+   * Returns the target with the name of project (specified on the `package.json`) and if there's
+   * no target with that name, then the first one, using a list of the targets name on alphabetical
+   * order.
+   * @param {string} [type=''] A specific target type, `node` or `browser`.
+   * @return {Target}
+   * @throws {Error} If the project has no targets
+   * @throws {Error} If the project has no targets of the specified type.
+   * @throws {Error} If a specified target type is invalid.
+   */
+  getDefaultTarget(type = '') {
+    const allTargets = this.getTargets();
+    let targets = {};
+    if (type && !['node', 'browser'].includes(type)) {
+      throw new Error(`Invalid target type: ${type}`);
+    } else if (type) {
+      Object.keys(allTargets).forEach((targetName) => {
+        const target = allTargets[targetName];
+        if (target.type === type) {
+          targets[targetName] = target;
+        }
+      });
+    } else {
+      targets = allTargets;
+    }
+
+    const names = Object.keys(targets).sort();
+    let target;
+    if (names.length) {
+      const { name: projectName } = this.packageInfo;
+      target = targets[projectName] || targets[names[0]];
+    } else if (type) {
+      throw new Error(`The project doesn't have any targets of the required type: ${type}`);
+    } else {
+      throw new Error('The project doesn\'t have any targets');
+    }
+
+    return target;
+  }
+  /**
    * Find a target by a given filepath.
    * @param {string} file The path of the file that should match with a target path.
    * @return {Target}
    * @throws {Error} If no target is found.
-   * @todo The implementation of this method also throws an error if no target is found.
    */
   findTargetForFile(file) {
     const targets = this.getTargets();
-    const targetName = Object.keys(targets).find((name) => {
-      const target = targets[name];
-      return file.includes(target.paths.source);
-    });
+    const targetName = Object.keys(targets)
+    .find((name) => file.includes(targets[name].paths.source));
 
     if (!targetName) {
-      throw new Error(`A target for the following file couldn't be found: ${file}`);
+      throw new Error(`A target couldn't be find for the following file: ${file}`);
     }
 
     return targets[targetName];
@@ -284,13 +342,13 @@ class Targets {
    * Checks if there are missing output settings that need to be merged with the ones on the
    * default fallback, and in case there are, a new set of output settings will be generated and
    * returned.
-   * @param {ProjectConfigurationBrowserTargetTemplateOutput} currentOutput
+   * @param {ProjectConfigurationTargetTemplateOutput} currentOutput
    * The output settings defined on the target after merging it with its type template.
-   * @return {ProjectConfigurationBrowserTargetTemplateOutput}
+   * @return {ProjectConfigurationTargetTemplateOutput}
    * @ignore
    * @protected
    */
-  _normalizeBrowserTargetOutput(currentOutput) {
+  _normalizeTargetOutput(currentOutput) {
     const newOutput = Object.assign({}, currentOutput);
     const { default: defaultOutput } = newOutput;
     delete newOutput.default;
@@ -313,18 +371,6 @@ class Targets {
     return newOutput;
   }
   /**
-   * Checks if there are missing output paths that need to be replaced with the  default fallback,
-   * and in case there are, a new set of settings will be generated and returned.
-   * @param {ProjectConfigurationNodeTargetTemplateOutput} currentOutput
-   * The output settings defined on the target after merging it with its type template.
-   * @return {ProjectConfigurationNodeTargetTemplateOutput}
-   * @ignore
-   * @protected
-   */
-  _normalizeNodeTargetOutput(currentOutput) {
-    return this._normalizeSettingsWithDefault(currentOutput);
-  }
-  /**
    * Replace the common placeholders from a target output paths.
    * @param {Target} target The target information.
    * @return {
@@ -343,10 +389,10 @@ class Targets {
     Object.keys(newOutput).forEach((name) => {
       const value = newOutput[name];
       if (typeof value === 'string') {
-        newOutput[name] = this._replacePlaceholdersOnString(value, placeholders);
+        newOutput[name] = this.utils.replacePlaceholders(value, placeholders);
       } else if (value) {
         Object.keys(value).forEach((propName) => {
-          newOutput[name][propName] = this._replacePlaceholdersOnString(
+          newOutput[name][propName] = this.utils.replacePlaceholders(
             newOutput[name][propName],
             placeholders
           );
@@ -355,25 +401,6 @@ class Targets {
     });
 
     return newOutput;
-  }
-  /**
-   * Replace a dictionary of given placeholders on a string.
-   * @param {string} string       The target string where the placeholders will be replaced.
-   * @param {Object} placeholders A dictionary of placeholders and their values.
-   * @return {string}
-   * @ignore
-   * @protected
-   */
-  _replacePlaceholdersOnString(string, placeholders) {
-    let newString = string;
-    Object.keys(placeholders).forEach((name) => {
-      newString = newString.replace(
-        RegExp(`\\[${name}\\]`, 'ig'),
-        placeholders[name]
-      );
-    });
-
-    return newString;
   }
   /**
    * Checks if there are missing HTML settings that need to be replaced with the default fallback,
@@ -427,9 +454,11 @@ const targets = provider((app) => {
   app.set('targets', () => new Targets(
     app.get('events'),
     app.get('environmentUtils'),
+    app.get('packageInfo'),
     app.get('pathUtils'),
     app.get('projectConfiguration').getConfig(),
-    app.get('rootRequire')
+    app.get('rootRequire'),
+    app.get('utils')
   ));
 });
 

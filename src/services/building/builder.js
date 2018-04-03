@@ -114,11 +114,14 @@ class Builder {
   }
   /**
    * Removes all previous builds/copies of a target from the distribution directory.
-   * @param {string} targetName The name of the target.
+   * @param {string|target} targetName The name of the target, or the target itself.
    * @return {Promise<undefined,Error>}
    */
   cleanTarget(targetName) {
-    const target = this.targets.getTarget(targetName);
+    const target = typeof targetName === 'string' ?
+      this.targets.getTarget(targetName) :
+      targetName;
+
     return this.buildCleaner.cleanTarget(target);
   }
 }

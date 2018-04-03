@@ -1,5 +1,6 @@
 const fs = require('fs-extra');
 const extend = require('extend');
+const path = require('path');
 /**
  * A helper class for creating configuration files that can be overwritten on
  * implementation.
@@ -9,8 +10,15 @@ class ConfigurationFile {
   /**
    * Class constructor.
    * @param {PathUtils}         pathUtils            To build the path to the overwrite file.
-   * @param {string}            overwritePath        The path, inside the `config` folder, for the
-   *                                                 file that can overwrite the configuration.
+   * @param {string|Array}      overwritePaths       A path of a list of paths for files that can
+   *                                                 overwrite the configuration. If used as a
+   *                                                 string, it will assume the path is inside
+   *                                                 the `config` folder, but if used as a list, the
+   *                                                 paths will be relative to the project root
+   *                                                 directory.
+   *                                                 If used as an array, the class will use the
+   *                                                 first file of the list that exists and ignore
+   *                                                 the rest.
    * @param {boolean}           [asFactory=false]    If `true`, every time `getConfig` gets called,
    *                                                 the configuration will be created again,
    *                                                 instead of caching it the first time it's
@@ -22,22 +30,24 @@ class ConfigurationFile {
    * @throws {TypeError} If instantiated directly.
    * @abstract
    */
-  constructor(pathUtils, overwritePath, asFactory = false, parentConfig = null) {
+  constructor(pathUtils, overwritePaths, asFactory = false, parentConfig = null) {
     if (new.target === ConfigurationFile) {
       throw new TypeError(
         'ConfigurationFile is an abstract class, it can\'t be instantiated directly'
       );
     }
     /**
-     * A local reference to the `pathUtils` service.
+     * A local reference for the `pathUtils` service.
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;
     /**
-     * The path, inside the `config` folder, for the file that can overwrite the configuration.
-     * @type {string}
+     * A list of paths that can overwrite the configuration.
+     * @type {Array}
      */
-    this.overwritePath = overwritePath;
+    this.overwritePaths = (typeof overwritePaths === 'string') ?
+      [path.join('config', overwritePaths)] :
+      (overwritePaths || []);
     /**
      * Whether the configuration should be created every time `getConfig` gets called or not.
      * @type {boolean}
@@ -51,11 +61,15 @@ class ConfigurationFile {
     /**
      * This will store the configuration after creating it.
      * @type {?Object}
+     * @ignore
+     * @access protected
      */
     this._config = null;
     /**
      * A flag to know if the overwrite file has been loaded or not.
      * @type {boolean}
+     * @ignore
+     * @access protected
      */
     this._fileConfigLoaded = false;
     /**
@@ -63,6 +77,8 @@ class ConfigurationFile {
      * is loaded, if the file exports a function, then it will replace this variable, otherwise, the
      * return value of this method will be become the exported configuration.
      * @return {Object}
+     * @ignore
+     * @access protected
      */
     this._fileConfig = () => ({});
   }
@@ -102,7 +118,6 @@ class ConfigurationFile {
    * This is the real method that creates the configuration.
    * @param  {Array} args A list of parameters for the service to use when creating the
    *                      configuration
-   * @return {Object}
    * @ignore
    * @access protected
    */
@@ -125,7 +140,7 @@ class ConfigurationFile {
       parentConfig = this.parentConfig.getConfig(...args);
     }
     /**
-     * Return the final configuration, which is a merge of the following things:
+     * Generate the final configuration, which is a merge of the following things:
      * - The parent configuration `getConfig` method result; or an empty object if no parent
      * configuration was received.
      * - The result of this instance `createConfig` method.
@@ -140,30 +155,31 @@ class ConfigurationFile {
     );
   }
   /**
-   * Load the configuration from the overwrite file.
+   * Load the configuration from an overwrite file.
    * @ignore
    * @access protected
    */
   _loadConfigFromFile() {
-    const filepath = this.pathUtils.join('config', this.overwritePath);
-    let overwriteContents = null;
-    // If the file exists...
-    if (fs.pathExistsSync(filepath)) {
+    const filepath = this.overwritePaths
+    .map((overwrite) => this.pathUtils.join(overwrite))
+    .find((overwrite) => fs.pathExistsSync(overwrite));
+    // If there's a file...
+    if (filepath) {
       // ...require it
       // eslint-disable-next-line global-require, import/no-dynamic-require
-      overwriteContents = require(filepath);
-    }
-    // If the file exists and exported anything...
-    if (overwriteContents) {
-      // ...get the type of whatever the file exported.
-      const overwriteType = typeof overwriteContents;
-      // If the file exported a function...
-      if (overwriteType === 'function') {
-        // ...set it as the `_fileConfig` property.
-        this._fileConfig = overwriteContents;
-      } else {
-        // ...otherwise, set the `_fileConfig` property to return whatever the file exported.
-        this._fileConfig = () => overwriteContents;
+      const overwriteContents = require(filepath);
+      // If the file exported anything...
+      if (overwriteContents) {
+        // ...get the type of whatever the file exported.
+        const overwriteType = typeof overwriteContents;
+        // If the file exported a function...
+        if (overwriteType === 'function') {
+          // ...set it as the `_fileConfig` property.
+          this._fileConfig = overwriteContents;
+        } else {
+          // ...otherwise, set the `_fileConfig` property to return whatever the file exported.
+          this._fileConfig = () => overwriteContents;
+        }
       }
     }
   }

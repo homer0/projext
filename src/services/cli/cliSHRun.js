@@ -10,14 +10,21 @@ class CLISHRunCommand extends CLICommand {
    * Class constructor.
    * @param {CLIBuildCommand} cliBuildCommand The run command is actually an alias for the build
    *                                          command with the `--run` option flag set to true.
+   * @param {Targets}         targets         To get the name of the default target if no other is
+   *                                          specified.
    */
-  constructor(cliBuildCommand) {
+  constructor(cliBuildCommand, targets) {
     super();
     /**
      * A local reference for the `cliBuildCommand` service.
      * @type {CLIBuildCommand}
      */
     this.cliBuildCommand = cliBuildCommand;
+    /**
+     * A local reference for the `targets` service.
+     * @type {Targets}
+     */
+    this.targets = targets;
     /**
      * The instruction needed to trigger the command.
      * @type {string}
@@ -34,17 +41,35 @@ class CLISHRunCommand extends CLICommand {
      * @type {boolean}
      */
     this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and outputs the list of commands to run.
-   * @param {string} target The name of the target.
+   * @param {?string} name The name of the target.
+   * @param {Command} command        The executed command (sent by `commander`).
+   * @param {Object}  options        The command options.
+   * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
    */
-  handle(target) {
-    this.output(this.cliBuildCommand.generate({
-      target,
-      type: 'development',
-      run: true,
-    }));
+  handle(name, command, options, unknownOptions) {
+    const target = name ?
+      // If the target doesn't exist, this will throw an error.
+      this.targets.getTarget(name) :
+      // Get the default target or throw an error if the project doesn't have targets.
+      this.targets.getDefaultTarget();
+
+    this.output(this.cliBuildCommand.generate(Object.assign(
+      {},
+      unknownOptions,
+      {
+        target: target.name,
+        type: 'development',
+        run: true,
+      }
+    )));
   }
 }
 /**
@@ -59,7 +84,8 @@ class CLISHRunCommand extends CLICommand {
  */
 const cliSHRunCommand = provider((app) => {
   app.set('cliSHRunCommand', () => new CLISHRunCommand(
-    app.get('cliBuildCommand')
+    app.get('cliBuildCommand'),
+    app.get('targets')
   ));
 });
 

@@ -95,7 +95,10 @@ class CLISHValidateBuildCommand extends CLICommand {
         `The target '${name}' doesn't need bundling nor transpilation, ` +
         'so there\'s no need to build it'
       );
-    } else if (target.is.browser) {
+    } else if (
+      target.is.browser &&
+      !(target.library && type === 'production')
+    ) {
       this.tempFiles.ensureDirectorySync();
       const htmlStatus = this.targetsHTML.validate(target);
       if (!htmlStatus.exists) {

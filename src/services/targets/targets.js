@@ -154,7 +154,7 @@ class Targets {
         if (!newTarget.transpile && newTarget.flow) {
           newTarget.transpile = true;
         }
-        // Generate the taret paths and folders.
+        // Generate the target paths and folders.
         newTarget.folders.source = newTarget.hasFolder ?
           path.join(source, sourceFolderName) :
           source;

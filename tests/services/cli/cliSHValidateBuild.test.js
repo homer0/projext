@@ -170,6 +170,34 @@ describe('services/cli:sh-validate-build', () => {
     expect(appLogger.warning).toHaveBeenCalledTimes(1);
   });
 
+  it('shouldn\'t log a warning for the HTML when the target is a library for production', () => {
+    // Given
+    const appLogger = {
+      warning: jest.fn(),
+    };
+    const targetName = 'some-target';
+    const target = {
+      library: true,
+      is: {
+        node: false,
+        browser: true,
+      },
+    };
+    const targets = {
+      getTarget: jest.fn(() => target),
+    };
+    const targetsHTML = 'targetsHTML';
+    const tempFiles = 'tempFiles';
+    const run = false;
+    const type = 'production';
+    let sut = null;
+    // When
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
+    sut.handle(targetName, null, { run, type });
+    // Then
+    expect(appLogger.warning).toHaveBeenCalledTimes(0);
+  });
+
   it('should validate the default target when no name is specified', () => {
     // Given
     const appLogger = {

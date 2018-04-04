@@ -92,7 +92,7 @@ class CLISHValidateBuildCommand extends CLICommand {
       !target.transpile
     ) {
       this.appLogger.warning(
-        `The target '${name}' doesn't need bundling nor transpilation, ` +
+        `The target '${target.name}' doesn't need bundling nor transpilation, ` +
         'so there\'s no need to build it'
       );
     } else if (
@@ -103,8 +103,8 @@ class CLISHValidateBuildCommand extends CLICommand {
       const htmlStatus = this.targetsHTML.validate(target);
       if (!htmlStatus.exists) {
         this.appLogger.warning(
-          `The target '${name}' doesn't have an HTML template, projext will generate one for ` +
-          'this build, but it would be best for you to create one. You can use the ' +
+          `The target '${target.name}' doesn't have an HTML template, projext will generate ` +
+          'one for this build, but it would be best for you to create one. You can use the ' +
           '\'generate\' command'
         );
       }

@@ -84,6 +84,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/cligenerate.js~cligeneratecommand",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html",
+    "<span>CLIGenerateCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliGenerate.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/cli/cliinfo.js~cliinfocommand",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html",
+    "<span>CLIInfoCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliInfo.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/clirevision.js~clirevisioncommand",
     "class/src/services/cli/cliRevision.js~CLIRevisionCommand.html",
     "<span>CLIRevisionCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRevision.js</span>",
@@ -138,6 +150,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/abstracts/clisubcommand.js~clisubcommand",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html",
+    "<span>CLISubCommand</span> <span class=\"search-result-import-path\">projext/src/abstracts/cliSubCommand.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/common/cleaner.js~cleaner",
     "class/src/services/common/cleaner.js~Cleaner.html",
     "<span>Cleaner</span> <span class=\"search-result-import-path\">projext/src/services/common/cleaner.js</span>",
@@ -174,9 +192,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html",
+    "<span>ProjectConfigurationFileGenerator</span> <span class=\"search-result-import-path\">projext/src/services/cli/generators/projectConfigurationFile.js</span>",
+    "class"
+  ],
+  [
     "projext/src/app/index.js~projext",
     "class/src/app/index.js~Projext.html",
     "<span>Projext</span> <span class=\"search-result-import-path\">projext/src/app/index.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/common/prompt.js~prompt",
+    "class/src/services/common/prompt.js~Prompt.html",
+    "<span>Prompt</span> <span class=\"search-result-import-path\">projext/src/services/common/prompt.js</span>",
     "class"
   ],
   [
@@ -186,9 +216,39 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
-    "projext/src/services/building/targets.js~targets",
-    "class/src/services/building/targets.js~Targets.html",
-    "<span>Targets</span> <span class=\"search-result-import-path\">projext/src/services/building/targets.js</span>",
+    "projext/src/services/cli/generators/targethtml.js~targethtmlgenerator",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html",
+    "<span>TargetHTMLGenerator</span> <span class=\"search-result-import-path\">projext/src/services/cli/generators/targetHTML.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/targets/targets.js~targets",
+    "class/src/services/targets/targets.js~Targets.html",
+    "<span>Targets</span> <span class=\"search-result-import-path\">projext/src/services/targets/targets.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/targets/targetsfinder.js~targetsfinder",
+    "class/src/services/targets/targetsFinder.js~TargetsFinder.html",
+    "<span>TargetsFinder</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsFinder.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/targets/targetshtml.js~targetshtml",
+    "class/src/services/targets/targetsHTML.js~TargetsHTML.html",
+    "<span>TargetsHTML</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsHTML.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/common/tempfiles.js~tempfiles",
+    "class/src/services/common/tempFiles.js~TempFiles.html",
+    "<span>TempFiles</span> <span class=\"search-result-import-path\">projext/src/services/common/tempFiles.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/common/utils.js~utils",
+    "class/src/services/common/utils.js~Utils.html",
+    "<span>Utils</span> <span class=\"search-result-import-path\">projext/src/services/common/utils.js</span>",
     "class"
   ],
   [
@@ -196,6 +256,12 @@ window.esdocSearchIndex = [
     "class/src/services/common/versionUtils.js~VersionUtils.html",
     "<span>VersionUtils</span> <span class=\"search-result-import-path\">projext/src/services/common/versionUtils.js</span>",
     "class"
+  ],
+  [
+    "projext/src/services/common/prompt.js~appprompt",
+    "variable/index.html#static-variable-appPrompt",
+    "<span>appPrompt</span> <span class=\"search-result-import-path\">projext/src/services/common/prompt.js</span>",
+    "variable"
   ],
   [
     "projext/src/services/configurations/babelconfiguration.js~babelconfiguration",
@@ -279,6 +345,18 @@ window.esdocSearchIndex = [
     "projext/src/services/cli/clicopyprojectfiles.js~clicopyprojectfilescommand",
     "variable/index.html#static-variable-cliCopyProjectFilesCommand",
     "<span>cliCopyProjectFilesCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliCopyProjectFiles.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/cligenerate.js~cligeneratecommand",
+    "variable/index.html#static-variable-cliGenerateCommand",
+    "<span>cliGenerateCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliGenerate.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/cliinfo.js~cliinfocommand",
+    "variable/index.html#static-variable-cliInfoCommand",
+    "<span>cliInfoCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliInfo.js</span>",
     "variable"
   ],
   [
@@ -366,15 +444,69 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator",
+    "variable/index.html#static-variable-projectConfigurationFileGenerator",
+    "<span>projectConfigurationFileGenerator</span> <span class=\"search-result-import-path\">projext/src/services/cli/generators/projectConfigurationFile.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/common/prompt.js~prompt",
+    "variable/index.html#static-variable-prompt",
+    "<span>prompt</span> <span class=\"search-result-import-path\">projext/src/services/common/prompt.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/common/prompt.js~promptwithoptions",
+    "function/index.html#static-function-promptWithOptions",
+    "<span>promptWithOptions</span> <span class=\"search-result-import-path\">projext/src/services/common/prompt.js</span>",
+    "function"
+  ],
+  [
     "projext/src/services/configurations/targetconfiguration.js~targetconfiguration",
     "variable/index.html#static-variable-targetConfiguration",
     "<span>targetConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/targetConfiguration.js</span>",
     "variable"
   ],
   [
-    "projext/src/services/building/targets.js~targets",
+    "projext/src/services/cli/generators/targethtml.js~targethtmlgenerator",
+    "variable/index.html#static-variable-targetHTMLGenerator",
+    "<span>targetHTMLGenerator</span> <span class=\"search-result-import-path\">projext/src/services/cli/generators/targetHTML.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/targets/targets.js~targets",
     "variable/index.html#static-variable-targets",
-    "<span>targets</span> <span class=\"search-result-import-path\">projext/src/services/building/targets.js</span>",
+    "<span>targets</span> <span class=\"search-result-import-path\">projext/src/services/targets/targets.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/targets/targetsfinder.js~targetsfinder",
+    "variable/index.html#static-variable-targetsFinder",
+    "<span>targetsFinder</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsFinder.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/targets/targetshtml.js~targetshtml",
+    "variable/index.html#static-variable-targetsHTML",
+    "<span>targetsHTML</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsHTML.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/common/tempfiles.js~tempfiles",
+    "variable/index.html#static-variable-tempFiles",
+    "<span>tempFiles</span> <span class=\"search-result-import-path\">projext/src/services/common/tempFiles.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/common/tempfiles.js~tempfilescustom",
+    "function/index.html#static-function-tempFilesCustom",
+    "<span>tempFilesCustom</span> <span class=\"search-result-import-path\">projext/src/services/common/tempFiles.js</span>",
+    "function"
+  ],
+  [
+    "projext/src/services/common/utils.js~utils",
+    "variable/index.html#static-variable-utils",
+    "<span>utils</span> <span class=\"search-result-import-path\">projext/src/services/common/utils.js</span>",
     "variable"
   ],
   [
@@ -672,10 +804,22 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/abstracts/clicommand.js~clicommand#_unknownoptions",
+    "class/src/abstracts/cliCommand.js~CLICommand.html#instance-member-_unknownOptions",
+    "src/abstracts/cliCommand.js~CLICommand#_unknownOptions",
+    "member"
+  ],
+  [
     "src/abstracts/clicommand.js~clicommand#addoption",
     "class/src/abstracts/cliCommand.js~CLICommand.html#instance-method-addOption",
     "src/abstracts/cliCommand.js~CLICommand#addOption",
     "method"
+  ],
+  [
+    "src/abstracts/clicommand.js~clicommand#allowunknownoptions",
+    "class/src/abstracts/cliCommand.js~CLICommand.html#instance-member-allowUnknownOptions",
+    "src/abstracts/cliCommand.js~CLICommand#allowUnknownOptions",
+    "member"
   ],
   [
     "src/abstracts/clicommand.js~clicommand#checkoptionsonparent",
@@ -705,6 +849,12 @@ window.esdocSearchIndex = [
     "src/abstracts/clicommand.js~clicommand#description",
     "class/src/abstracts/cliCommand.js~CLICommand.html#instance-member-description",
     "src/abstracts/cliCommand.js~CLICommand#description",
+    "member"
+  ],
+  [
+    "src/abstracts/clicommand.js~clicommand#fulldescription",
+    "class/src/abstracts/cliCommand.js~CLICommand.html#instance-member-fullDescription",
+    "src/abstracts/cliCommand.js~CLICommand#fullDescription",
     "member"
   ],
   [
@@ -756,28 +906,64 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/abstracts/clisubcommand.js",
+    "file/src/abstracts/cliSubCommand.js.html",
+    "src/abstracts/cliSubCommand.js",
+    "file"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#addoption",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-method-addOption",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#addOption",
+    "method"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#constructor",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-constructor-constructor",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#constructor",
+    "method"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#description",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-member-description",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#description",
+    "member"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#gethelpinformation",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-method-getHelpInformation",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#getHelpInformation",
+    "method"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#handle",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-method-handle",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#handle",
+    "method"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#name",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-member-name",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#name",
+    "member"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#options",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-member-options",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#options",
+    "member"
+  ],
+  [
+    "src/abstracts/clisubcommand.js~clisubcommand#optionsbyname",
+    "class/src/abstracts/cliSubCommand.js~CLISubCommand.html#instance-member-optionsByName",
+    "src/abstracts/cliSubCommand.js~CLISubCommand#optionsByName",
+    "member"
+  ],
+  [
     "src/abstracts/configurationfile.js",
     "file/src/abstracts/configurationFile.js.html",
     "src/abstracts/configurationFile.js",
     "file"
-  ],
-  [
-    "src/abstracts/configurationfile.js~configurationfile#_config",
-    "class/src/abstracts/configurationFile.js~ConfigurationFile.html#instance-member-_config",
-    "src/abstracts/configurationFile.js~ConfigurationFile#_config",
-    "member"
-  ],
-  [
-    "src/abstracts/configurationfile.js~configurationfile#_fileconfig",
-    "class/src/abstracts/configurationFile.js~ConfigurationFile.html#instance-member-_fileConfig",
-    "src/abstracts/configurationFile.js~ConfigurationFile#_fileConfig",
-    "member"
-  ],
-  [
-    "src/abstracts/configurationfile.js~configurationfile#_fileconfigloaded",
-    "class/src/abstracts/configurationFile.js~ConfigurationFile.html#instance-member-_fileConfigLoaded",
-    "src/abstracts/configurationFile.js~ConfigurationFile#_fileConfigLoaded",
-    "member"
   ],
   [
     "src/abstracts/configurationfile.js~configurationfile#asfactory",
@@ -804,9 +990,9 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/abstracts/configurationfile.js~configurationfile#overwritepath",
-    "class/src/abstracts/configurationFile.js~ConfigurationFile.html#instance-member-overwritePath",
-    "src/abstracts/configurationFile.js~ConfigurationFile#overwritePath",
+    "src/abstracts/configurationfile.js~configurationfile#overwritepaths",
+    "class/src/abstracts/configurationFile.js~ConfigurationFile.html#instance-member-overwritePaths",
+    "src/abstracts/configurationFile.js~ConfigurationFile#overwritePaths",
     "member"
   ],
   [
@@ -858,18 +1044,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/services/building/buildcleaner.js~buildcleaner#cleanbrowsertarget",
-    "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-method-cleanBrowserTarget",
-    "src/services/building/buildCleaner.js~BuildCleaner#cleanBrowserTarget",
-    "method"
-  ],
-  [
-    "src/services/building/buildcleaner.js~buildcleaner#cleannodetarget",
-    "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-method-cleanNodeTarget",
-    "src/services/building/buildCleaner.js~BuildCleaner#cleanNodeTarget",
-    "method"
-  ],
-  [
     "src/services/building/buildcleaner.js~buildcleaner#cleantarget",
     "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-method-cleanTarget",
     "src/services/building/buildCleaner.js~BuildCleaner#cleanTarget",
@@ -888,12 +1062,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/services/building/buildcleaner.js~buildcleaner#gettargetnamesvariation",
-    "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-method-getTargetNamesVariation",
-    "src/services/building/buildCleaner.js~BuildCleaner#getTargetNamesVariation",
-    "method"
-  ],
-  [
     "src/services/building/buildcleaner.js~buildcleaner#pathutils",
     "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-member-pathUtils",
     "src/services/building/buildCleaner.js~BuildCleaner#pathUtils",
@@ -903,6 +1071,12 @@ window.esdocSearchIndex = [
     "src/services/building/buildcleaner.js~buildcleaner#projectconfiguration",
     "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-member-projectConfiguration",
     "src/services/building/buildCleaner.js~BuildCleaner#projectConfiguration",
+    "member"
+  ],
+  [
+    "src/services/building/buildcleaner.js~buildcleaner#utils",
+    "class/src/services/building/buildCleaner.js~BuildCleaner.html#instance-member-utils",
+    "src/services/building/buildCleaner.js~BuildCleaner#utils",
     "member"
   ],
   [
@@ -1116,18 +1290,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/services/building/buildtranspiler.js~buildtranspiler#pathutils",
-    "class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-member-pathUtils",
-    "src/services/building/buildTranspiler.js~BuildTranspiler#pathUtils",
-    "member"
-  ],
-  [
-    "src/services/building/buildtranspiler.js~buildtranspiler#projectconfiguration",
-    "class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-member-projectConfiguration",
-    "src/services/building/buildTranspiler.js~BuildTranspiler#projectConfiguration",
-    "member"
-  ],
-  [
     "src/services/building/buildtranspiler.js~buildtranspiler#targets",
     "class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-member-targets",
     "src/services/building/buildTranspiler.js~BuildTranspiler#targets",
@@ -1272,96 +1434,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/services/building/targets.js",
-    "file/src/services/building/targets.js.html",
-    "src/services/building/targets.js",
-    "file"
-  ],
-  [
-    "src/services/building/targets.js~targets#constructor",
-    "class/src/services/building/targets.js~Targets.html#instance-constructor-constructor",
-    "src/services/building/targets.js~Targets#constructor",
-    "method"
-  ],
-  [
-    "src/services/building/targets.js~targets#defaulttype",
-    "class/src/services/building/targets.js~Targets.html#instance-member-defaultType",
-    "src/services/building/targets.js~Targets#defaultType",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#environmentutils",
-    "class/src/services/building/targets.js~Targets.html#instance-member-environmentUtils",
-    "src/services/building/targets.js~Targets#environmentUtils",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#events",
-    "class/src/services/building/targets.js~Targets.html#instance-member-events",
-    "src/services/building/targets.js~Targets#events",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#findtargetforfile",
-    "class/src/services/building/targets.js~Targets.html#instance-method-findTargetForFile",
-    "src/services/building/targets.js~Targets#findTargetForFile",
-    "method"
-  ],
-  [
-    "src/services/building/targets.js~targets#getbrowsertargetconfiguration",
-    "class/src/services/building/targets.js~Targets.html#instance-method-getBrowserTargetConfiguration",
-    "src/services/building/targets.js~Targets#getBrowserTargetConfiguration",
-    "method"
-  ],
-  [
-    "src/services/building/targets.js~targets#gettarget",
-    "class/src/services/building/targets.js~Targets.html#instance-method-getTarget",
-    "src/services/building/targets.js~Targets#getTarget",
-    "method"
-  ],
-  [
-    "src/services/building/targets.js~targets#gettargets",
-    "class/src/services/building/targets.js~Targets.html#instance-method-getTargets",
-    "src/services/building/targets.js~Targets#getTargets",
-    "method"
-  ],
-  [
-    "src/services/building/targets.js~targets#loadtargets",
-    "class/src/services/building/targets.js~Targets.html#instance-method-loadTargets",
-    "src/services/building/targets.js~Targets#loadTargets",
-    "method"
-  ],
-  [
-    "src/services/building/targets.js~targets#pathutils",
-    "class/src/services/building/targets.js~Targets.html#instance-member-pathUtils",
-    "src/services/building/targets.js~Targets#pathUtils",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#projectconfiguration",
-    "class/src/services/building/targets.js~Targets.html#instance-member-projectConfiguration",
-    "src/services/building/targets.js~Targets#projectConfiguration",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#rootrequire",
-    "class/src/services/building/targets.js~Targets.html#instance-member-rootRequire",
-    "src/services/building/targets.js~Targets#rootRequire",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#targets",
-    "class/src/services/building/targets.js~Targets.html#instance-member-targets",
-    "src/services/building/targets.js~Targets#targets",
-    "member"
-  ],
-  [
-    "src/services/building/targets.js~targets#typesvalidationregex",
-    "class/src/services/building/targets.js~Targets.html#instance-member-typesValidationRegex",
-    "src/services/building/targets.js~Targets#typesValidationRegex",
-    "member"
-  ],
-  [
     "src/services/cli/cli.js",
     "file/src/services/cli/cli.js.html",
     "src/services/cli/cli.js",
@@ -1396,6 +1468,12 @@ window.esdocSearchIndex = [
     "file/src/services/cli/cliBuild.js.html",
     "src/services/cli/cliBuild.js",
     "file"
+  ],
+  [
+    "src/services/cli/clibuild.js~clibuildcommand#allowunknownoptions",
+    "class/src/services/cli/cliBuild.js~CLIBuildCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliBuild.js~CLIBuildCommand#allowUnknownOptions",
+    "member"
   ],
   [
     "src/services/cli/clibuild.js~clibuildcommand#command",
@@ -1458,6 +1536,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/cli/cliclean.js~clicleancommand#targets",
+    "class/src/services/cli/cliClean.js~CLICleanCommand.html#instance-member-targets",
+    "src/services/cli/cliClean.js~CLICleanCommand#targets",
+    "member"
+  ],
+  [
     "src/services/cli/clicopyprojectfiles.js",
     "file/src/services/cli/cliCopyProjectFiles.js.html",
     "src/services/cli/cliCopyProjectFiles.js",
@@ -1492,6 +1576,108 @@ window.esdocSearchIndex = [
     "class/src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand.html#instance-method-handle",
     "src/services/cli/cliCopyProjectFiles.js~CLICopyProjectFilesCommand#handle",
     "method"
+  ],
+  [
+    "src/services/cli/cligenerate.js",
+    "file/src/services/cli/cliGenerate.js.html",
+    "src/services/cli/cliGenerate.js",
+    "file"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#addgenerators",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-method-addGenerators",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#addGenerators",
+    "method"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#allowunknownoptions",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#command",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-command",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#constructor",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#description",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-description",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#fulldescription",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-fullDescription",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#fullDescription",
+    "member"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#generators",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-generators",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#generators",
+    "member"
+  ],
+  [
+    "src/services/cli/cligenerate.js~cligeneratecommand#handle",
+    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-method-handle",
+    "src/services/cli/cliGenerate.js~CLIGenerateCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/cliinfo.js",
+    "file/src/services/cli/cliInfo.js.html",
+    "src/services/cli/cliInfo.js",
+    "file"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#applogger",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-appLogger",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#appLogger",
+    "member"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#command",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-command",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#constructor",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#description",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-description",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#handle",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-method-handle",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#projectconfiguration",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-projectConfiguration",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#projectConfiguration",
+    "member"
+  ],
+  [
+    "src/services/cli/cliinfo.js~cliinfocommand#utils",
+    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-utils",
+    "src/services/cli/cliInfo.js~CLIInfoCommand#utils",
+    "member"
   ],
   [
     "src/services/cli/clirevision.js",
@@ -1536,6 +1722,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/services/cli/clirun.js~cliruncommand#allowunknownoptions",
+    "class/src/services/cli/cliRun.js~CLIRunCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliRun.js~CLIRunCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
     "src/services/cli/clirun.js~cliruncommand#command",
     "class/src/services/cli/cliRun.js~CLIRunCommand.html#instance-member-command",
     "src/services/cli/cliRun.js~CLIRunCommand#command",
@@ -1552,6 +1744,12 @@ window.esdocSearchIndex = [
     "file/src/services/cli/cliSHBuild.js.html",
     "src/services/cli/cliSHBuild.js",
     "file"
+  ],
+  [
+    "src/services/cli/clishbuild.js~clishbuildcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#allowUnknownOptions",
+    "member"
   ],
   [
     "src/services/cli/clishbuild.js~clishbuildcommand#builder",
@@ -1794,6 +1992,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/services/cli/clishrun.js~clishruncommand#allowunknownoptions",
+    "class/src/services/cli/cliSHRun.js~CLISHRunCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHRun.js~CLISHRunCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
     "src/services/cli/clishrun.js~clishruncommand#clibuildcommand",
     "class/src/services/cli/cliSHRun.js~CLISHRunCommand.html#instance-member-cliBuildCommand",
     "src/services/cli/cliSHRun.js~CLISHRunCommand#cliBuildCommand",
@@ -1827,6 +2031,12 @@ window.esdocSearchIndex = [
     "src/services/cli/clishrun.js~clishruncommand#hidden",
     "class/src/services/cli/cliSHRun.js~CLISHRunCommand.html#instance-member-hidden",
     "src/services/cli/cliSHRun.js~CLISHRunCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishrun.js~clishruncommand#targets",
+    "class/src/services/cli/cliSHRun.js~CLISHRunCommand.html#instance-member-targets",
+    "src/services/cli/cliSHRun.js~CLISHRunCommand#targets",
     "member"
   ],
   [
@@ -1920,6 +2130,18 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand#targetshtml",
+    "class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html#instance-member-targetsHTML",
+    "src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand#targetsHTML",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand#tempfiles",
+    "class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html#instance-member-tempFiles",
+    "src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand#tempFiles",
+    "member"
+  ],
+  [
     "src/services/cli/clishvalidaterun.js",
     "file/src/services/cli/cliSHValidateRun.js.html",
     "src/services/cli/cliSHValidateRun.js",
@@ -1959,6 +2181,132 @@ window.esdocSearchIndex = [
     "src/services/cli/clishvalidaterun.js~clishvalidateruncommand#targets",
     "class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html#instance-member-targets",
     "src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand#targets",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/index.js",
+    "file/src/services/cli/generators/index.js.html",
+    "src/services/cli/generators/index.js",
+    "file"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js",
+    "file/src/services/cli/generators/projectConfigurationFile.js.html",
+    "src/services/cli/generators/projectConfigurationFile.js",
+    "file"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#_writesettings",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-method-_writeSettings",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#_writeSettings",
+    "method"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#applogger",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-appLogger",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#appLogger",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#appprompt",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-appPrompt",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#appPrompt",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#constructor",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-constructor-constructor",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#description",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-description",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#description",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#handle",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-method-handle",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#name",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-name",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#name",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#pathutils",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-pathUtils",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#pathUtils",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#projectconfiguration",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-projectConfiguration",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#projectConfiguration",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/projectconfigurationfile.js~projectconfigurationfilegenerator#utils",
+    "class/src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator.html#instance-member-utils",
+    "src/services/cli/generators/projectConfigurationFile.js~ProjectConfigurationFileGenerator#utils",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js",
+    "file/src/services/cli/generators/targetHTML.js.html",
+    "src/services/cli/generators/targetHTML.js",
+    "file"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#applogger",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-member-appLogger",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#appLogger",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#appprompt",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-member-appPrompt",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#appPrompt",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#constructor",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-constructor-constructor",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#description",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-member-description",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#description",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#handle",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-method-handle",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#name",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-member-name",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#name",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#targets",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-member-targets",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#targets",
+    "member"
+  ],
+  [
+    "src/services/cli/generators/targethtml.js~targethtmlgenerator#targetshtml",
+    "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html#instance-member-targetsHTML",
+    "src/services/cli/generators/targetHTML.js~TargetHTMLGenerator#targetsHTML",
     "member"
   ],
   [
@@ -2076,6 +2424,150 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/common/prompt.js",
+    "file/src/services/common/prompt.js.html",
+    "src/services/common/prompt.js",
+    "file"
+  ],
+  [
+    "src/services/common/prompt.js~prompt#ask",
+    "class/src/services/common/prompt.js~Prompt.html#instance-method-ask",
+    "src/services/common/prompt.js~Prompt#ask",
+    "method"
+  ],
+  [
+    "src/services/common/prompt.js~prompt#constructor",
+    "class/src/services/common/prompt.js~Prompt.html#instance-constructor-constructor",
+    "src/services/common/prompt.js~Prompt#constructor",
+    "method"
+  ],
+  [
+    "src/services/common/prompt.js~prompt#getvalue",
+    "class/src/services/common/prompt.js~Prompt.html#instance-method-getValue",
+    "src/services/common/prompt.js~Prompt#getValue",
+    "method"
+  ],
+  [
+    "src/services/common/prompt.js~prompt#history",
+    "class/src/services/common/prompt.js~Prompt.html#instance-method-history",
+    "src/services/common/prompt.js~Prompt#history",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js",
+    "file/src/services/common/tempFiles.js.html",
+    "src/services/common/tempFiles.js",
+    "file"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#constructor",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-constructor-constructor",
+    "src/services/common/tempFiles.js~TempFiles#constructor",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#delete",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-delete",
+    "src/services/common/tempFiles.js~TempFiles#delete",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#deletesync",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-deleteSync",
+    "src/services/common/tempFiles.js~TempFiles#deleteSync",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#ensuredirectory",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-ensureDirectory",
+    "src/services/common/tempFiles.js~TempFiles#ensureDirectory",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#ensuredirectorysync",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-ensureDirectorySync",
+    "src/services/common/tempFiles.js~TempFiles#ensureDirectorySync",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#locationname",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-member-locationName",
+    "src/services/common/tempFiles.js~TempFiles#locationName",
+    "member"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#path",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-path",
+    "src/services/common/tempFiles.js~TempFiles#path",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#pathutils",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-member-pathUtils",
+    "src/services/common/tempFiles.js~TempFiles#pathUtils",
+    "member"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#read",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-read",
+    "src/services/common/tempFiles.js~TempFiles#read",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#readsync",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-readSync",
+    "src/services/common/tempFiles.js~TempFiles#readSync",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#write",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-write",
+    "src/services/common/tempFiles.js~TempFiles#write",
+    "method"
+  ],
+  [
+    "src/services/common/tempfiles.js~tempfiles#writesync",
+    "class/src/services/common/tempFiles.js~TempFiles.html#instance-method-writeSync",
+    "src/services/common/tempFiles.js~TempFiles#writeSync",
+    "method"
+  ],
+  [
+    "src/services/common/utils.js",
+    "file/src/services/common/utils.js.html",
+    "src/services/common/utils.js",
+    "file"
+  ],
+  [
+    "src/services/common/utils.js~utils.deletepropertywithpath",
+    "class/src/services/common/utils.js~Utils.html#static-method-deletePropertyWithPath",
+    "src/services/common/utils.js~Utils.deletePropertyWithPath",
+    "method"
+  ],
+  [
+    "src/services/common/utils.js~utils.getpropertywithpath",
+    "class/src/services/common/utils.js~Utils.html#static-method-getPropertyWithPath",
+    "src/services/common/utils.js~Utils.getPropertyWithPath",
+    "method"
+  ],
+  [
+    "src/services/common/utils.js~utils.humanreadablelist",
+    "class/src/services/common/utils.js~Utils.html#static-method-humanReadableList",
+    "src/services/common/utils.js~Utils.humanReadableList",
+    "method"
+  ],
+  [
+    "src/services/common/utils.js~utils.replaceplaceholders",
+    "class/src/services/common/utils.js~Utils.html#static-method-replacePlaceholders",
+    "src/services/common/utils.js~Utils.replacePlaceholders",
+    "method"
+  ],
+  [
+    "src/services/common/utils.js~utils.setpropertywithpath",
+    "class/src/services/common/utils.js~Utils.html#static-method-setPropertyWithPath",
+    "src/services/common/utils.js~Utils.setPropertyWithPath",
+    "method"
+  ],
+  [
     "src/services/common/versionutils.js",
     "file/src/services/common/versionUtils.js.html",
     "src/services/common/versionUtils.js",
@@ -2190,6 +2682,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/configurations/projectconfiguration.js~projectconfiguration#targetsfinder",
+    "class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html#instance-member-targetsFinder",
+    "src/services/configurations/projectConfiguration.js~ProjectConfiguration#targetsFinder",
+    "member"
+  ],
+  [
     "src/services/configurations/targetconfiguration.js",
     "file/src/services/configurations/targetConfiguration.js.html",
     "src/services/configurations/targetConfiguration.js",
@@ -2205,6 +2703,192 @@ window.esdocSearchIndex = [
     "src/services/configurations/targetconfiguration.js~targetconfiguration#createconfig",
     "class/src/services/configurations/targetConfiguration.js~TargetConfiguration.html#instance-method-createConfig",
     "src/services/configurations/targetConfiguration.js~TargetConfiguration#createConfig",
+    "method"
+  ],
+  [
+    "src/services/targets/index.js",
+    "file/src/services/targets/index.js.html",
+    "src/services/targets/index.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targets.js",
+    "file/src/services/targets/targets.js.html",
+    "src/services/targets/targets.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targets.js~targets#constructor",
+    "class/src/services/targets/targets.js~Targets.html#instance-constructor-constructor",
+    "src/services/targets/targets.js~Targets#constructor",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#defaulttype",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-defaultType",
+    "src/services/targets/targets.js~Targets#defaultType",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#environmentutils",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-environmentUtils",
+    "src/services/targets/targets.js~Targets#environmentUtils",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#events",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-events",
+    "src/services/targets/targets.js~Targets#events",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#findtargetforfile",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-findTargetForFile",
+    "src/services/targets/targets.js~Targets#findTargetForFile",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#getbrowsertargetconfiguration",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-getBrowserTargetConfiguration",
+    "src/services/targets/targets.js~Targets#getBrowserTargetConfiguration",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#getdefaulttarget",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-getDefaultTarget",
+    "src/services/targets/targets.js~Targets#getDefaultTarget",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#gettarget",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-getTarget",
+    "src/services/targets/targets.js~Targets#getTarget",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#gettargets",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-getTargets",
+    "src/services/targets/targets.js~Targets#getTargets",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#loadtargets",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-loadTargets",
+    "src/services/targets/targets.js~Targets#loadTargets",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#packageinfo",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-packageInfo",
+    "src/services/targets/targets.js~Targets#packageInfo",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#pathutils",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-pathUtils",
+    "src/services/targets/targets.js~Targets#pathUtils",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#projectconfiguration",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-projectConfiguration",
+    "src/services/targets/targets.js~Targets#projectConfiguration",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#rootrequire",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-rootRequire",
+    "src/services/targets/targets.js~Targets#rootRequire",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#targetexists",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-targetExists",
+    "src/services/targets/targets.js~Targets#targetExists",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#targets",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-targets",
+    "src/services/targets/targets.js~Targets#targets",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#typesvalidationregex",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-typesValidationRegex",
+    "src/services/targets/targets.js~Targets#typesValidationRegex",
+    "member"
+  ],
+  [
+    "src/services/targets/targets.js~targets#utils",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-utils",
+    "src/services/targets/targets.js~Targets#utils",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfinder.js",
+    "file/src/services/targets/targetsFinder.js.html",
+    "src/services/targets/targetsFinder.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targetsfinder.js~targetsfinder#_nodeframeworks",
+    "class/src/services/targets/targetsFinder.js~TargetsFinder.html#instance-member-_nodeFrameworks",
+    "src/services/targets/targetsFinder.js~TargetsFinder#_nodeFrameworks",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfinder.js~targetsfinder#find",
+    "class/src/services/targets/targetsFinder.js~TargetsFinder.html#instance-method-find",
+    "src/services/targets/targetsFinder.js~TargetsFinder#find",
+    "method"
+  ],
+  [
+    "src/services/targets/targetsfinder.js~targetsfinder#packageinfo",
+    "class/src/services/targets/targetsFinder.js~TargetsFinder.html#instance-member-packageInfo",
+    "src/services/targets/targetsFinder.js~TargetsFinder#packageInfo",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfinder.js~targetsfinder#pathutils",
+    "class/src/services/targets/targetsFinder.js~TargetsFinder.html#instance-member-pathUtils",
+    "src/services/targets/targetsFinder.js~TargetsFinder#pathUtils",
+    "member"
+  ],
+  [
+    "src/services/targets/targetshtml.js",
+    "file/src/services/targets/targetsHTML.js.html",
+    "src/services/targets/targetsHTML.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targetshtml.js~targetshtml#constructor",
+    "class/src/services/targets/targetsHTML.js~TargetsHTML.html#instance-constructor-constructor",
+    "src/services/targets/targetsHTML.js~TargetsHTML#constructor",
+    "method"
+  ],
+  [
+    "src/services/targets/targetshtml.js~targetshtml#events",
+    "class/src/services/targets/targetsHTML.js~TargetsHTML.html#instance-member-events",
+    "src/services/targets/targetsHTML.js~TargetsHTML#events",
+    "member"
+  ],
+  [
+    "src/services/targets/targetshtml.js~targetshtml#getfilepath",
+    "class/src/services/targets/targetsHTML.js~TargetsHTML.html#instance-method-getFilepath",
+    "src/services/targets/targetsHTML.js~TargetsHTML#getFilepath",
+    "method"
+  ],
+  [
+    "src/services/targets/targetshtml.js~targetshtml#tempfiles",
+    "class/src/services/targets/targetsHTML.js~TargetsHTML.html#instance-member-tempFiles",
+    "src/services/targets/targetsHTML.js~TargetsHTML#tempFiles",
+    "member"
+  ],
+  [
+    "src/services/targets/targetshtml.js~targetshtml#validate",
+    "class/src/services/targets/targetsHTML.js~TargetsHTML.html#instance-method-validate",
+    "src/services/targets/targetsHTML.js~TargetsHTML#validate",
     "method"
   ],
   [
@@ -2304,9 +2988,27 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~projectconfigurationbrowsertargettemplatecsssettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateCSSSettings",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateCSSSettings",
+    "typedef"
+  ],
+  [
     "src/typedef.js~projectconfigurationbrowsertargettemplateconfigurationsettings",
     "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateConfigurationSettings",
     "src/typedef.js~ProjectConfigurationBrowserTargetTemplateConfigurationSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplatedevserverproxiedsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateDevServerProxiedSettings",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateDevServerProxiedSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationbrowsertargettemplatedevserversslsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings",
     "typedef"
   ],
   [
@@ -2316,27 +3018,15 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationbrowsertargettemplatedevelopmentoutputpaths",
-    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths",
-    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateDevelopmentOutputPaths",
-    "typedef"
-  ],
-  [
     "src/typedef.js~projectconfigurationbrowsertargettemplatehtmlsettings",
     "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateHTMLSettings",
     "src/typedef.js~ProjectConfigurationBrowserTargetTemplateHTMLSettings",
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationbrowsertargettemplateoutput",
-    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateOutput",
-    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateOutput",
-    "typedef"
-  ],
-  [
-    "src/typedef.js~projectconfigurationbrowsertargettemplateproductionoutputpaths",
-    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateProductionOutputPaths",
-    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateProductionOutputPaths",
+    "src/typedef.js~projectconfigurationbrowsertargettemplatelibraryoptions",
+    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateLibraryOptions",
+    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateLibraryOptions",
     "typedef"
   ],
   [
@@ -2370,9 +3060,15 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationnodetargettemplateoutput",
-    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateOutput",
-    "src/typedef.js~ProjectConfigurationNodeTargetTemplateOutput",
+    "src/typedef.js~projectconfigurationnodetargettemplatecsssettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateCSSSettings",
+    "src/typedef.js~ProjectConfigurationNodeTargetTemplateCSSSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationnodetargettemplatelibraryoptions",
+    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplateLibraryOptions",
+    "src/typedef.js~ProjectConfigurationNodeTargetTemplateLibraryOptions",
     "typedef"
   ],
   [
@@ -2400,9 +3096,15 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationtargettemplatelibraryoptions",
-    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateLibraryOptions",
-    "src/typedef.js~ProjectConfigurationTargetTemplateLibraryOptions",
+    "src/typedef.js~projectconfigurationtargettemplateoutput",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutput",
+    "src/typedef.js~ProjectConfigurationTargetTemplateOutput",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationtargettemplateoutputpaths",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths",
+    "src/typedef.js~ProjectConfigurationTargetTemplateOutputPaths",
     "typedef"
   ],
   [
@@ -2457,6 +3159,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~targetconfigurationcreator",
     "typedef/index.html#static-typedef-TargetConfigurationCreator",
     "src/typedef.js~TargetConfigurationCreator",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetdefaulthtmlsettings",
+    "typedef/index.html#static-typedef-TargetDefaultHTMLSettings",
+    "src/typedef.js~TargetDefaultHTMLSettings",
     "typedef"
   ],
   [

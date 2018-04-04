@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 984,
+  "end": 1179,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 29,
+      "line": 35,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 984,
+    "end": 1179,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 29,
+        "line": 35,
         "column": 0
       }
     },
@@ -463,9 +463,9 @@
                   "line": 5,
                   "column": 27
                 },
-                "identifierName": "cliRevisionCommand"
+                "identifierName": "cliGenerateCommand"
               },
-              "name": "cliRevisionCommand"
+              "name": "cliGenerateCommand"
             },
             "local": {
               "type": "Identifier",
@@ -480,9 +480,9 @@
                   "line": 5,
                   "column": 27
                 },
-                "identifierName": "cliRevisionCommand"
+                "identifierName": "cliGenerateCommand"
               },
-              "name": "cliRevisionCommand"
+              "name": "cliGenerateCommand"
             }
           }
         ],
@@ -501,6 +501,178 @@
             }
           },
           "extra": {
+            "rawValue": "./cliGenerate",
+            "raw": "'./cliGenerate'"
+          },
+          "value": "./cliGenerate"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 254,
+        "end": 297,
+        "loc": {
+          "start": {
+            "line": 6,
+            "column": 0
+          },
+          "end": {
+            "line": 6,
+            "column": 43
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 263,
+            "end": 277,
+            "loc": {
+              "start": {
+                "line": 6,
+                "column": 9
+              },
+              "end": {
+                "line": 6,
+                "column": 23
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 263,
+              "end": 277,
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "end": {
+                  "line": 6,
+                  "column": 23
+                },
+                "identifierName": "cliInfoCommand"
+              },
+              "name": "cliInfoCommand"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 263,
+              "end": 277,
+              "loc": {
+                "start": {
+                  "line": 6,
+                  "column": 9
+                },
+                "end": {
+                  "line": 6,
+                  "column": 23
+                },
+                "identifierName": "cliInfoCommand"
+              },
+              "name": "cliInfoCommand"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 285,
+          "end": 296,
+          "loc": {
+            "start": {
+              "line": 6,
+              "column": 31
+            },
+            "end": {
+              "line": 6,
+              "column": 42
+            }
+          },
+          "extra": {
+            "rawValue": "./cliInfo",
+            "raw": "'./cliInfo'"
+          },
+          "value": "./cliInfo"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 298,
+        "end": 349,
+        "loc": {
+          "start": {
+            "line": 7,
+            "column": 0
+          },
+          "end": {
+            "line": 7,
+            "column": 51
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 307,
+            "end": 325,
+            "loc": {
+              "start": {
+                "line": 7,
+                "column": 9
+              },
+              "end": {
+                "line": 7,
+                "column": 27
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 307,
+              "end": 325,
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 9
+                },
+                "end": {
+                  "line": 7,
+                  "column": 27
+                },
+                "identifierName": "cliRevisionCommand"
+              },
+              "name": "cliRevisionCommand"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 307,
+              "end": 325,
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 9
+                },
+                "end": {
+                  "line": 7,
+                  "column": 27
+                },
+                "identifierName": "cliRevisionCommand"
+              },
+              "name": "cliRevisionCommand"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 333,
+          "end": 348,
+          "loc": {
+            "start": {
+              "line": 7,
+              "column": 35
+            },
+            "end": {
+              "line": 7,
+              "column": 50
+            }
+          },
+          "extra": {
             "rawValue": "./cliRevision",
             "raw": "'./cliRevision'"
           },
@@ -509,44 +681,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 254,
-        "end": 295,
+        "start": 350,
+        "end": 391,
         "loc": {
           "start": {
-            "line": 6,
+            "line": 8,
             "column": 0
           },
           "end": {
-            "line": 6,
+            "line": 8,
             "column": 41
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 263,
-            "end": 276,
+            "start": 359,
+            "end": 372,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 8,
                 "column": 9
               },
               "end": {
-                "line": 6,
+                "line": 8,
                 "column": 22
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 263,
-              "end": 276,
+              "start": 359,
+              "end": 372,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 8,
                   "column": 9
                 },
                 "end": {
-                  "line": 6,
+                  "line": 8,
                   "column": 22
                 },
                 "identifierName": "cliRunCommand"
@@ -555,15 +727,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 263,
-              "end": 276,
+              "start": 359,
+              "end": 372,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 8,
                   "column": 9
                 },
                 "end": {
-                  "line": 6,
+                  "line": 8,
                   "column": 22
                 },
                 "identifierName": "cliRunCommand"
@@ -574,15 +746,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 284,
-          "end": 294,
+          "start": 380,
+          "end": 390,
           "loc": {
             "start": {
-              "line": 6,
+              "line": 8,
               "column": 30
             },
             "end": {
-              "line": 6,
+              "line": 8,
               "column": 40
             }
           },
@@ -595,44 +767,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 296,
-        "end": 345,
+        "start": 392,
+        "end": 441,
         "loc": {
           "start": {
-            "line": 7,
+            "line": 9,
             "column": 0
           },
           "end": {
-            "line": 7,
+            "line": 9,
             "column": 49
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 305,
-            "end": 322,
+            "start": 401,
+            "end": 418,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 9,
                 "column": 9
               },
               "end": {
-                "line": 7,
+                "line": 9,
                 "column": 26
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 305,
-              "end": 322,
+              "start": 401,
+              "end": 418,
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 9,
                   "column": 9
                 },
                 "end": {
-                  "line": 7,
+                  "line": 9,
                   "column": 26
                 },
                 "identifierName": "cliSHBuildCommand"
@@ -641,15 +813,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 305,
-              "end": 322,
+              "start": 401,
+              "end": 418,
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 9,
                   "column": 9
                 },
                 "end": {
-                  "line": 7,
+                  "line": 9,
                   "column": 26
                 },
                 "identifierName": "cliSHBuildCommand"
@@ -660,15 +832,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 330,
-          "end": 344,
+          "start": 426,
+          "end": 440,
           "loc": {
             "start": {
-              "line": 7,
+              "line": 9,
               "column": 34
             },
             "end": {
-              "line": 7,
+              "line": 9,
               "column": 48
             }
           },
@@ -681,44 +853,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 346,
-        "end": 393,
+        "start": 442,
+        "end": 489,
         "loc": {
           "start": {
-            "line": 8,
+            "line": 10,
             "column": 0
           },
           "end": {
-            "line": 8,
+            "line": 10,
             "column": 47
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 355,
-            "end": 371,
+            "start": 451,
+            "end": 467,
             "loc": {
               "start": {
-                "line": 8,
+                "line": 10,
                 "column": 9
               },
               "end": {
-                "line": 8,
+                "line": 10,
                 "column": 25
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 355,
-              "end": 371,
+              "start": 451,
+              "end": 467,
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 10,
                   "column": 9
                 },
                 "end": {
-                  "line": 8,
+                  "line": 10,
                   "column": 25
                 },
                 "identifierName": "cliSHCopyCommand"
@@ -727,15 +899,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 355,
-              "end": 371,
+              "start": 451,
+              "end": 467,
               "loc": {
                 "start": {
-                  "line": 8,
+                  "line": 10,
                   "column": 9
                 },
                 "end": {
-                  "line": 8,
+                  "line": 10,
                   "column": 25
                 },
                 "identifierName": "cliSHCopyCommand"
@@ -746,15 +918,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 379,
-          "end": 392,
+          "start": 475,
+          "end": 488,
           "loc": {
             "start": {
-              "line": 8,
+              "line": 10,
               "column": 33
             },
             "end": {
-              "line": 8,
+              "line": 10,
               "column": 46
             }
           },
@@ -767,44 +939,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 394,
-        "end": 447,
+        "start": 490,
+        "end": 543,
         "loc": {
           "start": {
-            "line": 9,
+            "line": 11,
             "column": 0
           },
           "end": {
-            "line": 9,
+            "line": 11,
             "column": 53
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 403,
-            "end": 422,
+            "start": 499,
+            "end": 518,
             "loc": {
               "start": {
-                "line": 9,
+                "line": 11,
                 "column": 9
               },
               "end": {
-                "line": 9,
+                "line": 11,
                 "column": 28
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 403,
-              "end": 422,
+              "start": 499,
+              "end": 518,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 11,
                   "column": 9
                 },
                 "end": {
-                  "line": 9,
+                  "line": 11,
                   "column": 28
                 },
                 "identifierName": "cliSHNodeRunCommand"
@@ -813,15 +985,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 403,
-              "end": 422,
+              "start": 499,
+              "end": 518,
               "loc": {
                 "start": {
-                  "line": 9,
+                  "line": 11,
                   "column": 9
                 },
                 "end": {
-                  "line": 9,
+                  "line": 11,
                   "column": 28
                 },
                 "identifierName": "cliSHNodeRunCommand"
@@ -832,15 +1004,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 430,
-          "end": 446,
+          "start": 526,
+          "end": 542,
           "loc": {
             "start": {
-              "line": 9,
+              "line": 11,
               "column": 36
             },
             "end": {
-              "line": 9,
+              "line": 11,
               "column": 52
             }
           },
@@ -853,44 +1025,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 448,
-        "end": 493,
+        "start": 544,
+        "end": 589,
         "loc": {
           "start": {
-            "line": 10,
+            "line": 12,
             "column": 0
           },
           "end": {
-            "line": 10,
+            "line": 12,
             "column": 45
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 457,
-            "end": 472,
+            "start": 553,
+            "end": 568,
             "loc": {
               "start": {
-                "line": 10,
+                "line": 12,
                 "column": 9
               },
               "end": {
-                "line": 10,
+                "line": 12,
                 "column": 24
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 457,
-              "end": 472,
+              "start": 553,
+              "end": 568,
               "loc": {
                 "start": {
-                  "line": 10,
+                  "line": 12,
                   "column": 9
                 },
                 "end": {
-                  "line": 10,
+                  "line": 12,
                   "column": 24
                 },
                 "identifierName": "cliSHRunCommand"
@@ -899,15 +1071,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 457,
-              "end": 472,
+              "start": 553,
+              "end": 568,
               "loc": {
                 "start": {
-                  "line": 10,
+                  "line": 12,
                   "column": 9
                 },
                 "end": {
-                  "line": 10,
+                  "line": 12,
                   "column": 24
                 },
                 "identifierName": "cliSHRunCommand"
@@ -918,15 +1090,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 480,
-          "end": 492,
+          "start": 576,
+          "end": 588,
           "loc": {
             "start": {
-              "line": 10,
+              "line": 12,
               "column": 32
             },
             "end": {
-              "line": 10,
+              "line": 12,
               "column": 44
             }
           },
@@ -939,44 +1111,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 494,
-        "end": 551,
+        "start": 590,
+        "end": 647,
         "loc": {
           "start": {
-            "line": 11,
+            "line": 13,
             "column": 0
           },
           "end": {
-            "line": 11,
+            "line": 13,
             "column": 57
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 503,
-            "end": 524,
+            "start": 599,
+            "end": 620,
             "loc": {
               "start": {
-                "line": 11,
+                "line": 13,
                 "column": 9
               },
               "end": {
-                "line": 11,
+                "line": 13,
                 "column": 30
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 503,
-              "end": 524,
+              "start": 599,
+              "end": 620,
               "loc": {
                 "start": {
-                  "line": 11,
+                  "line": 13,
                   "column": 9
                 },
                 "end": {
-                  "line": 11,
+                  "line": 13,
                   "column": 30
                 },
                 "identifierName": "cliSHTranspileCommand"
@@ -985,15 +1157,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 503,
-              "end": 524,
+              "start": 599,
+              "end": 620,
               "loc": {
                 "start": {
-                  "line": 11,
+                  "line": 13,
                   "column": 9
                 },
                 "end": {
-                  "line": 11,
+                  "line": 13,
                   "column": 30
                 },
                 "identifierName": "cliSHTranspileCommand"
@@ -1004,15 +1176,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 532,
-          "end": 550,
+          "start": 628,
+          "end": 646,
           "loc": {
             "start": {
-              "line": 11,
+              "line": 13,
               "column": 38
             },
             "end": {
-              "line": 11,
+              "line": 13,
               "column": 56
             }
           },
@@ -1025,44 +1197,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 552,
-        "end": 617,
+        "start": 648,
+        "end": 713,
         "loc": {
           "start": {
-            "line": 12,
+            "line": 14,
             "column": 0
           },
           "end": {
-            "line": 12,
+            "line": 14,
             "column": 65
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 561,
-            "end": 586,
+            "start": 657,
+            "end": 682,
             "loc": {
               "start": {
-                "line": 12,
+                "line": 14,
                 "column": 9
               },
               "end": {
-                "line": 12,
+                "line": 14,
                 "column": 34
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 561,
-              "end": 586,
+              "start": 657,
+              "end": 682,
               "loc": {
                 "start": {
-                  "line": 12,
+                  "line": 14,
                   "column": 9
                 },
                 "end": {
-                  "line": 12,
+                  "line": 14,
                   "column": 34
                 },
                 "identifierName": "cliSHValidateBuildCommand"
@@ -1071,15 +1243,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 561,
-              "end": 586,
+              "start": 657,
+              "end": 682,
               "loc": {
                 "start": {
-                  "line": 12,
+                  "line": 14,
                   "column": 9
                 },
                 "end": {
-                  "line": 12,
+                  "line": 14,
                   "column": 34
                 },
                 "identifierName": "cliSHValidateBuildCommand"
@@ -1090,15 +1262,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 594,
-          "end": 616,
+          "start": 690,
+          "end": 712,
           "loc": {
             "start": {
-              "line": 12,
+              "line": 14,
               "column": 42
             },
             "end": {
-              "line": 12,
+              "line": 14,
               "column": 64
             }
           },
@@ -1111,44 +1283,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 618,
-        "end": 679,
+        "start": 714,
+        "end": 775,
         "loc": {
           "start": {
-            "line": 13,
+            "line": 15,
             "column": 0
           },
           "end": {
-            "line": 13,
+            "line": 15,
             "column": 61
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 627,
-            "end": 650,
+            "start": 723,
+            "end": 746,
             "loc": {
               "start": {
-                "line": 13,
+                "line": 15,
                 "column": 9
               },
               "end": {
-                "line": 13,
+                "line": 15,
                 "column": 32
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 627,
-              "end": 650,
+              "start": 723,
+              "end": 746,
               "loc": {
                 "start": {
-                  "line": 13,
+                  "line": 15,
                   "column": 9
                 },
                 "end": {
-                  "line": 13,
+                  "line": 15,
                   "column": 32
                 },
                 "identifierName": "cliSHValidateRunCommand"
@@ -1157,15 +1329,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 627,
-              "end": 650,
+              "start": 723,
+              "end": 746,
               "loc": {
                 "start": {
-                  "line": 13,
+                  "line": 15,
                   "column": 9
                 },
                 "end": {
-                  "line": 13,
+                  "line": 15,
                   "column": 32
                 },
                 "identifierName": "cliSHValidateRunCommand"
@@ -1176,15 +1348,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 658,
-          "end": 678,
+          "start": 754,
+          "end": 774,
           "loc": {
             "start": {
-              "line": 13,
+              "line": 15,
               "column": 40
             },
             "end": {
-              "line": 13,
+              "line": 15,
               "column": 60
             }
           },
@@ -1196,46 +1368,115 @@
         }
       },
       {
-        "type": "ExportNamedDeclaration",
-        "start": 681,
-        "end": 983,
+        "type": "ImportDeclaration",
+        "start": 776,
+        "end": 817,
         "loc": {
           "start": {
-            "line": 15,
+            "line": 16,
             "column": 0
           },
           "end": {
-            "line": 28,
-            "column": 29
+            "line": 16,
+            "column": 41
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportDefaultSpecifier",
+            "start": 783,
+            "end": 796,
+            "loc": {
+              "start": {
+                "line": 16,
+                "column": 7
+              },
+              "end": {
+                "line": 16,
+                "column": 20
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 783,
+              "end": 796,
+              "loc": {
+                "start": {
+                  "line": 16,
+                  "column": 7
+                },
+                "end": {
+                  "line": 16,
+                  "column": 20
+                },
+                "identifierName": "cliGenerators"
+              },
+              "name": "cliGenerators"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 802,
+          "end": 816,
+          "loc": {
+            "start": {
+              "line": 16,
+              "column": 26
+            },
+            "end": {
+              "line": 16,
+              "column": 40
+            }
+          },
+          "extra": {
+            "rawValue": "./generators",
+            "raw": "'./generators'"
+          },
+          "value": "./generators"
+        }
+      },
+      {
+        "type": "ExportNamedDeclaration",
+        "start": 819,
+        "end": 1178,
+        "loc": {
+          "start": {
+            "line": 18,
+            "column": 0
+          },
+          "end": {
+            "line": 34,
+            "column": 19
           }
         },
         "declaration": null,
         "specifiers": [
           {
             "type": "ExportSpecifier",
-            "start": 690,
-            "end": 701,
+            "start": 828,
+            "end": 839,
             "loc": {
               "start": {
-                "line": 15,
+                "line": 18,
                 "column": 9
               },
               "end": {
-                "line": 15,
+                "line": 18,
                 "column": 20
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 690,
-              "end": 701,
+              "start": 828,
+              "end": 839,
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 18,
                   "column": 9
                 },
                 "end": {
-                  "line": 15,
+                  "line": 18,
                   "column": 20
                 },
                 "identifierName": "cliWithName"
@@ -1244,15 +1485,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 690,
-              "end": 701,
+              "start": 828,
+              "end": 839,
               "loc": {
                 "start": {
-                  "line": 15,
+                  "line": 18,
                   "column": 9
                 },
                 "end": {
-                  "line": 15,
+                  "line": 18,
                   "column": 20
                 },
                 "identifierName": "cliWithName"
@@ -1262,29 +1503,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 705,
-            "end": 708,
+            "start": 843,
+            "end": 846,
             "loc": {
               "start": {
-                "line": 16,
+                "line": 19,
                 "column": 2
               },
               "end": {
-                "line": 16,
+                "line": 19,
                 "column": 5
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 705,
-              "end": 708,
+              "start": 843,
+              "end": 846,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 19,
                   "column": 2
                 },
                 "end": {
-                  "line": 16,
+                  "line": 19,
                   "column": 5
                 },
                 "identifierName": "cli"
@@ -1293,15 +1534,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 705,
-              "end": 708,
+              "start": 843,
+              "end": 846,
               "loc": {
                 "start": {
-                  "line": 16,
+                  "line": 19,
                   "column": 2
                 },
                 "end": {
-                  "line": 16,
+                  "line": 19,
                   "column": 5
                 },
                 "identifierName": "cli"
@@ -1311,29 +1552,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 712,
-            "end": 727,
+            "start": 850,
+            "end": 865,
             "loc": {
               "start": {
-                "line": 17,
+                "line": 20,
                 "column": 2
               },
               "end": {
-                "line": 17,
+                "line": 20,
                 "column": 17
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 712,
-              "end": 727,
+              "start": 850,
+              "end": 865,
               "loc": {
                 "start": {
-                  "line": 17,
+                  "line": 20,
                   "column": 2
                 },
                 "end": {
-                  "line": 17,
+                  "line": 20,
                   "column": 17
                 },
                 "identifierName": "cliBuildCommand"
@@ -1342,15 +1583,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 712,
-              "end": 727,
+              "start": 850,
+              "end": 865,
               "loc": {
                 "start": {
-                  "line": 17,
+                  "line": 20,
                   "column": 2
                 },
                 "end": {
-                  "line": 17,
+                  "line": 20,
                   "column": 17
                 },
                 "identifierName": "cliBuildCommand"
@@ -1360,29 +1601,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 731,
-            "end": 746,
+            "start": 869,
+            "end": 884,
             "loc": {
               "start": {
-                "line": 18,
+                "line": 21,
                 "column": 2
               },
               "end": {
-                "line": 18,
+                "line": 21,
                 "column": 17
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 731,
-              "end": 746,
+              "start": 869,
+              "end": 884,
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 21,
                   "column": 2
                 },
                 "end": {
-                  "line": 18,
+                  "line": 21,
                   "column": 17
                 },
                 "identifierName": "cliCleanCommand"
@@ -1391,15 +1632,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 731,
-              "end": 746,
+              "start": 869,
+              "end": 884,
               "loc": {
                 "start": {
-                  "line": 18,
+                  "line": 21,
                   "column": 2
                 },
                 "end": {
-                  "line": 18,
+                  "line": 21,
                   "column": 17
                 },
                 "identifierName": "cliCleanCommand"
@@ -1409,29 +1650,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 750,
-            "end": 776,
+            "start": 888,
+            "end": 914,
             "loc": {
               "start": {
-                "line": 19,
+                "line": 22,
                 "column": 2
               },
               "end": {
-                "line": 19,
+                "line": 22,
                 "column": 28
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 750,
-              "end": 776,
+              "start": 888,
+              "end": 914,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 22,
                   "column": 2
                 },
                 "end": {
-                  "line": 19,
+                  "line": 22,
                   "column": 28
                 },
                 "identifierName": "cliCopyProjectFilesCommand"
@@ -1440,15 +1681,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 750,
-              "end": 776,
+              "start": 888,
+              "end": 914,
               "loc": {
                 "start": {
-                  "line": 19,
+                  "line": 22,
                   "column": 2
                 },
                 "end": {
-                  "line": 19,
+                  "line": 22,
                   "column": 28
                 },
                 "identifierName": "cliCopyProjectFilesCommand"
@@ -1458,29 +1699,127 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 780,
-            "end": 798,
+            "start": 918,
+            "end": 936,
             "loc": {
               "start": {
-                "line": 20,
+                "line": 23,
                 "column": 2
               },
               "end": {
-                "line": 20,
+                "line": 23,
                 "column": 20
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 780,
-              "end": 798,
+              "start": 918,
+              "end": 936,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 23,
                   "column": 2
                 },
                 "end": {
-                  "line": 20,
+                  "line": 23,
+                  "column": 20
+                },
+                "identifierName": "cliGenerateCommand"
+              },
+              "name": "cliGenerateCommand"
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 918,
+              "end": 936,
+              "loc": {
+                "start": {
+                  "line": 23,
+                  "column": 2
+                },
+                "end": {
+                  "line": 23,
+                  "column": 20
+                },
+                "identifierName": "cliGenerateCommand"
+              },
+              "name": "cliGenerateCommand"
+            }
+          },
+          {
+            "type": "ExportSpecifier",
+            "start": 940,
+            "end": 954,
+            "loc": {
+              "start": {
+                "line": 24,
+                "column": 2
+              },
+              "end": {
+                "line": 24,
+                "column": 16
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 940,
+              "end": 954,
+              "loc": {
+                "start": {
+                  "line": 24,
+                  "column": 2
+                },
+                "end": {
+                  "line": 24,
+                  "column": 16
+                },
+                "identifierName": "cliInfoCommand"
+              },
+              "name": "cliInfoCommand"
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 940,
+              "end": 954,
+              "loc": {
+                "start": {
+                  "line": 24,
+                  "column": 2
+                },
+                "end": {
+                  "line": 24,
+                  "column": 16
+                },
+                "identifierName": "cliInfoCommand"
+              },
+              "name": "cliInfoCommand"
+            }
+          },
+          {
+            "type": "ExportSpecifier",
+            "start": 958,
+            "end": 976,
+            "loc": {
+              "start": {
+                "line": 25,
+                "column": 2
+              },
+              "end": {
+                "line": 25,
+                "column": 20
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 958,
+              "end": 976,
+              "loc": {
+                "start": {
+                  "line": 25,
+                  "column": 2
+                },
+                "end": {
+                  "line": 25,
                   "column": 20
                 },
                 "identifierName": "cliRevisionCommand"
@@ -1489,15 +1828,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 780,
-              "end": 798,
+              "start": 958,
+              "end": 976,
               "loc": {
                 "start": {
-                  "line": 20,
+                  "line": 25,
                   "column": 2
                 },
                 "end": {
-                  "line": 20,
+                  "line": 25,
                   "column": 20
                 },
                 "identifierName": "cliRevisionCommand"
@@ -1507,29 +1846,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 802,
-            "end": 815,
+            "start": 980,
+            "end": 993,
             "loc": {
               "start": {
-                "line": 21,
+                "line": 26,
                 "column": 2
               },
               "end": {
-                "line": 21,
+                "line": 26,
                 "column": 15
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 802,
-              "end": 815,
+              "start": 980,
+              "end": 993,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 26,
                   "column": 2
                 },
                 "end": {
-                  "line": 21,
+                  "line": 26,
                   "column": 15
                 },
                 "identifierName": "cliRunCommand"
@@ -1538,15 +1877,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 802,
-              "end": 815,
+              "start": 980,
+              "end": 993,
               "loc": {
                 "start": {
-                  "line": 21,
+                  "line": 26,
                   "column": 2
                 },
                 "end": {
-                  "line": 21,
+                  "line": 26,
                   "column": 15
                 },
                 "identifierName": "cliRunCommand"
@@ -1556,29 +1895,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 819,
-            "end": 836,
+            "start": 997,
+            "end": 1014,
             "loc": {
               "start": {
-                "line": 22,
+                "line": 27,
                 "column": 2
               },
               "end": {
-                "line": 22,
+                "line": 27,
                 "column": 19
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 819,
-              "end": 836,
+              "start": 997,
+              "end": 1014,
               "loc": {
                 "start": {
-                  "line": 22,
+                  "line": 27,
                   "column": 2
                 },
                 "end": {
-                  "line": 22,
+                  "line": 27,
                   "column": 19
                 },
                 "identifierName": "cliSHBuildCommand"
@@ -1587,15 +1926,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 819,
-              "end": 836,
+              "start": 997,
+              "end": 1014,
               "loc": {
                 "start": {
-                  "line": 22,
+                  "line": 27,
                   "column": 2
                 },
                 "end": {
-                  "line": 22,
+                  "line": 27,
                   "column": 19
                 },
                 "identifierName": "cliSHBuildCommand"
@@ -1605,29 +1944,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 840,
-            "end": 856,
+            "start": 1018,
+            "end": 1034,
             "loc": {
               "start": {
-                "line": 23,
+                "line": 28,
                 "column": 2
               },
               "end": {
-                "line": 23,
+                "line": 28,
                 "column": 18
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 840,
-              "end": 856,
+              "start": 1018,
+              "end": 1034,
               "loc": {
                 "start": {
-                  "line": 23,
+                  "line": 28,
                   "column": 2
                 },
                 "end": {
-                  "line": 23,
+                  "line": 28,
                   "column": 18
                 },
                 "identifierName": "cliSHCopyCommand"
@@ -1636,15 +1975,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 840,
-              "end": 856,
+              "start": 1018,
+              "end": 1034,
               "loc": {
                 "start": {
-                  "line": 23,
+                  "line": 28,
                   "column": 2
                 },
                 "end": {
-                  "line": 23,
+                  "line": 28,
                   "column": 18
                 },
                 "identifierName": "cliSHCopyCommand"
@@ -1654,29 +1993,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 860,
-            "end": 879,
+            "start": 1038,
+            "end": 1057,
             "loc": {
               "start": {
-                "line": 24,
+                "line": 29,
                 "column": 2
               },
               "end": {
-                "line": 24,
+                "line": 29,
                 "column": 21
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 860,
-              "end": 879,
+              "start": 1038,
+              "end": 1057,
               "loc": {
                 "start": {
-                  "line": 24,
+                  "line": 29,
                   "column": 2
                 },
                 "end": {
-                  "line": 24,
+                  "line": 29,
                   "column": 21
                 },
                 "identifierName": "cliSHNodeRunCommand"
@@ -1685,15 +2024,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 860,
-              "end": 879,
+              "start": 1038,
+              "end": 1057,
               "loc": {
                 "start": {
-                  "line": 24,
+                  "line": 29,
                   "column": 2
                 },
                 "end": {
-                  "line": 24,
+                  "line": 29,
                   "column": 21
                 },
                 "identifierName": "cliSHNodeRunCommand"
@@ -1703,29 +2042,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 883,
-            "end": 898,
+            "start": 1061,
+            "end": 1076,
             "loc": {
               "start": {
-                "line": 25,
+                "line": 30,
                 "column": 2
               },
               "end": {
-                "line": 25,
+                "line": 30,
                 "column": 17
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 883,
-              "end": 898,
+              "start": 1061,
+              "end": 1076,
               "loc": {
                 "start": {
-                  "line": 25,
+                  "line": 30,
                   "column": 2
                 },
                 "end": {
-                  "line": 25,
+                  "line": 30,
                   "column": 17
                 },
                 "identifierName": "cliSHRunCommand"
@@ -1734,15 +2073,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 883,
-              "end": 898,
+              "start": 1061,
+              "end": 1076,
               "loc": {
                 "start": {
-                  "line": 25,
+                  "line": 30,
                   "column": 2
                 },
                 "end": {
-                  "line": 25,
+                  "line": 30,
                   "column": 17
                 },
                 "identifierName": "cliSHRunCommand"
@@ -1752,29 +2091,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 902,
-            "end": 923,
+            "start": 1080,
+            "end": 1101,
             "loc": {
               "start": {
-                "line": 26,
+                "line": 31,
                 "column": 2
               },
               "end": {
-                "line": 26,
+                "line": 31,
                 "column": 23
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 902,
-              "end": 923,
+              "start": 1080,
+              "end": 1101,
               "loc": {
                 "start": {
-                  "line": 26,
+                  "line": 31,
                   "column": 2
                 },
                 "end": {
-                  "line": 26,
+                  "line": 31,
                   "column": 23
                 },
                 "identifierName": "cliSHTranspileCommand"
@@ -1783,15 +2122,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 902,
-              "end": 923,
+              "start": 1080,
+              "end": 1101,
               "loc": {
                 "start": {
-                  "line": 26,
+                  "line": 31,
                   "column": 2
                 },
                 "end": {
-                  "line": 26,
+                  "line": 31,
                   "column": 23
                 },
                 "identifierName": "cliSHTranspileCommand"
@@ -1801,29 +2140,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 927,
-            "end": 952,
+            "start": 1105,
+            "end": 1130,
             "loc": {
               "start": {
-                "line": 27,
+                "line": 32,
                 "column": 2
               },
               "end": {
-                "line": 27,
+                "line": 32,
                 "column": 27
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 927,
-              "end": 952,
+              "start": 1105,
+              "end": 1130,
               "loc": {
                 "start": {
-                  "line": 27,
+                  "line": 32,
                   "column": 2
                 },
                 "end": {
-                  "line": 27,
+                  "line": 32,
                   "column": 27
                 },
                 "identifierName": "cliSHValidateBuildCommand"
@@ -1832,15 +2171,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 927,
-              "end": 952,
+              "start": 1105,
+              "end": 1130,
               "loc": {
                 "start": {
-                  "line": 27,
+                  "line": 32,
                   "column": 2
                 },
                 "end": {
-                  "line": 27,
+                  "line": 32,
                   "column": 27
                 },
                 "identifierName": "cliSHValidateBuildCommand"
@@ -1850,29 +2189,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 956,
-            "end": 979,
+            "start": 1134,
+            "end": 1157,
             "loc": {
               "start": {
-                "line": 28,
+                "line": 33,
                 "column": 2
               },
               "end": {
-                "line": 28,
+                "line": 33,
                 "column": 25
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 956,
-              "end": 979,
+              "start": 1134,
+              "end": 1157,
               "loc": {
                 "start": {
-                  "line": 28,
+                  "line": 33,
                   "column": 2
                 },
                 "end": {
-                  "line": 28,
+                  "line": 33,
                   "column": 25
                 },
                 "identifierName": "cliSHValidateRunCommand"
@@ -1881,20 +2220,69 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 956,
-              "end": 979,
+              "start": 1134,
+              "end": 1157,
               "loc": {
                 "start": {
-                  "line": 28,
+                  "line": 33,
                   "column": 2
                 },
                 "end": {
-                  "line": 28,
+                  "line": 33,
                   "column": 25
                 },
                 "identifierName": "cliSHValidateRunCommand"
               },
               "name": "cliSHValidateRunCommand"
+            }
+          },
+          {
+            "type": "ExportSpecifier",
+            "start": 1161,
+            "end": 1174,
+            "loc": {
+              "start": {
+                "line": 34,
+                "column": 2
+              },
+              "end": {
+                "line": 34,
+                "column": 15
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 1161,
+              "end": 1174,
+              "loc": {
+                "start": {
+                  "line": 34,
+                  "column": 2
+                },
+                "end": {
+                  "line": 34,
+                  "column": 15
+                },
+                "identifierName": "cliGenerators"
+              },
+              "name": "cliGenerators"
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 1161,
+              "end": 1174,
+              "loc": {
+                "start": {
+                  "line": 34,
+                  "column": 2
+                },
+                "end": {
+                  "line": 34,
+                  "column": 15
+                },
+                "identifierName": "cliGenerators"
+              },
+              "name": "cliGenerators"
             }
           }
         ],
@@ -2754,7 +3142,7 @@
         "postfix": false,
         "binop": null
       },
-      "value": "cliRevisionCommand",
+      "value": "cliGenerateCommand",
       "start": 211,
       "end": 229,
       "loc": {
@@ -2832,7 +3220,7 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "./cliRevision",
+      "value": "./cliGenerate",
       "start": 237,
       "end": 252,
       "loc": {
@@ -2937,9 +3325,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "cliRunCommand",
+      "value": "cliInfoCommand",
       "start": 263,
-      "end": 276,
+      "end": 277,
       "loc": {
         "start": {
           "line": 6,
@@ -2947,7 +3335,7 @@
         },
         "end": {
           "line": 6,
-          "column": 22
+          "column": 23
         }
       }
     },
@@ -2963,16 +3351,16 @@
         "postfix": false,
         "binop": null
       },
-      "start": 277,
-      "end": 278,
+      "start": 278,
+      "end": 279,
       "loc": {
         "start": {
           "line": 6,
-          "column": 23
+          "column": 24
         },
         "end": {
           "line": 6,
-          "column": 24
+          "column": 25
         }
       }
     },
@@ -2989,16 +3377,16 @@
         "binop": null
       },
       "value": "from",
-      "start": 279,
-      "end": 283,
+      "start": 280,
+      "end": 284,
       "loc": {
         "start": {
           "line": 6,
-          "column": 25
+          "column": 26
         },
         "end": {
           "line": 6,
-          "column": 29
+          "column": 30
         }
       }
     },
@@ -3015,17 +3403,17 @@
         "binop": null,
         "updateContext": null
       },
-      "value": "./cliRun",
-      "start": 284,
-      "end": 294,
+      "value": "./cliInfo",
+      "start": 285,
+      "end": 296,
       "loc": {
         "start": {
           "line": 6,
-          "column": 30
+          "column": 31
         },
         "end": {
           "line": 6,
-          "column": 40
+          "column": 42
         }
       }
     },
@@ -3042,16 +3430,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 294,
-      "end": 295,
+      "start": 296,
+      "end": 297,
       "loc": {
         "start": {
           "line": 6,
-          "column": 40
+          "column": 42
         },
         "end": {
           "line": 6,
-          "column": 41
+          "column": 43
         }
       }
     },
@@ -3070,8 +3458,8 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 296,
-      "end": 302,
+      "start": 298,
+      "end": 304,
       "loc": {
         "start": {
           "line": 7,
@@ -3095,8 +3483,8 @@
         "postfix": false,
         "binop": null
       },
-      "start": 303,
-      "end": 304,
+      "start": 305,
+      "end": 306,
       "loc": {
         "start": {
           "line": 7,
@@ -3120,9 +3508,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "cliSHBuildCommand",
-      "start": 305,
-      "end": 322,
+      "value": "cliRevisionCommand",
+      "start": 307,
+      "end": 325,
       "loc": {
         "start": {
           "line": 7,
@@ -3130,6 +3518,372 @@
         },
         "end": {
           "line": 7,
+          "column": 27
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 326,
+      "end": 327,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 28
+        },
+        "end": {
+          "line": 7,
+          "column": 29
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 328,
+      "end": 332,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 30
+        },
+        "end": {
+          "line": 7,
+          "column": 34
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./cliRevision",
+      "start": 333,
+      "end": 348,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 35
+        },
+        "end": {
+          "line": 7,
+          "column": 50
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 348,
+      "end": 349,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 50
+        },
+        "end": {
+          "line": 7,
+          "column": 51
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 350,
+      "end": 356,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 357,
+      "end": 358,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 7
+        },
+        "end": {
+          "line": 8,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "cliRunCommand",
+      "start": 359,
+      "end": 372,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 9
+        },
+        "end": {
+          "line": 8,
+          "column": 22
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 373,
+      "end": 374,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 23
+        },
+        "end": {
+          "line": 8,
+          "column": 24
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 375,
+      "end": 379,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 25
+        },
+        "end": {
+          "line": 8,
+          "column": 29
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./cliRun",
+      "start": 380,
+      "end": 390,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 30
+        },
+        "end": {
+          "line": 8,
+          "column": 40
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 390,
+      "end": 391,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 40
+        },
+        "end": {
+          "line": 8,
+          "column": 41
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 392,
+      "end": 398,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 0
+        },
+        "end": {
+          "line": 9,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 399,
+      "end": 400,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 7
+        },
+        "end": {
+          "line": 9,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "cliSHBuildCommand",
+      "start": 401,
+      "end": 418,
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 9
+        },
+        "end": {
+          "line": 9,
           "column": 26
         }
       }
@@ -3146,15 +3900,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 323,
-      "end": 324,
+      "start": 419,
+      "end": 420,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 27
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 28
         }
       }
@@ -3172,15 +3926,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 325,
-      "end": 329,
+      "start": 421,
+      "end": 425,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 29
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 33
         }
       }
@@ -3199,15 +3953,15 @@
         "updateContext": null
       },
       "value": "./cliSHBuild",
-      "start": 330,
-      "end": 344,
+      "start": 426,
+      "end": 440,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 34
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 48
         }
       }
@@ -3225,15 +3979,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 344,
-      "end": 345,
+      "start": 440,
+      "end": 441,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 48
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 49
         }
       }
@@ -3253,15 +4007,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 346,
-      "end": 352,
+      "start": 442,
+      "end": 448,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 6
         }
       }
@@ -3278,15 +4032,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 353,
-      "end": 354,
+      "start": 449,
+      "end": 450,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 7
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 8
         }
       }
@@ -3304,15 +4058,15 @@
         "binop": null
       },
       "value": "cliSHCopyCommand",
-      "start": 355,
-      "end": 371,
+      "start": 451,
+      "end": 467,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 9
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 25
         }
       }
@@ -3329,15 +4083,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 372,
-      "end": 373,
+      "start": 468,
+      "end": 469,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 26
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 27
         }
       }
@@ -3355,15 +4109,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 374,
-      "end": 378,
+      "start": 470,
+      "end": 474,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 28
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 32
         }
       }
@@ -3382,15 +4136,15 @@
         "updateContext": null
       },
       "value": "./cliSHCopy",
-      "start": 379,
-      "end": 392,
+      "start": 475,
+      "end": 488,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 33
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 46
         }
       }
@@ -3408,15 +4162,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 392,
-      "end": 393,
+      "start": 488,
+      "end": 489,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 46
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 47
         }
       }
@@ -3436,15 +4190,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 394,
-      "end": 400,
+      "start": 490,
+      "end": 496,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 0
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 6
         }
       }
@@ -3461,15 +4215,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 401,
-      "end": 402,
+      "start": 497,
+      "end": 498,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 7
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 8
         }
       }
@@ -3487,15 +4241,15 @@
         "binop": null
       },
       "value": "cliSHNodeRunCommand",
-      "start": 403,
-      "end": 422,
+      "start": 499,
+      "end": 518,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 9
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 28
         }
       }
@@ -3512,15 +4266,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 423,
-      "end": 424,
+      "start": 519,
+      "end": 520,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 29
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 30
         }
       }
@@ -3538,15 +4292,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 425,
-      "end": 429,
+      "start": 521,
+      "end": 525,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 31
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 35
         }
       }
@@ -3565,15 +4319,15 @@
         "updateContext": null
       },
       "value": "./cliSHNodeRun",
-      "start": 430,
-      "end": 446,
+      "start": 526,
+      "end": 542,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 36
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 52
         }
       }
@@ -3591,15 +4345,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 446,
-      "end": 447,
+      "start": 542,
+      "end": 543,
       "loc": {
         "start": {
-          "line": 9,
+          "line": 11,
           "column": 52
         },
         "end": {
-          "line": 9,
+          "line": 11,
           "column": 53
         }
       }
@@ -3619,15 +4373,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 448,
-      "end": 454,
+      "start": 544,
+      "end": 550,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 0
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 6
         }
       }
@@ -3644,15 +4398,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 455,
-      "end": 456,
+      "start": 551,
+      "end": 552,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 7
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 8
         }
       }
@@ -3670,15 +4424,15 @@
         "binop": null
       },
       "value": "cliSHRunCommand",
-      "start": 457,
-      "end": 472,
+      "start": 553,
+      "end": 568,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 9
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 24
         }
       }
@@ -3695,15 +4449,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 473,
-      "end": 474,
+      "start": 569,
+      "end": 570,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 25
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 26
         }
       }
@@ -3721,15 +4475,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 475,
-      "end": 479,
+      "start": 571,
+      "end": 575,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 27
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 31
         }
       }
@@ -3748,15 +4502,15 @@
         "updateContext": null
       },
       "value": "./cliSHRun",
-      "start": 480,
-      "end": 492,
+      "start": 576,
+      "end": 588,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 32
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 44
         }
       }
@@ -3774,15 +4528,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 492,
-      "end": 493,
+      "start": 588,
+      "end": 589,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 12,
           "column": 44
         },
         "end": {
-          "line": 10,
+          "line": 12,
           "column": 45
         }
       }
@@ -3802,15 +4556,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 494,
-      "end": 500,
+      "start": 590,
+      "end": 596,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 0
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 6
         }
       }
@@ -3827,15 +4581,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 501,
-      "end": 502,
+      "start": 597,
+      "end": 598,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 7
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 8
         }
       }
@@ -3853,15 +4607,15 @@
         "binop": null
       },
       "value": "cliSHTranspileCommand",
-      "start": 503,
-      "end": 524,
+      "start": 599,
+      "end": 620,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 9
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 30
         }
       }
@@ -3878,15 +4632,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 525,
-      "end": 526,
+      "start": 621,
+      "end": 622,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 31
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 32
         }
       }
@@ -3904,15 +4658,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 527,
-      "end": 531,
+      "start": 623,
+      "end": 627,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 33
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 37
         }
       }
@@ -3931,15 +4685,15 @@
         "updateContext": null
       },
       "value": "./cliSHTranspile",
-      "start": 532,
-      "end": 550,
+      "start": 628,
+      "end": 646,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 38
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 56
         }
       }
@@ -3957,15 +4711,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 550,
-      "end": 551,
+      "start": 646,
+      "end": 647,
       "loc": {
         "start": {
-          "line": 11,
+          "line": 13,
           "column": 56
         },
         "end": {
-          "line": 11,
+          "line": 13,
           "column": 57
         }
       }
@@ -3985,15 +4739,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 552,
-      "end": 558,
+      "start": 648,
+      "end": 654,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 0
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 6
         }
       }
@@ -4010,15 +4764,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 559,
-      "end": 560,
+      "start": 655,
+      "end": 656,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 7
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 8
         }
       }
@@ -4036,15 +4790,15 @@
         "binop": null
       },
       "value": "cliSHValidateBuildCommand",
-      "start": 561,
-      "end": 586,
+      "start": 657,
+      "end": 682,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 9
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 34
         }
       }
@@ -4061,15 +4815,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 587,
-      "end": 588,
+      "start": 683,
+      "end": 684,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 35
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 36
         }
       }
@@ -4087,15 +4841,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 589,
-      "end": 593,
+      "start": 685,
+      "end": 689,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 37
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 41
         }
       }
@@ -4114,15 +4868,15 @@
         "updateContext": null
       },
       "value": "./cliSHValidateBuild",
-      "start": 594,
-      "end": 616,
+      "start": 690,
+      "end": 712,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 42
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 64
         }
       }
@@ -4140,15 +4894,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 616,
-      "end": 617,
+      "start": 712,
+      "end": 713,
       "loc": {
         "start": {
-          "line": 12,
+          "line": 14,
           "column": 64
         },
         "end": {
-          "line": 12,
+          "line": 14,
           "column": 65
         }
       }
@@ -4168,15 +4922,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 618,
-      "end": 624,
+      "start": 714,
+      "end": 720,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 0
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 6
         }
       }
@@ -4193,15 +4947,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 625,
-      "end": 626,
+      "start": 721,
+      "end": 722,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 7
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 8
         }
       }
@@ -4219,15 +4973,15 @@
         "binop": null
       },
       "value": "cliSHValidateRunCommand",
-      "start": 627,
-      "end": 650,
+      "start": 723,
+      "end": 746,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 9
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 32
         }
       }
@@ -4244,15 +4998,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 651,
-      "end": 652,
+      "start": 747,
+      "end": 748,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 33
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 34
         }
       }
@@ -4270,15 +5024,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 653,
-      "end": 657,
+      "start": 749,
+      "end": 753,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 35
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 39
         }
       }
@@ -4297,15 +5051,15 @@
         "updateContext": null
       },
       "value": "./cliSHValidateRun",
-      "start": 658,
-      "end": 678,
+      "start": 754,
+      "end": 774,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 40
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 60
         }
       }
@@ -4323,16 +5077,149 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 678,
-      "end": 679,
+      "start": 774,
+      "end": 775,
       "loc": {
         "start": {
-          "line": 13,
+          "line": 15,
           "column": 60
         },
         "end": {
-          "line": 13,
+          "line": 15,
           "column": 61
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 776,
+      "end": 782,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 0
+        },
+        "end": {
+          "line": 16,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "cliGenerators",
+      "start": 783,
+      "end": 796,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 7
+        },
+        "end": {
+          "line": 16,
+          "column": 20
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 797,
+      "end": 801,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 21
+        },
+        "end": {
+          "line": 16,
+          "column": 25
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./generators",
+      "start": 802,
+      "end": 816,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 26
+        },
+        "end": {
+          "line": 16,
+          "column": 40
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 816,
+      "end": 817,
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 40
+        },
+        "end": {
+          "line": 16,
+          "column": 41
         }
       }
     },
@@ -4351,15 +5238,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 681,
-      "end": 687,
+      "start": 819,
+      "end": 825,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 18,
           "column": 0
         },
         "end": {
-          "line": 15,
+          "line": 18,
           "column": 6
         }
       }
@@ -4376,15 +5263,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 688,
-      "end": 689,
+      "start": 826,
+      "end": 827,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 18,
           "column": 7
         },
         "end": {
-          "line": 15,
+          "line": 18,
           "column": 8
         }
       }
@@ -4402,15 +5289,15 @@
         "binop": null
       },
       "value": "cliWithName",
-      "start": 690,
-      "end": 701,
+      "start": 828,
+      "end": 839,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 18,
           "column": 9
         },
         "end": {
-          "line": 15,
+          "line": 18,
           "column": 20
         }
       }
@@ -4428,15 +5315,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 701,
-      "end": 702,
+      "start": 839,
+      "end": 840,
       "loc": {
         "start": {
-          "line": 15,
+          "line": 18,
           "column": 20
         },
         "end": {
-          "line": 15,
+          "line": 18,
           "column": 21
         }
       }
@@ -4454,15 +5341,15 @@
         "binop": null
       },
       "value": "cli",
-      "start": 705,
-      "end": 708,
+      "start": 843,
+      "end": 846,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 19,
           "column": 2
         },
         "end": {
-          "line": 16,
+          "line": 19,
           "column": 5
         }
       }
@@ -4480,15 +5367,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 708,
-      "end": 709,
+      "start": 846,
+      "end": 847,
       "loc": {
         "start": {
-          "line": 16,
+          "line": 19,
           "column": 5
         },
         "end": {
-          "line": 16,
+          "line": 19,
           "column": 6
         }
       }
@@ -4506,15 +5393,15 @@
         "binop": null
       },
       "value": "cliBuildCommand",
-      "start": 712,
-      "end": 727,
+      "start": 850,
+      "end": 865,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 20,
           "column": 2
         },
         "end": {
-          "line": 17,
+          "line": 20,
           "column": 17
         }
       }
@@ -4532,15 +5419,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 727,
-      "end": 728,
+      "start": 865,
+      "end": 866,
       "loc": {
         "start": {
-          "line": 17,
+          "line": 20,
           "column": 17
         },
         "end": {
-          "line": 17,
+          "line": 20,
           "column": 18
         }
       }
@@ -4558,15 +5445,15 @@
         "binop": null
       },
       "value": "cliCleanCommand",
-      "start": 731,
-      "end": 746,
+      "start": 869,
+      "end": 884,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 21,
           "column": 2
         },
         "end": {
-          "line": 18,
+          "line": 21,
           "column": 17
         }
       }
@@ -4584,15 +5471,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 746,
-      "end": 747,
+      "start": 884,
+      "end": 885,
       "loc": {
         "start": {
-          "line": 18,
+          "line": 21,
           "column": 17
         },
         "end": {
-          "line": 18,
+          "line": 21,
           "column": 18
         }
       }
@@ -4610,15 +5497,15 @@
         "binop": null
       },
       "value": "cliCopyProjectFilesCommand",
-      "start": 750,
-      "end": 776,
+      "start": 888,
+      "end": 914,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 22,
           "column": 2
         },
         "end": {
-          "line": 19,
+          "line": 22,
           "column": 28
         }
       }
@@ -4636,15 +5523,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 776,
-      "end": 777,
+      "start": 914,
+      "end": 915,
       "loc": {
         "start": {
-          "line": 19,
+          "line": 22,
           "column": 28
         },
         "end": {
-          "line": 19,
+          "line": 22,
           "column": 29
         }
       }
@@ -4661,16 +5548,16 @@
         "postfix": false,
         "binop": null
       },
-      "value": "cliRevisionCommand",
-      "start": 780,
-      "end": 798,
+      "value": "cliGenerateCommand",
+      "start": 918,
+      "end": 936,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 23,
           "column": 2
         },
         "end": {
-          "line": 20,
+          "line": 23,
           "column": 20
         }
       }
@@ -4688,15 +5575,119 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 798,
-      "end": 799,
+      "start": 936,
+      "end": 937,
       "loc": {
         "start": {
-          "line": 20,
+          "line": 23,
           "column": 20
         },
         "end": {
-          "line": 20,
+          "line": 23,
+          "column": 21
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "cliInfoCommand",
+      "start": 940,
+      "end": 954,
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 2
+        },
+        "end": {
+          "line": 24,
+          "column": 16
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 954,
+      "end": 955,
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 16
+        },
+        "end": {
+          "line": 24,
+          "column": 17
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "cliRevisionCommand",
+      "start": 958,
+      "end": 976,
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 2
+        },
+        "end": {
+          "line": 25,
+          "column": 20
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 976,
+      "end": 977,
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 20
+        },
+        "end": {
+          "line": 25,
           "column": 21
         }
       }
@@ -4714,15 +5705,15 @@
         "binop": null
       },
       "value": "cliRunCommand",
-      "start": 802,
-      "end": 815,
+      "start": 980,
+      "end": 993,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 26,
           "column": 2
         },
         "end": {
-          "line": 21,
+          "line": 26,
           "column": 15
         }
       }
@@ -4740,15 +5731,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 815,
-      "end": 816,
+      "start": 993,
+      "end": 994,
       "loc": {
         "start": {
-          "line": 21,
+          "line": 26,
           "column": 15
         },
         "end": {
-          "line": 21,
+          "line": 26,
           "column": 16
         }
       }
@@ -4766,15 +5757,15 @@
         "binop": null
       },
       "value": "cliSHBuildCommand",
-      "start": 819,
-      "end": 836,
+      "start": 997,
+      "end": 1014,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 27,
           "column": 2
         },
         "end": {
-          "line": 22,
+          "line": 27,
           "column": 19
         }
       }
@@ -4792,15 +5783,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 836,
-      "end": 837,
+      "start": 1014,
+      "end": 1015,
       "loc": {
         "start": {
-          "line": 22,
+          "line": 27,
           "column": 19
         },
         "end": {
-          "line": 22,
+          "line": 27,
           "column": 20
         }
       }
@@ -4818,15 +5809,15 @@
         "binop": null
       },
       "value": "cliSHCopyCommand",
-      "start": 840,
-      "end": 856,
+      "start": 1018,
+      "end": 1034,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 28,
           "column": 2
         },
         "end": {
-          "line": 23,
+          "line": 28,
           "column": 18
         }
       }
@@ -4844,15 +5835,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 856,
-      "end": 857,
+      "start": 1034,
+      "end": 1035,
       "loc": {
         "start": {
-          "line": 23,
+          "line": 28,
           "column": 18
         },
         "end": {
-          "line": 23,
+          "line": 28,
           "column": 19
         }
       }
@@ -4870,15 +5861,15 @@
         "binop": null
       },
       "value": "cliSHNodeRunCommand",
-      "start": 860,
-      "end": 879,
+      "start": 1038,
+      "end": 1057,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 29,
           "column": 2
         },
         "end": {
-          "line": 24,
+          "line": 29,
           "column": 21
         }
       }
@@ -4896,15 +5887,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 879,
-      "end": 880,
+      "start": 1057,
+      "end": 1058,
       "loc": {
         "start": {
-          "line": 24,
+          "line": 29,
           "column": 21
         },
         "end": {
-          "line": 24,
+          "line": 29,
           "column": 22
         }
       }
@@ -4922,15 +5913,15 @@
         "binop": null
       },
       "value": "cliSHRunCommand",
-      "start": 883,
-      "end": 898,
+      "start": 1061,
+      "end": 1076,
       "loc": {
         "start": {
-          "line": 25,
+          "line": 30,
           "column": 2
         },
         "end": {
-          "line": 25,
+          "line": 30,
           "column": 17
         }
       }
@@ -4948,15 +5939,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 898,
-      "end": 899,
+      "start": 1076,
+      "end": 1077,
       "loc": {
         "start": {
-          "line": 25,
+          "line": 30,
           "column": 17
         },
         "end": {
-          "line": 25,
+          "line": 30,
           "column": 18
         }
       }
@@ -4974,15 +5965,15 @@
         "binop": null
       },
       "value": "cliSHTranspileCommand",
-      "start": 902,
-      "end": 923,
+      "start": 1080,
+      "end": 1101,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 31,
           "column": 2
         },
         "end": {
-          "line": 26,
+          "line": 31,
           "column": 23
         }
       }
@@ -5000,15 +5991,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 923,
-      "end": 924,
+      "start": 1101,
+      "end": 1102,
       "loc": {
         "start": {
-          "line": 26,
+          "line": 31,
           "column": 23
         },
         "end": {
-          "line": 26,
+          "line": 31,
           "column": 24
         }
       }
@@ -5026,15 +6017,15 @@
         "binop": null
       },
       "value": "cliSHValidateBuildCommand",
-      "start": 927,
-      "end": 952,
+      "start": 1105,
+      "end": 1130,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 32,
           "column": 2
         },
         "end": {
-          "line": 27,
+          "line": 32,
           "column": 27
         }
       }
@@ -5052,15 +6043,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 952,
-      "end": 953,
+      "start": 1130,
+      "end": 1131,
       "loc": {
         "start": {
-          "line": 27,
+          "line": 32,
           "column": 27
         },
         "end": {
-          "line": 27,
+          "line": 32,
           "column": 28
         }
       }
@@ -5078,15 +6069,15 @@
         "binop": null
       },
       "value": "cliSHValidateRunCommand",
-      "start": 956,
-      "end": 979,
+      "start": 1134,
+      "end": 1157,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 33,
           "column": 2
         },
         "end": {
-          "line": 28,
+          "line": 33,
           "column": 25
         }
       }
@@ -5104,16 +6095,68 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 979,
-      "end": 980,
+      "start": 1157,
+      "end": 1158,
       "loc": {
         "start": {
-          "line": 28,
+          "line": 33,
           "column": 25
         },
         "end": {
-          "line": 28,
+          "line": 33,
           "column": 26
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "cliGenerators",
+      "start": 1161,
+      "end": 1174,
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 2
+        },
+        "end": {
+          "line": 34,
+          "column": 15
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 1174,
+      "end": 1175,
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 15
+        },
+        "end": {
+          "line": 34,
+          "column": 16
         }
       }
     },
@@ -5129,16 +6172,16 @@
         "postfix": false,
         "binop": null
       },
-      "start": 981,
-      "end": 982,
+      "start": 1176,
+      "end": 1177,
       "loc": {
         "start": {
-          "line": 28,
-          "column": 27
+          "line": 34,
+          "column": 17
         },
         "end": {
-          "line": 28,
-          "column": 28
+          "line": 34,
+          "column": 18
         }
       }
     },
@@ -5155,16 +6198,16 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 982,
-      "end": 983,
+      "start": 1177,
+      "end": 1178,
       "loc": {
         "start": {
-          "line": 28,
-          "column": 28
+          "line": 34,
+          "column": 18
         },
         "end": {
-          "line": 28,
-          "column": 29
+          "line": 34,
+          "column": 19
         }
       }
     },
@@ -5181,15 +6224,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 984,
-      "end": 984,
+      "start": 1179,
+      "end": 1179,
       "loc": {
         "start": {
-          "line": 29,
+          "line": 35,
           "column": 0
         },
         "end": {
-          "line": 29,
+          "line": 35,
           "column": 0
         }
       }

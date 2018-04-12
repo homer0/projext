@@ -42,7 +42,7 @@ class CLISHRunCommand extends CLICommand {
      */
     this.hidden = true;
     /**
-     * Enable unknown options so other services can customize the build command.
+     * Enable unknown options so other services can customize the run command.
      * @type {Boolean}
      */
     this.allowUnknownOptions = true;

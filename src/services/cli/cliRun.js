@@ -23,7 +23,7 @@ class CLIRunCommand extends CLICommand {
      */
     this.description = 'Run a target on a development build type';
     /**
-     * Enable unknown options so other services can customize the build command.
+     * Enable unknown options so other services can customize the run command.
      * @type {Boolean}
      */
     this.allowUnknownOptions = true;

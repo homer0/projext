@@ -66,6 +66,11 @@ class CLISHValidateBuildCommand extends CLICommand {
      * @type {boolean}
      */
     this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and validate all the arguments.

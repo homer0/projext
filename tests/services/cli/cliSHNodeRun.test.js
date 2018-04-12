@@ -31,6 +31,7 @@ describe('services/cli:sh-node-run', () => {
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
     expect(sut.hidden).toBeTrue();
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should call the method to run a node target when executed', () => {

@@ -38,6 +38,11 @@ class CLISHNodeRunCommand extends CLICommand {
      * @type {boolean}
      */
     this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the run command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and runs a Node target.

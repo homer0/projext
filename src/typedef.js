@@ -119,7 +119,7 @@
  * - `[hash]`: A random hash generated for cache busting.
  *
  * The default value is:
- * - For `node` targets, on all build types: `[taret-name].js`.
+ * - For `node` targets, on all build types: `[target-name].js`.
  * - For `browser` targets:
  *   - `development`: `'statics/js/[target-name].js'`.
  *   - `production`: `'statics/js/[target-name].[hash].js'`.

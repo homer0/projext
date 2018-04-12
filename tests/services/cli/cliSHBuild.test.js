@@ -162,6 +162,7 @@ describe('services/cli:sh-build', () => {
       false
     );
     expect(sut.hidden).toBeTrue();
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should return the command to build the default target', () => {

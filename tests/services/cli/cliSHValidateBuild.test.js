@@ -48,6 +48,7 @@ describe('services/cli:sh-validate-build', () => {
       false
     );
     expect(sut.hidden).toBeTrue();
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should log a warning when trying to build a target that doesn\'t need it', () => {

@@ -48,6 +48,11 @@ class CLISHValidateRunCommand extends CLICommand {
      * @type {boolean}
      */
     this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the run command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and validate the target existence.

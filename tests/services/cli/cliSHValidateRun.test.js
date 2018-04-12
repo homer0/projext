@@ -42,6 +42,7 @@ describe('services/cli:validate-run', () => {
       false
     );
     expect(sut.hidden).toBeTrue();
+    expect(sut.allowUnknownOptions).toBeTrue();
   });
 
   it('should validate the target exists when executed', () => {

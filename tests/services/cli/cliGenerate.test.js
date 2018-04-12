@@ -43,8 +43,8 @@ describe('services/cli:generate', () => {
     };
     const generators = [generatorOne, generatorTwo];
     let sut = null;
-    const expectedDescription = 'Generate a projext resource:' +
-      `${generatorOne.description}` +
+    const expectedDescription = 'Generate a projext resource:\n\n' +
+      `${generatorOne.description}\n\n` +
       `${generatorTwo.description}`;
     // When
     sut = new CLIGenerateCommand();

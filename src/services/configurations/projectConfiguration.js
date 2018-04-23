@@ -216,7 +216,26 @@ class ProjectConfiguration extends ConfigurationFile {
     super._loadConfig(...args);
     if (this._config.others.findTargets.enabled) {
       const originalTargets = extend(true, {}, this._config.targets);
+      const originalTargetsNames = Object.keys(originalTargets);
       const foundTargets = this._findTargets();
+      const foundTargetsNames = Object.keys(foundTargets);
+      /**
+       * If there's only one target on the configuration file and the finder only found one, the
+       * name of the found one will be changed to the one on the configuration file.
+       *
+       * When a single target, outside a folder, is found, the finder will give it the same name
+       * as the project name on the `package.json`, but by defining a single target on the
+       * configuration file, the name can be changed.
+       */
+      if (originalTargetsNames.length === 1 && foundTargetsNames.length === 1) {
+        const [originalTargetName] = originalTargetsNames;
+        const [foundTargetName] = foundTargetsNames;
+        if (originalTargetName !== foundTargetName) {
+          foundTargets[originalTargetName] = foundTargets[foundTargetName];
+          foundTargets[originalTargetName].name = originalTargetName;
+          delete foundTargets[foundTargetName];
+        }
+      }
       this._config.targets = extend(true, {}, foundTargets, originalTargets);
     }
   }

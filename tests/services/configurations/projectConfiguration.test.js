@@ -147,7 +147,59 @@ describe('services/configurations:projectConfiguration', () => {
     let sut = null;
     let result = null;
     const expectedTargets = {
-      [target.name]: Object.assign(target, targetOverwrite),
+      [target.name]: Object.assign({}, target, targetOverwrite),
+    };
+    // When
+    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    result = sut.getConfig();
+    // Then
+    expect(sut).toBeInstanceOf(ProjectConfiguration);
+    expect(sut.constructorMock).toHaveBeenCalledTimes(1);
+    expect(sut.constructorMock).toHaveBeenCalledWith(
+      pathUtils,
+      [
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ]
+    );
+    expect(result).toBeObject();
+    expect(Object.keys(result)).toEqual(expectedKeys);
+    expect(result.targets).toEqual(expectedTargets);
+    expect(targetsFinder).toHaveBeenCalledTimes(1);
+    expect(targetsFinder).toHaveBeenCalledWith(result.paths.source);
+  });
+
+  it('should rename a target if it only found one and the configuration also has only one', () => {
+    // Given
+    const pathUtils = 'pathUtils';
+    const target = {
+      name: 'myApp',
+      type: 'browser',
+      framework: 'react',
+    };
+    const targetOverwrite = {
+      name: 'myAppNewName',
+      framework: 'aurelia',
+    };
+    ConfigurationFileMock.overwrite({
+      targets: {
+        [targetOverwrite.name]: targetOverwrite,
+      },
+    });
+    const targetsFinder = jest.fn(() => [target]);
+    const expectedKeys = [
+      'paths',
+      'targetsTemplates',
+      'targets',
+      'copy',
+      'version',
+      'others',
+    ];
+    let sut = null;
+    let result = null;
+    const expectedTargets = {
+      [targetOverwrite.name]: Object.assign({}, target, targetOverwrite),
     };
     // When
     sut = new ProjectConfiguration(pathUtils, targetsFinder);

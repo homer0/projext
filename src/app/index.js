@@ -87,7 +87,7 @@ class Projext extends Jimple {
     this.register(cleaner);
     this.register(copier);
     this.register(events);
-    this.register(plugins('projext-plugin'));
+    this.register(plugins('projext-plugin-'));
     this.register(appPrompt);
     this.register(tempFiles);
     this.register(utils);

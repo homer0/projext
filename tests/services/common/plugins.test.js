@@ -126,6 +126,71 @@ describe('services/common:plugins', () => {
     .toHaveBeenCalledWith(`The plugin ${pluginName} couldn't be loaded`);
   });
 
+  it('should return the list of loaded plugins', () => {
+    // Given
+    const app = {
+      register: jest.fn(),
+    };
+    const appLogger = 'appLogger';
+    const prefix = 'plugin-';
+    const pluginOneName = 'one';
+    const pluginTwoName = 'two';
+    const packageInfo = {
+      dependencies: {
+        'jest-ex': 'latest',
+        'webpack-node-utils': 'latest',
+      },
+      devDependencies: {
+        [`${prefix}${pluginOneName}`]: 'latest',
+        [`${prefix}${pluginTwoName}`]: 'latest',
+      },
+    };
+    const pathUtils = {
+      join: jest.fn(() => `${mocksRelativePath}/mockPlugin.js`),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Plugins(prefix, app, appLogger, packageInfo, pathUtils);
+    sut.load();
+    result = sut.getLoadedPlugins();
+    // Then
+    expect(result).toEqual([pluginOneName, pluginTwoName]);
+  });
+
+  it('should check if a plugin was loaded or not', () => {
+    // Given
+    const app = {
+      register: jest.fn(),
+    };
+    const appLogger = 'appLogger';
+    const prefix = 'plugin-';
+    const pluginName = 'magic';
+    const packageInfo = {
+      dependencies: {
+        'jest-ex': 'latest',
+        'webpack-node-utils': 'latest',
+      },
+      devDependencies: {
+        [`${prefix}${pluginName}`]: 'latest',
+      },
+    };
+    const pathUtils = {
+      join: jest.fn(() => `${mocksRelativePath}/mockPlugin.js`),
+    };
+    let sut = null;
+    let resultForPlugin = null;
+    let resultForUnknownPlugin = null;
+    // When
+    sut = new Plugins(prefix, app, appLogger, packageInfo, pathUtils);
+    sut.load();
+    resultForPlugin = sut.loaded(pluginName);
+    resultForUnknownPlugin = sut.loaded('charito');
+    // Then
+    expect(resultForPlugin).toBeTrue();
+    expect(resultForUnknownPlugin).toBeFalse();
+  });
+
   it('should only search for plugins on the production dependencies', () => {
     // Given
     const prefix = 'plugin-';

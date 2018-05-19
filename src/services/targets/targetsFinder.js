@@ -103,6 +103,7 @@ class TargetsFinder {
     this._browserExpressions = [
       /(?:^|\s|=)doc(?:ument?)\s*\.\s*(?:getElementBy(?:Id|ClassName)|querySelector(?:All)?)\s*\(/ig,
       /(?:^|\s|=)(?:window|global)\s*\.(?:document?)/i,
+      /['|"]whatwg-fetch['|"]/i,
     ];
     /**
      * @ignore

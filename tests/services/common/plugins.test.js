@@ -60,6 +60,37 @@ describe('services/common:plugins', () => {
     expect(app.register).toHaveBeenCalledWith('plugin');
   });
 
+  it('should load a plugin with a `plugin` function', () => {
+    // Given
+    const prefix = 'plugin-';
+    const app = {
+      register: jest.fn(),
+    };
+    const appLogger = 'appLogger';
+    const pluginName = 'plugin-for-something-with-function';
+    const packageInfo = {
+      dependencies: {
+        'jest-ex': 'latest',
+        'webpack-node-utils': 'latest',
+      },
+      devDependencies: {
+        [pluginName]: 'latest',
+      },
+    };
+    const pathUtils = {
+      join: jest.fn(() => `${mocksRelativePath}/mockPluginWithFunction.js`),
+    };
+    let sut = null;
+    // When
+    sut = new Plugins(prefix, app, appLogger, packageInfo, pathUtils);
+    sut.load();
+    // Then
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith('node_modules', pluginName);
+    expect(app.register).toHaveBeenCalledTimes(1);
+    expect(app.register).toHaveBeenCalledWith('pluginWithFunction');
+  });
+
   it('should fail to load a plugin', () => {
     // Given
     const prefix = 'plugin-';

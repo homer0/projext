@@ -72,7 +72,11 @@ class Plugins {
       const packagePath = this.pathUtils.join('node_modules', packageName);
       // eslint-disable-next-line global-require,import/no-dynamic-require
       const plugin = require(packagePath);
-      plugin(this.app);
+      if (plugin.plugin && typeof plugin.plugin === 'function') {
+        plugin.plugin(this.app);
+      } else {
+        plugin(this.app);
+      }
     } catch (error) {
       this.appLogger.error(`The plugin ${packageName} couldn't be loaded`);
       throw error;

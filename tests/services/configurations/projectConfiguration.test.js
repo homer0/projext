@@ -56,7 +56,6 @@ describe('services/configurations:projectConfiguration', () => {
     ];
     let sut = null;
     let result = null;
-    const expectedEngine = 'webpack';
     // When
     sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
@@ -75,8 +74,24 @@ describe('services/configurations:projectConfiguration', () => {
     expect(Object.keys(result)).toEqual(expectedKeys);
     expect(targetsFinder).toHaveBeenCalledTimes(1);
     expect(targetsFinder).toHaveBeenCalledWith(result.paths.source);
-    expect(result.targetsTemplates.node.engine).toBe(expectedEngine);
-    expect(result.targetsTemplates.browser.engine).toBe(expectedEngine);
+  });
+
+  it('should return the project configuration and use `webpack` as build engine', () => {
+    // Given
+    const pathUtils = 'pathUtils';
+    const plugin = 'webpack';
+    const plugins = {
+      loaded: jest.fn((name) => (name === plugin)),
+    };
+    const targetsFinder = jest.fn(() => []);
+    let sut = null;
+    let result = null;
+    // When
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
+    result = sut.getConfig();
+    // Then
+    expect(result.targetsTemplates.node.engine).toBe(plugin);
+    expect(result.targetsTemplates.browser.engine).toBe(plugin);
   });
 
   it('should return the project configuration and use `Rollup` as build engine', () => {
@@ -87,34 +102,12 @@ describe('services/configurations:projectConfiguration', () => {
       loaded: jest.fn((name) => (name === plugin)),
     };
     const targetsFinder = jest.fn(() => []);
-    const expectedKeys = [
-      'paths',
-      'targetsTemplates',
-      'targets',
-      'copy',
-      'version',
-      'others',
-    ];
     let sut = null;
     let result = null;
     // When
     sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
     // Then
-    expect(sut).toBeInstanceOf(ProjectConfiguration);
-    expect(sut.constructorMock).toHaveBeenCalledTimes(1);
-    expect(sut.constructorMock).toHaveBeenCalledWith(
-      pathUtils,
-      [
-        'projext.config.js',
-        'config/projext.config.js',
-        'config/project.config.js',
-      ]
-    );
-    expect(result).toBeObject();
-    expect(Object.keys(result)).toEqual(expectedKeys);
-    expect(targetsFinder).toHaveBeenCalledTimes(1);
-    expect(targetsFinder).toHaveBeenCalledWith(result.paths.source);
     expect(result.targetsTemplates.node.engine).toBe(plugin);
     expect(result.targetsTemplates.browser.engine).toBe(plugin);
   });

@@ -82,7 +82,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   type: 'node',
   bundle: false,
   transpile: false,
-  engine: 'webpack',
+  engine: null,
   hasFolder: true,
   createFolder: false,
   folder: '',
@@ -116,11 +116,16 @@ If the value is `false`, when running on a development environment, and if the t
 This option is kind of tied to the previous one: You may not want to bundle your Node target, but you can transpile it with [Babel](https://babeljs.io) if you want to use a feature not yet supported by the runtime.
 
 #### `engine`
-> Default value: `webpack`
+> Default value: `null`
 
-In case `bundle` is `true`, this will tell projext which build engine you are going to bundle the target code with.
+In case `bundle` is `true`, this will tell projext which build engine you are going to bundle the code with.
 
-> If you don't intend to change its default value, you need to have the package [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack) installed.
+If not overwritten, the value of this setting will be decided by projext when loading the configuration: It will take a list of known engines (webpack and Rollup) and check if any of them was loaded as a plugin.
+
+> This is the list of known build engines plugins you can install:
+>
+> - **webpack:** [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack)
+> - **Rollup:** [`projext-plugin-rollup`](https://yarnpkg.com/en/package/projext-plugin-rollup)
 
 #### `hasFolder`
 > Default value: `true`
@@ -279,7 +284,7 @@ Whether or not to remove all code from previous builds from the distribution dir
 ```js
 {
   type: 'browser',
-  engine: 'webpack',
+  engine: null,
   hasFolder: true,
   createFolder: true,
   folder: '',
@@ -301,11 +306,16 @@ Whether or not to remove all code from previous builds from the distribution dir
 ```
 
 #### `engine`
-> Default value: `webpack`
+> Default value: `null`
 
 This will tell projext which build engine you are going to bundle the target code with.
 
-> If you don't intend to change its default value, you need to have the package [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack) installed.
+If not overwritten, the value of this setting will be decided by projext when loading the configuration: It will take a list of known engines (webpack and Rollup) and check if any of them was loaded as a plugin.
+
+> This is the list of known build engines plugins you can install:
+>
+> - **webpack:** [`projext-plugin-webpack`](https://yarnpkg.com/en/package/projext-plugin-webpack)
+> - **Rollup:** [`projext-plugin-rollup`](https://yarnpkg.com/en/package/projext-plugin-rollup)
 
 #### `hasFolder`
 > Default value: `true`

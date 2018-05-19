@@ -43,22 +43,14 @@ class ProjectConfiguration extends ConfigurationFile {
      * @access protected
      * @ignore
      */
-    this._knownBuildEndginePlugins = ['rollup'];
-    /**
-     * The name of the default build engine projext will use in case no known build engine plugin
-     * is present.
-     * @type {string}
-     * @access protected
-     * @ignore
-     */
-    this._defaultBuildEngine = 'webpack';
+    this._knownBuildEndgines = ['webpack', 'rollup'];
   }
   /**
    * Create the project configuration with all its _'smart defaults'_.
    * @return {ProjectConfigurationSettings}
    */
   createConfig() {
-    const engine = this._getBuildEngine();
+    const engine = this._getDefaultBuildEngine();
     return {
       paths: {
         source: 'src',
@@ -281,19 +273,15 @@ class ProjectConfiguration extends ConfigurationFile {
     return result;
   }
   /**
-   * Gets the name of the default build engine projext will set for the targets. It first checks
-   * if there was a loaded plugin with the name of one of the known engines, if one it's found,
-   * that's the one that will be used for the `engine` property of the targets templates; In case
-   * no plugin is found, it will fallback to the default engine.
+   * Gets the name of the default build engine that the service will use as default for the
+   * targets templates. It finds the name by using a list of known engines and checking if any of
+   * them was loaded as a plugin.
    * @return {string}
    * @access protected
    * @ignore
    */
-  _getBuildEngine() {
-    const knownEngine = this._knownBuildEndginePlugins
-    .find((engine) => this.plugins.loaded(engine));
-
-    return knownEngine || this._defaultBuildEngine;
+  _getDefaultBuildEngine() {
+    return this._knownBuildEndgines.find((engine) => this.plugins.loaded(engine));
   }
 }
 /**

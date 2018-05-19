@@ -9,14 +9,16 @@ const ConfigurationFile = require('../../abstracts/configurationFile');
  */
 class ProjectConfiguration extends ConfigurationFile {
   /**
-   * Class constructor.
-   * @param {PathUtils}     pathUtils          Because `ConfigurationFile` needs it in order to
+   * @param {PathUtils}          pathUtils     Because `ConfigurationFile` needs it in order to
    *                                           build the overwrite path.
-   * @param {TargetsFinder#find} targetsFinder If the configuration is not overwritten, the service
-   *                                           will use this to look for existing targets based on
-   *                                           the files and/or folders on the source directory.
+   * @param {Plugins}            plugins       To get the list of loaded plugins and decide the
+   *                                           default build engine.
+   * @param {TargetsFinder#find} targetsFinder If the configuration is not overwritten, the
+   *                                           service will use this to look for existing targets
+   *                                           based on the files andor folders on the source
+   *                                           directory.
    */
-  constructor(pathUtils, targetsFinder) {
+  constructor(pathUtils, plugins, targetsFinder) {
     // Set the overwrite file path.
     super(pathUtils, [
       'projext.config.js',
@@ -24,16 +26,39 @@ class ProjectConfiguration extends ConfigurationFile {
       'config/project.config.js',
     ]);
     /**
+     * A local reference for the `plugins` service.
+     * @type {Plugins}
+     */
+    this.plugins = plugins;
+    /**
      * A local reference for the `targetsFinder` service.
      * @type {TargetsFinder#find}
      */
     this.targetsFinder = targetsFinder;
+    /**
+     * The list of known build engine plugins that can be used with projext. This service
+     * will validate which one is installed in order to decide the default value of the `engine`
+     * settings for the targets.
+     * @type {Array}
+     * @access protected
+     * @ignore
+     */
+    this._knownBuildEndginePlugins = ['rollup'];
+    /**
+     * The name of the default build engine projext will use in case no known build engine plugin
+     * is present.
+     * @type {string}
+     * @access protected
+     * @ignore
+     */
+    this._defaultBuildEngine = 'webpack';
   }
   /**
    * Create the project configuration with all its _'smart defaults'_.
    * @return {ProjectConfigurationSettings}
    */
   createConfig() {
+    const engine = this._getBuildEngine();
     return {
       paths: {
         source: 'src',
@@ -45,7 +70,7 @@ class ProjectConfiguration extends ConfigurationFile {
           type: 'node',
           bundle: false,
           transpile: false,
-          engine: 'webpack',
+          engine,
           hasFolder: true,
           createFolder: false,
           folder: '',
@@ -88,7 +113,7 @@ class ProjectConfiguration extends ConfigurationFile {
         },
         browser: {
           type: 'browser',
-          engine: 'webpack',
+          engine,
           hasFolder: true,
           createFolder: true,
           folder: '',
@@ -255,6 +280,21 @@ class ProjectConfiguration extends ConfigurationFile {
 
     return result;
   }
+  /**
+   * Gets the name of the default build engine projext will set for the targets. It first checks
+   * if there was a loaded plugin with the name of one of the known engines, if one it's found,
+   * that's the one that will be used for the `engine` property of the targets templates; In case
+   * no plugin is found, it will fallback to the default engine.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getBuildEngine() {
+    const knownEngine = this._knownBuildEndginePlugins
+    .find((engine) => this.plugins.loaded(engine));
+
+    return knownEngine || this._defaultBuildEngine;
+  }
 }
 /**
  * The service provider that once registered on the app container will set an instance of
@@ -269,6 +309,7 @@ class ProjectConfiguration extends ConfigurationFile {
 const projectConfiguration = provider((app) => {
   app.set('projectConfiguration', () => new ProjectConfiguration(
     app.get('pathUtils'),
+    app.get('plugins'),
     app.get('targetsFinder')
   ));
 });

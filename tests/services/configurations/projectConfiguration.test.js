@@ -19,10 +19,11 @@ describe('services/configurations:projectConfiguration', () => {
   it('should be instantiated', () => {
     // Given
     const pathUtils = 'pathUtils';
+    const plugins = 'plugins';
     const targetsFinder = 'targetsFinder';
     let sut = null;
     // When
-    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     // Then
     expect(sut).toBeInstanceOf(ProjectConfiguration);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
@@ -34,12 +35,16 @@ describe('services/configurations:projectConfiguration', () => {
         'config/project.config.js',
       ]
     );
+    expect(sut.plugins).toBe(plugins);
     expect(sut.targetsFinder).toBe(targetsFinder);
   });
 
   it('should return the project configuration', () => {
     // Given
     const pathUtils = 'pathUtils';
+    const plugins = {
+      loaded: jest.fn(() => false),
+    };
     const targetsFinder = jest.fn(() => []);
     const expectedKeys = [
       'paths',
@@ -51,8 +56,9 @@ describe('services/configurations:projectConfiguration', () => {
     ];
     let sut = null;
     let result = null;
+    const expectedEngine = 'webpack';
     // When
-    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
     // Then
     expect(sut).toBeInstanceOf(ProjectConfiguration);
@@ -69,11 +75,56 @@ describe('services/configurations:projectConfiguration', () => {
     expect(Object.keys(result)).toEqual(expectedKeys);
     expect(targetsFinder).toHaveBeenCalledTimes(1);
     expect(targetsFinder).toHaveBeenCalledWith(result.paths.source);
+    expect(result.targetsTemplates.node.engine).toBe(expectedEngine);
+    expect(result.targetsTemplates.browser.engine).toBe(expectedEngine);
+  });
+
+  it('should return the project configuration and use `Rollup` as build engine', () => {
+    // Given
+    const pathUtils = 'pathUtils';
+    const plugin = 'rollup';
+    const plugins = {
+      loaded: jest.fn((name) => (name === plugin)),
+    };
+    const targetsFinder = jest.fn(() => []);
+    const expectedKeys = [
+      'paths',
+      'targetsTemplates',
+      'targets',
+      'copy',
+      'version',
+      'others',
+    ];
+    let sut = null;
+    let result = null;
+    // When
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
+    result = sut.getConfig();
+    // Then
+    expect(sut).toBeInstanceOf(ProjectConfiguration);
+    expect(sut.constructorMock).toHaveBeenCalledTimes(1);
+    expect(sut.constructorMock).toHaveBeenCalledWith(
+      pathUtils,
+      [
+        'projext.config.js',
+        'config/projext.config.js',
+        'config/project.config.js',
+      ]
+    );
+    expect(result).toBeObject();
+    expect(Object.keys(result)).toEqual(expectedKeys);
+    expect(targetsFinder).toHaveBeenCalledTimes(1);
+    expect(targetsFinder).toHaveBeenCalledWith(result.paths.source);
+    expect(result.targetsTemplates.node.engine).toBe(plugin);
+    expect(result.targetsTemplates.browser.engine).toBe(plugin);
   });
 
   it('should return the project configuration with targets found on the source directory', () => {
     // Given
     const pathUtils = 'pathUtils';
+    const plugins = {
+      loaded: jest.fn(() => false),
+    };
     const targetOne = {
       name: 'targetOne',
       type: 'node',
@@ -99,7 +150,7 @@ describe('services/configurations:projectConfiguration', () => {
       [targetTwo.name]: targetTwo,
     };
     // When
-    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
     // Then
     expect(sut).toBeInstanceOf(ProjectConfiguration);
@@ -122,6 +173,9 @@ describe('services/configurations:projectConfiguration', () => {
   it('should overwrite any found target information', () => {
     // Given
     const pathUtils = 'pathUtils';
+    const plugins = {
+      loaded: jest.fn(() => false),
+    };
     const target = {
       name: 'myApp',
       type: 'browser',
@@ -150,7 +204,7 @@ describe('services/configurations:projectConfiguration', () => {
       [target.name]: Object.assign({}, target, targetOverwrite),
     };
     // When
-    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
     // Then
     expect(sut).toBeInstanceOf(ProjectConfiguration);
@@ -173,6 +227,9 @@ describe('services/configurations:projectConfiguration', () => {
   it('should rename a target if it only found one and the configuration also has only one', () => {
     // Given
     const pathUtils = 'pathUtils';
+    const plugins = {
+      loaded: jest.fn(() => false),
+    };
     const target = {
       name: 'myApp',
       type: 'browser',
@@ -202,7 +259,7 @@ describe('services/configurations:projectConfiguration', () => {
       [targetOverwrite.name]: Object.assign({}, target, targetOverwrite),
     };
     // When
-    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
     // Then
     expect(sut).toBeInstanceOf(ProjectConfiguration);
@@ -232,6 +289,9 @@ describe('services/configurations:projectConfiguration', () => {
       },
     });
     const pathUtils = 'pathUtils';
+    const plugins = {
+      loaded: jest.fn(() => false),
+    };
     const targetsFinder = jest.fn(() => []);
     const expectedKeys = [
       'paths',
@@ -244,7 +304,7 @@ describe('services/configurations:projectConfiguration', () => {
     let sut = null;
     let result = null;
     // When
-    sut = new ProjectConfiguration(pathUtils, targetsFinder);
+    sut = new ProjectConfiguration(pathUtils, plugins, targetsFinder);
     result = sut.getConfig();
     // Then
     expect(sut).toBeInstanceOf(ProjectConfiguration);
@@ -281,5 +341,6 @@ describe('services/configurations:projectConfiguration', () => {
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(ProjectConfiguration);
     expect(sut.targetsFinder).toBe('targetsFinder');
+    expect(sut.plugins).toBe('plugins');
   });
 });

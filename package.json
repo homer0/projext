@@ -7,8 +7,8 @@
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "wootils": "^1.1.1",
-      "jimple": "homer0/jimple",
+      "wootils": "^1.1.2",
+      "jimple": "1.5.0",
       "fs-extra": "5.0.0",
       "extend": "3.0.1",
       "del": "3.0.0",

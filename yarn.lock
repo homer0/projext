@@ -5242,9 +5242,9 @@ winston@2.1.x:
     pkginfo "0.3.x"
     stack-trace "0.0.x"
 
-wootils@^1.1.2:
-  version "1.1.2"
-  resolved "https://registry.yarnpkg.com/wootils/-/wootils-1.1.2.tgz#85ce12644b8cf261232a05fad23b1a6d492c731d"
+wootils@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/wootils/-/wootils-1.2.0.tgz#b2d89e07c78dd999a010f9756f13a612b3f6a2b1"
   dependencies:
     colors "1.1.2"
     fs-extra "5.0.0"

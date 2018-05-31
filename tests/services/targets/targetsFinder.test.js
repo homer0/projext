@@ -486,6 +486,59 @@ describe('services/targets:targetsFinder', () => {
     expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${productionEntryFile}`, 'utf-8');
   });
 
+  it('should find a Node target if there\'s an index file', () => {
+    // Given
+    const packageInfo = {
+      name: 'my-app',
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    // 1 - When checking if the source directory exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    // 2 - When checking if the entry file exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    const entryFile = 'index.jsx';
+    const otherFile = 'something.js';
+    const sourceDirectoryContents = ['..', '.', entryFile, otherFile];
+    // 1 - When reading the source directory.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    // 2 - When parsing the target.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    const fileContents = 'console.log(\'hello charito!\');';
+    fs.readFileSync.mockReturnValueOnce(fileContents);
+    const directory = 'src';
+    let sut = null;
+    let result = null;
+    const expectedTargets = [{
+      name: packageInfo.name,
+      hasFolder: false,
+      createFolder: false,
+      entry: {
+        default: entryFile,
+        development: null,
+        production: null,
+      },
+      type: 'node',
+      library: false,
+    }];
+    // When
+    sut = new TargetsFinder(packageInfo, pathUtils);
+    result = sut.find(directory);
+    // Then
+    expect(result).toEqual(expectedTargets);
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith(directory);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(['sourceDirectory', 'entry'].length);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(directory);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(`${directory}/${entryFile}`);
+    expect(fs.readdirSync).toHaveBeenCalledTimes(['sourceDirectory', 'parsingTarget'].length);
+    expect(fs.readdirSync).toHaveBeenCalledWith(directory);
+    expect(fs.readdirSync).toHaveBeenCalledWith(directory);
+    expect(fs.readFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.readFileSync).toHaveBeenCalledWith(`${directory}/${entryFile}`, 'utf-8');
+  });
+
   it('should find a library Node target', () => {
     // Given
     const packageInfo = {

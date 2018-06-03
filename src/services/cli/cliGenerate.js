@@ -57,7 +57,10 @@ class CLIGenerateCommand extends CLICommand {
         descriptionList += '\n\n';
       }
     });
-    // Update the detailed description of the command.
+    /**
+     * Update the detailed description of the command.
+     * @ignore
+     */
     this.fullDescription = `Generate a projext resource:\n\n${descriptionList}`;
   }
   /**

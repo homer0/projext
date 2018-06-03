@@ -26,6 +26,24 @@ describe('services/common:babelHelper', () => {
     expect(configuration).toEqual(configurationInitialValue);
   });
 
+  it('should add a plugin with options to a Babel configuration', () => {
+    // Given
+    const configurationInitialValue = {};
+    const configuration = Object.assign({}, configurationInitialValue);
+    const plugin = ['external-helpers', { custom: true }];
+    let result = null;
+    const expectedConfiguration = {
+      plugins: [
+        plugin,
+      ],
+    };
+    // When
+    result = BabelHelper.addPlugin(configuration, plugin);
+    // Then
+    expect(result).toEqual(expectedConfiguration);
+    expect(configuration).toEqual(configurationInitialValue);
+  });
+
   it('should add a list of plugins to a Babel configuration', () => {
     // Given
     const configuration = {};
@@ -74,7 +92,7 @@ describe('services/common:babelHelper', () => {
         ['angularjs-annotate', { explicitOnly: true }],
       ],
     };
-    const pluginOne = 'external-helpers';
+    const pluginOne = 'other-helpers';
     const pluginTwo = ['other-plugin', { option: 'value' }];
     let result = null;
     const expectedConfiguration = {
@@ -103,6 +121,124 @@ describe('services/common:babelHelper', () => {
     let result = null;
     // When
     result = BabelHelper.addPlugin(configuration, [pluginOne, pluginTwo]);
+    // Then
+    expect(result).toEqual(configuration);
+  });
+
+
+  it('should add a preset to a Babel configuration', () => {
+    // Given
+    const configurationInitialValue = {};
+    const configuration = Object.assign({}, configurationInitialValue);
+    const preset = 'react-preset';
+    let result = null;
+    const expectedConfiguration = {
+      presets: [
+        preset,
+      ],
+    };
+    // When
+    result = BabelHelper.addPreset(configuration, preset);
+    // Then
+    expect(result).toEqual(expectedConfiguration);
+    expect(configuration).toEqual(configurationInitialValue);
+  });
+
+  it('should add a preset with options to a Babel configuration', () => {
+    // Given
+    const configurationInitialValue = {};
+    const configuration = Object.assign({}, configurationInitialValue);
+    const preset = ['react-preset', { jsx: 'awesome' }];
+    let result = null;
+    const expectedConfiguration = {
+      presets: [
+        preset,
+      ],
+    };
+    // When
+    result = BabelHelper.addPreset(configuration, preset);
+    // Then
+    expect(result).toEqual(expectedConfiguration);
+    expect(configuration).toEqual(configurationInitialValue);
+  });
+
+  it('should add a list of presets to a Babel configuration', () => {
+    // Given
+    const configuration = {};
+    const presetOne = 'react-preset';
+    const presetTwo = 'angularjs-preset';
+    let result = null;
+    const expectedConfiguration = {
+      presets: [
+        presetOne,
+        presetTwo,
+      ],
+    };
+    // When
+    result = BabelHelper.addPreset(configuration, [presetOne, presetTwo]);
+    // Then
+    expect(result).toEqual(expectedConfiguration);
+  });
+
+  it('should add a preset to an existing list of presets', () => {
+    // Given
+    const configuration = {
+      presets: [
+        'react-preset',
+        ['preact-preset', { cool: true }],
+      ],
+    };
+    const preset = 'angularjs-preset';
+    let result = null;
+    const expectedConfiguration = Object.assign({}, configuration, {
+      presets: [
+        ...configuration.presets,
+        preset,
+      ],
+    });
+    // When
+    result = BabelHelper.addPreset(configuration, preset);
+    // Then
+    expect(result).toEqual(expectedConfiguration);
+  });
+
+  it('should add two presets to an existing list of presets', () => {
+    // Given
+    const configuration = {
+      presets: [
+        'react-preset',
+        ['preact-preset', { cool: true }],
+      ],
+    };
+    const presetOne = 'angularjs-preset';
+    const presetTwo = ['aurelia-preset', { option: 'value' }];
+    let result = null;
+    const expectedConfiguration = {
+      presets: [
+        ...configuration.presets,
+        presetOne,
+        presetTwo,
+      ],
+    };
+    // When
+    result = BabelHelper.addPreset(configuration, [presetOne, presetTwo]);
+    // Then
+    expect(result).toEqual(expectedConfiguration);
+  });
+
+  it('shouldn\'t add a preset that is already on the configuration', () => {
+    // Given
+    const presetOne = 'react-preset';
+    const presetTwo = ['preact-annotate', { cool: true }];
+    const configuration = {
+      presets: [
+        presetOne,
+        presetTwo,
+      ],
+    };
+    let result = null;
+    // When
+    result = BabelHelper.addPreset(configuration, [presetOne, presetTwo]);
     // Then
     expect(result).toEqual(configuration);
   });

@@ -12,58 +12,29 @@ const { provider } = require('jimple');
 class BabelHelper {
   /**
    * Adds a plugin or a list of them to a Babel configuration. If the `plugins` option doesn't
-   * exists it creates it.
+   * exist, the method will create it.
    * @param {Object}       configuration The configuration to update.
    * @param {string|Array} plugin        A plugin name or configuration `Array` (`[name, options]`),
    *                                     or a list of them.
    * @return {Object} The updated configuration.
    */
   static addPlugin(configuration, plugin) {
-    // Get a new reference for the configuration.
-    const updatedConfiguration = Object.assign({}, configuration);
-    // Normalize the received `plugin` parameter into an `Array`.
-    const plugins = Array.isArray(plugin) ? plugin : [plugin];
-    // Define the variable for the list where the new plugin(s) will be added.
-    let newPluginsList;
-    /**
-     * Define a variable that may contain a list of the existing plugins' names. The reason for
-     * this is that when adding new plugins, the method can validate if they already are on the
-     * list by calling `.includes` on this list; otherwise, and because plugins can be either a
-     * `string` or an `Array`, it would have to do a `.some` or `.find` with a callback that checks
-     * the type of the existing plugin.
-     */
-    let existingPlugins;
-    // If the configuration already has plugins...
-    if (updatedConfiguration.plugins) {
-      // ...set the existing plugins list as the one where the new plugins are going to be added.
-      newPluginsList = updatedConfiguration.plugins;
-      // And generate a list with the names of the existing plugins.
-      existingPlugins = newPluginsList.map((existingPlugin) => (
-        (Array.isArray(existingPlugin) ? existingPlugin[0] : existingPlugin)
-      ));
-    } else {
-      // ...otherwise, set a empty list.
-      newPluginsList = [];
-    }
-    // Loop all the plugins that should be added.
-    plugins.forEach((pluginInfo) => {
-      // Get the plugin name.
-      const name = Array.isArray(pluginInfo) ? pluginInfo[0] : plugin;
-      // If the configuration didn't have plugins, or the plugin is not on the list.
-      if (!existingPlugins || !existingPlugins.includes(name)) {
-        // ...add it to the list.
-        newPluginsList.push(pluginInfo);
-      }
-    });
-
-    // Replace the `plugins` property on the configuration with the updated list.
-    updatedConfiguration.plugins = newPluginsList;
-    // Return the updated configuration.
-    return updatedConfiguration;
+    return this._addConfigurationItem(configuration, plugin, 'plugins');
+  }
+  /**
+   * Adds a preset or a list of them to a Babel configuration. If the `presets` option doesn't
+   * exist, the method will create it.
+   * @param {Object}       configuration The configuration to update.
+   * @param {string|Array} plugin        A plugin name or configuration `Array` (`[name, options]`),
+   *                                     or a list of them.
+   * @return {Object} The updated configuration.
+   */
+  static addPreset(configuration, preset) {
+    return this._addConfigurationItem(configuration, preset, 'presets');
   }
   /**
    * Update the options of the `env` preset on a Babel configuration. If the `presets` option
-   * doesn't exists, it will create one and add the preset. If `presets` exists and there's
+   * doesn't exist, it will create one and add the preset. If `presets` exists and there's
    * already an `env` preset, it will update it. But if `presets` exists but there's no `env`
    * preset, it won't do anything.
    * @param {Object}                  configuration The configuration to update.
@@ -169,6 +140,77 @@ class BabelHelper {
       // Return an updated dictionary of options with `modules` disabled.
       (options) => Object.assign({}, options, { modules: false })
     );
+  }
+  /**
+   * This is a helper method for adding things that share the same structure on a Babel
+   * configuration, like plugins and presets: They can be a `string` with the plugin/preset name
+   * or an `Array` with the name and its options.
+   * @param {Object}       configuration The configuration to update.
+   * @param {string|Array} item          An item name or configuration `Array` (`[name, options]`),
+   *                                     or a list of them.
+   * @return {Object} The updated configuration.
+   * @access protected
+   * @ignore
+   */
+  static _addConfigurationItem(configuration, item, property) {
+    let singleItem = true;
+    if (Array.isArray(item)) {
+      const [itemName, itemOptions] = item;
+      const itemAndOptionsLength = 2;
+      if (
+        item.length !== itemAndOptionsLength ||
+        typeof itemName !== 'string' ||
+        Array.isArray(itemOptions) ||
+        typeof itemOptions !== 'object'
+      ) {
+        singleItem = false;
+      }
+    }
+
+    // Normalize the received `item` parameter into an `Array`.
+    const items = singleItem ? [item] : item;
+    // Get a new reference for the configuration.
+    const updatedConfiguration = Object.assign({}, configuration);
+    // Define the variable for the list where the new plugin(s) will be added.
+    let newItemsList;
+    /**
+     * Define a variable that may contain a list of the existing items' names. The reason for
+     * this is that when adding new items (like presets or plugins), the method can validate if
+     * they already are on the list by calling `.includes`; otherwise, and because most of Babel
+     * items can be either a `string` or an `Array` (`[name, options]`), it would have to do a
+     * `.some` or `.find` with a callback that checks the type of the existing item.
+     */
+    let existingItems;
+    // If the configuration already has a property for the items...
+    if (updatedConfiguration[property]) {
+      // ...set the existing list as the one where the new items are going to be added.
+      newItemsList = updatedConfiguration[property];
+      // And generate a list with the names of the existing items.
+      existingItems = newItemsList.map((existingItem) => (
+        (Array.isArray(existingItem) ? existingItem[0] : existingItem)
+      ));
+    } else {
+      // ...otherwise, set a empty list.
+      newItemsList = [];
+    }
+    // Loop all the items that should be added.
+    items.forEach((itemInfo) => {
+      // Get the item name.
+      const name = Array.isArray(itemInfo) ? itemInfo[0] : itemInfo;
+      /**
+       * If the configuration didn't have the required items property, or the item is not on the
+       * list...
+       */
+      if (!existingItems || !existingItems.includes(name)) {
+        // ...add it to the list.
+        newItemsList.push(itemInfo);
+      }
+    });
+
+    // Replace the items property on the configuration with the updated list.
+    updatedConfiguration[property] = newItemsList;
+    // Return the updated configuration.
+    return updatedConfiguration;
   }
 }
 /**

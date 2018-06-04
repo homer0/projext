@@ -571,6 +571,14 @@ describe('services/targets:targetsFinder', () => {
         development: null,
         production: null,
       },
+      output: {
+        default: {
+          js: '[target-name].js',
+        },
+        development: {
+          js: '[target-name].js',
+        },
+      },
       type: 'node',
       library: true,
     }];
@@ -622,6 +630,14 @@ describe('services/targets:targetsFinder', () => {
         default: indexFile,
         development: null,
         production: null,
+      },
+      output: {
+        default: {
+          js: '[target-name].js',
+        },
+        development: {
+          js: '[target-name].js',
+        },
       },
       type: 'node',
       library: true,

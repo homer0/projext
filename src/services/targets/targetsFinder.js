@@ -347,10 +347,11 @@ class TargetsFinder {
       }
     }
     /**
-     * If the target is a library for the browser, change the output so it won't be adding hashes
-     * to the bundled filename nor saving it on a sub directory.
+     * If the target is a library, normalize the output so it won't add sub directories nor hashes.
+     * A library path is usually set on the `package.json` as the `main` setting, so the path
+     * shouldn't be dynamic.
      */
-    if (isBrowser && info.library) {
+    if (info.library) {
       info.output = {
         default: {
           js: '[target-name].js',

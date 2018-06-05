@@ -736,6 +736,70 @@
  */
 
 /**
+ * @typedef {Object} TargetFileRulePathSettings
+ * @property {Array} include The list of expressions that match the allowed paths for a rule.
+ * @property {Array} exclude The list of expressions that match the paths that should be excluded
+ *                           from a rule.
+ */
+
+/**
+ * @typedef {Object} TargetFileRuleGlobFilesSettings
+ * @property {Array} include The list of glob patterns that match the allowed files for a rule.
+ * @property {Array} exclude The list of glob patterns that match the files that should be excluded
+ *                           from a rule.
+ */
+
+/**
+ * @typedef {Object} TargetFileRuleFilesSettings
+ * @property {Array}                           include The list of expressions that match the
+ *                                                     allowed files for a rule.
+ * @property {Array}                           exclude The list of expressions that match the
+ *                                                     files that should be excluded from a rule.
+ * @property {TargetFileRuleGlobFilesSettings} glob    The settings for files but on glob pattern
+ *                                                     version. For plugins and libraries that
+ *                                                     don't support, or maybe prefer glob over,
+ *                                                     expressions.
+ */
+
+/**
+ * @typedef {Object} TargetFileRuleSettings
+ * @property {RegExp}                      extension A expression that validates the extension(s)
+ *                                                   the rule is for.
+ * @property {string}                      glob      A glob pattern that validates the extension(s)
+ *                                                   the rule is for.
+ * @property {TargetFileRulePathSettings}  paths     A set of allowed and excluded expressions to
+ *                                                   validate the paths where the files can be
+ *                                                   found.
+ * @property {TargetFileRuleFilesSettings} files     A set of allowed and excluded expressions and
+ *                                                   glob patterns for files that would match with
+ *                                                   the rule.
+ */
+
+/**
+ * @typedef {function} TargetFileRuleHandler
+ * @param {Target}                 target      The target information.
+ * @param {boolean}                hasTarget   Whether or not the rule already has a target, or if
+ *                                             this is the first one being added.
+ * @param {TargetFileRuleSettings} currentRule The current settings of the rule.
+ */
+
+/**
+ * @typedef {Object} TargetFontsFileRules
+ * @property {TargetFileRule} common The rule for all font files that aren't SVG.
+ * @property {TargetFileRule} svg    The rule for SVG fonts.
+ */
+
+/**
+ * @typedef {Object} TargetFilesRules
+ * @property {TargetFileRule}       js      The rule for JS files.
+ * @property {TargetFileRule}       scss    The rule for SCSS files.
+ * @property {TargetFileRule}       css     The rule for CSS files.
+ * @property {TargetFontsFileRules} fonts   The rules for font files.
+ * @property {TargetFileRule}       images  The rule for image files.
+ * @property {TargetFileRule}       favicon The rule for favicon files.
+ */
+
+/**
  * ================================================================================================
  * "Interfaces"
  * ================================================================================================

@@ -25,7 +25,7 @@ class BabelHelper {
    * Adds a preset or a list of them to a Babel configuration. If the `presets` option doesn't
    * exist, the method will create it.
    * @param {Object}       configuration The configuration to update.
-   * @param {string|Array} plugin        A plugin name or configuration `Array` (`[name, options]`),
+   * @param {string|Array} preset        A plugin name or configuration `Array` (`[name, options]`),
    *                                     or a list of them.
    * @return {Object} The updated configuration.
    */
@@ -148,6 +148,8 @@ class BabelHelper {
    * @param {Object}       configuration The configuration to update.
    * @param {string|Array} item          An item name or configuration `Array` (`[name, options]`),
    *                                     or a list of them.
+   * @param {string}       property      The name of the items property (like `plugins` or
+   *                                     `presets`).
    * @return {Object} The updated configuration.
    * @access protected
    * @ignore

@@ -67,7 +67,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getJSRule(target) {
-    const rule = new TargetFileRule(this.events, 'js', (ruleTarget, hasTarget) => {
+    const rule = new TargetFileRule(this.events, this.targets, 'js', (ruleTarget, hasTarget) => {
       const pathsInclude = [];
       const filesInclude = [];
       const filesGlobInclude = [];
@@ -144,7 +144,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getSCSSRule(target) {
-    const rule = new TargetFileRule(this.events, 'scss', (ruleTarget) => ({
+    const rule = new TargetFileRule(this.events, this.targets, 'scss', (ruleTarget) => ({
       extension: /\.scss$/i,
       glob: '**/*.scss',
       paths: {
@@ -199,7 +199,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getCSSRule(target) {
-    const rule = new TargetFileRule(this.events, 'css', (ruleTarget) => ({
+    const rule = new TargetFileRule(this.events, this.targets, 'css', (ruleTarget) => ({
       extension: /\.css$/i,
       glob: '**/*.css',
       paths: {
@@ -250,7 +250,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getCommonFontsRule(target) {
-    const rule = new TargetFileRule(this.events, 'fonts.common', (ruleTarget) => ({
+    const rule = new TargetFileRule(this.events, this.targets, 'fonts.common', (ruleTarget) => ({
       extension: /\.(?:woff2?|ttf|eot)$/i,
       glob: '**/*.{woff,woff2,ttf,eot}',
       paths: {
@@ -301,7 +301,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getSVGFontsRule(target) {
-    const rule = new TargetFileRule(this.events, 'fonts.svg', (ruleTarget) => ({
+    const rule = new TargetFileRule(this.events, this.targets, 'fonts.svg', (ruleTarget) => ({
       extension: /\.svg$/i,
       glob: '**/*.svg',
       paths: {
@@ -351,7 +351,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getImagesRule(target) {
-    const rule = new TargetFileRule(this.events, 'images', (ruleTarget) => {
+    const rule = new TargetFileRule(this.events, this.targets, 'images', (ruleTarget) => {
       /**
        * Define the excluded paths.
        * The issue here is that the rule should pick `.svg` files as images, but not if they
@@ -428,7 +428,7 @@ class TargetsFileRules {
    * @ignore
    */
   _getFaviconRule(target) {
-    const rule = new TargetFileRule(this.events, 'favicon', (ruleTarget) => ({
+    const rule = new TargetFileRule(this.events, this.targets, 'favicon', (ruleTarget) => ({
       extension: /\.(png|ico)$/i,
       glob: '**/*.{png,ico}',
       paths: {

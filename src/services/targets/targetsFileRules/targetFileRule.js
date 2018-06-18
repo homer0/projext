@@ -6,6 +6,8 @@ const extend = require('extend');
 class TargetFileRule {
   /**
    * @param {Events}                events                   To reduce the rule settings updated.
+   * @param {Targets}               targets                  To get the information of other targets
+   *                                                         from the `includeTargets` setting.
    * @param {string}                ruleType                 A reference identifier that tells for
    *                                                         which kind file type the rule is
    *                                                         being used for.
@@ -13,12 +15,17 @@ class TargetFileRule {
    *                                                         a new target is added.
    * @throws {Error} If `getSettingsForTargetRule` is not a function.
    */
-  constructor(events, ruleType, getSettingsForTargetRule) {
+  constructor(events, targets, ruleType, getSettingsForTargetRule) {
     /**
      * A local reference for the `events` service.
      * @type {Events}
      */
     this.events = events;
+    /**
+     * A local reference for the `targets` service.
+     * @type {Targets}
+     */
+    this.targets = targets;
     // Validate the handler function.
     if (typeof getSettingsForTargetRule !== 'function') {
       throw new Error('You need to specify a handler function for when a new target is added');
@@ -45,7 +52,7 @@ class TargetFileRule {
      */
     this._rule = {
       extension: /\.\w+$/i,
-      glob: '**/*.css',
+      glob: '**/*.*',
       paths: {
         include: [],
         exclude: [],
@@ -98,6 +105,10 @@ class TargetFileRule {
 
     this._hasTarget = true;
     this._rule = this.events.reduce(events, finalRule, this._rule);
+    target.includeTargets.forEach((targetName) => {
+      const targetInfo = this.targets.getTarget(targetName);
+      this.addTarget(targetInfo);
+    });
   }
   /**
    * Merge two sets of rule settings. This is also used recursively to merge nested settings.

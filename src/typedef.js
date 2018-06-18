@@ -370,12 +370,14 @@
  * These options help you customize the way the bundling process handles your CSS code.
  * @property {Array} [includeModules=[]]
  * This setting can be used to specify a list of node modules you want to process on your bundle.
- * This means that JS files from modules on this list will be transpiled.
  * @property {Array} [excludeModules=[]]
  * This setting can be used to specify a list of modules that should never be bundled. By default,
  * projext will exclude all the dependencies from the `package.json`, but if you import modules
  * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
  * so the build engine won't try to put it inside the bundle it.
+ * @property {Array} [includeTargets=[]]
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -434,6 +436,9 @@
  * projext will exclude all the dependencies from the `package.json`, but if you import modules
  * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
  * so the build engine won't try to put it inside the bundle it.
+ * @property {Array} includeTargets
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -495,6 +500,9 @@
  * @property {Array} [includeModules=[]]
  * This setting can be used to specify a list of node modules you want to process on your bundle.
  * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} [includeTargets=[]]
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
@@ -549,6 +557,9 @@
  * @property {Array} includeModules
  * This setting can be used to specify a list of node modules you want to process on your bundle.
  * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} includeTargets
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.

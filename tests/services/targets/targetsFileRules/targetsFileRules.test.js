@@ -95,7 +95,7 @@ describe('services/targets:targetsFileRules', () => {
     expect(result).toEqual(expectedRules);
     expect(TargetFileRule).toHaveBeenCalledTimes(expectedRuleTypes.length);
     expectedRuleTypes.forEach((ruleType) => {
-      expect(TargetFileRule).toHaveBeenCalledWith(events, ruleType, expect.any(Function));
+      expect(TargetFileRule).toHaveBeenCalledWith(events, targets, ruleType, expect.any(Function));
     });
     expect(events.emit).toHaveBeenCalledTimes(expectedRuleTypeEvents.length + 1);
     expectedRuleTypeEvents.forEach((eventName) => {
@@ -170,7 +170,7 @@ describe('services/targets:targetsFileRules', () => {
     expect(result).toEqual(expectedRules);
     expect(TargetFileRule).toHaveBeenCalledTimes(expectedRuleTypes.length);
     expectedRuleTypes.forEach((ruleType) => {
-      expect(TargetFileRule).toHaveBeenCalledWith(events, ruleType, expect.any(Function));
+      expect(TargetFileRule).toHaveBeenCalledWith(events, targets, ruleType, expect.any(Function));
     });
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target);
@@ -240,7 +240,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).js;
-    [[,, fn]] = TargetFileRule.mock.calls;
+    [[,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;
@@ -379,7 +379,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     sut.getRulesForTarget(target);
-    [[,, fn]] = TargetFileRule.mock.calls;
+    [[,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target, true);
     // Then
     expect(result).toEqual({
@@ -450,7 +450,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).scss;
-    [, [,, fn]] = TargetFileRule.mock.calls;
+    [, [,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;
@@ -580,7 +580,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).css;
-    [,, [,, fn]] = TargetFileRule.mock.calls;
+    [,, [,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;
@@ -704,7 +704,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).fonts.common;
-    [,,, [,, fn]] = TargetFileRule.mock.calls;
+    [,,, [,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;
@@ -849,7 +849,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).fonts.svg;
-    [,,,, [,, fn]] = TargetFileRule.mock.calls;
+    [,,,, [,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;
@@ -995,7 +995,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).images;
-    [,,,,, [,, fn]] = TargetFileRule.mock.calls;
+    [,,,,, [,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;
@@ -1226,7 +1226,7 @@ describe('services/targets:targetsFileRules', () => {
     // When
     sut = new TargetsFileRules(events, pathUtils, targets);
     rule = sut.getRulesForTarget(target).favicon;
-    [,,,,,, [,, fn]] = TargetFileRule.mock.calls;
+    [,,,,,, [,,, fn]] = TargetFileRule.mock.calls;
     result = fn(target);
     extension.regex = result.extension;
     extension.glob = result.glob;

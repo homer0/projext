@@ -90,6 +90,7 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           includeModules: [],
           excludeModules: [],
+          includeTargets: [],
           runOnDevelopment: false,
           babel: {
             features: [],
@@ -143,6 +144,7 @@ class ProjectConfiguration extends ConfigurationFile {
             inject: false,
           },
           includeModules: [],
+          includeTargets: [],
           runOnDevelopment: false,
           babel: {
             features: [],

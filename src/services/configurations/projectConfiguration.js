@@ -175,6 +175,7 @@ class ProjectConfiguration extends ConfigurationFile {
               host: null,
               https: null,
             },
+            historyApiFallback: true,
           },
           configuration: {
             enabled: false,

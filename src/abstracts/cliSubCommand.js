@@ -2,6 +2,7 @@
  * A helper class for creating sub commands for the CLI. A sub command works like a
  * {@link CLICommand} inside a regular {@link CLICommand}.
  * @abstract
+ * @version 1.0
  */
 class CLISubCommand {
   /**

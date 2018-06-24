@@ -36,6 +36,7 @@
       "jest-ex": "4.0.0",
       "jest-cli": "22.1.4",
       "jasmine-expect": "3.8.3",
+      "minimatch": "3.0.4",
       "esdoc": "1.0.4",
       "esdoc-standard-plugin": "1.0.0",
       "esdoc-node": "1.0.3",

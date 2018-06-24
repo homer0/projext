@@ -60,6 +60,7 @@ const {
 
 const {
   targets,
+  targetsFileRules,
   targetsFinder,
   targetsHTML,
 } = require('../services/targets');
@@ -127,6 +128,7 @@ class Projext extends Jimple {
     this.register(targetConfiguration);
 
     this.register(targets);
+    this.register(targetsFileRules);
     this.register(targetsFinder);
     this.register(targetsHTML);
 

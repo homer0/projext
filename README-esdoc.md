@@ -1,5 +1,10 @@
 # projext
 
+[![Travis](https://img.shields.io/travis/homer0/projext.svg?style=flat-square)](https://travis-ci.org/homer0/projext)
+[![Coveralls github](https://img.shields.io/coveralls/github/homer0/projext.svg?style=flat-square)](https://coveralls.io/github/homer0/projext?branch=master)
+[![David](https://img.shields.io/david/homer0/projext.svg?style=flat-square)](https://david-dm.org/homer0/projext)
+[![David](https://img.shields.io/david/dev/homer0/projext.svg?style=flat-square)](https://david-dm.org/homer0/projext)
+
 Bundle and run your javascript project without configuring an specific module bundler.
 
 ## Introduction

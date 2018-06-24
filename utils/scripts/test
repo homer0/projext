@@ -10,6 +10,7 @@ new JestExRunner('./.jestrc.json', {
   addTransformer: true,
   addStubs: true,
   cache: false,
+  runInParallel: false,
 })
 .run()
 .then(() => logger.success('Yay! all the unit tests passed!'))

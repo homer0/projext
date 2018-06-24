@@ -1,5 +1,4 @@
 const Jimple = require('jimple');
-const appPackage = require('../../package.json');
 
 const {
   environmentUtils,
@@ -9,6 +8,8 @@ const {
   pathUtils,
   rootRequire,
 } = require('wootils/node/providers');
+
+const appPackage = require('../../package.json');
 
 const {
   babelHelper,

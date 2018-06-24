@@ -557,6 +557,7 @@ Whether or not to remove all code from previous builds from the distribution dir
 >     ca: null,
 >   },
 >   proxied: { ... },
+>   historyApiFallback: true,
 > }
 > ```
 
@@ -602,6 +603,11 @@ When the dev server is being proxied (using `nginx` for example), there are cert
 - `enabled`: Whether the server is being proxied or not.
 - `hostname`: The hostname used. If `null`, it will use the same as `devServer.hostname`.
 - `https`: Whether or not the server is being proxied over `https`. This settings has a boolean value, but if you let it as `null` it will set its value based on `devServer.ssl`, if you added the certificates it will be `true`, otherwise `false`.
+
+**`devServer.historyApiFallback`**
+> Default value: true
+
+Whether or not to redirect the browser back to the root whenever a path can't be found.
 
 #### `configuration`
 > Default value:

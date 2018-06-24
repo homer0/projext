@@ -11,6 +11,7 @@ const {
 } = require('wootils/node/providers');
 
 const {
+  babelHelper,
   cleaner,
   copier,
   events,
@@ -84,6 +85,7 @@ class Projext extends Jimple {
     this.register(pathUtils);
     this.register(rootRequire);
 
+    this.register(babelHelper);
     this.register(cleaner);
     this.register(copier);
     this.register(events);

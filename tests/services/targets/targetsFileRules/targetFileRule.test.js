@@ -7,7 +7,7 @@ const TargetFileRule = require('/src/services/targets/targetsFileRules/targetFil
 describe('services/targets:targetsFileRules', () => {
   const getEmptyRule = () => ({
     extension: /\.\w+$/i,
-    glob: '**/*.css',
+    glob: '**/*.*',
     paths: {
       include: [],
       exclude: [],
@@ -25,12 +25,14 @@ describe('services/targets:targetsFileRules', () => {
   it('should be instantiated with all its dependencies', () => {
     // Given
     const events = 'events';
+    const targets = 'targets';
     let sut = null;
     // When
-    sut = new TargetFileRule(events, 'something', () => {});
+    sut = new TargetFileRule(events, targets, 'something', () => {});
     // Then
     expect(sut).toBeInstanceOf(TargetFileRule);
     expect(sut.events).toBe(events);
+    expect(sut.targets).toBe(targets);
   });
 
   it('should throw an error if instantiated without a handler function', () => {
@@ -41,10 +43,11 @@ describe('services/targets:targetsFileRules', () => {
   it('should return an empty rule if no target was added', () => {
     // Given
     const events = 'events';
+    const targets = 'targets';
     let sut = null;
     let result = null;
     // When
-    sut = new TargetFileRule(events, 'something', () => {});
+    sut = new TargetFileRule(events, targets, 'something', () => {});
     result = sut.getRule();
     // Then
     expect(result).toEqual(getEmptyRule());
@@ -55,7 +58,11 @@ describe('services/targets:targetsFileRules', () => {
     const events = {
       reduce: jest.fn((eventName, rule) => rule),
     };
-    const target = 'my-target';
+    const targets = 'targets';
+    const target = {
+      name: 'my-target',
+      includeTargets: [],
+    };
     const targetRule = {
       extension: /\.jsx?$/i,
       glob: '**/*.{js,jsx}',
@@ -77,7 +84,7 @@ describe('services/targets:targetsFileRules', () => {
     let result = null;
     const expectedEmptyRule = getEmptyRule();
     // When
-    sut = new TargetFileRule(events, 'something', handler);
+    sut = new TargetFileRule(events, targets, 'something', handler);
     sut.addTarget(target);
     result = sut.getRule();
     // Then
@@ -97,7 +104,11 @@ describe('services/targets:targetsFileRules', () => {
     const events = {
       reduce: jest.fn((eventName, rule) => rule),
     };
-    const targetOne = 'my-target';
+    const targets = 'targets';
+    const targetOne = {
+      name: 'my-target',
+      includeTargets: [],
+    };
     const targetOneRule = {
       extension: /\.jsx?$/i,
       glob: '**/*.{js,jsx}',
@@ -114,7 +125,10 @@ describe('services/targets:targetsFileRules', () => {
         },
       },
     };
-    const targetTwo = 'my-other-target';
+    const targetTwo = {
+      name: 'my-other-target',
+      includeTargets: [],
+    };
     const targetTwoRule = {
       paths: {
         include: ['target-two-include-some-regex-path'],
@@ -130,10 +144,10 @@ describe('services/targets:targetsFileRules', () => {
       },
     };
     const rulesByTarget = {
-      [targetOne]: targetOneRule,
-      [targetTwo]: targetTwoRule,
+      [targetOne.name]: targetOneRule,
+      [targetTwo.name]: targetTwoRule,
     };
-    const handler = jest.fn((targetInfo) => rulesByTarget[targetInfo]);
+    const handler = jest.fn((targetInfo) => rulesByTarget[targetInfo.name]);
     let sut = null;
     let resultBeforeAddingAnything = null;
     let resultAfterAddingOneTarget = null;
@@ -174,7 +188,7 @@ describe('services/targets:targetsFileRules', () => {
       },
     };
     // When
-    sut = new TargetFileRule(events, 'something', handler);
+    sut = new TargetFileRule(events, targets, 'something', handler);
     resultBeforeAddingAnything = sut.getRule();
     sut.addTarget(targetOne);
     resultAfterAddingOneTarget = sut.getRule();
@@ -196,6 +210,119 @@ describe('services/targets:targetsFileRules', () => {
     expect(events.reduce).toHaveBeenCalledWith(
       ['target-file-rule', 'target-file-rule-update'],
       expectedFinalRule,
+      targetOneRule
+    );
+  });
+
+  it('should add the rules of other targets on the `includeTargets` setting', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((eventName, rule) => rule),
+    };
+    const targetTwoName = 'my-other-target';
+    const targetOne = {
+      name: 'my-target',
+      includeTargets: [targetTwoName],
+    };
+    const targetOneRule = {
+      extension: /\.jsx?$/i,
+      glob: '**/*.{js,jsx}',
+      paths: {
+        include: ['target-one-include-some-regex-path'],
+        exclude: ['target-one-exclude-some-regex-path'],
+      },
+      files: {
+        include: ['target-one-include-some-regex-filepath'],
+        exclude: ['target-one-exclude-some-regex-filepath'],
+        glob: {
+          include: ['target-one-include-some-glob-filepath'],
+          exclude: ['target-one-exclude-some-glob-filepath'],
+        },
+      },
+    };
+    const targetTwo = {
+      name: targetTwoName,
+      includeTargets: [],
+    };
+    const targetTwoRule = {
+      extension: /\.jsx?$/i,
+      glob: '**/*.{js,jsx}',
+      paths: {
+        include: ['target-two-include-some-regex-path'],
+        exclude: ['target-two-exclude-some-regex-path'],
+      },
+      files: {
+        include: ['target-two-include-some-regex-filepath'],
+        exclude: ['target-two-exclude-some-regex-filepath'],
+        glob: {
+          include: ['target-two-include-some-glob-filepath'],
+          exclude: ['target-two-exclude-some-glob-filepath'],
+        },
+      },
+    };
+    const rulesByTarget = {
+      [targetOne.name]: targetOneRule,
+      [targetTwo.name]: targetTwoRule,
+    };
+    const targets = {
+      getTarget: jest.fn(() => targetTwo),
+    };
+    const handler = jest.fn((targetInfo) => rulesByTarget[targetInfo.name]);
+    let sut = null;
+    let result = null;
+    const expectedEmptyRule = getEmptyRule();
+    const expectedRule = {
+      extension: targetOneRule.extension,
+      glob: targetOneRule.glob,
+      paths: {
+        include: [
+          ...targetOneRule.paths.include,
+          ...targetTwoRule.paths.include,
+        ],
+        exclude: [
+          ...targetOneRule.paths.exclude,
+          ...targetTwoRule.paths.exclude,
+        ],
+      },
+      files: {
+        include: [
+          ...targetOneRule.files.include,
+          ...targetTwoRule.files.include,
+        ],
+        exclude: [
+          ...targetOneRule.files.exclude,
+          ...targetTwoRule.files.exclude,
+        ],
+        glob: {
+          include: [
+            ...targetOneRule.files.glob.include,
+            ...targetTwoRule.files.glob.include,
+          ],
+          exclude: [
+            ...targetOneRule.files.glob.exclude,
+            ...targetTwoRule.files.glob.exclude,
+          ],
+        },
+      },
+    };
+    // When
+    sut = new TargetFileRule(events, targets, 'something', handler);
+    sut.addTarget(targetOne);
+    result = sut.getRule();
+    // Then
+    expect(result).toEqual(expectedRule);
+    expect(handler).toHaveBeenCalledTimes(2);
+    expect(handler).toHaveBeenCalledWith(targetOne, false, expectedEmptyRule);
+    expect(handler).toHaveBeenCalledWith(targetTwo, true, targetOneRule);
+    expect(events.reduce).toHaveBeenCalledTimes(2);
+    expect(events.reduce).toHaveBeenCalledWith(
+      ['target-file-rule'],
+      targetOneRule,
+      expectedEmptyRule
+    );
+    expect(events.reduce).toHaveBeenCalledWith(
+      ['target-file-rule', 'target-file-rule-update'],
+      expectedRule,
       targetOneRule
     );
   });

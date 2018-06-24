@@ -91,6 +91,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   css: { ... },
   includeModules: [],
   excludeModules: [],
+  includeTargets: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
@@ -213,6 +214,15 @@ For example, let's say you are using a library that exports a native `Class` tha
 
 This setting can be used to specify a list of modules that should never be bundled. By default, projext will exclude all the dependencies from the `package.json`, but if you import modules using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list so the build engine won't try to put it inside the bundle it.
 
+#### `includeTargets`
+> Default value: `[]`
+
+This setting can be used to specify a list of other targets you want to process on your bundle.
+
+For example, you have two targets, let's call them `frontend` and `backend`, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target's directory, the wouldn't be able to use shared code between each other.
+
+You have two possible solutions now, thanks to `includeTargets`: You can either add the other target name on each `includeTargets` setting, or define a third `shared` target that both have on the setting.
+
 #### `runOnDevelopment`
 > Default value: `false`
 
@@ -294,6 +304,7 @@ Whether or not to remove all code from previous builds from the distribution dir
   html: { ... },
   css: { ... },
   includeModules: [],
+  includeTargets: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
@@ -440,6 +451,15 @@ This setting can be used to specify a list of node modules you want to process o
 For example, let's say you are using a library that exports a native `Class` that you are `extend`ing, but you are transpiling for a browser that doesn't support native `Class`es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.
 
 > At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.
+
+#### `includeTargets`
+> Default value: `[]`
+
+This setting can be used to specify a list of other targets you want to process on your bundle.
+
+For example, you have two targets, let's call them `frontend` and `backend`, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target's directory, the wouldn't be able to use shared code between each other.
+
+You have two possible solutions now, thanks to `includeTargets`: You can either add the other target name on each `includeTargets` setting, or define a third `shared` target that both have on the setting.
 
 #### `runOnDevelopment`
 > Default value: `false`

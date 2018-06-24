@@ -239,6 +239,10 @@ class TargetsFinder {
         if (jsFiles['index.production']) {
           target.entry.production = jsFiles['index.production'];
         }
+        // If there's a index, set it as the default.
+        if (jsFiles.index) {
+          target.entry.default = jsFiles.index;
+        }
       }
       // Define the entry to be analyzed in order to identify the target type.
       const entry = target.entry.production || target.entry.default;

@@ -132,6 +132,12 @@ class Targets {
             browser: !isNode,
           },
         });
+        // Validate if the target requires bundling and the `engine` setting is invalid.
+        if (!newTarget.engine && (newTarget.is.browser || newTarget.bundle)) {
+          const error = `The target '${newTarget.name}' requires bundling, but there's ` +
+            'no build engine plugin installed';
+          throw new Error(error);
+        }
         // Check if there are missing entries and fill them with the default value.
         newTarget.entry = this._normalizeTargetEntry(newTarget.entry);
         // Check if there are missing entries and merge them with the default value.

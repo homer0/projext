@@ -312,9 +312,9 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/something', paths.target);
 
     // -- Module
-    testRuleProperty(true, `/node_modules/${moduleToInclude}/something`, paths.module);
-    testRuleProperty(true, `/node_modules/${moduleToInclude}/something/else`, paths.module);
-    testRuleProperty(false, '/node_modules/wootils/something/else', paths.module);
+    testRuleProperty(true, `node_modules/${moduleToInclude}/something`, paths.module);
+    testRuleProperty(true, `node_modules/${moduleToInclude}/something/else`, paths.module);
+    testRuleProperty(false, 'node_modules/wootils/something/else', paths.module);
 
     // Files
     // -- Config
@@ -331,25 +331,25 @@ describe('services/targets:targetsFileRules', () => {
     // --- Module
     testRuleProperty(
       true,
-      `/node_modules/${moduleToInclude}/file.js`,
+      `node_modules/${moduleToInclude}/file.js`,
       regexs.module,
       globs.module
     );
     testRuleProperty(
       true,
-      `/node_modules/${moduleToInclude}/other/file.jsx`,
+      `node_modules/${moduleToInclude}/other/file.jsx`,
       regexs.module,
       globs.module
     );
     testRuleProperty(
       false,
-      '/node_modules/wootils/other.js',
+      'node_modules/wootils/other.js',
       regexs.module,
       globs.module
     );
     testRuleProperty(
       false,
-      `/node_modules/${moduleToInclude}/other.tsx`,
+      `node_modules/${moduleToInclude}/other.tsx`,
       regexs.module,
       globs.module
     );
@@ -506,9 +506,9 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/something', paths.target);
 
     // -- Module
-    testRuleProperty(true, `/node_modules/${moduleToInclude}/something`, paths.module);
-    testRuleProperty(true, `/node_modules/${moduleToInclude}/something/else`, paths.module);
-    testRuleProperty(false, '/node_modules/wootils/something/else', paths.module);
+    testRuleProperty(true, `node_modules/${moduleToInclude}/something`, paths.module);
+    testRuleProperty(true, `node_modules/${moduleToInclude}/something/else`, paths.module);
+    testRuleProperty(false, 'node_modules/wootils/something/else', paths.module);
 
     // Files
     // -- Target
@@ -519,25 +519,25 @@ describe('services/targets:targetsFileRules', () => {
     // --- Module
     testRuleProperty(
       true,
-      `/node_modules/${moduleToInclude}/file.scss`,
+      `node_modules/${moduleToInclude}/file.scss`,
       regexs.module,
       globs.module
     );
     testRuleProperty(
       true,
-      `/node_modules/${moduleToInclude}/other/file.scss`,
+      `node_modules/${moduleToInclude}/other/file.scss`,
       regexs.module,
       globs.module
     );
     testRuleProperty(
       false,
-      '/node_modules/wootils/other.scss',
+      'node_modules/wootils/other.scss',
       regexs.module,
       globs.module
     );
     testRuleProperty(
       false,
-      `/node_modules/${moduleToInclude}/other.tsx`,
+      `node_modules/${moduleToInclude}/other.tsx`,
       regexs.module,
       globs.module
     );
@@ -636,8 +636,8 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/something', paths.target);
 
     // -- Modules
-    testRuleProperty(true, '/node_modules/jimpex/something', paths.modules);
-    testRuleProperty(true, '/node_modules/jimpex/something/else', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something/else', paths.modules);
 
     // Files
     // -- Target
@@ -649,19 +649,19 @@ describe('services/targets:targetsFileRules', () => {
     // --- Modules
     testRuleProperty(
       true,
-      '/node_modules/jimpex/file.css',
+      'node_modules/jimpex/file.css',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/wootils/other/file.css',
+      'node_modules/wootils/other/file.css',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       false,
-      '/node_modules/jimpex/other.tsx',
+      'node_modules/jimpex/other.tsx',
       regexs.modules,
       globs.module
     );
@@ -763,8 +763,8 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/something', paths.target);
 
     // -- Modules
-    testRuleProperty(true, '/node_modules/jimpex/something', paths.modules);
-    testRuleProperty(true, '/node_modules/jimpex/something/else', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something/else', paths.modules);
 
     // Files
     // -- Target
@@ -782,31 +782,31 @@ describe('services/targets:targetsFileRules', () => {
     // -- Modules
     testRuleProperty(
       true,
-      '/node_modules/jimpex/file.woff',
+      'node_modules/jimpex/file.woff',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/jimpex/file.woff2',
+      'node_modules/jimpex/file.woff2',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/wootils/other/file.ttf',
+      'node_modules/wootils/other/file.ttf',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/wootils/other/file.eot',
+      'node_modules/wootils/other/file.eot',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       false,
-      '/node_modules/jimpex/other.tsx',
+      'node_modules/jimpex/other.tsx',
       regexs.modules,
       globs.module
     );
@@ -908,11 +908,11 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/fonts', paths.target);
 
     // -- Modules
-    testRuleProperty(true, '/node_modules/jimpex/something/fonts', paths.modules);
-    testRuleProperty(true, '/node_modules/jimpex/fonts', paths.modules);
-    testRuleProperty(true, '/node_modules/jimpex/assets/fonts/', paths.modules);
-    testRuleProperty(false, '/node_modules/jimpex/fonts-something/else', paths.modules);
-    testRuleProperty(false, '/node_modules/jimpex/something/else', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something/fonts', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/fonts', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/assets/fonts/', paths.modules);
+    testRuleProperty(false, 'node_modules/jimpex/fonts-something/else', paths.modules);
+    testRuleProperty(false, 'node_modules/jimpex/something/else', paths.modules);
 
     // Files
     // -- Target
@@ -925,25 +925,25 @@ describe('services/targets:targetsFileRules', () => {
     // --- Modules
     testRuleProperty(
       true,
-      '/node_modules/jimpex/fonts/file.svg',
+      'node_modules/jimpex/fonts/file.svg',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/jimpex/assets/fonts/my.svg',
+      'node_modules/jimpex/assets/fonts/my.svg',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       false,
-      '/node_modules/wootils/fonts/file.ttf',
+      'node_modules/wootils/fonts/file.ttf',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       false,
-      '/node_modules/wootils/other/file.svg',
+      'node_modules/wootils/other/file.svg',
       regexs.modules,
       globs.modules
     );
@@ -1083,8 +1083,8 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/something', paths.target);
 
     // --- Modules
-    testRuleProperty(true, '/node_modules/jimpex/something', paths.modules);
-    testRuleProperty(true, '/node_modules/jimpex/something/else', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something', paths.modules);
+    testRuleProperty(true, 'node_modules/jimpex/something/else', paths.modules);
     testRuleProperty(false, 'random-path/to/something', paths.modules);
 
     // -- Exclude
@@ -1101,9 +1101,9 @@ describe('services/targets:targetsFileRules', () => {
     testRuleProperty(false, 'random-path/to/something', paths.favicon);
 
     // -- Modules Fonts
-    testRuleProperty(true, '/node_modules/jimpex/something/fonts/file.svg', paths.modulesFonts);
-    testRuleProperty(false, '/node_modules/jimpex/file.svg', paths.modulesFonts);
-    testRuleProperty(false, '/node_modules/jimpex/something/else', paths.modulesFonts);
+    testRuleProperty(true, 'node_modules/jimpex/something/fonts/file.svg', paths.modulesFonts);
+    testRuleProperty(false, 'node_modules/jimpex/file.svg', paths.modulesFonts);
+    testRuleProperty(false, 'node_modules/jimpex/something/else', paths.modulesFonts);
 
     // Files
     // -- Include
@@ -1124,37 +1124,37 @@ describe('services/targets:targetsFileRules', () => {
     // --- Modules
     testRuleProperty(
       true,
-      '/node_modules/jimpex/file.jpg',
+      'node_modules/jimpex/file.jpg',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/jimpex/file.jpeg',
+      'node_modules/jimpex/file.jpeg',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/wootils/other/file.png',
+      'node_modules/wootils/other/file.png',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/wootils/other/file.gif',
+      'node_modules/wootils/other/file.gif',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       true,
-      '/node_modules/wootils/other/file.svg',
+      'node_modules/wootils/other/file.svg',
       regexs.modules,
       globs.modules
     );
     testRuleProperty(
       false,
-      '/node_modules/jimpex/other.tsx',
+      'node_modules/jimpex/other.tsx',
       regexs.modules,
       globs.module
     );
@@ -1174,19 +1174,19 @@ describe('services/targets:targetsFileRules', () => {
     // -- Modules Fonts
     testRuleProperty(
       true,
-      '/node_modules/jimpex/something/fonts/file.svg',
+      'node_modules/jimpex/something/fonts/file.svg',
       regexs.modulesFonts,
       globs.modulesFonts
     );
     testRuleProperty(
       false,
-      '/node_modules/jimpex/file.svg',
+      'node_modules/jimpex/file.svg',
       regexs.modulesFonts,
       globs.modulesFonts
     );
     testRuleProperty(
       false,
-      '/node_modules/jimpex/something/else.svg',
+      'node_modules/jimpex/something/else.svg',
       regexs.modulesFonts,
       globs.modulesFonts
     );

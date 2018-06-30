@@ -90,7 +90,7 @@ class TargetsFileRules {
         new RegExp(ruleTarget.paths.source, 'i'),
         // The paths for modules that have been explicity included on the target settings.
         ...ruleTarget.includeModules.map((modName) => (
-          new RegExp(`/node_modules/${modName}`)
+          new RegExp(`node_modules/${modName}`)
         )),
       ]);
       // Define the allowed file paths.
@@ -99,7 +99,7 @@ class TargetsFileRules {
         new RegExp(`${ruleTarget.paths.source}/.*?\\.jsx?$`, 'i'),
         // Files of modules that have been explicity included on the target settings.
         ...ruleTarget.includeModules.map((modName) => (
-          new RegExp(`/node_modules/${modName}/.*?\\.jsx?$`, 'i')
+          new RegExp(`node_modules/${modName}/.*?\\.jsx?$`, 'i')
         )),
       ]);
       // Define the allowed file paths, on glob format.
@@ -108,7 +108,7 @@ class TargetsFileRules {
         `${ruleTarget.paths.source}/**/*.{js,jsx}`,
         // Files of modules that have been explicity included on the target settings.
         ...ruleTarget.includeModules.map((modName) => (
-          `/node_modules/${modName}/**/*.{js,jsx}`
+          `node_modules/${modName}/**/*.{js,jsx}`
         )),
       ]);
       // Return the rule settings.
@@ -154,7 +154,7 @@ class TargetsFileRules {
           new RegExp(ruleTarget.paths.source, 'i'),
           // The paths for modules that have been explicity included on the target settings.
           ...ruleTarget.includeModules.map((modName) => (
-            new RegExp(`/node_modules/${modName}`)
+            new RegExp(`node_modules/${modName}`)
           )),
         ],
         exclude: [],
@@ -166,7 +166,7 @@ class TargetsFileRules {
           new RegExp(`${ruleTarget.paths.source}/.*?\\.scss$`, 'i'),
           // Files of modules that have been explicity included on the target settings.
           ...ruleTarget.includeModules.map((modName) => (
-            new RegExp(`/node_modules/${modName}/.*?\\.scss$`, 'i')
+            new RegExp(`node_modules/${modName}/.*?\\.scss$`, 'i')
           )),
         ],
         exclude: [],
@@ -177,7 +177,7 @@ class TargetsFileRules {
             `${ruleTarget.paths.source}/**/*.scss`,
             // Files of modules that have been explicity included on the target settings.
             ...ruleTarget.includeModules.map((modName) => (
-              `/node_modules/${modName}/**/*.scss`
+              `node_modules/${modName}/**/*.scss`
             )),
           ],
           exclude: [],
@@ -208,7 +208,7 @@ class TargetsFileRules {
           // The target path.
           new RegExp(ruleTarget.paths.source, 'i'),
           // Any path inside the `node_modules` directory.
-          /\/node_modules\//i,
+          /node_modules\//i,
         ],
         exclude: [],
       },
@@ -218,7 +218,7 @@ class TargetsFileRules {
           // Target files.
           new RegExp(`${ruleTarget.paths.source}/.*?\\.css$`, 'i'),
           // Any file inside the `node_modules` directory.
-          /\/node_modules\/.*?\.css$/i,
+          /node_modules\/.*?\.css$/i,
         ],
         exclude: [],
         glob: {
@@ -227,7 +227,7 @@ class TargetsFileRules {
             // Target files.
             `${ruleTarget.paths.source}/**/*.css`,
             // Any file inside the `node_modules` directory.
-            '/node_modules/**/*.css',
+            'node_modules/**/*.css',
           ],
           exclude: [],
         },
@@ -259,7 +259,7 @@ class TargetsFileRules {
           // The target path.
           new RegExp(ruleTarget.paths.source, 'i'),
           // Any path inside the `node_modules` directory.
-          /\/node_modules\//i,
+          /node_modules\//i,
         ],
         exclude: [],
       },
@@ -269,7 +269,7 @@ class TargetsFileRules {
           // Target files.
           new RegExp(`${ruleTarget.paths.source}/.*?\\.(?:woff2?|ttf|eot)`, 'i'),
           // Any file inside the `node_modules` directory.
-          /\/node_modules\/.*?\.(?:woff2?|ttf|eot)$/i,
+          /node_modules\/.*?\.(?:woff2?|ttf|eot)$/i,
         ],
         exclude: [],
         glob: {
@@ -278,7 +278,7 @@ class TargetsFileRules {
             // Target files.
             `${ruleTarget.paths.source}/**/*.{woff,woff2,ttf,eot}`,
             // Any file inside the `node_modules` directory.
-            '/node_modules/**/*.{woff,woff2,ttf,eot}',
+            'node_modules/**/*.{woff,woff2,ttf,eot}',
           ],
           exclude: [],
         },
@@ -310,7 +310,7 @@ class TargetsFileRules {
           // Any path inside the target directory that contains a `fonts` component.
           new RegExp(`${ruleTarget.paths.source}/(?:.*?/)?fonts(?:/.*?)?$`, 'i'),
           // Any path on the `node_modules` that contains a `fonts` component.
-          /\/node_modules\/(?:.*?\/)?fonts(?:\/.*?)?$/i,
+          /node_modules\/(?:.*?\/)?fonts(?:\/.*?)?$/i,
         ],
         exclude: [],
       },
@@ -319,7 +319,7 @@ class TargetsFileRules {
         include: [
           // Any `.svg` inside a `fonts` directory, on the target directory or the `node_modules`.
           new RegExp(`${ruleTarget.paths.source}/(?:.*?/)?fonts/.*?\\.svg$`, 'i'),
-          /\/node_modules\/(?:.*?\/)?fonts\/.*?\.svg$/i,
+          /node_modules\/(?:.*?\/)?fonts\/.*?\.svg$/i,
         ],
         exclude: [],
         glob: {
@@ -330,7 +330,7 @@ class TargetsFileRules {
              * `node_modules`.
              */
             `${ruleTarget.paths.source}/**/fonts/**/*.svg`,
-            '/node_modules/**/fonts/**/*.svg',
+            'node_modules/**/fonts/**/*.svg',
           ],
           exclude: [],
         },
@@ -365,7 +365,7 @@ class TargetsFileRules {
         // Any path for a `favicon` file with extension `png` or `ico`.
         new RegExp(`${ruleTarget.paths.source}/.*?favicon\\.(png|ico)$`, 'i'),
         // Any path for an `.svg` file with a `fonts` component inside the `node_modules`.
-        /\/node_modules\/(?:.*?\/)?fonts\/.*?\.svg$/i,
+        /node_modules\/(?:.*?\/)?fonts\/.*?\.svg$/i,
       ];
 
       return {
@@ -377,7 +377,7 @@ class TargetsFileRules {
             // The target path.
             new RegExp(ruleTarget.paths.source, 'i'),
             // Any path inside the `node_modules` directory.
-            /\/node_modules\//i,
+            /node_modules\//i,
           ],
           // Exclude anything related to fonts.
           exclude,
@@ -388,7 +388,7 @@ class TargetsFileRules {
             // Target files.
             new RegExp(`${ruleTarget.paths.source}/.*?\\.(?:jpe?g|png|gif|svg)`, 'i'),
             // Any file inside the `node_modules` directory.
-            /\/node_modules\/.*?\.(?:jpe?g|png|gif|svg)$/i,
+            /node_modules\/.*?\.(?:jpe?g|png|gif|svg)$/i,
           ],
           // Exclude anything related to fonts.
           exclude,
@@ -398,7 +398,7 @@ class TargetsFileRules {
               // Target files.
               `${ruleTarget.paths.source}/**/*.{jpg,jpeg,png,gif,svg}`,
               // Any file inside the `node_modules` directory.
-              '/node_modules/**/*.{jpg,jpeg,png,gif,svg}',
+              'node_modules/**/*.{jpg,jpeg,png,gif,svg}',
             ],
             // Exclude anything related to fonts.
             exclude: [
@@ -407,7 +407,7 @@ class TargetsFileRules {
               // Any path for a `favicon` file with extension `png` or `ico`.
               `${ruleTarget.paths.source}/**/favicon.{png,ico}`,
               // Any path for an `.svg` file with a `fonts` component inside the `node_modules`.
-              '/node_modules/**/fonts/**/*.svg',
+              'node_modules/**/fonts/**/*.svg',
             ],
           },
         },

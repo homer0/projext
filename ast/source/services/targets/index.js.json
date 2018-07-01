@@ -1,28 +1,28 @@
 {
   "type": "File",
   "start": 0,
-  "end": 185,
+  "end": 260,
   "loc": {
     "start": {
       "line": 1,
       "column": 0
     },
     "end": {
-      "line": 8,
+      "line": 10,
       "column": 0
     }
   },
   "program": {
     "type": "Program",
     "start": 0,
-    "end": 185,
+    "end": 260,
     "loc": {
       "start": {
         "line": 1,
         "column": 0
       },
       "end": {
-        "line": 8,
+        "line": 10,
         "column": 0
       }
     },
@@ -117,7 +117,7 @@
       {
         "type": "ImportDeclaration",
         "start": 37,
-        "end": 85,
+        "end": 91,
         "loc": {
           "start": {
             "line": 2,
@@ -125,14 +125,14 @@
           },
           "end": {
             "line": 2,
-            "column": 48
+            "column": 54
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
             "start": 46,
-            "end": 59,
+            "end": 62,
             "loc": {
               "start": {
                 "line": 2,
@@ -140,13 +140,13 @@
               },
               "end": {
                 "line": 2,
-                "column": 22
+                "column": 25
               }
             },
             "imported": {
               "type": "Identifier",
               "start": 46,
-              "end": 59,
+              "end": 62,
               "loc": {
                 "start": {
                   "line": 2,
@@ -154,6 +154,92 @@
                 },
                 "end": {
                   "line": 2,
+                  "column": 25
+                },
+                "identifierName": "targetsFileRules"
+              },
+              "name": "targetsFileRules"
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 46,
+              "end": 62,
+              "loc": {
+                "start": {
+                  "line": 2,
+                  "column": 9
+                },
+                "end": {
+                  "line": 2,
+                  "column": 25
+                },
+                "identifierName": "targetsFileRules"
+              },
+              "name": "targetsFileRules"
+            }
+          }
+        ],
+        "source": {
+          "type": "StringLiteral",
+          "start": 70,
+          "end": 90,
+          "loc": {
+            "start": {
+              "line": 2,
+              "column": 33
+            },
+            "end": {
+              "line": 2,
+              "column": 53
+            }
+          },
+          "extra": {
+            "rawValue": "./targetsFileRules",
+            "raw": "'./targetsFileRules'"
+          },
+          "value": "./targetsFileRules"
+        }
+      },
+      {
+        "type": "ImportDeclaration",
+        "start": 92,
+        "end": 140,
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 0
+          },
+          "end": {
+            "line": 3,
+            "column": 48
+          }
+        },
+        "specifiers": [
+          {
+            "type": "ImportSpecifier",
+            "start": 101,
+            "end": 114,
+            "loc": {
+              "start": {
+                "line": 3,
+                "column": 9
+              },
+              "end": {
+                "line": 3,
+                "column": 22
+              }
+            },
+            "imported": {
+              "type": "Identifier",
+              "start": 101,
+              "end": 114,
+              "loc": {
+                "start": {
+                  "line": 3,
+                  "column": 9
+                },
+                "end": {
+                  "line": 3,
                   "column": 22
                 },
                 "identifierName": "targetsFinder"
@@ -162,15 +248,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 46,
-              "end": 59,
+              "start": 101,
+              "end": 114,
               "loc": {
                 "start": {
-                  "line": 2,
+                  "line": 3,
                   "column": 9
                 },
                 "end": {
-                  "line": 2,
+                  "line": 3,
                   "column": 22
                 },
                 "identifierName": "targetsFinder"
@@ -181,15 +267,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 67,
-          "end": 84,
+          "start": 122,
+          "end": 139,
           "loc": {
             "start": {
-              "line": 2,
+              "line": 3,
               "column": 30
             },
             "end": {
-              "line": 2,
+              "line": 3,
               "column": 47
             }
           },
@@ -202,44 +288,44 @@
       },
       {
         "type": "ImportDeclaration",
-        "start": 86,
-        "end": 130,
+        "start": 141,
+        "end": 185,
         "loc": {
           "start": {
-            "line": 3,
+            "line": 4,
             "column": 0
           },
           "end": {
-            "line": 3,
+            "line": 4,
             "column": 44
           }
         },
         "specifiers": [
           {
             "type": "ImportSpecifier",
-            "start": 95,
-            "end": 106,
+            "start": 150,
+            "end": 161,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 4,
                 "column": 9
               },
               "end": {
-                "line": 3,
+                "line": 4,
                 "column": 20
               }
             },
             "imported": {
               "type": "Identifier",
-              "start": 95,
-              "end": 106,
+              "start": 150,
+              "end": 161,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 20
                 },
                 "identifierName": "targetsHTML"
@@ -248,15 +334,15 @@
             },
             "local": {
               "type": "Identifier",
-              "start": 95,
-              "end": 106,
+              "start": 150,
+              "end": 161,
               "loc": {
                 "start": {
-                  "line": 3,
+                  "line": 4,
                   "column": 9
                 },
                 "end": {
-                  "line": 3,
+                  "line": 4,
                   "column": 20
                 },
                 "identifierName": "targetsHTML"
@@ -267,15 +353,15 @@
         ],
         "source": {
           "type": "StringLiteral",
-          "start": 114,
-          "end": 129,
+          "start": 169,
+          "end": 184,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 4,
               "column": 28
             },
             "end": {
-              "line": 3,
+              "line": 4,
               "column": 43
             }
           },
@@ -288,15 +374,15 @@
       },
       {
         "type": "ExportNamedDeclaration",
-        "start": 132,
-        "end": 184,
+        "start": 187,
+        "end": 259,
         "loc": {
           "start": {
-            "line": 5,
+            "line": 6,
             "column": 0
           },
           "end": {
-            "line": 7,
+            "line": 9,
             "column": 17
           }
         },
@@ -304,29 +390,29 @@
         "specifiers": [
           {
             "type": "ExportSpecifier",
-            "start": 141,
-            "end": 148,
+            "start": 196,
+            "end": 203,
             "loc": {
               "start": {
-                "line": 5,
+                "line": 6,
                 "column": 9
               },
               "end": {
-                "line": 5,
+                "line": 6,
                 "column": 16
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 141,
-              "end": 148,
+              "start": 196,
+              "end": 203,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 6,
                   "column": 9
                 },
                 "end": {
-                  "line": 5,
+                  "line": 6,
                   "column": 16
                 },
                 "identifierName": "targets"
@@ -335,15 +421,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 141,
-              "end": 148,
+              "start": 196,
+              "end": 203,
               "loc": {
                 "start": {
-                  "line": 5,
+                  "line": 6,
                   "column": 9
                 },
                 "end": {
-                  "line": 5,
+                  "line": 6,
                   "column": 16
                 },
                 "identifierName": "targets"
@@ -353,29 +439,78 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 152,
-            "end": 165,
+            "start": 207,
+            "end": 223,
             "loc": {
               "start": {
-                "line": 6,
+                "line": 7,
                 "column": 2
               },
               "end": {
-                "line": 6,
+                "line": 7,
+                "column": 18
+              }
+            },
+            "local": {
+              "type": "Identifier",
+              "start": 207,
+              "end": 223,
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 2
+                },
+                "end": {
+                  "line": 7,
+                  "column": 18
+                },
+                "identifierName": "targetsFileRules"
+              },
+              "name": "targetsFileRules"
+            },
+            "exported": {
+              "type": "Identifier",
+              "start": 207,
+              "end": 223,
+              "loc": {
+                "start": {
+                  "line": 7,
+                  "column": 2
+                },
+                "end": {
+                  "line": 7,
+                  "column": 18
+                },
+                "identifierName": "targetsFileRules"
+              },
+              "name": "targetsFileRules"
+            }
+          },
+          {
+            "type": "ExportSpecifier",
+            "start": 227,
+            "end": 240,
+            "loc": {
+              "start": {
+                "line": 8,
+                "column": 2
+              },
+              "end": {
+                "line": 8,
                 "column": 15
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 152,
-              "end": 165,
+              "start": 227,
+              "end": 240,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 8,
                   "column": 2
                 },
                 "end": {
-                  "line": 6,
+                  "line": 8,
                   "column": 15
                 },
                 "identifierName": "targetsFinder"
@@ -384,15 +519,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 152,
-              "end": 165,
+              "start": 227,
+              "end": 240,
               "loc": {
                 "start": {
-                  "line": 6,
+                  "line": 8,
                   "column": 2
                 },
                 "end": {
-                  "line": 6,
+                  "line": 8,
                   "column": 15
                 },
                 "identifierName": "targetsFinder"
@@ -402,29 +537,29 @@
           },
           {
             "type": "ExportSpecifier",
-            "start": 169,
-            "end": 180,
+            "start": 244,
+            "end": 255,
             "loc": {
               "start": {
-                "line": 7,
+                "line": 9,
                 "column": 2
               },
               "end": {
-                "line": 7,
+                "line": 9,
                 "column": 13
               }
             },
             "local": {
               "type": "Identifier",
-              "start": 169,
-              "end": 180,
+              "start": 244,
+              "end": 255,
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 9,
                   "column": 2
                 },
                 "end": {
-                  "line": 7,
+                  "line": 9,
                   "column": 13
                 },
                 "identifierName": "targetsHTML"
@@ -433,15 +568,15 @@
             },
             "exported": {
               "type": "Identifier",
-              "start": 169,
-              "end": 180,
+              "start": 244,
+              "end": 255,
               "loc": {
                 "start": {
-                  "line": 7,
+                  "line": 9,
                   "column": 2
                 },
                 "end": {
-                  "line": 7,
+                  "line": 9,
                   "column": 13
                 },
                 "identifierName": "targetsHTML"
@@ -705,9 +840,9 @@
         "postfix": false,
         "binop": null
       },
-      "value": "targetsFinder",
+      "value": "targetsFileRules",
       "start": 46,
-      "end": 59,
+      "end": 62,
       "loc": {
         "start": {
           "line": 2,
@@ -715,6 +850,189 @@
         },
         "end": {
           "line": 2,
+          "column": 25
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "}",
+        "beforeExpr": false,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 63,
+      "end": 64,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 26
+        },
+        "end": {
+          "line": 2,
+          "column": 27
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "from",
+      "start": 65,
+      "end": 69,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 28
+        },
+        "end": {
+          "line": 2,
+          "column": 32
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "string",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "./targetsFileRules",
+      "start": 70,
+      "end": 90,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 33
+        },
+        "end": {
+          "line": 2,
+          "column": 53
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ";",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 90,
+      "end": 91,
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 53
+        },
+        "end": {
+          "line": 2,
+          "column": 54
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "import",
+        "keyword": "import",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "value": "import",
+      "start": 92,
+      "end": 98,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 0
+        },
+        "end": {
+          "line": 3,
+          "column": 6
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "{",
+        "beforeExpr": true,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "start": 99,
+      "end": 100,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 7
+        },
+        "end": {
+          "line": 3,
+          "column": 8
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "targetsFinder",
+      "start": 101,
+      "end": 114,
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 9
+        },
+        "end": {
+          "line": 3,
           "column": 22
         }
       }
@@ -731,15 +1049,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 60,
-      "end": 61,
+      "start": 115,
+      "end": 116,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 3,
           "column": 23
         },
         "end": {
-          "line": 2,
+          "line": 3,
           "column": 24
         }
       }
@@ -757,15 +1075,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 62,
-      "end": 66,
+      "start": 117,
+      "end": 121,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 3,
           "column": 25
         },
         "end": {
-          "line": 2,
+          "line": 3,
           "column": 29
         }
       }
@@ -784,15 +1102,15 @@
         "updateContext": null
       },
       "value": "./targetsFinder",
-      "start": 67,
-      "end": 84,
+      "start": 122,
+      "end": 139,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 3,
           "column": 30
         },
         "end": {
-          "line": 2,
+          "line": 3,
           "column": 47
         }
       }
@@ -810,15 +1128,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 84,
-      "end": 85,
+      "start": 139,
+      "end": 140,
       "loc": {
         "start": {
-          "line": 2,
+          "line": 3,
           "column": 47
         },
         "end": {
-          "line": 2,
+          "line": 3,
           "column": 48
         }
       }
@@ -838,15 +1156,15 @@
         "updateContext": null
       },
       "value": "import",
-      "start": 86,
-      "end": 92,
+      "start": 141,
+      "end": 147,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 0
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 6
         }
       }
@@ -863,15 +1181,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 93,
-      "end": 94,
+      "start": 148,
+      "end": 149,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 7
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 8
         }
       }
@@ -889,15 +1207,15 @@
         "binop": null
       },
       "value": "targetsHTML",
-      "start": 95,
-      "end": 106,
+      "start": 150,
+      "end": 161,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 9
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 20
         }
       }
@@ -914,15 +1232,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 107,
-      "end": 108,
+      "start": 162,
+      "end": 163,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 21
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 22
         }
       }
@@ -940,15 +1258,15 @@
         "binop": null
       },
       "value": "from",
-      "start": 109,
-      "end": 113,
+      "start": 164,
+      "end": 168,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 23
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 27
         }
       }
@@ -967,15 +1285,15 @@
         "updateContext": null
       },
       "value": "./targetsHTML",
-      "start": 114,
-      "end": 129,
+      "start": 169,
+      "end": 184,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 28
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 43
         }
       }
@@ -993,15 +1311,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 129,
-      "end": 130,
+      "start": 184,
+      "end": 185,
       "loc": {
         "start": {
-          "line": 3,
+          "line": 4,
           "column": 43
         },
         "end": {
-          "line": 3,
+          "line": 4,
           "column": 44
         }
       }
@@ -1021,15 +1339,15 @@
         "updateContext": null
       },
       "value": "export",
-      "start": 132,
-      "end": 138,
+      "start": 187,
+      "end": 193,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 6,
           "column": 0
         },
         "end": {
-          "line": 5,
+          "line": 6,
           "column": 6
         }
       }
@@ -1046,15 +1364,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 139,
-      "end": 140,
+      "start": 194,
+      "end": 195,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 6,
           "column": 7
         },
         "end": {
-          "line": 5,
+          "line": 6,
           "column": 8
         }
       }
@@ -1072,15 +1390,15 @@
         "binop": null
       },
       "value": "targets",
-      "start": 141,
-      "end": 148,
+      "start": 196,
+      "end": 203,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 6,
           "column": 9
         },
         "end": {
-          "line": 5,
+          "line": 6,
           "column": 16
         }
       }
@@ -1098,15 +1416,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 148,
-      "end": 149,
+      "start": 203,
+      "end": 204,
       "loc": {
         "start": {
-          "line": 5,
+          "line": 6,
           "column": 16
         },
         "end": {
-          "line": 5,
+          "line": 6,
           "column": 17
         }
       }
@@ -1123,16 +1441,68 @@
         "postfix": false,
         "binop": null
       },
-      "value": "targetsFinder",
-      "start": 152,
-      "end": 165,
+      "value": "targetsFileRules",
+      "start": 207,
+      "end": 223,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 7,
           "column": 2
         },
         "end": {
-          "line": 6,
+          "line": 7,
+          "column": 18
+        }
+      }
+    },
+    {
+      "type": {
+        "label": ",",
+        "beforeExpr": true,
+        "startsExpr": false,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null,
+        "updateContext": null
+      },
+      "start": 223,
+      "end": 224,
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 18
+        },
+        "end": {
+          "line": 7,
+          "column": 19
+        }
+      }
+    },
+    {
+      "type": {
+        "label": "name",
+        "beforeExpr": false,
+        "startsExpr": true,
+        "rightAssociative": false,
+        "isLoop": false,
+        "isAssign": false,
+        "prefix": false,
+        "postfix": false,
+        "binop": null
+      },
+      "value": "targetsFinder",
+      "start": 227,
+      "end": 240,
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 2
+        },
+        "end": {
+          "line": 8,
           "column": 15
         }
       }
@@ -1150,15 +1520,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 165,
-      "end": 166,
+      "start": 240,
+      "end": 241,
       "loc": {
         "start": {
-          "line": 6,
+          "line": 8,
           "column": 15
         },
         "end": {
-          "line": 6,
+          "line": 8,
           "column": 16
         }
       }
@@ -1176,15 +1546,15 @@
         "binop": null
       },
       "value": "targetsHTML",
-      "start": 169,
-      "end": 180,
+      "start": 244,
+      "end": 255,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 2
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 13
         }
       }
@@ -1202,15 +1572,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 180,
-      "end": 181,
+      "start": 255,
+      "end": 256,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 13
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 14
         }
       }
@@ -1227,15 +1597,15 @@
         "postfix": false,
         "binop": null
       },
-      "start": 182,
-      "end": 183,
+      "start": 257,
+      "end": 258,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 15
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 16
         }
       }
@@ -1253,15 +1623,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 183,
-      "end": 184,
+      "start": 258,
+      "end": 259,
       "loc": {
         "start": {
-          "line": 7,
+          "line": 9,
           "column": 16
         },
         "end": {
-          "line": 7,
+          "line": 9,
           "column": 17
         }
       }
@@ -1279,15 +1649,15 @@
         "binop": null,
         "updateContext": null
       },
-      "start": 185,
-      "end": 185,
+      "start": 260,
+      "end": 260,
       "loc": {
         "start": {
-          "line": 8,
+          "line": 10,
           "column": 0
         },
         "end": {
-          "line": 8,
+          "line": 10,
           "column": 0
         }
       }

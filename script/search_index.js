@@ -6,6 +6,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/common/babelhelper.js~babelhelper",
+    "class/src/services/common/babelHelper.js~BabelHelper.html",
+    "<span>BabelHelper</span> <span class=\"search-result-import-path\">projext/src/services/common/babelHelper.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/building/buildcleaner.js~buildcleaner",
     "class/src/services/building/buildCleaner.js~BuildCleaner.html",
     "<span>BuildCleaner</span> <span class=\"search-result-import-path\">projext/src/services/building/buildCleaner.js</span>",
@@ -216,6 +222,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/targets/targetsfilerules/targetfilerule.js~targetfilerule",
+    "class/src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule.html",
+    "<span>TargetFileRule</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsFileRules/targetFileRule.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/generators/targethtml.js~targethtmlgenerator",
     "class/src/services/cli/generators/targetHTML.js~TargetHTMLGenerator.html",
     "<span>TargetHTMLGenerator</span> <span class=\"search-result-import-path\">projext/src/services/cli/generators/targetHTML.js</span>",
@@ -225,6 +237,12 @@ window.esdocSearchIndex = [
     "projext/src/services/targets/targets.js~targets",
     "class/src/services/targets/targets.js~Targets.html",
     "<span>Targets</span> <span class=\"search-result-import-path\">projext/src/services/targets/targets.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules",
+    "class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html",
+    "<span>TargetsFileRules</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsFileRules/targetsFileRules.js</span>",
     "class"
   ],
   [
@@ -267,6 +285,12 @@ window.esdocSearchIndex = [
     "projext/src/services/configurations/babelconfiguration.js~babelconfiguration",
     "variable/index.html#static-variable-babelConfiguration",
     "<span>babelConfiguration</span> <span class=\"search-result-import-path\">projext/src/services/configurations/babelConfiguration.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/common/babelhelper.js~babelhelper",
+    "variable/index.html#static-variable-babelHelper",
+    "<span>babelHelper</span> <span class=\"search-result-import-path\">projext/src/services/common/babelHelper.js</span>",
     "variable"
   ],
   [
@@ -477,6 +501,12 @@ window.esdocSearchIndex = [
     "projext/src/services/targets/targets.js~targets",
     "variable/index.html#static-variable-targets",
     "<span>targets</span> <span class=\"search-result-import-path\">projext/src/services/targets/targets.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules",
+    "variable/index.html#static-variable-targetsFileRules",
+    "<span>targetsFileRules</span> <span class=\"search-result-import-path\">projext/src/services/targets/targetsFileRules/targetsFileRules.js</span>",
     "variable"
   ],
   [
@@ -1614,12 +1644,6 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/services/cli/cligenerate.js~cligeneratecommand#fulldescription",
-    "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-fullDescription",
-    "src/services/cli/cliGenerate.js~CLIGenerateCommand#fullDescription",
-    "member"
-  ],
-  [
     "src/services/cli/cligenerate.js~cligeneratecommand#generators",
     "class/src/services/cli/cliGenerate.js~CLIGenerateCommand.html#instance-member-generators",
     "src/services/cli/cliGenerate.js~CLIGenerateCommand#generators",
@@ -1944,6 +1968,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/services/cli/clishnoderun.js~clishnoderuncommand#allowunknownoptions",
+    "class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
     "src/services/cli/clishnoderun.js~clishnoderuncommand#buildnoderunner",
     "class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html#instance-member-buildNodeRunner",
     "src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand#buildNodeRunner",
@@ -2088,6 +2118,12 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
     "src/services/cli/clishvalidatebuild.js~clishvalidatebuildcommand#applogger",
     "class/src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand.html#instance-member-appLogger",
     "src/services/cli/cliSHValidateBuild.js~CLISHValidateBuildCommand#appLogger",
@@ -2146,6 +2182,12 @@ window.esdocSearchIndex = [
     "file/src/services/cli/cliSHValidateRun.js.html",
     "src/services/cli/cliSHValidateRun.js",
     "file"
+  ],
+  [
+    "src/services/cli/clishvalidaterun.js~clishvalidateruncommand#allowunknownoptions",
+    "class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand#allowUnknownOptions",
+    "member"
   ],
   [
     "src/services/cli/clishvalidaterun.js~clishvalidateruncommand#command",
@@ -2316,6 +2358,48 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
+    "src/services/common/babelhelper.js",
+    "file/src/services/common/babelHelper.js.html",
+    "src/services/common/babelHelper.js",
+    "file"
+  ],
+  [
+    "src/services/common/babelhelper.js~babelhelper.addenvpresetfeature",
+    "class/src/services/common/babelHelper.js~BabelHelper.html#static-method-addEnvPresetFeature",
+    "src/services/common/babelHelper.js~BabelHelper.addEnvPresetFeature",
+    "method"
+  ],
+  [
+    "src/services/common/babelhelper.js~babelhelper.addplugin",
+    "class/src/services/common/babelHelper.js~BabelHelper.html#static-method-addPlugin",
+    "src/services/common/babelHelper.js~BabelHelper.addPlugin",
+    "method"
+  ],
+  [
+    "src/services/common/babelhelper.js~babelhelper.addpreset",
+    "class/src/services/common/babelHelper.js~BabelHelper.html#static-method-addPreset",
+    "src/services/common/babelHelper.js~BabelHelper.addPreset",
+    "method"
+  ],
+  [
+    "src/services/common/babelhelper.js~babelhelper.disableenvpresetmodules",
+    "class/src/services/common/babelHelper.js~BabelHelper.html#static-method-disableEnvPresetModules",
+    "src/services/common/babelHelper.js~BabelHelper.disableEnvPresetModules",
+    "method"
+  ],
+  [
+    "src/services/common/babelhelper.js~babelhelper.updateenvpreset",
+    "class/src/services/common/babelHelper.js~BabelHelper.html#static-method-updateEnvPreset",
+    "src/services/common/babelHelper.js~BabelHelper.updateEnvPreset",
+    "method"
+  ],
+  [
+    "src/services/common/babelhelper.js~updateenvpresetfunction",
+    "typedef/index.html#static-typedef-UpdateEnvPresetFunction",
+    "src/services/common/babelHelper.js~UpdateEnvPresetFunction",
+    "typedef"
+  ],
+  [
     "src/services/common/cleaner.js",
     "file/src/services/common/cleaner.js.html",
     "src/services/common/cleaner.js",
@@ -2400,9 +2484,21 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/common/plugins.js~plugins#getloadedplugins",
+    "class/src/services/common/plugins.js~Plugins.html#instance-method-getLoadedPlugins",
+    "src/services/common/plugins.js~Plugins#getLoadedPlugins",
+    "method"
+  ],
+  [
     "src/services/common/plugins.js~plugins#load",
     "class/src/services/common/plugins.js~Plugins.html#instance-method-load",
     "src/services/common/plugins.js~Plugins#load",
+    "method"
+  ],
+  [
+    "src/services/common/plugins.js~plugins#loaded",
+    "class/src/services/common/plugins.js~Plugins.html#instance-method-loaded",
+    "src/services/common/plugins.js~Plugins#loaded",
     "method"
   ],
   [
@@ -2682,6 +2778,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/configurations/projectconfiguration.js~projectconfiguration#plugins",
+    "class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html#instance-member-plugins",
+    "src/services/configurations/projectConfiguration.js~ProjectConfiguration#plugins",
+    "member"
+  ],
+  [
     "src/services/configurations/projectconfiguration.js~projectconfiguration#targetsfinder",
     "class/src/services/configurations/projectConfiguration.js~ProjectConfiguration.html#instance-member-targetsFinder",
     "src/services/configurations/projectConfiguration.js~ProjectConfiguration#targetsFinder",
@@ -2823,6 +2925,84 @@ window.esdocSearchIndex = [
     "src/services/targets/targets.js~targets#utils",
     "class/src/services/targets/targets.js~Targets.html#instance-member-utils",
     "src/services/targets/targets.js~Targets#utils",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfilerules/index.js",
+    "file/src/services/targets/targetsFileRules/index.js.html",
+    "src/services/targets/targetsFileRules/index.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetfilerule.js",
+    "file/src/services/targets/targetsFileRules/targetFileRule.js.html",
+    "src/services/targets/targetsFileRules/targetFileRule.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetfilerule.js~targetfilerule#addtarget",
+    "class/src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule.html#instance-method-addTarget",
+    "src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule#addTarget",
+    "method"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetfilerule.js~targetfilerule#constructor",
+    "class/src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule.html#instance-constructor-constructor",
+    "src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule#constructor",
+    "method"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetfilerule.js~targetfilerule#events",
+    "class/src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule.html#instance-member-events",
+    "src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule#events",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetfilerule.js~targetfilerule#getrule",
+    "class/src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule.html#instance-method-getRule",
+    "src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule#getRule",
+    "method"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetfilerule.js~targetfilerule#targets",
+    "class/src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule.html#instance-member-targets",
+    "src/services/targets/targetsFileRules/targetFileRule.js~TargetFileRule#targets",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetsfilerules.js",
+    "file/src/services/targets/targetsFileRules/targetsFileRules.js.html",
+    "src/services/targets/targetsFileRules/targetsFileRules.js",
+    "file"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules#constructor",
+    "class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html#instance-constructor-constructor",
+    "src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules#constructor",
+    "method"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules#events",
+    "class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html#instance-member-events",
+    "src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules#events",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules#getrulesfortarget",
+    "class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html#instance-method-getRulesForTarget",
+    "src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules#getRulesForTarget",
+    "method"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules#pathutils",
+    "class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html#instance-member-pathUtils",
+    "src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules#pathUtils",
+    "member"
+  ],
+  [
+    "src/services/targets/targetsfilerules/targetsfilerules.js~targetsfilerules#targets",
+    "class/src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules.html#instance-member-targets",
+    "src/services/targets/targetsFileRules/targetsFileRules.js~TargetsFileRules#targets",
     "member"
   ],
   [
@@ -3168,9 +3348,51 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~targetfilerulefilessettings",
+    "typedef/index.html#static-typedef-TargetFileRuleFilesSettings",
+    "src/typedef.js~TargetFileRuleFilesSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetfileruleglobfilessettings",
+    "typedef/index.html#static-typedef-TargetFileRuleGlobFilesSettings",
+    "src/typedef.js~TargetFileRuleGlobFilesSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetfilerulehandler",
+    "typedef/index.html#static-typedef-TargetFileRuleHandler",
+    "src/typedef.js~TargetFileRuleHandler",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetfilerulepathsettings",
+    "typedef/index.html#static-typedef-TargetFileRulePathSettings",
+    "src/typedef.js~TargetFileRulePathSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetfilerulesettings",
+    "typedef/index.html#static-typedef-TargetFileRuleSettings",
+    "src/typedef.js~TargetFileRuleSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetfilesrules",
+    "typedef/index.html#static-typedef-TargetFilesRules",
+    "src/typedef.js~TargetFilesRules",
+    "typedef"
+  ],
+  [
     "src/typedef.js~targetfolders",
     "typedef/index.html#static-typedef-TargetFolders",
     "src/typedef.js~TargetFolders",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetfontsfilerules",
+    "typedef/index.html#static-typedef-TargetFontsFileRules",
+    "src/typedef.js~TargetFontsFileRules",
     "typedef"
   ],
   [

@@ -1,7 +1,7 @@
 {
-  "coverage": "99.77%",
-  "expectCount": 435,
-  "actualCount": 434,
+  "coverage": "100%",
+  "expectCount": 477,
+  "actualCount": 477,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 23,
@@ -85,10 +85,8 @@
     },
     "src/services/cli/cliGenerate.js": {
       "expectCount": 11,
-      "actualCount": 10,
-      "undocumentLines": [
-        56
-      ]
+      "actualCount": 11,
+      "undocumentLines": []
     },
     "src/services/cli/cliInfo.js": {
       "expectCount": 9,
@@ -116,8 +114,8 @@
       "undocumentLines": []
     },
     "src/services/cli/cliSHNodeRun.js": {
-      "expectCount": 9,
-      "actualCount": 9,
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/services/cli/cliSHRun.js": {
@@ -131,13 +129,13 @@
       "undocumentLines": []
     },
     "src/services/cli/cliSHValidateBuild.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "src/services/cli/cliSHValidateRun.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     },
     "src/services/cli/generators/projectConfigurationFile.js": {
@@ -148,6 +146,11 @@
     "src/services/cli/generators/targetHTML.js": {
       "expectCount": 10,
       "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/services/common/babelHelper.js": {
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     },
     "src/services/common/cleaner.js": {
@@ -166,8 +169,8 @@
       "undocumentLines": []
     },
     "src/services/common/plugins.js": {
-      "expectCount": 10,
-      "actualCount": 10,
+      "expectCount": 13,
+      "actualCount": 13,
       "undocumentLines": []
     },
     "src/services/common/prompt.js": {
@@ -196,8 +199,8 @@
       "undocumentLines": []
     },
     "src/services/configurations/projectConfiguration.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/services/configurations/targetConfiguration.js": {
@@ -208,6 +211,16 @@
     "src/services/targets/targets.js": {
       "expectCount": 25,
       "actualCount": 25,
+      "undocumentLines": []
+    },
+    "src/services/targets/targetsFileRules/targetFileRule.js": {
+      "expectCount": 11,
+      "actualCount": 11,
+      "undocumentLines": []
+    },
+    "src/services/targets/targetsFileRules/targetsFileRules.js": {
+      "expectCount": 14,
+      "actualCount": 14,
       "undocumentLines": []
     },
     "src/services/targets/targetsFinder.js": {

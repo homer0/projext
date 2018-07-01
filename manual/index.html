@@ -49,6 +49,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-excludemodules--code-" data-ice="link">excludeModules</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includetargets--code-" data-ice="link">includeTargets</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
@@ -66,6 +67,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includetargets--code-" data-ice="link">includeTargets</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
@@ -210,7 +212,7 @@
   type: &apos;node&apos;,
   bundle: false,
   transpile: false,
-  engine: &apos;webpack&apos;,
+  engine: null,
   hasFolder: true,
   createFolder: false,
   folder: &apos;&apos;,
@@ -219,6 +221,7 @@
   css: { ... },
   includeModules: [],
   excludeModules: [],
+  includeTargets: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
@@ -234,9 +237,13 @@
 </ul><p>If the value is <code>false</code>, when running on a development environment, and if the target doesn&apos;t need transpilation, the code won&apos;t be moved to the distribution directory.</p><h4><code>transpile</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>This option is kind of tied to the previous one: You may not want to bundle your Node target, but you can transpile it with <a href="https://babeljs.io">Babel</a> if you want to use a feature not yet supported by the runtime.</p><h4><code>engine</code></h4><blockquote>
-<p>Default value: <code>webpack</code></p>
-</blockquote><p>In case <code>bundle</code> is <code>true</code>, this will tell projext which build engine you are going to bundle the target code with.</p><blockquote>
-<p>If you don&apos;t intend to change its default value, you need to have the package <a href="https://yarnpkg.com/en/package/projext-plugin-webpack"><code>projext-plugin-webpack</code></a> installed.</p>
+<p>Default value: <code>null</code></p>
+</blockquote><p>In case <code>bundle</code> is <code>true</code>, this will tell projext which build engine you are going to bundle the code with.</p><p>If not overwritten, the value of this setting will be decided by projext when loading the configuration: It will take a list of known engines (webpack and Rollup) and check if any of them was loaded as a plugin.</p><blockquote>
+<p>This is the list of known build engines plugins you can install:</p>
+<ul>
+<li><strong>webpack:</strong> <a href="https://yarnpkg.com/en/package/projext-plugin-webpack"><code>projext-plugin-webpack</code></a></li>
+<li><strong>Rollup:</strong> <a href="https://yarnpkg.com/en/package/projext-plugin-rollup"><code>projext-plugin-rollup</code></a></li>
+</ul>
 </blockquote><h4><code>hasFolder</code></h4><blockquote>
 <p>Default value: <code>true</code></p>
 </blockquote><p>Whether your target code is on a sub folder of the source directory (<code>src/[target-name]/</code>) or the contents of the source directory are your target code (useful when working with a single target).</p><h4><code>createFolder</code></h4><blockquote>
@@ -285,7 +292,9 @@
 <p>At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.</p>
 </blockquote><h4><code>excludeModules</code></h4><blockquote>
 <p>Default value: <code>[]</code></p>
-</blockquote><p>This setting can be used to specify a list of modules that should never be bundled. By default, projext will exclude all the dependencies from the <code>package.json</code>, but if you import modules using a sub path (like <code>colors/safe</code> instead of <code>colors</code>), you need to specify it on this list so the build engine won&apos;t try to put it inside the bundle it.</p><h4><code>runOnDevelopment</code></h4><blockquote>
+</blockquote><p>This setting can be used to specify a list of modules that should never be bundled. By default, projext will exclude all the dependencies from the <code>package.json</code>, but if you import modules using a sub path (like <code>colors/safe</code> instead of <code>colors</code>), you need to specify it on this list so the build engine won&apos;t try to put it inside the bundle it.</p><h4><code>includeTargets</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote><p>This setting can be used to specify a list of other targets you want to process on your bundle.</p><p>For example, you have two targets, let&apos;s call them <code>frontend</code> and <code>backend</code>, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target&apos;s directory, the wouldn&apos;t be able to use shared code between each other.</p><p>You have two possible solutions now, thanks to <code>includeTargets</code>: You can either add the other target name on each <code>includeTargets</code> setting, or define a third <code>shared</code> target that both have on the setting.</p><h4><code>runOnDevelopment</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>This tells projext that when the target is builded (bundled/copied) on a development environment, it should execute it.</p><p>When the target needs to be bundled, it will relay on the build engined to do it, otherwise, projext will use its custom implementation of <a href="https://yarnpkg.com/en/package/nodemon"><code>nodemon</code></a> for watching and, if needed, transpile your target code.</p><h4><code>babel</code></h4><blockquote>
 <p>Default value:</p>
@@ -311,7 +320,7 @@
 <p>Default value: <code>true</code></p>
 </blockquote><p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p><h3><code>browser</code></h3><pre><code class="lang-js"><code class="source-code prettyprint">{
   type: &apos;browser&apos;,
-  engine: &apos;webpack&apos;,
+  engine: null,
   hasFolder: true,
   createFolder: true,
   folder: &apos;&apos;,
@@ -321,6 +330,7 @@
   html: { ... },
   css: { ... },
   includeModules: [],
+  includeTargets: [],
   runOnDevelopment: false,
   babel: { ... },
   flow: false,
@@ -331,9 +341,13 @@
   configuration: { ... },
 }</code>
 </code></pre><h4><code>engine</code></h4><blockquote>
-<p>Default value: <code>webpack</code></p>
-</blockquote><p>This will tell projext which build engine you are going to bundle the target code with.</p><blockquote>
-<p>If you don&apos;t intend to change its default value, you need to have the package <a href="https://yarnpkg.com/en/package/projext-plugin-webpack"><code>projext-plugin-webpack</code></a> installed.</p>
+<p>Default value: <code>null</code></p>
+</blockquote><p>This will tell projext which build engine you are going to bundle the target code with.</p><p>If not overwritten, the value of this setting will be decided by projext when loading the configuration: It will take a list of known engines (webpack and Rollup) and check if any of them was loaded as a plugin.</p><blockquote>
+<p>This is the list of known build engines plugins you can install:</p>
+<ul>
+<li><strong>webpack:</strong> <a href="https://yarnpkg.com/en/package/projext-plugin-webpack"><code>projext-plugin-webpack</code></a></li>
+<li><strong>Rollup:</strong> <a href="https://yarnpkg.com/en/package/projext-plugin-rollup"><code>projext-plugin-rollup</code></a></li>
+</ul>
 </blockquote><h4><code>hasFolder</code></h4><blockquote>
 <p>Default value: <code>true</code></p>
 </blockquote><p>Whether your target code is on a sub folder of the source directory (<code>src/[target-name]/</code>) or the contents of the source directory are your target code (useful when working with a single target).</p><h4><code>createFolder</code></h4><blockquote>
@@ -397,7 +411,9 @@
 <p>Default value: <code>[]</code></p>
 </blockquote><p>This setting can be used to specify a list of node modules you want to process on your bundle.</p><p>For example, let&apos;s say you are using a library that exports a native <code>Class</code> that you are <code>extend</code>ing, but you are transpiling for a browser that doesn&apos;t support native <code>Class</code>es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.</p><blockquote>
 <p>At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.</p>
-</blockquote><h4><code>runOnDevelopment</code></h4><blockquote>
+</blockquote><h4><code>includeTargets</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote><p>This setting can be used to specify a list of other targets you want to process on your bundle.</p><p>For example, you have two targets, let&apos;s call them <code>frontend</code> and <code>backend</code>, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target&apos;s directory, the wouldn&apos;t be able to use shared code between each other.</p><p>You have two possible solutions now, thanks to <code>includeTargets</code>: You can either add the other target name on each <code>includeTargets</code> setting, or define a third <code>shared</code> target that both have on the setting.</p><h4><code>runOnDevelopment</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>This will tell the build engine that when you build the target for a development environment, it should bring up an <code>http</code> server to <em>&quot;run&quot;</em> your target.</p><h4><code>babel</code></h4><blockquote>
 <p>Default value:</p>
@@ -438,6 +454,7 @@
     ca: null,
   },
   proxied: { ... },
+  historyApiFallback: true,
 }</code>
 </code></pre>
 </blockquote><p>These are the options for the <code>http</code> server projext will use when running the target on a development environment.</p><p><strong><code>devServer.port</code></strong></p><p>The server port.</p><p><strong><code>devServer.reload</code></strong></p><p>Whether or not to reload the server when the code changes.</p><p><strong><code>devServer.host</code></strong></p><p>The dev server hostname.</p><p><strong><code>devServer.ssl</code></strong></p><p>This allows you to set your own SSL certificates in order to run the dev server over HTTPS. The paths must be relative to your project root directory, for example:</p><pre><code class="lang-js"><code class="source-code prettyprint">ssl: {
@@ -457,7 +474,9 @@
 <li><code>enabled</code>: Whether the server is being proxied or not.</li>
 <li><code>hostname</code>: The hostname used. If <code>null</code>, it will use the same as <code>devServer.hostname</code>.</li>
 <li><code>https</code>: Whether or not the server is being proxied over <code>https</code>. This settings has a boolean value, but if you let it as <code>null</code> it will set its value based on <code>devServer.ssl</code>, if you added the certificates it will be <code>true</code>, otherwise <code>false</code>.</li>
-</ul><h4><code>configuration</code></h4><blockquote>
+</ul><p><strong><code>devServer.historyApiFallback</code></strong></p><blockquote>
+<p>Default value: true</p>
+</blockquote><p>Whether or not to redirect the browser back to the root whenever a path can&apos;t be found.</p><h4><code>configuration</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
   enabled: false,
@@ -739,7 +758,7 @@ module.exports = (projext) =&gt; {
 </div>
 
 <footer class="footer">
-  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.0.4)</span><img src="./image/esdoc-logo-mini-black.png"></a>
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(1.1.0)</span><img src="./image/esdoc-logo-mini-black.png"></a>
 </footer>
 
 <script src="script/search_index.js"></script>

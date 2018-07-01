@@ -370,12 +370,14 @@
  * These options help you customize the way the bundling process handles your CSS code.
  * @property {Array} [includeModules=[]]
  * This setting can be used to specify a list of node modules you want to process on your bundle.
- * This means that JS files from modules on this list will be transpiled.
  * @property {Array} [excludeModules=[]]
  * This setting can be used to specify a list of modules that should never be bundled. By default,
  * projext will exclude all the dependencies from the `package.json`, but if you import modules
  * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
  * so the build engine won't try to put it inside the bundle it.
+ * @property {Array} [includeTargets=[]]
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -434,6 +436,9 @@
  * projext will exclude all the dependencies from the `package.json`, but if you import modules
  * using a sub path (like `colors/safe` instead of `colors`), you need to specify it on this list
  * so the build engine won't try to put it inside the bundle it.
+ * @property {Array} includeTargets
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -495,6 +500,9 @@
  * @property {Array} [includeModules=[]]
  * This setting can be used to specify a list of node modules you want to process on your bundle.
  * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} [includeTargets=[]]
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
@@ -549,6 +557,9 @@
  * @property {Array} includeModules
  * This setting can be used to specify a list of node modules you want to process on your bundle.
  * This means that JS files from modules on this list will be transpiled.
+ * @property {Array} includeTargets
+ * This setting can be used to specify a list of other targets you want to process on your bundle.
+ * This means that JS and SCSS files from these targets will be transpiled/processed.
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
@@ -733,6 +744,70 @@
  * Force the target to run even if the `runOnDevelopment` setting is `false`.
  * @return {string}
  * The command the shell script will use to build the target.
+ */
+
+/**
+ * @typedef {Object} TargetFileRulePathSettings
+ * @property {Array} include The list of expressions that match the allowed paths for a rule.
+ * @property {Array} exclude The list of expressions that match the paths that should be excluded
+ *                           from a rule.
+ */
+
+/**
+ * @typedef {Object} TargetFileRuleGlobFilesSettings
+ * @property {Array} include The list of glob patterns that match the allowed files for a rule.
+ * @property {Array} exclude The list of glob patterns that match the files that should be excluded
+ *                           from a rule.
+ */
+
+/**
+ * @typedef {Object} TargetFileRuleFilesSettings
+ * @property {Array}                           include The list of expressions that match the
+ *                                                     allowed files for a rule.
+ * @property {Array}                           exclude The list of expressions that match the
+ *                                                     files that should be excluded from a rule.
+ * @property {TargetFileRuleGlobFilesSettings} glob    The settings for files but on glob pattern
+ *                                                     version. For plugins and libraries that
+ *                                                     don't support, or maybe prefer glob over,
+ *                                                     expressions.
+ */
+
+/**
+ * @typedef {Object} TargetFileRuleSettings
+ * @property {RegExp}                      extension A expression that validates the extension(s)
+ *                                                   the rule is for.
+ * @property {string}                      glob      A glob pattern that validates the extension(s)
+ *                                                   the rule is for.
+ * @property {TargetFileRulePathSettings}  paths     A set of allowed and excluded expressions to
+ *                                                   validate the paths where the files can be
+ *                                                   found.
+ * @property {TargetFileRuleFilesSettings} files     A set of allowed and excluded expressions and
+ *                                                   glob patterns for files that would match with
+ *                                                   the rule.
+ */
+
+/**
+ * @typedef {function} TargetFileRuleHandler
+ * @param {Target}                 target      The target information.
+ * @param {boolean}                hasTarget   Whether or not the rule already has a target, or if
+ *                                             this is the first one being added.
+ * @param {TargetFileRuleSettings} currentRule The current settings of the rule.
+ */
+
+/**
+ * @typedef {Object} TargetFontsFileRules
+ * @property {TargetFileRule} common The rule for all font files that aren't SVG.
+ * @property {TargetFileRule} svg    The rule for SVG fonts.
+ */
+
+/**
+ * @typedef {Object} TargetFilesRules
+ * @property {TargetFileRule}       js      The rule for JS files.
+ * @property {TargetFileRule}       scss    The rule for SCSS files.
+ * @property {TargetFileRule}       css     The rule for CSS files.
+ * @property {TargetFontsFileRules} fonts   The rules for font files.
+ * @property {TargetFileRule}       images  The rule for image files.
+ * @property {TargetFileRule}       favicon The rule for favicon files.
  */
 
 /**

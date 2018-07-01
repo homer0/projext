@@ -38,6 +38,13 @@ class Plugins {
      * @type {PathUtils}
      */
     this.pathUtils = pathUtils;
+    /**
+     * After the plugins are loaded, this property will have a list with the plugins names.
+     * @type {Array}
+     * @access protected
+     * @ignore
+     */
+    this._loadedPlugins = [];
   }
   /**
    * Load all the plugins.
@@ -61,6 +68,21 @@ class Plugins {
     .forEach((name) => this._loadPlugin(name));
   }
   /**
+   * Gets the names of the loaded plugins.
+   * @return {string}
+   */
+  getLoadedPlugins() {
+    return this._loadedPlugins;
+  }
+  /**
+   * Checks whether a plugin was loaded or not.
+   * @param {string} name The plugin's name.
+   * @return {boolean}
+   */
+  loaded(name) {
+    return this.getLoadedPlugins().includes(name);
+  }
+  /**
    * Load a plugin by its package name.
    * @param  {string} packageName The name of the plugin.
    * @throws {Error} If the plugin can't be loaded or registered.
@@ -72,11 +94,18 @@ class Plugins {
       const packagePath = this.pathUtils.join('node_modules', packageName);
       // eslint-disable-next-line global-require,import/no-dynamic-require
       const plugin = require(packagePath);
-      plugin(this.app);
+      if (plugin.plugin && typeof plugin.plugin === 'function') {
+        plugin.plugin(this.app);
+      } else {
+        plugin(this.app);
+      }
     } catch (error) {
       this.appLogger.error(`The plugin ${packageName} couldn't be loaded`);
       throw error;
     }
+
+    const name = packageName.substr(this.prefix.length);
+    this._loadedPlugins.push(name);
   }
 }
 /**

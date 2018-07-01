@@ -18,6 +18,8 @@
     "function-paren-newline": "off",
     "arrow-parens": ["error", "always"],
     "no-plusplus": "off",
-    "no-useless-escape": "off"
+    "no-useless-escape": "off",
+    "lines-between-class-members": "off",
+    "operator-linebreak": ["error", "after"]
   }
 }

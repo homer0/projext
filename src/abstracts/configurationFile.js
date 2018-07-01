@@ -5,6 +5,7 @@ const path = require('path');
  * A helper class for creating configuration files that can be overwritten on
  * implementation.
  * @abstract
+ * @version 1.0
  */
 class ConfigurationFile {
   /**
@@ -139,20 +140,16 @@ class ConfigurationFile {
        */
       parentConfig = this.parentConfig.getConfig(...args);
     }
-    /**
-     * Generate the final configuration, which is a merge of the following things:
-     * - The parent configuration `getConfig` method result; or an empty object if no parent
-     * configuration was received.
-     * - The result of this instance `createConfig` method.
-     * - The contents of the overwrite file.
-     */
-    this._config = extend(
-      true,
-      {},
-      parentConfig,
-      this.createConfig(...args),
-      this._fileConfig(...args)
-    );
+    // Define the current configuration using the parent one.
+    let currentConfig = extend(true, {}, parentConfig);
+    // Create a new set of arguments by adding the current configuration at the end.
+    let currentArgs = [...args, currentConfig];
+    // Update the current configuration by calling `createConfig` with the new arguments.
+    currentConfig = extend(true, {}, currentConfig, this.createConfig(...currentArgs));
+    // Update the arguments with the "new current configuration".
+    currentArgs = [...args, currentConfig];
+    // Finally, call the method for the overwrite file and merge everything together.
+    this._config = extend(true, {}, currentConfig, this._fileConfig(...currentArgs));
   }
   /**
    * Load the configuration from an overwrite file.

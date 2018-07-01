@@ -98,9 +98,11 @@ describe('services/targets:targets', () => {
         node: {
           defaultTargetName: 'node',
           hasFolder: true,
+          engine: 'webpack',
         },
         browser: {
           defaultTargetName: 'browser',
+          engine: 'webpack',
         },
       },
       paths: {
@@ -131,6 +133,7 @@ describe('services/targets:targets', () => {
           node: true,
           browser: false,
         },
+        engine: 'webpack',
       },
       targetTwo: {
         defaultTargetName: 'node',
@@ -155,6 +158,7 @@ describe('services/targets:targets', () => {
           node: true,
           browser: false,
         },
+        engine: 'webpack',
       },
       targetThree: {
         defaultTargetName: 'node',
@@ -180,6 +184,7 @@ describe('services/targets:targets', () => {
           node: true,
           browser: false,
         },
+        engine: 'webpack',
       },
       targetFour: {
         defaultTargetName: 'browser',
@@ -195,6 +200,7 @@ describe('services/targets:targets', () => {
           node: false,
           browser: true,
         },
+        engine: 'webpack',
       },
     };
     const expectedTargetsNames = Object.keys(expectedTargets);
@@ -272,6 +278,7 @@ describe('services/targets:targets', () => {
             node: true,
             browser: false,
           },
+          engine: 'webpack',
         },
       },
       /**
@@ -313,6 +320,7 @@ describe('services/targets:targets', () => {
             node: true,
             browser: false,
           },
+          engine: 'webpack',
         },
       },
       /**
@@ -354,6 +362,7 @@ describe('services/targets:targets', () => {
             node: true,
             browser: false,
           },
+          engine: 'webpack',
         },
       },
       /**
@@ -401,6 +410,7 @@ describe('services/targets:targets', () => {
             node: true,
             browser: false,
           },
+          engine: 'webpack',
         },
       },
       /**
@@ -457,6 +467,7 @@ describe('services/targets:targets', () => {
             node: true,
             browser: false,
           },
+          engine: 'webpack',
         },
       },
     ];
@@ -487,6 +498,7 @@ describe('services/targets:targets', () => {
       targetsTemplates: {
         node: {
           hasFolder: false,
+          engine: 'webpack',
           entry: {
             default: 'index.js',
             development: null,
@@ -584,6 +596,7 @@ describe('services/targets:targets', () => {
             node: false,
             browser: true,
           },
+          engine: 'webpack',
         },
       },
       {
@@ -612,6 +625,7 @@ describe('services/targets:targets', () => {
             node: false,
             browser: true,
           },
+          engine: 'webpack',
         },
       },
       {
@@ -640,6 +654,7 @@ describe('services/targets:targets', () => {
             node: false,
             browser: true,
           },
+          engine: 'webpack',
         },
       },
       {
@@ -669,6 +684,7 @@ describe('services/targets:targets', () => {
             node: false,
             browser: true,
           },
+          engine: 'webpack',
         },
       },
       {
@@ -697,6 +713,7 @@ describe('services/targets:targets', () => {
             node: false,
             browser: true,
           },
+          engine: 'webpack',
         },
       },
     ];
@@ -717,6 +734,7 @@ describe('services/targets:targets', () => {
             template: null,
             filename: null,
           },
+          engine: 'webpack',
         },
       },
       paths: {
@@ -851,8 +869,11 @@ describe('services/targets:targets', () => {
         node: {
           defaultTargetName: 'node',
           hasFolder: true,
+          engine: 'webpack',
         },
-        browser: {},
+        browser: {
+          engine: 'webpack',
+        },
       },
       paths: {
         source,
@@ -881,6 +902,7 @@ describe('services/targets:targets', () => {
         node: true,
         browser: false,
       },
+      engine: 'webpack',
     };
     let sut = null;
     let result = null;
@@ -930,8 +952,11 @@ describe('services/targets:targets', () => {
         node: {
           defaultTargetName: 'node',
           hasFolder: true,
+          engine: 'webpack',
         },
-        browser: {},
+        browser: {
+          engine: 'webpack',
+        },
       },
       paths: {
         source,
@@ -960,6 +985,7 @@ describe('services/targets:targets', () => {
         node: true,
         browser: false,
       },
+      engine: 'webpack',
     };
     let sut = null;
     let result = null;
@@ -1011,9 +1037,11 @@ describe('services/targets:targets', () => {
         node: {
           defaultTargetName: 'node',
           hasFolder: true,
+          engine: 'webpack',
         },
         browser: {
           hasFolder: false,
+          engine: 'webpack',
         },
       },
       paths: {
@@ -1042,6 +1070,7 @@ describe('services/targets:targets', () => {
         node: false,
         browser: true,
       },
+      engine: 'webpack',
     };
     let sut = null;
     let result = null;
@@ -1213,6 +1242,88 @@ describe('services/targets:targets', () => {
       utils
     ))
     .toThrow(/invalid type/i);
+  });
+
+  it('should throw an error for a node target with bundling but no build engine', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          bundle: true,
+        },
+      },
+      targetsTemplates: {
+        node: {
+          type: 'node',
+        },
+      },
+      paths: {
+        source: 'source-path',
+        build: 'build-path',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    // When/Then
+    expect(() => new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    ))
+    .toThrow(/no build engine/i);
+  });
+
+  it('should throw an error for a browser target with no build engine', () => {
+    // Given
+    const events = {
+      reduce: jest.fn((name, target) => target),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = {
+      join: (...args) => path.join(...args),
+    };
+    const projectConfiguration = {
+      targets: {
+        targetOne: {
+          type: 'browser',
+        },
+      },
+      targetsTemplates: {
+        browser: {
+          type: 'browser',
+        },
+      },
+      paths: {
+        source: 'source-path',
+        build: 'build-path',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    // When/Then
+    expect(() => new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    ))
+    .toThrow(/no build engine/i);
   });
 
   it('should validate that a target exists', () => {

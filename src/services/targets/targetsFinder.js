@@ -103,6 +103,7 @@ class TargetsFinder {
     this._browserExpressions = [
       /(?:^|\s|=)doc(?:ument?)\s*\.\s*(?:getElementBy(?:Id|ClassName)|querySelector(?:All)?)\s*\(/ig,
       /(?:^|\s|=)(?:window|global)\s*\.(?:document?)/i,
+      /['|"]whatwg-fetch['|"]/i,
     ];
     /**
      * @ignore
@@ -238,6 +239,10 @@ class TargetsFinder {
         if (jsFiles['index.production']) {
           target.entry.production = jsFiles['index.production'];
         }
+        // If there's a index, set it as the default.
+        if (jsFiles.index) {
+          target.entry.default = jsFiles.index;
+        }
       }
       // Define the entry to be analyzed in order to identify the target type.
       const entry = target.entry.production || target.entry.default;
@@ -342,10 +347,11 @@ class TargetsFinder {
       }
     }
     /**
-     * If the target is a library for the browser, change the output so it won't be adding hashes
-     * to the bundled filename nor saving it on a sub directory.
+     * If the target is a library, normalize the output so it won't add sub directories nor hashes.
+     * A library path is usually set on the `package.json` as the `main` setting, so the path
+     * shouldn't be dynamic.
      */
-    if (isBrowser && info.library) {
+    if (info.library) {
       info.output = {
         default: {
           js: '[target-name].js',

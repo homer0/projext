@@ -1,5 +1,4 @@
 const Jimple = require('jimple');
-const appPackage = require('../../package.json');
 
 const {
   environmentUtils,
@@ -10,7 +9,10 @@ const {
   rootRequire,
 } = require('wootils/node/providers');
 
+const appPackage = require('../../package.json');
+
 const {
+  babelHelper,
   cleaner,
   copier,
   events,
@@ -59,6 +61,7 @@ const {
 
 const {
   targets,
+  targetsFileRules,
   targetsFinder,
   targetsHTML,
 } = require('../services/targets');
@@ -84,10 +87,11 @@ class Projext extends Jimple {
     this.register(pathUtils);
     this.register(rootRequire);
 
+    this.register(babelHelper);
     this.register(cleaner);
     this.register(copier);
     this.register(events);
-    this.register(plugins('projext-plugin'));
+    this.register(plugins('projext-plugin-'));
     this.register(appPrompt);
     this.register(tempFiles);
     this.register(utils);
@@ -125,6 +129,7 @@ class Projext extends Jimple {
     this.register(targetConfiguration);
 
     this.register(targets);
+    this.register(targetsFileRules);
     this.register(targetsFinder);
     this.register(targetsHTML);
 

@@ -98,6 +98,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
+  copy: [],
 }
 ```
 
@@ -289,6 +290,20 @@ How the library will be exposed: `commonjs2` or `umd`.
 
 Whether or not to remove all code from previous builds from the distribution directory when making a new build.
 
+#### `copy`
+> Default value: `[]`
+
+A list of files to be copied during the bundling process. It can be a list of file paths relative to the target source directory, in which case they'll be copied to the target distribution directory root; or a list of objects with the following format:
+
+```js
+{
+  from: 'path/relative/to/the/source/directory.txt',
+  to: 'path/relative/to/the/distribution/directory.txt',
+}
+```
+
+This is different from the main `copy` feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a `manifest.json` for your PWA while you can use the main `copy` feature for the `package.json` or an `.nvmrc`, things you need for distribution.
+
 ### `browser`
 
 ```js
@@ -311,6 +326,7 @@ Whether or not to remove all code from previous builds from the distribution dir
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
+  copy: [],
   devServer: { ... },
   configuration: { ... },
 }
@@ -542,6 +558,20 @@ Whether or not to use gzip compression on the generated library file.
 > Default value: `true`
 
 Whether or not to remove all code from previous builds from the distribution directory when making a new build.
+
+#### `copy`
+> Default value: `[]`
+
+A list of files to be copied during the bundling process. It can be a list of file paths relative to the target source directory, in which case they'll be copied to the target distribution directory root; or a list of objects with the following format:
+
+```js
+{
+  from: 'path/relative/to/the/source/directory.txt',
+  to: 'path/relative/to/the/distribution/directory.txt',
+}
+```
+
+This is different from the main `copy` feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a `manifest.json` for your PWA while you can use the main `copy` feature for the `package.json` or an `.nvmrc`, things you need for distribution.
 
 #### `devServer`
 > Default value:

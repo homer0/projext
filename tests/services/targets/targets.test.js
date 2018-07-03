@@ -1858,6 +1858,7 @@ describe('services/targets:targets', () => {
       },
       copy: [file],
     };
+    const buildType = 'production';
     let sut = null;
     const expectedItem = {
       from: path.join(source, file),
@@ -1876,13 +1877,14 @@ describe('services/targets:targets', () => {
       utils
     );
     // Then
-    expect(() => sut.getFilesToCopy(target))
+    expect(() => sut.getFilesToCopy(target, buildType))
     .toThrow(new RegExp(`The file to copy doesn't exist: ${expectedErrorPath}`, 'i'));
     expect(events.reduce).toHaveBeenCalledTimes(1);
     expect(events.reduce).toHaveBeenCalledWith(
       'target-copy-files',
       expectedList,
-      target
+      target,
+      buildType
     );
   });
 
@@ -1958,7 +1960,8 @@ describe('services/targets:targets', () => {
     expect(events.reduce).toHaveBeenCalledWith(
       'target-copy-files',
       expectedList,
-      target
+      target,
+      'development'
     );
   });
 

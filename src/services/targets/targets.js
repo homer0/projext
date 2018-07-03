@@ -337,14 +337,15 @@ class Targets {
    * Gets a list with the information for the files the target needs to copy during the
    * bundling process.
    * This method uses the `target-copy-files` reducer event, which receives the list of files to
-   * copy, the target information and expects an update list on return.
-   * @param {Target} target The target information.
+   * copy, the target information and the build type; it expects an updated list on return.
+   * @param {Target} target                    The target information.
+   * @param {string} [buildType='development'] The type of bundle projext is generating.
    * @return {Array}
    * @throws {Error} If the target type is `node` but bundling is disabled. There's no need to copy
    *                 files on a target that doesn't require bundling.
    * @throws {Error} If one of the files to copy doesn't exist.
    */
-  getFilesToCopy(target) {
+  getFilesToCopy(target, buildType = 'development') {
     // Validate the target settings
     if (target.is.node && !target.bundle) {
       throw new Error('Only targets that require bundling can copy files');
@@ -380,7 +381,7 @@ class Targets {
     });
 
     // Reduce the list.
-    newList = this.events.reduce('target-copy-files', newList, target);
+    newList = this.events.reduce('target-copy-files', newList, target, buildType);
 
     const invalid = newList.find((item) => !fs.pathExistsSync(item.from));
     if (invalid) {

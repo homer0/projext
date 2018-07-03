@@ -5,10 +5,12 @@ jest.mock('jimple', () => JimpleMock);
 jest.mock('wootils/node/appConfiguration', () => ({
   AppConfiguration: WootilsAppConfigurationMock,
 }));
+jest.mock('fs-extra');
 
 jest.unmock('/src/services/targets/targets');
 
 const path = require('path');
+const fs = require('fs-extra');
 require('jasmine-expect');
 const { Targets, targets } = require('/src/services/targets/targets');
 
@@ -17,6 +19,7 @@ const originalNow = Date.now;
 describe('services/targets:targets', () => {
   beforeEach(() => {
     WootilsAppConfigurationMock.reset();
+    fs.pathExistsSync.mockReset();
   });
 
   afterEach(() => {
@@ -1780,6 +1783,183 @@ describe('services/targets:targets', () => {
       }
     );
     expect(WootilsAppConfigurationMock.mocks.loadFromEnvironment).toHaveBeenCalledTimes(0);
+  });
+
+  it('should throw an error when requesting the files to copy of a target without bundling', () => {
+    // Given
+    const events = 'events';
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = jest.fn();
+    const utils = 'utils';
+    const target = {
+      name: 'my-target',
+      bundle: false,
+      is: {
+        node: true,
+      },
+    };
+    let sut = null;
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    // Then
+    expect(() => sut.getFilesToCopy(target))
+    .toThrow(/Only targets that require bundling can copy files/i);
+  });
+
+  it('should throw an error when generating a list of files with one that doesn\'t exist', () => {
+    // Given
+    fs.pathExistsSync.mockImplementationOnce(() => false);
+    const events = {
+      reduce: jest.fn((eventName, list) => list),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = jest.fn();
+    const utils = 'utils';
+    const file = 'some-file.json';
+    const source = '/source/';
+    const build = '/build/';
+    const target = {
+      name: 'my-target',
+      bundle: true,
+      is: {
+        node: true,
+      },
+      paths: {
+        source,
+        build,
+      },
+      copy: [file],
+    };
+    let sut = null;
+    const expectedItem = {
+      from: path.join(source, file),
+      to: path.join(build, file),
+    };
+    const expectedList = [expectedItem];
+    const expectedErrorPath = expectedItem.from.replace('.', '\\.');
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    // Then
+    expect(() => sut.getFilesToCopy(target))
+    .toThrow(new RegExp(`The file to copy doesn't exist: ${expectedErrorPath}`, 'i'));
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(
+      'target-copy-files',
+      expectedList,
+      target
+    );
+  });
+
+  it('should generate the list of files to copy on the bundling process', () => {
+    // Given
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const events = {
+      reduce: jest.fn((eventName, list) => list),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = jest.fn();
+    const utils = 'utils';
+    const fileOneName = 'some-file.json';
+    const fileOne = `some-crazy/path/${fileOneName}`;
+    const fileTwo = {
+      from: 'from/some-other-file.txt',
+      to: 'to/some-other-file.txt',
+    };
+    const source = '/source/';
+    const build = '/build/';
+    const target = {
+      name: 'my-target',
+      bundle: true,
+      is: {
+        node: true,
+      },
+      paths: {
+        source,
+        build,
+      },
+      copy: [
+        fileOne,
+        fileTwo,
+      ],
+    };
+    let sut = null;
+    let result = null;
+    const expectedList = [
+      {
+        from: path.join(source, fileOne),
+        to: path.join(build, fileOneName),
+      },
+      {
+        from: path.join(source, fileTwo.from),
+        to: path.join(build, fileTwo.to),
+      },
+    ];
+    // When
+    sut = new Targets(
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.getFilesToCopy(target);
+    // Then
+    expect(result).toEqual(expectedList);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(
+      'target-copy-files',
+      expectedList,
+      target
+    );
   });
 
   it('should include a provider for the DIC', () => {

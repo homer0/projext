@@ -28,6 +28,9 @@ There's no _"top level"_ setting, everything is separated in different scopes re
 
   // The settings of the feature the manages your project version.
   version: ...,
+  
+  // The path to custom plugins projext should load
+  plugins: ...,
 
   // Miscellaneous settings.
   others: ...,
@@ -657,7 +660,7 @@ Whether or not to redirect the browser back to the root whenever a path can't be
 
 These are the settings for the feature that allows a browser target to have a dynamic configuration file.
 
-> For more precise information, check the document about Browser configuration
+> For more precise information, check the document about Browser configuration.
 
 **`configuration.enabled`**
 
@@ -839,6 +842,29 @@ This tells projext if the file should be created only when building for producti
 > Default value: `[]`
 
 This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.
+
+## `plugins`
+
+To load custom plugins.
+
+```js
+{
+  enabled: true,
+  list: [],
+}
+```
+
+### `enabled`
+> Default value: `true`
+
+Whether or not custom plugins should be loaded.
+
+### `list`
+> Default value: `[]`
+
+A list of plugin paths relative to the project root directory. Those files can export a single function or a function called `plugin` in order to be loaded.
+
+> For more precise information, check the document about creating plugins.
 
 ## `others`
 

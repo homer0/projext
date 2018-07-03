@@ -2,5 +2,6 @@
   "automock": true,
   "unmockedModulePathPatterns": ["/node_modules/", "/mocks/"],
   "coveragePathIgnorePatterns": ["/node_modules/", "/mocks/"],
-  "collectCoverage": true
+  "collectCoverage": true,
+  "testEnvironment": "node"
 }

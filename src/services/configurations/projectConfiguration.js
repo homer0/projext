@@ -1,4 +1,5 @@
 const extend = require('extend');
+const fs = require('fs-extra');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
 /**
@@ -215,6 +216,10 @@ class ProjectConfiguration extends ConfigurationFile {
           },
         },
       },
+      plugins: {
+        enabled: true,
+        list: [],
+      },
       others: {
         findTargets: {
           enabled: true,
@@ -226,9 +231,11 @@ class ProjectConfiguration extends ConfigurationFile {
     };
   }
   /**
-   * This is the real method that creates and extends the configuration. It's being overwritten in
-   * order to check if the targets finder should try to find the targets information by reading
-   * the source directory or not.
+   * This is the real method that creates and extends the configuration. It's being overwritten
+   * for two reasons:
+   * 1. In order to check if the targets finder should try to find the targets information by
+   * reading the source directory or not.
+   * 2. To check for custom plugins and load them.
    * @param  {Array} args A list of parameters for the service to use when creating the
    *                      configuration. This gets send from {@link ConfigurationFile#getConfig}
    * @ignore
@@ -260,6 +267,15 @@ class ProjectConfiguration extends ConfigurationFile {
       }
       this._config.targets = extend(true, {}, foundTargets, originalTargets);
     }
+    // If custom plugins are enabled...
+    if (this._config.plugins.enabled) {
+      /**
+       * First check if one of the _"known plugins"_ exist, then append the list of plugins
+       * defined on the configuration and finally try to load them.
+       */
+      this._validatePlugins(this._config.plugins.list)
+      .forEach((pluginFile) => this.plugins.loadFromFile(pluginFile));
+    }
   }
   /**
    * It tries to find basic targets information by reading the source directory.
@@ -287,6 +303,25 @@ class ProjectConfiguration extends ConfigurationFile {
    */
   _getDefaultBuildEngine() {
     return this._knownBuildEndgines.find((engine) => this.plugins.loaded(engine));
+  }
+  /**
+   * This method validates if any of the _"known plugin paths"_ exists and add them to the top
+   * of the list.
+   * @param {Array} definedPlugins The list of plugin paths defined on the configuration.
+   * @return {Array}
+   * @access protected
+   * @ignore
+   */
+  _validatePlugins(definedPlugins) {
+    const knownPlugins = [
+      'projext.plugin.js',
+      'config/projext.plugin.js',
+    ];
+
+    return [
+      ...knownPlugins.filter((pluginPath) => fs.pathExistsSync(this.pathUtils.join(pluginPath))),
+      ...definedPlugins,
+    ];
   }
 }
 /**

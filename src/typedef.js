@@ -300,7 +300,9 @@
  * @property {number} [port=2509]
  * The server port.
  * @property {boolean} [reload=true]
- * Whether or not to reload the server when the code changes.
+ * Whether or not to reload the browser when the code changes.
+ * @property {boolean} [open=true]
+ * Whether or not to open the browser when server is ready.
  * @property {string} [host='localhost']
  * The dev server hostname.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings} [ssl]

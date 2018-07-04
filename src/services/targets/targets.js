@@ -338,9 +338,10 @@ class Targets {
    * bundling process.
    * This method uses the `target-copy-files` reducer event, which receives the list of files to
    * copy, the target information and the build type; it expects an updated list on return.
+   * The reducer event can be used on inject a {@link TargetExtraFileTransform} function.
    * @param {Target} target                    The target information.
    * @param {string} [buildType='development'] The type of bundle projext is generating.
-   * @return {Array}
+   * @return {Array} A list of {@link TargetExtraFile}s.
    * @throws {Error} If the target type is `node` but bundling is disabled. There's no need to copy
    *                 files on a target that doesn't require bundling.
    * @throws {Error} If one of the files to copy doesn't exist.

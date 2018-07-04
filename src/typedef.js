@@ -833,6 +833,20 @@
  */
 
 /**
+ * @typedef {function} TargetExtraFileTransform
+ * @param {string} contents The original contents of the file.
+ * @return {Promise<string,Error>} The updated contents.
+ */
+
+/**
+ * @typedef {Object} TargetExtraFile
+ * @property {string}                    from      The file origin path.
+ * @property {string}                    to        The file destination path.
+ * @property {?TargetExtraFileTransform} transform A custom function to modify the contents of
+ *                                                 the file to copy.
+ */
+
+/**
  * ================================================================================================
  * "Interfaces"
  * ================================================================================================

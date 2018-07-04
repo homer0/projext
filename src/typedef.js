@@ -60,6 +60,11 @@
  */
 
 /**
+ * @external {Buffer}
+ * https://nodejs.org/api/buffer.html
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets > sub properties > Shared
  * ================================================================================================
@@ -834,7 +839,7 @@
 
 /**
  * @typedef {function} TargetExtraFileTransform
- * @param {string} contents The original contents of the file.
+ * @param {Buffer} contents The original contents of the file.
  * @return {Promise<string,Error>} The updated contents.
  */
 

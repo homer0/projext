@@ -52,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry">ProjectConfigurationTargetTemplateEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutput">ProjectConfigurationTargetTemplateOutput</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths">ProjectConfigurationTargetTemplateOutputPaths</a></span></span></li>
@@ -64,6 +65,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFile">TargetExtraFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleFilesSettings">TargetFileRuleFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleGlobFilesSettings">TargetFileRuleGlobFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleHandler">TargetFileRuleHandler</a></span></span></li>
@@ -75,6 +78,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/buffer.html">Buffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
@@ -182,7 +186,8 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/common/plugins.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const { provider } = require(&apos;jimple&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const { provider } = require(&apos;jimple&apos;);
 /**
  * This service is in charge of looking for, loading and registering plugins for the app.
  */
@@ -231,7 +236,7 @@ class Plugins {
     this._loadedPlugins = [];
   }
   /**
-   * Load all the plugins.
+   * Search for plugins on the `package.json` and loads them.
    * @param  {boolean} [dependencies=true]    Whether or not to look for plugins on the
    *                                          `dependencies`.
    * @param  {boolean} [devDependencies=true] Whether or not to look for plugins on the
@@ -252,6 +257,17 @@ class Plugins {
     .forEach((name) =&gt; this._loadPlugin(name));
   }
   /**
+   * Loads a plugin from a file relative to the project root directory.
+   * @param {string} filePath The path to the file.
+   */
+  loadFromFile(filePath) {
+    this._loadPluginFile(
+      filePath,
+      path.basename(filePath),
+      this.pathUtils.join(filePath)
+    );
+  }
+  /**
    * Gets the names of the loaded plugins.
    * @return {string}
    */
@@ -267,28 +283,44 @@ class Plugins {
     return this.getLoadedPlugins().includes(name);
   }
   /**
-   * Load a plugin by its package name.
-   * @param  {string} packageName The name of the plugin.
-   * @throws {Error} If the plugin can&apos;t be loaded or registered.
+   * Loads a plugin by its package name.
+   * @param {string} packageName The name of the plugin.
    * @ignore
    * @access protected
    */
   _loadPlugin(packageName) {
+    this._loadPluginFile(
+      packageName,
+      packageName.substr(this.prefix.length),
+      this.pathUtils.join(&apos;node_modules&apos;, packageName)
+    );
+  }
+  /**
+   * Loads a plugin form an specific file.
+   * @param {string} reference A name for the plugin to show in case the plugin can&apos;t be loaded.
+   *                           In the case of a plugin from the `node_modules`, it should be the
+   *                           package name; on any other case, it should be the file path.
+   * @param {string} name      The name the service will use to save it on the list of loaded
+   *                           plugins.
+   * @param {string} filepath  The path to the file to `require`.
+   * @throws {Error} If the plugin can&apos;t be loaded or registered.
+   * @ignore
+   * @access protected
+   */
+  _loadPluginFile(reference, name, filepath) {
     try {
-      const packagePath = this.pathUtils.join(&apos;node_modules&apos;, packageName);
       // eslint-disable-next-line global-require,import/no-dynamic-require
-      const plugin = require(packagePath);
+      const plugin = require(filepath);
       if (plugin.plugin &amp;&amp; typeof plugin.plugin === &apos;function&apos;) {
         plugin.plugin(this.app);
       } else {
         plugin(this.app);
       }
     } catch (error) {
-      this.appLogger.error(`The plugin ${packageName} couldn&apos;t be loaded`);
+      this.appLogger.error(`The plugin ${reference} couldn&apos;t be loaded`);
       throw error;
     }
 
-    const name = packageName.substr(this.prefix.length);
     this._loadedPlugins.push(name);
   }
 }

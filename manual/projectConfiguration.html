@@ -56,6 +56,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copy--code-" data-ice="link">copy</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-browser--code-" data-ice="link">browser</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-engine--code-" data-ice="link">engine</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-hasfolder--code-" data-ice="link">hasFolder</a></li>
@@ -74,6 +75,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copy--code-" data-ice="link">copy</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-devserver--code-" data-ice="link">devServer</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-configuration--code-" data-ice="link">configuration</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targets--code-" data-ice="link">targets</a></li>
@@ -92,6 +94,9 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-copy--code-" data-ice="link">revision.copy</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-filename--code-" data-ice="link">revision.filename</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-revision-createrevisiononbuild--code-" data-ice="link">revision.createRevisionOnBuild</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-plugins--code-" data-ice="link">plugins</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-enabled--code-" data-ice="link">enabled</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-list--code-" data-ice="link">list</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-others--code-" data-ice="link">others</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-findtargets--code-" data-ice="link">findTargets</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-findtargets-enabled--code-" data-ice="link">findTargets.enabled</a></li>
@@ -190,6 +195,9 @@
   // The settings of the feature the manages your project version.
   version: ...,
 
+  // The path to custom plugins projext should load
+  plugins: ...,
+
   // Miscellaneous settings.
   others: ...,
 }</code>
@@ -234,6 +242,7 @@
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
+  copy: [],
 }</code>
 </code></pre>
 <h4 id="-code-bundle--code-"><code>bundle</code></h4><blockquote>
@@ -384,6 +393,16 @@
 <p>Default value: <code>true</code></p>
 </blockquote>
 <p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p>
+<h4 id="-code-copy--code-"><code>copy</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
+<p>A list of files to be copied during the bundling process. It can be a list of file paths relative to the target source directory, in which case they&apos;ll be copied to the target distribution directory root; or a list of objects with the following format:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  from: &apos;path/relative/to/the/source/directory.txt&apos;,
+  to: &apos;path/relative/to/the/distribution/directory.txt&apos;,
+}</code>
+</code></pre>
+<p>This is different from the main <code>copy</code> feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a <code>manifest.json</code> for your PWA while you can use the main <code>copy</code> feature for the <code>package.json</code> or an <code>.nvmrc</code>, things you need for distribution.</p>
 <h3 id="-code-browser--code-"><code>browser</code></h3><pre><code class="lang-js"><code class="source-code prettyprint">{
   type: &apos;browser&apos;,
   engine: null,
@@ -403,6 +422,7 @@
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
+  copy: [],
   devServer: { ... },
   configuration: { ... },
 }</code>
@@ -578,11 +598,22 @@
 <p>Default value: <code>true</code></p>
 </blockquote>
 <p>Whether or not to remove all code from previous builds from the distribution directory when making a new build.</p>
+<h4 id="-code-copy--code-"><code>copy</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
+<p>A list of files to be copied during the bundling process. It can be a list of file paths relative to the target source directory, in which case they&apos;ll be copied to the target distribution directory root; or a list of objects with the following format:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  from: &apos;path/relative/to/the/source/directory.txt&apos;,
+  to: &apos;path/relative/to/the/distribution/directory.txt&apos;,
+}</code>
+</code></pre>
+<p>This is different from the main <code>copy</code> feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a <code>manifest.json</code> for your PWA while you can use the main <code>copy</code> feature for the <code>package.json</code> or an <code>.nvmrc</code>, things you need for distribution.</p>
 <h4 id="-code-devserver--code-"><code>devServer</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
   port: 2509,
   reload: true,
+  open: true,
   host: &apos;localhost&apos;,
   ssl: {
     key: null,
@@ -598,7 +629,9 @@
 <p><strong><code>devServer.port</code></strong></p>
 <p>The server port.</p>
 <p><strong><code>devServer.reload</code></strong></p>
-<p>Whether or not to reload the server when the code changes.</p>
+<p>Whether or not to reload the browser when the code changes.</p>
+<p><strong><code>devServer.open</code></strong></p>
+<p>Whether or not to open the browser when server is ready.</p>
 <p><strong><code>devServer.host</code></strong></p>
 <p>The dev server hostname.</p>
 <p><strong><code>devServer.ssl</code></strong></p>
@@ -646,7 +679,7 @@
 </blockquote>
 <p>These are the settings for the feature that allows a browser target to have a dynamic configuration file.</p>
 <blockquote>
-<p>For more precise information, check the document about Browser configuration</p>
+<p>For more precise information, check the document about Browser configuration.</p>
 </blockquote>
 <p><strong><code>configuration.enabled</code></strong></p>
 <p>Whether or not the feature is enabled.</p>
@@ -777,6 +810,23 @@
 <p>Default value: <code>[]</code></p>
 </blockquote>
 <p>This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.</p>
+<h2 id="-code-plugins--code-"><code>plugins</code></h2><p>To load custom plugins.</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: true,
+  list: [],
+}</code>
+</code></pre>
+<h3 id="-code-enabled--code-"><code>enabled</code></h3><blockquote>
+<p>Default value: <code>true</code></p>
+</blockquote>
+<p>Whether or not custom plugins should be loaded.</p>
+<h3 id="-code-list--code-"><code>list</code></h3><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
+<p>A list of plugin paths relative to the project root directory. Those files can export a single function or a function called <code>plugin</code> in order to be loaded.</p>
+<blockquote>
+<p>For more precise information, check the document about creating plugins.</p>
+</blockquote>
 <h2 id="-code-others--code-"><code>others</code></h2><p>Miscellaneous options.</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
   findTargets: { ... },

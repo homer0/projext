@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 477,
-  "actualCount": 477,
+  "expectCount": 481,
+  "actualCount": 481,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 23,
@@ -169,8 +169,8 @@
       "undocumentLines": []
     },
     "src/services/common/plugins.js": {
-      "expectCount": 13,
-      "actualCount": 13,
+      "expectCount": 15,
+      "actualCount": 15,
       "undocumentLines": []
     },
     "src/services/common/prompt.js": {
@@ -199,8 +199,8 @@
       "undocumentLines": []
     },
     "src/services/configurations/projectConfiguration.js": {
-      "expectCount": 10,
-      "actualCount": 10,
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "src/services/configurations/targetConfiguration.js": {
@@ -209,8 +209,8 @@
       "undocumentLines": []
     },
     "src/services/targets/targets.js": {
-      "expectCount": 25,
-      "actualCount": 25,
+      "expectCount": 26,
+      "actualCount": 26,
       "undocumentLines": []
     },
     "src/services/targets/targetsFileRules/targetFileRule.js": {

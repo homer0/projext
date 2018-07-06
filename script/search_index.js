@@ -2496,6 +2496,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/common/plugins.js~plugins#loadfromfile",
+    "class/src/services/common/plugins.js~Plugins.html#instance-method-loadFromFile",
+    "src/services/common/plugins.js~Plugins#loadFromFile",
+    "method"
+  ],
+  [
     "src/services/common/plugins.js~plugins#loaded",
     "class/src/services/common/plugins.js~Plugins.html#instance-method-loaded",
     "src/services/common/plugins.js~Plugins#loaded",
@@ -2862,6 +2868,12 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/targets/targets.js~targets#getfilestocopy",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-getFilesToCopy",
+    "src/services/targets/targets.js~Targets#getFilesToCopy",
+    "method"
+  ],
+  [
     "src/services/targets/targets.js~targets#gettarget",
     "class/src/services/targets/targets.js~Targets.html#instance-method-getTarget",
     "src/services/targets/targets.js~Targets#getTarget",
@@ -3090,6 +3102,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~buffer",
+    "https://nodejs.org/api/buffer.html",
+    "src/typedef.js~Buffer",
+    "external"
+  ],
+  [
     "src/typedef.js~buildengine",
     "typedef/index.html#static-typedef-BuildEngine",
     "src/typedef.js~BuildEngine",
@@ -3270,6 +3288,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~projectconfigurationtargettemplatecopyitem",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem",
+    "src/typedef.js~ProjectConfigurationTargetTemplateCopyItem",
+    "typedef"
+  ],
+  [
     "src/typedef.js~projectconfigurationtargettemplateentry",
     "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry",
     "src/typedef.js~ProjectConfigurationTargetTemplateEntry",
@@ -3345,6 +3369,18 @@ window.esdocSearchIndex = [
     "src/typedef.js~targetdefaulthtmlsettings",
     "typedef/index.html#static-typedef-TargetDefaultHTMLSettings",
     "src/typedef.js~TargetDefaultHTMLSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetextrafile",
+    "typedef/index.html#static-typedef-TargetExtraFile",
+    "src/typedef.js~TargetExtraFile",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~targetextrafiletransform",
+    "typedef/index.html#static-typedef-TargetExtraFileTransform",
+    "src/typedef.js~TargetExtraFileTransform",
     "typedef"
   ],
   [

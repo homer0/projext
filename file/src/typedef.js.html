@@ -52,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry">ProjectConfigurationTargetTemplateEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutput">ProjectConfigurationTargetTemplateOutput</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths">ProjectConfigurationTargetTemplateOutputPaths</a></span></span></li>
@@ -64,6 +65,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFile">TargetExtraFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleFilesSettings">TargetFileRuleFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleGlobFilesSettings">TargetFileRuleGlobFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleHandler">TargetFileRuleHandler</a></span></span></li>
@@ -75,6 +78,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/buffer.html">Buffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
@@ -244,6 +248,11 @@
  */
 
 /**
+ * @external {Buffer}
+ * https://nodejs.org/api/buffer.html
+ */
+
+/**
  * ================================================================================================
  * Project configuration &gt; Targets &gt; sub properties &gt; Shared
  * ================================================================================================
@@ -353,6 +362,14 @@
  * @property {ProjectConfigurationTargetTemplateOutputPaths} [production]
  * The target output settings on a production build. If `null`, it will fallback to the ones
  * specified on `default`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateCopyItem
+ * @property {string}  from The path to the file, relative to the target source directory.
+ * @property {?string} to   The path where the file will be copied, relative to the target
+ *                          distribution directory. If not specified, the file will be copied to
+ *                          the root of the target distribution directory.
  */
 
 /**
@@ -476,7 +493,9 @@
  * @property {number} [port=2509]
  * The server port.
  * @property {boolean} [reload=true]
- * Whether or not to reload the server when the code changes.
+ * Whether or not to reload the browser when the code changes.
+ * @property {boolean} [open=true]
+ * Whether or not to open the browser when server is ready.
  * @property {string} [host=&apos;localhost&apos;]
  * The dev server hostname.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSSLSettings} [ssl]
@@ -579,6 +598,10 @@
  * @property {boolean} [cleanBeforeBuild=true]
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} [copy=[]]
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they&apos;ll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  */
 
 /**
@@ -640,6 +663,10 @@
  * @property {boolean} cleanBeforeBuild
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} copy
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they&apos;ll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  * @property {TargetTypeCheck} is
  * To check whether the target type is `node` or `browser`
  * @property {TargetPaths} paths
@@ -703,6 +730,10 @@
  * @property {boolean} [cleanBeforeBuild=true]
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} [copy=[]]
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they&apos;ll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} [devServer]
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.
@@ -752,8 +783,6 @@
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
  * configuration in order to add support for it.
- * @property {boolean} CSSModules
- * Whether or not your application uses CSS Modules.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
  * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} libraryOptions
@@ -762,6 +791,10 @@
  * @property {boolean} cleanBeforeBuild
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} copy
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they&apos;ll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} devServer
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.
@@ -992,6 +1025,20 @@
  * @property {TargetFontsFileRules} fonts   The rules for font files.
  * @property {TargetFileRule}       images  The rule for image files.
  * @property {TargetFileRule}       favicon The rule for favicon files.
+ */
+
+/**
+ * @typedef {function} TargetExtraFileTransform
+ * @param {Buffer} contents The original contents of the file.
+ * @return {Promise&lt;string,Error&gt;} The updated contents.
+ */
+
+/**
+ * @typedef {Object} TargetExtraFile
+ * @property {string}                    from      The file origin path.
+ * @property {string}                    to        The file destination path.
+ * @property {?TargetExtraFileTransform} transform A custom function to modify the contents of
+ *                                                 the file to copy.
  */
 
 /**

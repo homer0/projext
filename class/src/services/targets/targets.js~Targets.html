@@ -52,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry">ProjectConfigurationTargetTemplateEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutput">ProjectConfigurationTargetTemplateOutput</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths">ProjectConfigurationTargetTemplateOutputPaths</a></span></span></li>
@@ -64,6 +65,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFile">TargetExtraFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleFilesSettings">TargetFileRuleFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleGlobFilesSettings">TargetFileRuleGlobFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleHandler">TargetFileRuleHandler</a></span></span></li>
@@ -75,6 +78,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/buffer.html">Buffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
@@ -182,13 +186,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Targets} from &apos;<span><a href="file/src/services/targets/targets.js.html#lineNumber8">projext/src/services/targets/targets.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {Targets} from &apos;<span><a href="file/src/services/targets/targets.js.html#lineNumber9">projext/src/services/targets/targets.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/services/targets/targets.js.html#lineNumber8">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/services/targets/targets.js.html#lineNumber9">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -663,6 +667,36 @@ order.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-method-getFilesToCopy">getFilesToCopy</a></span></span><span class="code" data-ice="signature">(target: <span><a href="typedef/index.html#static-typedef-Target">Target</a></span>, buildType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Gets a list with the information for the files the target needs to copy during the
+bundling process.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-method-getTarget">getTarget</a></span></span><span class="code" data-ice="signature">(name: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span>
         </p>
       </div>
@@ -787,7 +821,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber27">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -901,7 +935,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber85">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber86">source</a></span></span>
     </span>
   </h3>
 
@@ -945,7 +979,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber45">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber46">source</a></span></span>
     </span>
   </h3>
 
@@ -989,7 +1023,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber40">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber41">source</a></span></span>
     </span>
   </h3>
 
@@ -1033,7 +1067,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber51">source</a></span></span>
     </span>
   </h3>
 
@@ -1077,7 +1111,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber55">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber56">source</a></span></span>
     </span>
   </h3>
 
@@ -1121,7 +1155,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber60">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber61">source</a></span></span>
     </span>
   </h3>
 
@@ -1165,7 +1199,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber65">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber66">source</a></span></span>
     </span>
   </h3>
 
@@ -1209,7 +1243,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber75">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber76">source</a></span></span>
     </span>
   </h3>
 
@@ -1253,7 +1287,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber80">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber81">source</a></span></span>
     </span>
   </h3>
 
@@ -1297,7 +1331,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber71">source</a></span></span>
     </span>
   </h3>
 
@@ -1344,7 +1378,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber250">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber251">source</a></span></span>
     </span>
   </h3>
 
@@ -1429,7 +1463,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber269">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber270">source</a></span></span>
     </span>
   </h3>
 
@@ -1517,7 +1551,7 @@ projext uses this service to load the configuration and then injects it on the t
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber215">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber216">source</a></span></span>
     </span>
   </h3>
 
@@ -1604,6 +1638,110 @@ order.</p>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-getFilesToCopy">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">getFilesToCopy</span><span class="code" data-ice="signature">(target: <span><a href="typedef/index.html#static-typedef-Target">Target</a></span>, buildType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber349">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Gets a list with the information for the files the target needs to copy during the
+bundling process.
+This method uses the <code>target-copy-files</code> reducer event, which receives the list of files to
+copy, the target information and the build type; it expects an updated list on return.
+The reducer event can be used on inject a <span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span> function.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">target</td>
+      <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The target information.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buildType</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: &apos;development&apos;</li></ul></td>
+      <td data-ice="description"><p>The type of bundle projext is generating.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A list of <span><a href="typedef/index.html#static-typedef-TargetExtraFile">TargetExtraFile</a></span>s.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  <div data-ice="throwWrap">
+    <h4>Throw:</h4>
+    <table>
+      <tbody>
+      
+      <tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span></p></td>
+        <td data-ice="throwDesc"><p>If the target type is <code>node</code> but bundling is disabled. There&apos;s no need to copy
+                files on a target that doesn&apos;t require bundling.</p>
+</td>
+      </tr>
+<tr class="throw" data-ice="throw">
+        <td><p data-ice="throwName"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error">Error</a></span></p></td>
+        <td data-ice="throwDesc"><p>If one of the files to copy doesn&apos;t exist.</p>
+</td>
+      </tr>
+</tbody>
+    </table>
+  </div>
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-getTarget">
     <span class="access" data-ice="access">public</span>
     
@@ -1615,7 +1753,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber197">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber198">source</a></span></span>
     </span>
   </h3>
 
@@ -1700,7 +1838,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber180">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber181">source</a></span></span>
     </span>
   </h3>
 
@@ -1756,7 +1894,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber94">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber95">source</a></span></span>
     </span>
   </h3>
 
@@ -1764,7 +1902,7 @@ order.</p>
   
   
   <div data-ice="description"><p>Loads and build the target information.
-This method emits the event reducer <code>target-load</code> with the information of a loaded target and
+This method emits the reducer event <code>target-load</code> with the information of a loaded target and
 expects an object with a target information on return.</p>
 </div>
 
@@ -1814,7 +1952,7 @@ expects an object with a target information on return.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber188">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber189">source</a></span></span>
     </span>
   </h3>
 

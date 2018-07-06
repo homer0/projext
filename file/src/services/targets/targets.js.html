@@ -52,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry">ProjectConfigurationTargetTemplateEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutput">ProjectConfigurationTargetTemplateOutput</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths">ProjectConfigurationTargetTemplateOutputPaths</a></span></span></li>
@@ -64,6 +65,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFile">TargetExtraFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleFilesSettings">TargetFileRuleFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleGlobFilesSettings">TargetFileRuleGlobFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleHandler">TargetFileRuleHandler</a></span></span></li>
@@ -75,6 +78,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/buffer.html">Buffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
@@ -183,6 +187,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/targets/targets.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
+const fs = require(&apos;fs-extra&apos;);
 const extend = require(&apos;extend&apos;);
 const { AppConfiguration } = require(&apos;wootils/node/appConfiguration&apos;);
 const { provider } = require(&apos;jimple&apos;);
@@ -271,7 +276,7 @@ class Targets {
   }
   /**
    * Loads and build the target information.
-   * This method emits the event reducer `target-load` with the information of a loaded target and
+   * This method emits the reducer event `target-load` with the information of a loaded target and
    * expects an object with a target information on return.
    * @throws {Error} If a target has a type but it doesn&apos;t match `this.typesValidationRegex`.
    */
@@ -515,6 +520,64 @@ class Targets {
     }
 
     return result;
+  }
+  /**
+   * Gets a list with the information for the files the target needs to copy during the
+   * bundling process.
+   * This method uses the `target-copy-files` reducer event, which receives the list of files to
+   * copy, the target information and the build type; it expects an updated list on return.
+   * The reducer event can be used on inject a {@link TargetExtraFileTransform} function.
+   * @param {Target} target                    The target information.
+   * @param {string} [buildType=&apos;development&apos;] The type of bundle projext is generating.
+   * @return {Array} A list of {@link TargetExtraFile}s.
+   * @throws {Error} If the target type is `node` but bundling is disabled. There&apos;s no need to copy
+   *                 files on a target that doesn&apos;t require bundling.
+   * @throws {Error} If one of the files to copy doesn&apos;t exist.
+   */
+  getFilesToCopy(target, buildType = &apos;development&apos;) {
+    // Validate the target settings
+    if (target.is.node &amp;&amp; !target.bundle) {
+      throw new Error(&apos;Only targets that require bundling can copy files&apos;);
+    }
+    // Get the target paths.
+    const {
+      paths: {
+        build,
+        source,
+      },
+    } = target;
+    // Format the list.
+    let newList = target.copy.map((item) =&gt; {
+      // Define an item structure.
+      const newItem = {
+        from: &apos;&apos;,
+        to: &apos;&apos;,
+      };
+      /**
+       * If the item is a string, use its name and copy it to the target distribution directory
+       * root; but if the target is an object, just prefix its paths with the target directories.
+       */
+      if (typeof item === &apos;string&apos;) {
+        const filename = path.basename(item);
+        newItem.from = path.join(source, item);
+        newItem.to = path.join(build, filename);
+      } else {
+        newItem.from = path.join(source, item.from);
+        newItem.to = path.join(build, item.to);
+      }
+
+      return newItem;
+    });
+
+    // Reduce the list.
+    newList = this.events.reduce(&apos;target-copy-files&apos;, newList, target, buildType);
+
+    const invalid = newList.find((item) =&gt; !fs.pathExistsSync(item.from));
+    if (invalid) {
+      throw new Error(`The file to copy doesn&apos;t exist: ${invalid.from}`);
+    }
+
+    return newList;
   }
   /**
    * Checks if there are missing entries that need to be replaced with the default fallback, and in

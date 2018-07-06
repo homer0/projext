@@ -52,6 +52,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationOtherSettings">ProjectConfigurationOtherSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationPathSettings">ProjectConfigurationPathSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateEntry">ProjectConfigurationTargetTemplateEntry</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutput">ProjectConfigurationTargetTemplateOutput</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths">ProjectConfigurationTargetTemplateOutputPaths</a></span></span></li>
@@ -64,6 +65,8 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetConfigurationCreator">TargetConfigurationCreator</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetDefaultHTMLSettings">TargetDefaultHTMLSettings</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFile">TargetExtraFile</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleFilesSettings">TargetFileRuleFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleGlobFilesSettings">TargetFileRuleGlobFilesSettings</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetFileRuleHandler">TargetFileRuleHandler</a></span></span></li>
@@ -75,6 +78,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetPaths">TargetPaths</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-typedef">T</span><span data-ice="name"><span><a href="typedef/index.html#static-typedef-TargetTypeCheck">TargetTypeCheck</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">AppConfiguration</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://nodejs.org/api/buffer.html">Buffer</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://tj.github.io/commander.js/#Command">Command</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-external">E</span><span data-ice="name"><span><a href="https://homer0.github.io/wootils/class/wootils/node/errorHandler.js~ErrorHandler.html">ErrorHandler</a></span></span></li>
@@ -183,6 +187,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/configurations/projectConfiguration.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const extend = require(&apos;extend&apos;);
+const fs = require(&apos;fs-extra&apos;);
 const { provider } = require(&apos;jimple&apos;);
 const ConfigurationFile = require(&apos;../../abstracts/configurationFile&apos;);
 /**
@@ -287,6 +292,7 @@ class ProjectConfiguration extends ConfigurationFile {
             libraryTarget: &apos;commonjs2&apos;,
           },
           cleanBeforeBuild: true,
+          copy: [],
         },
         browser: {
           type: &apos;browser&apos;,
@@ -345,8 +351,10 @@ class ProjectConfiguration extends ConfigurationFile {
             compress: false,
           },
           cleanBeforeBuild: true,
+          copy: [],
           devServer: {
             port: 2509,
+            open: true,
             reload: true,
             host: &apos;localhost&apos;,
             ssl: {
@@ -397,6 +405,10 @@ class ProjectConfiguration extends ConfigurationFile {
           },
         },
       },
+      plugins: {
+        enabled: true,
+        list: [],
+      },
       others: {
         findTargets: {
           enabled: true,
@@ -408,9 +420,11 @@ class ProjectConfiguration extends ConfigurationFile {
     };
   }
   /**
-   * This is the real method that creates and extends the configuration. It&apos;s being overwritten in
-   * order to check if the targets finder should try to find the targets information by reading
-   * the source directory or not.
+   * This is the real method that creates and extends the configuration. It&apos;s being overwritten
+   * for two reasons:
+   * 1. In order to check if the targets finder should try to find the targets information by
+   * reading the source directory or not.
+   * 2. To check for custom plugins and load them.
    * @param  {Array} args A list of parameters for the service to use when creating the
    *                      configuration. This gets send from {@link ConfigurationFile#getConfig}
    * @ignore
@@ -442,6 +456,15 @@ class ProjectConfiguration extends ConfigurationFile {
       }
       this._config.targets = extend(true, {}, foundTargets, originalTargets);
     }
+    // If custom plugins are enabled...
+    if (this._config.plugins.enabled) {
+      /**
+       * First check if one of the _&quot;known plugins&quot;_ exist, then append the list of plugins
+       * defined on the configuration and finally try to load them.
+       */
+      this._validatePlugins(this._config.plugins.list)
+      .forEach((pluginFile) =&gt; this.plugins.loadFromFile(pluginFile));
+    }
   }
   /**
    * It tries to find basic targets information by reading the source directory.
@@ -469,6 +492,25 @@ class ProjectConfiguration extends ConfigurationFile {
    */
   _getDefaultBuildEngine() {
     return this._knownBuildEndgines.find((engine) =&gt; this.plugins.loaded(engine));
+  }
+  /**
+   * This method validates if any of the _&quot;known plugin paths&quot;_ exists and add them to the top
+   * of the list.
+   * @param {Array} definedPlugins The list of plugin paths defined on the configuration.
+   * @return {Array}
+   * @access protected
+   * @ignore
+   */
+  _validatePlugins(definedPlugins) {
+    const knownPlugins = [
+      &apos;projext.plugin.js&apos;,
+      &apos;config/projext.plugin.js&apos;,
+    ];
+
+    return [
+      ...knownPlugins.filter((pluginPath) =&gt; fs.pathExistsSync(this.pathUtils.join(pluginPath))),
+      ...definedPlugins,
+    ];
   }
 }
 /**

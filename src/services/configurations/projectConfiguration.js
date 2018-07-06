@@ -166,6 +166,7 @@ class ProjectConfiguration extends ConfigurationFile {
           copy: [],
           devServer: {
             port: 2509,
+            open: true,
             reload: true,
             host: 'localhost',
             ssl: {

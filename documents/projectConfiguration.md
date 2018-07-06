@@ -583,6 +583,7 @@ This is different from the main `copy` feature as this is specific to targets an
 > {
 >   port: 2509,
 >   reload: true,
+>   open: true,
 >   host: 'localhost',
 >   ssl: {
 >     key: null,
@@ -602,7 +603,11 @@ The server port.
 
 **`devServer.reload`**
 
-Whether or not to reload the server when the code changes.
+Whether or not to reload the browser when the code changes.
+
+**`devServer.open`**
+
+Whether or not to open the browser when server is ready.
 
 **`devServer.host`**
 

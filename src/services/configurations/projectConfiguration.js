@@ -103,6 +103,7 @@ class ProjectConfiguration extends ConfigurationFile {
             libraryTarget: 'commonjs2',
           },
           cleanBeforeBuild: true,
+          copy: [],
         },
         browser: {
           type: 'browser',
@@ -161,6 +162,7 @@ class ProjectConfiguration extends ConfigurationFile {
             compress: false,
           },
           cleanBeforeBuild: true,
+          copy: [],
           devServer: {
             port: 2509,
             reload: true,

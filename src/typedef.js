@@ -60,6 +60,11 @@
  */
 
 /**
+ * @external {Buffer}
+ * https://nodejs.org/api/buffer.html
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets > sub properties > Shared
  * ================================================================================================
@@ -169,6 +174,14 @@
  * @property {ProjectConfigurationTargetTemplateOutputPaths} [production]
  * The target output settings on a production build. If `null`, it will fallback to the ones
  * specified on `default`.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateCopyItem
+ * @property {string}  from The path to the file, relative to the target source directory.
+ * @property {?string} to   The path where the file will be copied, relative to the target
+ *                          distribution directory. If not specified, the file will be copied to
+ *                          the root of the target distribution directory.
  */
 
 /**
@@ -395,6 +408,10 @@
  * @property {boolean} [cleanBeforeBuild=true]
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} [copy=[]]
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they'll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  */
 
 /**
@@ -456,6 +473,10 @@
  * @property {boolean} cleanBeforeBuild
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} copy
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they'll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  * @property {TargetTypeCheck} is
  * To check whether the target type is `node` or `browser`
  * @property {TargetPaths} paths
@@ -519,6 +540,10 @@
  * @property {boolean} [cleanBeforeBuild=true]
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} [copy=[]]
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they'll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} [devServer]
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.
@@ -568,8 +593,6 @@
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
  * configuration in order to add support for it.
- * @property {boolean} CSSModules
- * Whether or not your application uses CSS Modules.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
  * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} libraryOptions
@@ -578,6 +601,10 @@
  * @property {boolean} cleanBeforeBuild
  * Whether or not to remove all code from previous builds from the distribution directory when
  * making a new build.
+ * @property {Array} copy
+ * A list of files to copy during the bundling process. It can be a list of file paths relative to
+ * the target source directory, in which case they'll be copied to the target distribution
+ * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} devServer
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.
@@ -808,6 +835,20 @@
  * @property {TargetFontsFileRules} fonts   The rules for font files.
  * @property {TargetFileRule}       images  The rule for image files.
  * @property {TargetFileRule}       favicon The rule for favicon files.
+ */
+
+/**
+ * @typedef {function} TargetExtraFileTransform
+ * @param {Buffer} contents The original contents of the file.
+ * @return {Promise<string,Error>} The updated contents.
+ */
+
+/**
+ * @typedef {Object} TargetExtraFile
+ * @property {string}                    from      The file origin path.
+ * @property {string}                    to        The file destination path.
+ * @property {?TargetExtraFileTransform} transform A custom function to modify the contents of
+ *                                                 the file to copy.
  */
 
 /**

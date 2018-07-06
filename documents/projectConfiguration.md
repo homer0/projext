@@ -28,6 +28,9 @@ There's no _"top level"_ setting, everything is separated in different scopes re
 
   // The settings of the feature the manages your project version.
   version: ...,
+  
+  // The path to custom plugins projext should load
+  plugins: ...,
 
   // Miscellaneous settings.
   others: ...,
@@ -98,6 +101,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
+  copy: [],
 }
 ```
 
@@ -289,6 +293,20 @@ How the library will be exposed: `commonjs2` or `umd`.
 
 Whether or not to remove all code from previous builds from the distribution directory when making a new build.
 
+#### `copy`
+> Default value: `[]`
+
+A list of files to be copied during the bundling process. It can be a list of file paths relative to the target source directory, in which case they'll be copied to the target distribution directory root; or a list of objects with the following format:
+
+```js
+{
+  from: 'path/relative/to/the/source/directory.txt',
+  to: 'path/relative/to/the/distribution/directory.txt',
+}
+```
+
+This is different from the main `copy` feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a `manifest.json` for your PWA while you can use the main `copy` feature for the `package.json` or an `.nvmrc`, things you need for distribution.
+
 ### `browser`
 
 ```js
@@ -311,6 +329,7 @@ Whether or not to remove all code from previous builds from the distribution dir
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
+  copy: [],
   devServer: { ... },
   configuration: { ... },
 }
@@ -543,6 +562,20 @@ Whether or not to use gzip compression on the generated library file.
 
 Whether or not to remove all code from previous builds from the distribution directory when making a new build.
 
+#### `copy`
+> Default value: `[]`
+
+A list of files to be copied during the bundling process. It can be a list of file paths relative to the target source directory, in which case they'll be copied to the target distribution directory root; or a list of objects with the following format:
+
+```js
+{
+  from: 'path/relative/to/the/source/directory.txt',
+  to: 'path/relative/to/the/distribution/directory.txt',
+}
+```
+
+This is different from the main `copy` feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a `manifest.json` for your PWA while you can use the main `copy` feature for the `package.json` or an `.nvmrc`, things you need for distribution.
+
 #### `devServer`
 > Default value:
 >
@@ -550,6 +583,7 @@ Whether or not to remove all code from previous builds from the distribution dir
 > {
 >   port: 2509,
 >   reload: true,
+>   open: true,
 >   host: 'localhost',
 >   ssl: {
 >     key: null,
@@ -569,7 +603,11 @@ The server port.
 
 **`devServer.reload`**
 
-Whether or not to reload the server when the code changes.
+Whether or not to reload the browser when the code changes.
+
+**`devServer.open`**
+
+Whether or not to open the browser when server is ready.
 
 **`devServer.host`**
 
@@ -627,7 +665,7 @@ Whether or not to redirect the browser back to the root whenever a path can't be
 
 These are the settings for the feature that allows a browser target to have a dynamic configuration file.
 
-> For more precise information, check the document about Browser configuration
+> For more precise information, check the document about Browser configuration.
 
 **`configuration.enabled`**
 
@@ -809,6 +847,29 @@ This tells projext if the file should be created only when building for producti
 > Default value: `[]`
 
 This can be used to specify the targets that will trigger the feature when builded. If no target is specified, the feature will be triggered by all the targets.
+
+## `plugins`
+
+To load custom plugins.
+
+```js
+{
+  enabled: true,
+  list: [],
+}
+```
+
+### `enabled`
+> Default value: `true`
+
+Whether or not custom plugins should be loaded.
+
+### `list`
+> Default value: `[]`
+
+A list of plugin paths relative to the project root directory. Those files can export a single function or a function called `plugin` in order to be loaded.
+
+> For more precise information, check the document about creating plugins.
 
 ## `others`
 

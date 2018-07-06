@@ -1,4 +1,5 @@
 const path = require('path');
+const fs = require('fs-extra');
 const extend = require('extend');
 const { AppConfiguration } = require('wootils/node/appConfiguration');
 const { provider } = require('jimple');
@@ -87,7 +88,7 @@ class Targets {
   }
   /**
    * Loads and build the target information.
-   * This method emits the event reducer `target-load` with the information of a loaded target and
+   * This method emits the reducer event `target-load` with the information of a loaded target and
    * expects an object with a target information on return.
    * @throws {Error} If a target has a type but it doesn't match `this.typesValidationRegex`.
    */
@@ -331,6 +332,64 @@ class Targets {
     }
 
     return result;
+  }
+  /**
+   * Gets a list with the information for the files the target needs to copy during the
+   * bundling process.
+   * This method uses the `target-copy-files` reducer event, which receives the list of files to
+   * copy, the target information and the build type; it expects an updated list on return.
+   * The reducer event can be used on inject a {@link TargetExtraFileTransform} function.
+   * @param {Target} target                    The target information.
+   * @param {string} [buildType='development'] The type of bundle projext is generating.
+   * @return {Array} A list of {@link TargetExtraFile}s.
+   * @throws {Error} If the target type is `node` but bundling is disabled. There's no need to copy
+   *                 files on a target that doesn't require bundling.
+   * @throws {Error} If one of the files to copy doesn't exist.
+   */
+  getFilesToCopy(target, buildType = 'development') {
+    // Validate the target settings
+    if (target.is.node && !target.bundle) {
+      throw new Error('Only targets that require bundling can copy files');
+    }
+    // Get the target paths.
+    const {
+      paths: {
+        build,
+        source,
+      },
+    } = target;
+    // Format the list.
+    let newList = target.copy.map((item) => {
+      // Define an item structure.
+      const newItem = {
+        from: '',
+        to: '',
+      };
+      /**
+       * If the item is a string, use its name and copy it to the target distribution directory
+       * root; but if the target is an object, just prefix its paths with the target directories.
+       */
+      if (typeof item === 'string') {
+        const filename = path.basename(item);
+        newItem.from = path.join(source, item);
+        newItem.to = path.join(build, filename);
+      } else {
+        newItem.from = path.join(source, item.from);
+        newItem.to = path.join(build, item.to);
+      }
+
+      return newItem;
+    });
+
+    // Reduce the list.
+    newList = this.events.reduce('target-copy-files', newList, target, buildType);
+
+    const invalid = newList.find((item) => !fs.pathExistsSync(item.from));
+    if (invalid) {
+      throw new Error(`The file to copy doesn't exist: ${invalid.from}`);
+    }
+
+    return newList;
   }
   /**
    * Checks if there are missing entries that need to be replaced with the default fallback, and in

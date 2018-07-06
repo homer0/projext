@@ -23,9 +23,10 @@ class ConfigurationFileMock {
     overwrites = changes;
   }
 
-  constructor(...args) {
+  constructor(pathUtils, ...args) {
     this.constructorMock = mocks.constructor;
-    this.constructorMock(...args);
+    this.constructorMock(pathUtils, ...args);
+    this.pathUtils = pathUtils;
     this._config = {};
   }
 

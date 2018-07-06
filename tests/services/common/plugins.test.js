@@ -91,6 +91,29 @@ describe('services/common:plugins', () => {
     expect(app.register).toHaveBeenCalledWith('pluginWithFunction');
   });
 
+  it('should load a plugin using a file path', () => {
+    // Given
+    const app = {
+      register: jest.fn(),
+    };
+    const prefix = 'plugin-';
+    const appLogger = 'appLogger';
+    const packageInfo = 'packageInfo';
+    const pluginFile = `${mocksRelativePath}/mockPlugin.js`;
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    let sut = null;
+    // When
+    sut = new Plugins(prefix, app, appLogger, packageInfo, pathUtils);
+    sut.loadFromFile(pluginFile);
+    // Then
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith(pluginFile);
+    expect(app.register).toHaveBeenCalledTimes(1);
+    expect(app.register).toHaveBeenCalledWith('plugin');
+  });
+
   it('should fail to load a plugin', () => {
     // Given
     const prefix = 'plugin-';
@@ -108,17 +131,14 @@ describe('services/common:plugins', () => {
         [pluginName]: 'latest',
       },
     };
-    const error = new Error('Unknown error');
     const pathUtils = {
-      join: jest.fn(() => {
-        throw error;
-      }),
+      join: jest.fn(() => `${mocksRelativePath}/mockPluginWithError.js`),
     };
     let sut = null;
     // When
     sut = new Plugins(prefix, app, appLogger, packageInfo, pathUtils);
     // Then
-    expect(() => sut.load()).toThrow(error);
+    expect(() => sut.load()).toThrow(/Unknown/i);
     expect(pathUtils.join).toHaveBeenCalledTimes(1);
     expect(pathUtils.join).toHaveBeenCalledWith('node_modules', pluginName);
     expect(appLogger.error).toHaveBeenCalledTimes(1);

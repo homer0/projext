@@ -51,6 +51,9 @@ const {
   cliSHValidateBuildCommand,
   cliSHValidateRunCommand,
   cliGenerators,
+  cliSHValidateWatchCommand,
+  cliSHWatchCommand,
+  cliWatchCommand,
 } = require('../services/cli');
 
 const {
@@ -121,6 +124,10 @@ class Projext extends Jimple {
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
     this.register(cliSHValidateRunCommand);
+    this.register(cliSHValidateWatchCommand);
+    this.register(cliSHWatchCommand);
+    this.register(cliWatchCommand);
+
     this.register(cliGenerators.targetHTMLGenerator);
     this.register(cliGenerators.projectConfigurationFileGenerator);
 
@@ -162,6 +169,9 @@ class Projext extends Jimple {
       this.get('cliSHTranspileCommand'),
       this.get('cliSHValidateBuildCommand'),
       this.get('cliSHValidateRunCommand'),
+      this.get('cliSHValidateWatchCommand'),
+      this.get('cliSHWatchCommand'),
+      this.get('cliWatchCommand'),
     ]);
   }
   /**

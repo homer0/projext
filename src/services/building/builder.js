@@ -52,16 +52,20 @@ class Builder {
    * Get a build command for a target. If the target doesn't require bundling, it will return an
    * empty string, otherwise, it will ask the build engine the target uses for the required shell
    * command.
-   * @param {Target}  target           The target information.
-   * @param {string}  buildType        The type of build intended: `production` or `development`.
-   * @param {boolean} [forceRun=false] Whether or not the build command should also run the target.
+   * @param {Target}  target            The target information.
+   * @param {string}  buildType         The type of build intended: `production` or `development`.
+   * @param {boolean} [forceRun=false]  Whether or not the build command should also run the
+   *                                    target. It's _"forced"_ because it overwrites the
+   *                                    `runOnDevelopment` setting.
+   * @param {boolean} [forceWatch=false] Whether or not the target files should be watched and the
+   *                                     build recreated when they changed.
    * @return {string}
    */
-  getTargetBuildCommand(target, buildType, forceRun = false) {
+  getTargetBuildCommand(target, buildType, forceRun = false, forceWatch = false) {
     let command = '';
     if (target.bundle !== false) {
       const engine = this.buildEngines.getEngine(target.engine);
-      command = engine.getBuildCommand(target, buildType, forceRun);
+      command = engine.getBuildCommand(target, buildType, forceRun, forceWatch);
     }
 
     return command;

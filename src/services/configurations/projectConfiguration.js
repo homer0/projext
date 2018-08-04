@@ -93,6 +93,10 @@ class ProjectConfiguration extends ConfigurationFile {
           excludeModules: [],
           includeTargets: [],
           runOnDevelopment: false,
+          watch: {
+            development: false,
+            production: false,
+          },
           babel: {
             features: [],
             nodeVersion: 'current',
@@ -148,6 +152,10 @@ class ProjectConfiguration extends ConfigurationFile {
           includeModules: [],
           includeTargets: [],
           runOnDevelopment: false,
+          watch: {
+            development: false,
+            production: false,
+          },
           babel: {
             features: [],
             browserVersions: 2,

@@ -13,6 +13,9 @@ const { cliSHRunCommand } = require('./cliSHRun');
 const { cliSHTranspileCommand } = require('./cliSHTranspile');
 const { cliSHValidateBuildCommand } = require('./cliSHValidateBuild');
 const { cliSHValidateRunCommand } = require('./cliSHValidateRun');
+const { cliSHValidateWatchCommand } = require('./cliSHValidateWatch');
+const { cliSHWatchCommand } = require('./cliSHWatch');
+const { cliWatchCommand } = require('./cliWatch');
 const cliGenerators = require('./generators');
 
 module.exports = {
@@ -33,4 +36,7 @@ module.exports = {
   cliSHValidateBuildCommand,
   cliSHValidateRunCommand,
   cliGenerators,
+  cliSHValidateWatchCommand,
+  cliSHWatchCommand,
+  cliWatchCommand,
 };

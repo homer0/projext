@@ -48,6 +48,16 @@ class CLISHValidateBuildCommand extends CLICommand {
      * @type {string}
      */
     this.description = 'Validate the arguments before the shell executes the task';
+    /**
+     * Hide the command from the help interface.
+     * @type {boolean}
+     */
+    this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {Boolean}
+     */
+    this.allowUnknownOptions = true;
     this.addOption(
       'type',
       '-t, --type [type]',
@@ -61,16 +71,6 @@ class CLISHValidateBuildCommand extends CLICommand {
         'build type is development',
       false
     );
-    /**
-     * Hide the command from the help interface.
-     * @type {boolean}
-     */
-    this.hidden = true;
-    /**
-     * Enable unknown options so other services can customize the build command.
-     * @type {Boolean}
-     */
-    this.allowUnknownOptions = true;
   }
   /**
    * Handle the execution of the command and validate all the arguments.

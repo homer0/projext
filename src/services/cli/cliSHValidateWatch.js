@@ -1,15 +1,14 @@
 const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
- * This is a private command the shell script executes before running the run command in order to
+ * This is a private command the shell script executes before running the watch command in order to
  * validate the arguments and throw any necessary error. The reason we do this in two separated
  * commands is that the shell script takes all the output of the run command and tries to execute
  * it, so we can't include execptions in there.
  * @extends {CLICommand}
  */
-class CLISHValidateRunCommand extends CLICommand {
+class CLISHValidateWatchCommand extends CLICommand {
   /**
-   * Class constructor.
    * @param {Targets} targets To validate a target existence.
    */
   constructor(targets) {
@@ -23,7 +22,7 @@ class CLISHValidateRunCommand extends CLICommand {
      * The instruction needed to trigger the command.
      * @type {string}
      */
-    this.command = 'sh-validate-run [target]';
+    this.command = 'sh-validate-watch [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
@@ -36,10 +35,16 @@ class CLISHValidateRunCommand extends CLICommand {
      */
     this.hidden = true;
     /**
-     * Enable unknown options so other services can customize the run command.
+     * Enable unknown options so other services can customize the watch command.
      * @type {Boolean}
      */
     this.allowUnknownOptions = true;
+    this.addOption(
+      'type',
+      '-t, --type [type]',
+      'Which build type: development (default) or production',
+      'development'
+    );
   }
   /**
    * Handle the execution of the command and validate the target existence.
@@ -55,21 +60,21 @@ class CLISHValidateRunCommand extends CLICommand {
 }
 /**
  * The service provider that once registered on the app container will set an instance of
- * `CLISHValidateRunCommand` as the `cliSHValidateRunCommand` service.
+ * `CLISHValidateWatchCommand` as the `cliSHValidateWatchCommand` service.
  * @example
  * // Register it on the container
- * container.register(cliSHValidateRunCommand);
+ * container.register(cliSHValidateWatchCommand);
  * // Getting access to the service instance
- * const cliSHValidateRunCommand = container.get('cliSHValidateRunCommand');
+ * const cliSHValidateWatchCommand = container.get('cliSHValidateWatchCommand');
  * @type {Provider}
  */
-const cliSHValidateRunCommand = provider((app) => {
-  app.set('cliSHValidateRunCommand', () => new CLISHValidateRunCommand(
+const cliSHValidateWatchCommand = provider((app) => {
+  app.set('cliSHValidateWatchCommand', () => new CLISHValidateWatchCommand(
     app.get('targets')
   ));
 });
 
 module.exports = {
-  CLISHValidateRunCommand,
-  cliSHValidateRunCommand,
+  CLISHValidateWatchCommand,
+  cliSHValidateWatchCommand,
 };

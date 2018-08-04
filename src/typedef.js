@@ -764,18 +764,6 @@
  */
 
 /**
- * @typedef {function} BuildEngineGetCommand
- * @param {Target} target
- * The target information.
- * @param {string} buildType
- * The intended build type: `development` or `production`.
- * @param {boolean} [forceRun=false]
- * Force the target to run even if the `runOnDevelopment` setting is `false`.
- * @return {string}
- * The command the shell script will use to build the target.
- */
-
-/**
  * @typedef {Object} TargetFileRulePathSettings
  * @property {Array} include The list of expressions that match the allowed paths for a rule.
  * @property {Array} exclude The list of expressions that match the paths that should be excluded
@@ -860,9 +848,41 @@
  */
 
 /**
+ * @typedef {function} BuildEngineGetCommand
+ * @param {Target} target
+ * The target information.
+ * @param {string} buildType
+ * The intended build type: `development` or `production`.
+ * @param {boolean} [forceRun=false]
+ * Force the target to run even if the `runOnDevelopment` setting is `false`.
+ * @param {boolean} [forceWatch=false]
+ * Force the build engine to watch the target files even if the `watch` setting for the required
+ * build type is set to `false`.
+ * @return {string}
+ * The command the shell script will use to build the target.
+ */
+
+/**
  * @typedef {Object} BuildEngine
  * @property {BuildEngineGetCommand} getBuildCommand
  * The method used by projext in order to get the shell comands to build and/or run a target.
+ */
+
+/**
+ * ================================================================================================
+ * Building
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} CLIBuildCommandParams
+ * @property {Target}  target The target information.
+ * @property {string}  type   The intended build type: `development` or `production`.
+ * @property {boolean} run    Whether or not the target needs to be executed.
+ * @property {boolean} build  Whether or not a build will be created. This is always `true` for
+ *                            browser targets but it may be false for Node targets if bundling and
+ *                            transpiling is disabled.
+ * @property {boolean} watch  Whether or not the target files will be watched.
  */
 
 /**

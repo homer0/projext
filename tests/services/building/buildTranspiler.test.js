@@ -75,6 +75,7 @@ describe('services/building:buildTranspiler', () => {
       folders: {
         build: 'build/directory',
       },
+      includeTargets: [],
     };
     let sut = null;
     // When
@@ -113,8 +114,118 @@ describe('services/building:buildTranspiler', () => {
       expect(appLogger.success).toHaveBeenCalledTimes(1);
       expect(appLogger.info).toHaveBeenCalledTimes(files.length);
     })
-    .catch(() => {
-      expect(true).toBeFalse();
+    .catch((error) => {
+      throw error;
+    });
+  });
+
+  it('should transpile a target and its `includeTargets` files', () => {
+    // Given
+    const code = 'module.exports = someFunction();';
+    const files = [
+      'fileA.js',
+      'fileB.jsx',
+    ];
+    glob.mockImplementationOnce((pattern, options, fn) => {
+      fn(null, files);
+    });
+    glob.mockImplementationOnce((pattern, options, fn) => {
+      fn(null, files);
+    });
+    files.forEach(() => {
+      babel.transformFile.mockImplementationOnce((from, options, fn) => {
+        fn(null, { code });
+      });
+      babel.transformFile.mockImplementationOnce((from, options, fn) => {
+        fn(null, { code });
+      });
+    });
+    const babelConfiguration = {
+      getConfigForTarget: jest.fn(() => ({})),
+    };
+    const appLogger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    const includedTarget = {
+      name: 'included-target',
+      paths: {
+        build: 'included-target-build-path',
+        source: 'included-target-source-path',
+      },
+      folders: {
+        build: 'other/build/directory',
+      },
+      includeTargets: [],
+    };
+    const targets = {
+      getTarget: jest.fn(() => includedTarget),
+    };
+    const target = {
+      paths: {
+        build: '/some-absolute-path/to-the/build/directory',
+      },
+      folders: {
+        build: 'build/directory',
+      },
+      includeTargets: [includedTarget.name],
+    };
+    let sut = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    return sut.transpileTargetFiles(target)
+    .then(() => {
+      // Then
+      expect(glob).toHaveBeenCalledTimes(2);
+      expect(glob).toHaveBeenCalledWith(
+        '**/*.{js,jsx}',
+        {
+          cwd: target.paths.build,
+        },
+        expect.any(Function)
+      );
+      expect(glob).toHaveBeenCalledWith(
+        '**/*.{js,jsx}',
+        {
+          cwd: includedTarget.paths.build,
+        },
+        expect.any(Function)
+      );
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledTimes(2);
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(target);
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(includedTarget);
+      expect(babel.transformFile).toHaveBeenCalledTimes(files.length * 2);
+      expect(fs.writeFile).toHaveBeenCalledTimes(files.length * 2);
+      files.forEach((file) => {
+        expect(babel.transformFile).toHaveBeenCalledWith(
+          path.join(target.paths.build, file),
+          {},
+          expect.any(Function)
+        );
+        expect(fs.writeFile).toHaveBeenCalledWith(
+          path.join(target.paths.build, file),
+          code
+        );
+        expect(babel.transformFile).toHaveBeenCalledWith(
+          path.join(includedTarget.paths.build, file),
+          {},
+          expect.any(Function)
+        );
+        expect(fs.writeFile).toHaveBeenCalledWith(
+          path.join(includedTarget.paths.build, file),
+          code
+        );
+      });
+
+      expect(appLogger.success).toHaveBeenCalledTimes(2);
+      expect(appLogger.info).toHaveBeenCalledTimes(files.length * 2);
+    })
+    .catch((error) => {
+      throw error;
     });
   });
 
@@ -136,6 +247,7 @@ describe('services/building:buildTranspiler', () => {
       folders: {
         build: 'build/directory',
       },
+      includeTargets: [],
     };
     let sut = null;
     // When
@@ -161,6 +273,53 @@ describe('services/building:buildTranspiler', () => {
 
       expect(appLogger.error).toHaveBeenCalledTimes(1);
       expect(errorResult).toBe(error);
+    });
+  });
+
+  it('should fail to transpile a target that includes one that requires bundling', () => {
+    // Given
+    const babelConfiguration = 'babelConfiguration';
+    const appLogger = 'appLogger';
+    const includedTarget = {
+      bundle: true,
+      name: 'included-target',
+      paths: {
+        build: 'included-target-build-path',
+        source: 'included-target-source-path',
+      },
+      folders: {
+        build: 'other/build/directory',
+      },
+      includeTargets: [],
+    };
+    const targets = {
+      getTarget: jest.fn(() => includedTarget),
+    };
+    const target = {
+      paths: {
+        build: '/some-absolute-path/to-the/build/directory',
+      },
+      folders: {
+        build: 'build/directory',
+      },
+      includeTargets: [includedTarget.name],
+    };
+    let sut = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    return sut.transpileTargetFiles(target)
+    .then(() => {
+      expect(true).toBeFalse();
+    })
+    .catch((errorResult) => {
+      // Then
+      expect(glob).toHaveBeenCalledTimes(0);
+      expect(errorResult).toBeInstanceOf(Error);
+      expect(errorResult.message).toMatch(/requires bundling/i);
     });
   });
 
@@ -202,8 +361,8 @@ describe('services/building:buildTranspiler', () => {
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(file, code);
     })
-    .catch(() => {
-      expect(true).toBeFalse();
+    .catch((error) => {
+      throw error;
     });
   });
 
@@ -249,8 +408,8 @@ describe('services/building:buildTranspiler', () => {
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(newFile, code);
     })
-    .catch(() => {
-      expect(true).toBeFalse();
+    .catch((error) => {
+      throw error;
     });
   });
 
@@ -293,8 +452,8 @@ describe('services/building:buildTranspiler', () => {
       );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
     })
-    .catch(() => {
-      expect(true).toBeFalse();
+    .catch((error) => {
+      throw error;
     });
   });
 

@@ -16,8 +16,11 @@ class BuildCopier {
    * @param {PathUtils}                    pathUtils            Necessary to build the paths.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the project information and
    *                                                            get paths.
+   * @param {Targets}                      targets              To get the information of targets
+   *                                                            from `includeTargets` and copy their
+   *                                                            files too.
    */
-  constructor(copier, appLogger, events, pathUtils, projectConfiguration) {
+  constructor(copier, appLogger, events, pathUtils, projectConfiguration, targets) {
     /**
      * A local reference for the `copier` service function.
      * @type {Copier.copy}
@@ -43,6 +46,11 @@ class BuildCopier {
      * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
+    /**
+     * A local reference for the `targets` service.
+     * @type {Targets}
+     */
+    this.targets = targets;
   }
   /**
    * If `copy.enabled` is `true` on the project configuration, this method will copy the list of
@@ -228,22 +236,51 @@ class BuildCopier {
    * @return {Promise<undefined,Error>}
    */
   copyTargetFiles(target) {
-    return fs.ensureDir(target.paths.build)
-    .then(() => fs.readdir(target.paths.source))
-    .then((items) => this.copier(
-      target.paths.source,
-      target.paths.build,
-      items
-    ))
-    .then(() => {
-      this.appLogger.success(
-        `The files for '${target.name}' have been successfully copied (${target.paths.build})`
-      );
-    })
-    .catch((error) => {
-      this.appLogger.error(`The files for '${target.name}' couldn't be copied`);
-      return Promise.reject(error);
-    });
+    // Define the variable to return.
+    let result;
+    // Get the information of all the targets on the `includeTargets` list.
+    const includedTargets = target.includeTargets.map((name) => this.targets.getTarget(name));
+    // Try to find one that requires bundling.
+    const bundledTarget = includedTargets.find((info) => info.bundle);
+    if (bundledTarget) {
+      // If there's one that requires bundling, set to return a rejected promise.
+      const errorMessage = `The target ${bundledTarget.name} requires bundling so it can't be ` +
+        `included by ${target.name}`;
+      result = Promise.reject(new Error(errorMessage));
+    } else {
+      /**
+       * If there are no included targets or none that requires bundling, continue...
+       * Make sure the build directory exists.
+       */
+      result = fs.ensureDir(target.paths.build)
+      // Get all the items on the source directory.
+      .then(() => fs.readdir(target.paths.source))
+      // Copy everything.
+      .then((items) => this.copier(
+        target.paths.source,
+        target.paths.build,
+        items
+      ))
+      .then(() => {
+        this.appLogger.success(
+          `The files for '${target.name}' have been successfully copied (${target.paths.build})`
+        );
+        let nextStep;
+        // If there are targets to include...
+        if (includedTargets.length) {
+          // ...chain their promises.
+          nextStep = Promise.all(includedTargets.map((info) => this.copyTargetFiles(info)));
+        }
+
+        return nextStep;
+      })
+      .catch((error) => {
+        this.appLogger.error(`The files for '${target.name}' couldn't be copied`);
+        return Promise.reject(error);
+      });
+    }
+
+    return result;
   }
 }
 /**
@@ -262,7 +299,8 @@ const buildCopier = provider((app) => {
     app.get('appLogger'),
     app.get('events'),
     app.get('pathUtils'),
-    app.get('projectConfiguration').getConfig()
+    app.get('projectConfiguration').getConfig(),
+    app.get('targets')
   ));
 });
 

@@ -47,7 +47,7 @@ class CLISHNodeRunCommand extends CLICommand {
   /**
    * Handle the execution of the command and runs a Node target.
    * @param {string} name The name of the target.
-   * @return {`nodemon`}
+   * @return {Nodemon}
    */
   handle(name) {
     const target = this.targets.getTarget(name);

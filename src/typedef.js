@@ -25,6 +25,11 @@
  */
 
 /**
+ * @external {WatchpackOptions}
+ * https://github.com/webpack/watchpack#api
+ */
+
+/**
  * @external {AppConfiguration}
  * https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html
  */

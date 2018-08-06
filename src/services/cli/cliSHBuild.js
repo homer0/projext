@@ -28,6 +28,9 @@ class CLISHBuildCommand extends CLICommand {
    * @param {CLISHNodeRunCommand}          cliSHNodeRunCommand        Needed to generate the command
    *                                                                  to run a Node target if the
    *                                                                  `run` option is used.
+   * @param {CLISHNodeWatchCommand}        cliSHNodeWatchCommand      Needed to generate the command
+   *                                                                  to watch a Node target files
+   *                                                                  if the `watch` option is used.
    * @param {CLISHTranspileCommand}        cliSHTranspileCommand      Needed to generate the command
    *                                                                  to transpile a Node target
    *                                                                  code.
@@ -45,6 +48,7 @@ class CLISHBuildCommand extends CLICommand {
     cliRevisionCommand,
     cliSHCopyCommand,
     cliSHNodeRunCommand,
+    cliSHNodeWatchCommand,
     cliSHTranspileCommand,
     events,
     projectConfiguration,
@@ -81,6 +85,11 @@ class CLISHBuildCommand extends CLICommand {
      * @type {CliSHNodeRunCommand}
      */
     this.cliSHNodeRunCommand = cliSHNodeRunCommand;
+    /**
+     * A local reference for the `cliSHNodeWatchCommand` service.
+     * @type {CliSHNodeWatchCommand}
+     */
+    this.cliSHNodeWatchCommand = cliSHNodeWatchCommand;
     /**
      * A local reference for the `cliSHTranspileCommand` service.
      * @type {CliSHTranspileCommand}
@@ -191,8 +200,8 @@ class CLISHBuildCommand extends CLICommand {
 
     // Based on the target type, get the list of commands.
     const commands = target.is.node ?
-      this.getCommandsForNodeTarget(params) :
-      this.getCommandsForBrowserTarget(params);
+      this._getCommandsForNodeTarget(params) :
+      this._getCommandsForBrowserTarget(params);
     // Reduce the list of commands.
     const output = this.events.reduce(
       'build-target-commands-list',
@@ -212,21 +221,23 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {Array}
+   * @access protected
+   * @ignore
    */
-  getCommandsForNodeTarget(params) {
+  _getCommandsForNodeTarget(params) {
     // Get the base commands.
     const commands = [
-      this.getCleanCommandIfNeeded(params),
-      this.getBuildCommandIfNeeded(params),
-      this.getCopyCommand(params),
-      this.getTranspileCommand(params),
+      this._getCleanCommandIfNeeded(params),
+      this._getBuildCommandIfNeeded(params),
+      this._getCopyCommandIfNeeded(params),
+      this._getTranspileCommandIfNeeded(params),
     ];
     // If the target won't be executed nor their files will be watched...
     if (!params.run && !params.watch) {
       // ...push the commands to create the revision file and copy the project files.
       commands.push(...[
-        this.getRevisionCommand(params),
-        this.getCopyProjectFilesCommand(params),
+        this._getRevisionCommandIfNeeded(params),
+        this._getCopyProjectFilesCommand(params),
       ]);
     } else if (!params.target.bundle) {
       /**
@@ -236,10 +247,10 @@ class CLISHBuildCommand extends CLICommand {
        */
       if (params.run) {
         // Run the target with `nodemon`.
-        commands.push(this.getNodeRunCommand(params));
-      } else {
+        commands.push(this._getNodeRunCommand(params));
+      } else if (params.type === 'production' || params.target.transpile) {
         // Watch the target with `watchpack`.
-        commands.push(this.getNodeWatchCommand(params));
+        commands.push(this._getNodeWatchCommand(params));
       }
     }
 
@@ -252,19 +263,21 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {Array}
+   * @access protected
+   * @ignore
    */
-  getCommandsForBrowserTarget(params) {
+  _getCommandsForBrowserTarget(params) {
     // Get the base commands.
     const commands = [
-      this.getCleanCommandIfNeeded(params),
-      this.getBuildCommandIfNeeded(params),
+      this._getCleanCommandIfNeeded(params),
+      this._getBuildCommandIfNeeded(params),
     ];
     // If the target won't be executed...
     if (!params.run && !params.watch) {
       // ...push the commands to create the revision file and copy the project files.
       commands.push(...[
-        this.getRevisionCommand(params),
-        this.getCopyProjectFilesCommand(params),
+        this._getRevisionCommandIfNeeded(params),
+        this._getCopyProjectFilesCommand(params),
       ]);
     }
 
@@ -278,8 +291,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getCleanCommandIfNeeded(params) {
+  _getCleanCommandIfNeeded(params) {
     let command = '';
     if (params.build && params.target.cleanBeforeBuild) {
       command = this.cliCleanCommand.generate({
@@ -296,8 +311,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getBuildCommandIfNeeded(params) {
+  _getBuildCommandIfNeeded(params) {
     return this.builder.getTargetBuildCommand(
       params.target,
       params.type,
@@ -313,8 +330,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getCopyCommand(params) {
+  _getCopyCommandIfNeeded(params) {
     let command = '';
     if (params.build && !params.target.bundle) {
       command = this.cliSHCopyCommand.generate({
@@ -333,8 +352,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getTranspileCommand(params) {
+  _getTranspileCommandIfNeeded(params) {
     let command = '';
     if (params.build && !params.target.bundle) {
       command = this.cliSHTranspileCommand.generate({
@@ -352,8 +373,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getNodeRunCommand(params) {
+  _getNodeRunCommand(params) {
     return this.cliSHNodeRunCommand.generate({
       target: params.target.name,
     });
@@ -365,9 +388,13 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getNodeWatchCommand() {
-    return '';
+  _getNodeWatchCommand(params) {
+    return this.cliSHNodeWatchCommand.generate({
+      target: params.target.name,
+    });
   }
   /**
    * Get the command to create the revision file, but only if the feature is enabled, otherwise,
@@ -377,8 +404,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getRevisionCommand(params) {
+  _getRevisionCommandIfNeeded(params) {
     const {
       enabled,
       createRevisionOnBuild,
@@ -405,8 +434,10 @@ class CLISHBuildCommand extends CLICommand {
    *                                       information, the build type, whether or not the target
    *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getCopyProjectFilesCommand(params) {
+  _getCopyProjectFilesCommand(params) {
     const { enabled, copyOnBuild } = this.projectConfiguration.copy;
     let command = '';
     if (enabled && copyOnBuild.enabled) {
@@ -441,6 +472,7 @@ const cliSHBuildCommand = provider((app) => {
     app.get('cliRevisionCommand'),
     app.get('cliSHCopyCommand'),
     app.get('cliSHNodeRunCommand'),
+    app.get('cliSHNodeWatchCommand'),
     app.get('cliSHTranspileCommand'),
     app.get('events'),
     app.get('projectConfiguration').getConfig(),

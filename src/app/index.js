@@ -29,6 +29,8 @@ const {
   buildEngines,
   buildNodeRunner,
   buildNodeRunnerProcess,
+  buildNodeWatcher,
+  buildNodeWatcherProcess,
   buildTranspiler,
   buildVersion,
   builder,
@@ -46,6 +48,7 @@ const {
   cliSHBuildCommand,
   cliSHCopyCommand,
   cliSHNodeRunCommand,
+  cliSHNodeWatchCommand,
   cliSHRunCommand,
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
@@ -105,6 +108,8 @@ class Projext extends Jimple {
     this.register(buildEngines);
     this.register(buildNodeRunner);
     this.register(buildNodeRunnerProcess);
+    this.register(buildNodeWatcher);
+    this.register(buildNodeWatcherProcess);
     this.register(buildTranspiler);
     this.register(buildVersion);
     this.register(builder);
@@ -120,6 +125,7 @@ class Projext extends Jimple {
     this.register(cliSHBuildCommand);
     this.register(cliSHCopyCommand);
     this.register(cliSHNodeRunCommand);
+    this.register(cliSHNodeWatchCommand);
     this.register(cliSHRunCommand);
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
@@ -165,6 +171,7 @@ class Projext extends Jimple {
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),
       this.get('cliSHNodeRunCommand'),
+      this.get('cliSHNodeWatchCommand'),
       this.get('cliSHRunCommand'),
       this.get('cliSHTranspileCommand'),
       this.get('cliSHValidateBuildCommand'),

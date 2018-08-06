@@ -9,6 +9,7 @@ const { cliRunCommand } = require('./cliRun');
 const { cliSHBuildCommand } = require('./cliSHBuild');
 const { cliSHCopyCommand } = require('./cliSHCopy');
 const { cliSHNodeRunCommand } = require('./cliSHNodeRun');
+const { cliSHNodeWatchCommand } = require('./cliSHNodeWatch');
 const { cliSHRunCommand } = require('./cliSHRun');
 const { cliSHTranspileCommand } = require('./cliSHTranspile');
 const { cliSHValidateBuildCommand } = require('./cliSHValidateBuild');
@@ -31,6 +32,7 @@ module.exports = {
   cliSHBuildCommand,
   cliSHCopyCommand,
   cliSHNodeRunCommand,
+  cliSHNodeWatchCommand,
   cliSHRunCommand,
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,

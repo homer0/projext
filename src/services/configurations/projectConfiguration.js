@@ -92,6 +92,7 @@ class ProjectConfiguration extends ConfigurationFile {
           includeModules: [],
           excludeModules: [],
           includeTargets: [],
+          uglifyOnProduction: true,
           runOnDevelopment: false,
           watch: {
             development: false,
@@ -151,6 +152,7 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           includeModules: [],
           includeTargets: [],
+          uglifyOnProduction: true,
           runOnDevelopment: false,
           watch: {
             development: false,

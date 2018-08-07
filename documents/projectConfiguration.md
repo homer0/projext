@@ -95,6 +95,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   includeModules: [],
   excludeModules: [],
   includeTargets: [],
+  uglifyOnProduction: true,
   runOnDevelopment: false,
   watch: { ... },
   babel: { ... },
@@ -228,6 +229,13 @@ For example, you have two targets, let's call them `frontend` and `backend`, tha
 
 You have two possible solutions now, thanks to `includeTargets`: You can either add the other target name on each `includeTargets` setting, or define a third `shared` target that both have on the setting.
 
+#### `uglifyOnProduction`
+> Default value: `true`
+
+When a bundle is created, this setting will tell the build engine whether to uglify the code for production or not.
+
+This can be useful for debugging production code.
+
 #### `runOnDevelopment`
 > Default value: `false`
 
@@ -336,6 +344,7 @@ This is different from the main `copy` feature as this is specific to targets an
   css: { ... },
   includeModules: [],
   includeTargets: [],
+  uglifyOnProduction: true,
   runOnDevelopment: false,
   watch: { ... },
   babel: { ... },
@@ -493,6 +502,13 @@ This setting can be used to specify a list of other targets you want to process 
 For example, you have two targets, let's call them `frontend` and `backend`, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target's directory, the wouldn't be able to use shared code between each other.
 
 You have two possible solutions now, thanks to `includeTargets`: You can either add the other target name on each `includeTargets` setting, or define a third `shared` target that both have on the setting.
+
+#### `uglifyOnProduction`
+> Default value: `true`
+
+When a bundle is created, this setting will tell the build engine whether to uglify the code for production or not.
+
+This can be useful for debugging production code.
 
 #### `runOnDevelopment`
 > Default value: `false`

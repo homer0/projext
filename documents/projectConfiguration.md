@@ -96,6 +96,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   excludeModules: [],
   includeTargets: [],
   runOnDevelopment: false,
+  watch: { ... },
   babel: { ... },
   flow: false,
   library: false,
@@ -234,6 +235,18 @@ This tells projext that when the target is builded (bundled/copied) on a develop
 
 When the target needs to be bundled, it will relay on the build engined to do it, otherwise, projext will use its custom implementation of [`nodemon`](https://yarnpkg.com/en/package/nodemon) for watching and, if needed, transpile your target code.
 
+#### `watch`
+> Default value:
+>
+> ```js
+> {
+>   development: false,
+>   production: false,
+> }
+> ```
+
+Using this flags, you can tell projext to always watch your files when building for an specific environment.
+
 #### `babel`
 > Default value:
 >
@@ -324,6 +337,7 @@ This is different from the main `copy` feature as this is specific to targets an
   includeModules: [],
   includeTargets: [],
   runOnDevelopment: false,
+  watch: { ... },
   babel: { ... },
   flow: false,
   library: false,
@@ -484,6 +498,18 @@ You have two possible solutions now, thanks to `includeTargets`: You can either 
 > Default value: `false`
 
 This will tell the build engine that when you build the target for a development environment, it should bring up an `http` server to _"run"_ your target.
+
+#### `watch`
+> Default value:
+>
+> ```js
+> {
+>   development: false,
+>   production: false,
+> }
+> ```
+
+Using this flags, you can tell projext to always watch your files when building for an specific environment.
 
 #### `babel`
 > Default value:

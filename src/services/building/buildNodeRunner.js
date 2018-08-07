@@ -27,7 +27,7 @@ class BuildNodeRunner {
   }
   /**
    * Run a target with Nodemon.
-   * @param  {Target} target The target information.
+   * @param {Target} target The target information.
    * @return {Nodemon}
    * @throws {Error} If the target needs to be bundled.
    */
@@ -43,9 +43,11 @@ class BuildNodeRunner {
   /**
    * Runs a target that requires transpilation. It executes the file from the distribution
    * directory while it watches the source directory.
-   * @param  {Target} target The target information.
+   * @param {Target} target The target information.
    * @return {Nodemon}
    * @throws {Error} If one of the included targets requires bundling.
+   * @access protected
+   * @ignore
    */
   _runWithTranspilation(target) {
     const { paths: { source, build }, includeTargets } = target;
@@ -86,10 +88,12 @@ class BuildNodeRunner {
   }
   /**
    * Runs a target that doesn't require transpilation. It executes and watches the source directory.
-   * @param  {Target} target The target information.
+   * @param {Target} target The target information.
    * @return {Nodemon}
    * @throws {Error} If one of the included targets requires bundling.
    * @throws {Error} If one of the included targets requires transpiling.
+   * @access protected
+   * @ignore
    */
   _run(target) {
     const { paths: { source }, includeTargets } = target;

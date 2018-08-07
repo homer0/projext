@@ -190,6 +190,16 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetWatchOptions
+ * @property {boolean} [development=false] Whether or not to watch the target files when it gets
+ *                                         build for development. If the target type is Node and it
+ *                                         doesn't require bundling nor transpiling, it won't do
+ *                                         anything.
+ * @property {boolean} [production=false]  Whether or not to watch the target files when it gets
+ *                                         build for production.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -401,6 +411,9 @@
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
+ * @property {ProjectConfigurationTargetWatchOptions} [watch]
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} [babel]
  * The target transpilation options.
  * @property {boolean} [flow=false]
@@ -466,6 +479,9 @@
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
+ * @property {ProjectConfigurationTargetWatchOptions} watch
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} babel
  * The target transpilation options.
  * @property {boolean} flow
@@ -534,6 +550,9 @@
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
+ * @property {ProjectConfigurationTargetWatchOptions} [watch]
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} [babel]
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} [flow=false]
@@ -595,6 +614,9 @@
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
+ * @property {ProjectConfigurationTargetWatchOptions} watch
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} babel
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} flow

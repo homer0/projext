@@ -25,6 +25,11 @@
  */
 
 /**
+ * @external {WatchpackOptions}
+ * https://github.com/webpack/watchpack#api
+ */
+
+/**
  * @external {AppConfiguration}
  * https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html
  */
@@ -182,6 +187,16 @@
  * @property {?string} to   The path where the file will be copied, relative to the target
  *                          distribution directory. If not specified, the file will be copied to
  *                          the root of the target distribution directory.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetWatchOptions
+ * @property {boolean} [development=false] Whether or not to watch the target files when it gets
+ *                                         build for development. If the target type is Node and it
+ *                                         doesn't require bundling nor transpiling, it won't do
+ *                                         anything.
+ * @property {boolean} [production=false]  Whether or not to watch the target files when it gets
+ *                                         build for production.
  */
 
 /**
@@ -396,6 +411,9 @@
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
+ * @property {ProjectConfigurationTargetWatchOptions} [watch]
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} [babel]
  * The target transpilation options.
  * @property {boolean} [flow=false]
@@ -461,6 +479,9 @@
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
+ * @property {ProjectConfigurationTargetWatchOptions} watch
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} babel
  * The target transpilation options.
  * @property {boolean} flow
@@ -529,6 +550,9 @@
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
+ * @property {ProjectConfigurationTargetWatchOptions} [watch]
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} [babel]
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} [flow=false]
@@ -590,6 +614,9 @@
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
+ * @property {ProjectConfigurationTargetWatchOptions} watch
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} babel
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} flow
@@ -764,18 +791,6 @@
  */
 
 /**
- * @typedef {function} BuildEngineGetCommand
- * @param {Target} target
- * The target information.
- * @param {string} buildType
- * The intended build type: `development` or `production`.
- * @param {boolean} [forceRun=false]
- * Force the target to run even if the `runOnDevelopment` setting is `false`.
- * @return {string}
- * The command the shell script will use to build the target.
- */
-
-/**
  * @typedef {Object} TargetFileRulePathSettings
  * @property {Array} include The list of expressions that match the allowed paths for a rule.
  * @property {Array} exclude The list of expressions that match the paths that should be excluded
@@ -860,9 +875,41 @@
  */
 
 /**
+ * @typedef {function} BuildEngineGetCommand
+ * @param {Target} target
+ * The target information.
+ * @param {string} buildType
+ * The intended build type: `development` or `production`.
+ * @param {boolean} [forceRun=false]
+ * Force the target to run even if the `runOnDevelopment` setting is `false`.
+ * @param {boolean} [forceWatch=false]
+ * Force the build engine to watch the target files even if the `watch` setting for the required
+ * build type is set to `false`.
+ * @return {string}
+ * The command the shell script will use to build the target.
+ */
+
+/**
  * @typedef {Object} BuildEngine
  * @property {BuildEngineGetCommand} getBuildCommand
  * The method used by projext in order to get the shell comands to build and/or run a target.
+ */
+
+/**
+ * ================================================================================================
+ * Building
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} CLIBuildCommandParams
+ * @property {Target}  target The target information.
+ * @property {string}  type   The intended build type: `development` or `production`.
+ * @property {boolean} run    Whether or not the target needs to be executed.
+ * @property {boolean} build  Whether or not a build will be created. This is always `true` for
+ *                            browser targets but it may be false for Node targets if bundling and
+ *                            transpiling is disabled.
+ * @property {boolean} watch  Whether or not the target files will be watched.
  */
 
 /**

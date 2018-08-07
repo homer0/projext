@@ -9,10 +9,14 @@ const { cliRunCommand } = require('./cliRun');
 const { cliSHBuildCommand } = require('./cliSHBuild');
 const { cliSHCopyCommand } = require('./cliSHCopy');
 const { cliSHNodeRunCommand } = require('./cliSHNodeRun');
+const { cliSHNodeWatchCommand } = require('./cliSHNodeWatch');
 const { cliSHRunCommand } = require('./cliSHRun');
 const { cliSHTranspileCommand } = require('./cliSHTranspile');
 const { cliSHValidateBuildCommand } = require('./cliSHValidateBuild');
 const { cliSHValidateRunCommand } = require('./cliSHValidateRun');
+const { cliSHValidateWatchCommand } = require('./cliSHValidateWatch');
+const { cliSHWatchCommand } = require('./cliSHWatch');
+const { cliWatchCommand } = require('./cliWatch');
 const cliGenerators = require('./generators');
 
 module.exports = {
@@ -28,9 +32,13 @@ module.exports = {
   cliSHBuildCommand,
   cliSHCopyCommand,
   cliSHNodeRunCommand,
+  cliSHNodeWatchCommand,
   cliSHRunCommand,
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
   cliSHValidateRunCommand,
   cliGenerators,
+  cliSHValidateWatchCommand,
+  cliSHWatchCommand,
+  cliWatchCommand,
 };

@@ -45,30 +45,53 @@ class BuildTranspiler {
     const {
       paths: { build: buildPath },
       folders: { build: buildFolder },
+      includeTargets,
     } = target;
+    // Define the variable to return.
+    let result;
+    // Get the information of all the targets on the `includeTargets` list.
+    const includedTargets = includeTargets.map((name) => this.targets.getTarget(name));
+    // Try to find one that requires bundling.
+    const bundledTarget = includedTargets.find((info) => info.bundle);
+    if (bundledTarget) {
+      // If there's one that requires bundling, set to return a rejected promise.
+      const errorMessage = `The target ${bundledTarget.name} requires bundling so it can't be ` +
+        `included by ${target.name}`;
+      result = Promise.reject(new Error(errorMessage));
+    } else {
+      // Find all the JS files on the target path inside the distribution directory.
+      result = this.findFiles(buildPath)
+      .then((files) => {
+        // Get the Babel configuration for the target.
+        const babelConfig = this.babelConfiguration.getConfigForTarget(target);
+        // Loop all the files and transpile them
+        return Promise.all(files.map((file) => this.transpileFile(file, babelConfig)));
+      })
+      .then((files) => {
+        this.appLogger.success('The following files have been successfully transpiled:');
+        // Log all the files that have been transpiled.
+        files.forEach((file) => {
+          const filepath = file.substr(buildPath.length);
+          this.appLogger.info(`> ${buildFolder}${filepath}`);
+        });
 
-    // Find all the JS files on the target path inside the distribution directory.
-    return this.findFiles(buildPath)
-    .then((files) => {
-      // Get the Babel configuration for the target.
-      const babelConfig = this.babelConfiguration.getConfigForTarget(target);
-      // Loop all the files and transpile them
-      return Promise.all(files.map((file) => this.transpileFile(file, babelConfig)));
-    })
-    .then((files) => {
-      this.appLogger.success('The following files have been successfully transpiled:');
-      // Log all the files that have been transpiled.
-      files.forEach((file) => {
-        const filepath = file.substr(buildPath.length);
-        this.appLogger.info(`> ${buildFolder}${filepath}`);
+        let nextStep;
+        if (includedTargets.length) {
+          // ...chain their promises.
+          nextStep = Promise.all(includedTargets.map((info) => this.transpileTargetFiles(info)));
+        }
+
+        return nextStep;
+      })
+      .catch((error) => {
+        this.appLogger.error(
+          `There was an error while transpiling the target '${target.name}' code`
+        );
+        return Promise.reject(error);
       });
-    })
-    .catch((error) => {
-      this.appLogger.error(
-        `There was an error while transpiling the target '${target.name}' code`
-      );
-      return Promise.reject(error);
-    });
+    }
+
+    return result;
   }
   /**
    * Transpile a file.

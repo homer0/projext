@@ -3,15 +3,15 @@ const CLICommandMock = require('/tests/mocks/cliCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('/src/abstracts/cliCommand', () => CLICommandMock);
-jest.unmock('/src/services/cli/cliSHValidateRun');
+jest.unmock('/src/services/cli/cliSHValidateWatch');
 
 require('jasmine-expect');
 const {
-  CLISHValidateRunCommand,
-  cliSHValidateRunCommand,
-} = require('/src/services/cli/cliSHValidateRun');
+  CLISHValidateWatchCommand,
+  cliSHValidateWatchCommand,
+} = require('/src/services/cli/cliSHValidateWatch');
 
-describe('services/cli:validate-run', () => {
+describe('services/cli:validate-watch', () => {
   beforeEach(() => {
     CLICommandMock.reset();
   });
@@ -21,13 +21,20 @@ describe('services/cli:validate-run', () => {
     const targets = 'targets';
     let sut = null;
     // When
-    sut = new CLISHValidateRunCommand(targets);
+    sut = new CLISHValidateWatchCommand(targets);
     // Then
-    expect(sut).toBeInstanceOf(CLISHValidateRunCommand);
+    expect(sut).toBeInstanceOf(CLISHValidateWatchCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.targets).toBe(targets);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
+    expect(sut.addOption).toHaveBeenCalledTimes(1);
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'type',
+      '-t, --type [type]',
+      expect.any(String),
+      'development'
+    );
     expect(sut.hidden).toBeTrue();
     expect(sut.allowUnknownOptions).toBeTrue();
   });
@@ -42,7 +49,7 @@ describe('services/cli:validate-run', () => {
     let sut = null;
     let result = null;
     // When
-    sut = new CLISHValidateRunCommand(targets);
+    sut = new CLISHValidateWatchCommand(targets);
     result = sut.handle(target);
     // Then
     expect(result).toBe(message);
@@ -59,7 +66,7 @@ describe('services/cli:validate-run', () => {
     let sut = null;
     let result = null;
     // When
-    sut = new CLISHValidateRunCommand(targets);
+    sut = new CLISHValidateWatchCommand(targets);
     result = sut.handle();
     // Then
     expect(result).toBe(message);
@@ -76,13 +83,13 @@ describe('services/cli:validate-run', () => {
     let serviceName = null;
     let serviceFn = null;
     // When
-    cliSHValidateRunCommand(container);
+    cliSHValidateWatchCommand(container);
     [[serviceName, serviceFn]] = container.set.mock.calls;
     sut = serviceFn();
     // Then
-    expect(serviceName).toBe('cliSHValidateRunCommand');
+    expect(serviceName).toBe('cliSHValidateWatchCommand');
     expect(serviceFn).toBeFunction();
-    expect(sut).toBeInstanceOf(CLISHValidateRunCommand);
+    expect(sut).toBeInstanceOf(CLISHValidateWatchCommand);
     expect(sut.targets).toBe('targets');
   });
 });

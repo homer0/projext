@@ -24,6 +24,10 @@ describe('services/cli:sh-build', () => {
       is: {
         node: true,
       },
+      watch: {
+        production: false,
+        development: false,
+      },
     };
 
     test.buildCommand = 'build';
@@ -49,6 +53,10 @@ describe('services/cli:sh-build', () => {
     test.runCommand = 'run';
     test.cliSHNodeRunCommand = {
       generate: jest.fn(() => test.runCommand),
+    };
+    test.watchCommand = 'watch';
+    test.cliSHNodeWatchCommand = {
+      generate: jest.fn(() => test.watchCommand),
     };
     test.transpileCommand = 'transpile';
     test.cliSHTranspileCommand = {
@@ -88,6 +96,7 @@ describe('services/cli:sh-build', () => {
       test.cliRevisionCommand,
       test.cliSHCopyCommand,
       test.cliSHNodeRunCommand,
+      test.cliSHNodeWatchCommand,
       test.cliSHTranspileCommand,
       test.events,
       test.projectConfiguration,
@@ -96,9 +105,10 @@ describe('services/cli:sh-build', () => {
     test.run = (
       type,
       run,
+      watch,
       name = test.targetName,
       unknownOptions = {}
-    ) => test.sut.handle(name, null, { type, run }, unknownOptions);
+    ) => test.sut.handle(name, null, { type, run, watch }, unknownOptions);
 
     return test;
   };
@@ -115,6 +125,7 @@ describe('services/cli:sh-build', () => {
     const cliRevisionCommand = 'cliRevisionCommand';
     const cliSHCopyCommand = 'cliSHCopyCommand';
     const cliSHNodeRunCommand = 'cliSHNodeRunCommand';
+    const cliSHNodeWatchCommand = 'cliSHNodeWatchCommand';
     const cliSHTranspileCommand = 'cliSHTranspileCommand';
     const events = 'events';
     const projectConfiguration = 'projectConfiguration';
@@ -128,6 +139,7 @@ describe('services/cli:sh-build', () => {
       cliRevisionCommand,
       cliSHCopyCommand,
       cliSHNodeRunCommand,
+      cliSHNodeWatchCommand,
       cliSHTranspileCommand,
       events,
       projectConfiguration,
@@ -142,13 +154,14 @@ describe('services/cli:sh-build', () => {
     expect(sut.cliRevisionCommand).toBe(cliRevisionCommand);
     expect(sut.cliSHCopyCommand).toBe(cliSHCopyCommand);
     expect(sut.cliSHNodeRunCommand).toBe(cliSHNodeRunCommand);
+    expect(sut.cliSHNodeWatchCommand).toBe(cliSHNodeWatchCommand);
     expect(sut.cliSHTranspileCommand).toBe(cliSHTranspileCommand);
     expect(sut.events).toBe(events);
     expect(sut.projectConfiguration).toBe(projectConfiguration);
     expect(sut.targets).toBe(targets);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.addOption).toHaveBeenCalledTimes(2);
+    expect(sut.addOption).toHaveBeenCalledTimes(3);
     expect(sut.addOption).toHaveBeenCalledWith(
       'type',
       '-t, --type [type]',
@@ -161,6 +174,12 @@ describe('services/cli:sh-build', () => {
       expect.any(String),
       false
     );
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'watch',
+      '-w, --watch',
+      expect.any(String),
+      false
+    );
     expect(sut.hidden).toBeTrue();
     expect(sut.allowUnknownOptions).toBeTrue();
   });
@@ -168,9 +187,11 @@ describe('services/cli:sh-build', () => {
   it('should return the command to build the default target', () => {
     // Given
     const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, false, null);
+    test.run(buildType, run, watch, null);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(0);
     expect(test.targets.getDefaultTarget).toHaveBeenCalledTimes(1);
@@ -184,9 +205,13 @@ describe('services/cli:sh-build', () => {
     expect(test.events.reduce).toHaveBeenCalledWith(
       'build-target-commands-list',
       [test.buildCommand],
-      test.target,
-      buildType,
-      false,
+      {
+        target: test.target,
+        type: buildType,
+        build: false,
+        run,
+        watch,
+      },
       {}
     );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
@@ -198,9 +223,11 @@ describe('services/cli:sh-build', () => {
   it('should return the command to build a node target', () => {
     // Given
     const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -214,9 +241,13 @@ describe('services/cli:sh-build', () => {
     expect(test.events.reduce).toHaveBeenCalledWith(
       'build-target-commands-list',
       [test.buildCommand],
-      test.target,
-      buildType,
-      false,
+      {
+        target: test.target,
+        type: buildType,
+        build: false,
+        run,
+        watch,
+      },
       {}
     );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
@@ -227,10 +258,13 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build a node target that requires bundling', () => {
     // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.bundle = true;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -240,6 +274,19 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -249,10 +296,13 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build a node target that requires transpiling', () => {
     // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -262,6 +312,24 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -273,10 +341,13 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build and run a node target', () => {
     // Given
+    const buildType = 'development';
+    const run = true;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.runOnDevelopment = true;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -286,6 +357,19 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.buildCommand, test.runCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: false,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.buildCommand,
@@ -295,11 +379,14 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build and run a node target that requires bundling', () => {
     // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.bundle = true;
     test.target.runOnDevelopment = true;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -309,6 +396,19 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run: true,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -318,11 +418,14 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build and run a node target that requires transpiling', () => {
     // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.target.runOnDevelopment = true;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -332,6 +435,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.runCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run: true,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -342,12 +464,52 @@ describe('services/cli:sh-build', () => {
     ].join(';'));
   });
 
-  it('should return the command to build a browser target', () => {
+  it('should return the command to build and watch a node target', () => {
     // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = true;
     const test = getTestForTheBuildCommand();
-    test.target.is.node = false;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
+    expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(0);
+    // expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: false,
+        run,
+        watch,
+      },
+      {}
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.buildCommand,
+    ].join(';'));
+  });
+
+  it('should return the command to build and watch a node target that requires bundling', () => {
+    // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
+    const test = getTestForTheBuildCommand();
+    test.target.bundle = true;
+    test.target.watch.development = true;
+    // When
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -357,6 +519,105 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch: true,
+      },
+      {}
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.cleanCommand,
+      test.buildCommand,
+    ].join(';'));
+  });
+
+  it('should return the command to build and watch a node target that requires transpiling', () => {
+    // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
+    const test = getTestForTheBuildCommand();
+    test.target.transpile = true;
+    test.target.watch.production = true;
+    // When
+    test.run(buildType, run, watch);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
+    expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHNodeWatchCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.watchCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch: true,
+      },
+      {}
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.cleanCommand,
+      test.buildCommand,
+      test.copyCommand,
+      test.transpileCommand,
+      test.watchCommand,
+    ].join(';'));
+  });
+
+  it('should return the command to build a browser target', () => {
+    // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
+    const test = getTestForTheBuildCommand();
+    test.target.is.node = false;
+    // When
+    test.run(buildType, run, watch);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
+    expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -366,11 +627,14 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build and run a browser target', () => {
     // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.is.node = false;
     test.target.runOnDevelopment = true;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -380,6 +644,19 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run: true,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -389,11 +666,14 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to build and `force` run a browser target', () => {
     // Given
+    const buildType = 'development';
+    const run = true;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.is.node = false;
     test.target.runOnDevelopment = false;
     // When
-    test.run('development', true);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -403,6 +683,19 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -412,11 +705,14 @@ describe('services/cli:sh-build', () => {
 
   it('should never return the command to run a target with a `production` build type', () => {
     // Given
+    const buildType = 'production';
+    const run = true;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.target.runOnDevelopment = true;
     // When
-    test.run('production', true);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -426,6 +722,24 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run: false,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -437,11 +751,14 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to copy the revision on with a `production` build type', () => {
     // Given
+    const buildType = 'production';
+    const run = true;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     // When
-    test.run('production', true);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -451,6 +768,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.revisionCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run: false,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -463,12 +799,15 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to copy the revision on with a `development` build type', () => {
     // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.onlyOnProduction = false;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -478,6 +817,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.revisionCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -490,12 +848,15 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to copy the revision for an specific target', () => {
     // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.targets.push(test.targetName);
     // When
-    test.run('production', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -505,6 +866,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.revisionCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -517,12 +897,15 @@ describe('services/cli:sh-build', () => {
 
   it('shouldn\'t return the command to copy the revision if the target is not on the list', () => {
     // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.targets.push('random-target');
     // When
-    test.run('production', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -532,6 +915,24 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -543,11 +944,14 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to copy the files on with a `production` build type', () => {
     // Given
+    const buildType = 'production';
+    const run = true;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     // When
-    test.run('production', true);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -557,6 +961,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.copyProjectFilesCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run: false,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -569,12 +992,15 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to copy the files on with a `development` build type', () => {
     // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     test.projectConfiguration.copy.copyOnBuild.onlyOnProduction = false;
     // When
-    test.run('development', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -584,6 +1010,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.copyProjectFilesCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -596,12 +1041,15 @@ describe('services/cli:sh-build', () => {
 
   it('should return the command to copy the files for an specific target', () => {
     // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     test.projectConfiguration.copy.copyOnBuild.targets.push(test.targetName);
     // When
-    test.run('production', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -611,6 +1059,25 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.copyProjectFilesCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -623,12 +1090,15 @@ describe('services/cli:sh-build', () => {
 
   it('shouldn\'t return the command to copy the files if the target is not on the list', () => {
     // Given
+    const buildType = 'production';
+    const run = false;
+    const watch = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     test.projectConfiguration.copy.copyOnBuild.targets.push('random-target');
     // When
-    test.run('production', false);
+    test.run(buildType, run, watch);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -638,6 +1108,24 @@ describe('services/cli:sh-build', () => {
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+      },
+      {}
+    );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
       test.cleanCommand,
@@ -650,12 +1138,14 @@ describe('services/cli:sh-build', () => {
   it('should return the command to build a node target and include unknown options', () => {
     // Given
     const buildType = 'development';
+    const run = false;
+    const watch = false;
     const unknownOptions = {
       name: 'Rosario',
     };
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, false, test.targetName, unknownOptions);
+    test.run(buildType, run, watch, test.targetName, unknownOptions);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -669,9 +1159,13 @@ describe('services/cli:sh-build', () => {
     expect(test.events.reduce).toHaveBeenCalledWith(
       'build-target-commands-list',
       [test.buildCommand],
-      test.target,
-      buildType,
-      false,
+      {
+        target: test.target,
+        type: buildType,
+        build: false,
+        run,
+        watch,
+      },
       unknownOptions
     );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
@@ -709,6 +1203,7 @@ describe('services/cli:sh-build', () => {
     expect(sut.cliRevisionCommand).toBe('cliRevisionCommand');
     expect(sut.cliSHCopyCommand).toBe('cliSHCopyCommand');
     expect(sut.cliSHNodeRunCommand).toBe('cliSHNodeRunCommand');
+    expect(sut.cliSHNodeWatchCommand).toBe('cliSHNodeWatchCommand');
     expect(sut.cliSHTranspileCommand).toBe('cliSHTranspileCommand');
     expect(sut.events).toBe('events');
     expect(sut.projectConfiguration).toBe('projectConfiguration');

@@ -28,7 +28,7 @@ There's no _"top level"_ setting, everything is separated in different scopes re
 
   // The settings of the feature the manages your project version.
   version: ...,
-  
+
   // The path to custom plugins projext should load
   plugins: ...,
 
@@ -95,7 +95,6 @@ Since there are a lot of settings for the templates, will divide them by type an
   includeModules: [],
   excludeModules: [],
   includeTargets: [],
-  uglifyOnProduction: true,
   runOnDevelopment: false,
   watch: { ... },
   babel: { ... },
@@ -228,13 +227,6 @@ This setting can be used to specify a list of other targets you want to process 
 For example, you have two targets, let's call them `frontend` and `backend`, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target's directory, the wouldn't be able to use shared code between each other.
 
 You have two possible solutions now, thanks to `includeTargets`: You can either add the other target name on each `includeTargets` setting, or define a third `shared` target that both have on the setting.
-
-#### `uglifyOnProduction`
-> Default value: `true`
-
-When a bundle is created, this setting will tell the build engine whether to uglify the code for production or not.
-
-This can be useful for debugging production code.
 
 #### `runOnDevelopment`
 > Default value: `false`

@@ -408,9 +408,6 @@
  * @property {Array} [includeTargets=[]]
  * This setting can be used to specify a list of other targets you want to process on your bundle.
  * This means that JS and SCSS files from these targets will be transpiled/processed.
- * @property {boolean} [uglifyOnProduction=true]
- * When a bundle is created, this setting will tell the build engine whether to uglify the code
- * for production or not.
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
@@ -479,9 +476,6 @@
  * @property {Array} includeTargets
  * This setting can be used to specify a list of other targets you want to process on your bundle.
  * This means that JS and SCSS files from these targets will be transpiled/processed.
- * @property {boolean} uglifyOnProduction
- * When a bundle is created, this setting will tell the build engine whether to uglify the code
- * for production or not.
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.

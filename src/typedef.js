@@ -762,6 +762,12 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetFinderSettings
+ * @property {boolean} [enabled=true]
+ * Whether or not to automatically search for targets on the project folders.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationWatchSettings
  * @property {boolean} [poll=true]
  * Whether or not to use polling to get the changes on the file system, and if so, it can also be
@@ -769,10 +775,21 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationNodemonSettings
+ * @property {boolean} [legacyWatch=true]
+ * Whether or not to enable `nodemon` legacy watch mode.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationOtherSettings
+ * @property {ProjectConfigurationTargetFinderSettings}
+ * These are the settings for projext _"targets finder"_, the feature that reads the project in
+ * order to identify targets and their settings.
  * @property {ProjectConfigurationWatchSettings}
  * This is used by projext to configure `watchpack`, which is used to watch Node files that need to
  * be transpiled.
+ * @property {ProjectConfigurationNodemonSettings}
+ * This is used by projext to configure `nodemon`, which is used to execute and watch Node targets.
  */
 
 /**

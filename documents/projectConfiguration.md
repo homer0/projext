@@ -951,6 +951,7 @@ Miscellaneous options.
 {
   findTargets: { ... },
   watch: { ... },
+  nodemon: { ... },
 }
 ```
 
@@ -987,3 +988,19 @@ The reason is outside the `targetsTemplate.node` is because this can be used for
 > Default value: `true`
 
 Whether or not to use polling to get the changes on the file system, and if so, it can also be used to specify the ms interval.
+
+### `nodemon`
+> Default value:
+>
+> ```js
+> {
+>   legacyWatch: false,
+> }
+> ```
+
+This is used by projext to configure [`nodemon`](https://yarnpkg.com/en/package/nodemon), which is used to execute and watch Node targets.
+
+#### `nodemon.legacyWatch`
+> Default value: `false`
+
+Whether or not to enable the `nodemon` legacy watch mode for systems where the refresh doesn't work. More information [check the `nodemon` documentation](https://github.com/remy/nodemon#application-isnt-restarting).

@@ -36,7 +36,7 @@ class CLISHValidateWatchCommand extends CLICommand {
     this.hidden = true;
     /**
      * Enable unknown options so other services can customize the watch command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
     this.addOption(

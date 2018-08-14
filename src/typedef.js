@@ -70,6 +70,11 @@
  */
 
 /**
+ * @external {ndb}
+ * https://github.com/GoogleChromeLabs/ndb
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets > sub properties > Shared
  * ================================================================================================
@@ -231,6 +236,20 @@
  * @property {boolean} [modules=false]
  * Whether or not your application uses CSS Modules. If this is enabled, all your styles will be
  * prefixed with a unique identifier.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationNodeTargetInspectSettings
+ * @property {boolean} [enabled=false]     Whether or not to enable the Node inspector when running
+ *                                         the app for development.
+ * @property {string}  [host='0.0.0.0']    The host where the Node inspector will run.
+ * @property {number}  [port=9229]         The port the Node inspector will use.
+ * @property {string}  [command='inspect'] The Node inspector flag command (`inspect` or
+ *                                         `inspect-brk`).
+ * @property {boolean} [ndb=false]         Whether or not to use Google's {@link ndb} instead of
+ *                                         the native inspector. The way it will be used will be
+ *                                         by calling the executable without path, so it's up to
+ *                                         the project to install it (global or local).
  */
 
 /**
@@ -396,6 +415,8 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
+ * @property {ProjectConfigurationNodeTargetInspectSettings} [inspect]
+ * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} [css]
  * These options help you customize the way the bundling process handles your CSS code.
  * @property {Array} [includeModules=[]]
@@ -463,6 +484,8 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationNodeTargetInspectSettings} inspect
+ * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} css
  * These options help you customize the way the bundling process handles your CSS code.
  * @property {Array} includeModules
@@ -875,6 +898,18 @@
  */
 
 /**
+ * @typedef {Object} NodeInspectorSettings
+ * @property {boolean} enabled Whether or not to enable the Node inspector.
+ * @property {string}  host    The host where the Node inspector will run.
+ * @property {number}  port    The port where the Node inspector will run.
+ * @property {string}  command The Node inspector flag command (`inspect` or `inspect-brk`).
+ * @property {boolean} ndb     Whether or not to use Google's {@link ndb} instead of the native
+ *                             inspector. The way it will be used will be by calling the
+ *                             executable without path, so it's up to the project to install it
+ *                             (global or local).
+ */
+
+/**
  * ================================================================================================
  * "Interfaces"
  * ================================================================================================
@@ -909,13 +944,14 @@
 
 /**
  * @typedef {Object} CLIBuildCommandParams
- * @property {Target}  target The target information.
- * @property {string}  type   The intended build type: `development` or `production`.
- * @property {boolean} run    Whether or not the target needs to be executed.
- * @property {boolean} build  Whether or not a build will be created. This is always `true` for
- *                            browser targets but it may be false for Node targets if bundling and
- *                            transpiling is disabled.
- * @property {boolean} watch  Whether or not the target files will be watched.
+ * @property {Target}  target  The target information.
+ * @property {string}  type    The intended build type: `development` or `production`.
+ * @property {boolean} run     Whether or not the target needs to be executed.
+ * @property {boolean} build   Whether or not a build will be created. This is always `true` for
+ *                             browser targets but it may be false for Node targets if bundling and
+ *                             transpiling is disabled.
+ * @property {boolean} watch   Whether or not the target files will be watched.
+ * @property {boolean} inspect Whether or not to enable the Node inspector.
  */
 
 /**

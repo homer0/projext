@@ -3,15 +3,15 @@ const CLICommandMock = require('/tests/mocks/cliCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('/src/abstracts/cliCommand', () => CLICommandMock);
-jest.unmock('/src/services/cli/cliRun');
+jest.unmock('/src/services/cli/cliInspect');
 
 require('jasmine-expect');
 const {
-  CLIRunCommand,
-  cliRunCommand,
-} = require('/src/services/cli/cliRun');
+  CLIInspectCommand,
+  cliInspectCommand,
+} = require('/src/services/cli/cliInspect');
 
-describe('services/cli:run', () => {
+describe('services/cli:inspect', () => {
   beforeEach(() => {
     CLICommandMock.reset();
   });
@@ -20,19 +20,12 @@ describe('services/cli:run', () => {
     // Given
     let sut = null;
     // When
-    sut = new CLIRunCommand();
+    sut = new CLIInspectCommand();
     // Then
-    expect(sut).toBeInstanceOf(CLIRunCommand);
+    expect(sut).toBeInstanceOf(CLIInspectCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.addOption).toHaveBeenCalledTimes(1);
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'inspect',
-      '-i, --inspect',
-      expect.any(String),
-      false
-    );
     expect(sut.allowUnknownOptions).toBeTrue();
   });
 
@@ -45,12 +38,12 @@ describe('services/cli:run', () => {
     let serviceName = null;
     let serviceFn = null;
     // When
-    cliRunCommand(container);
+    cliInspectCommand(container);
     [[serviceName, serviceFn]] = container.set.mock.calls;
     sut = serviceFn();
     // Then
-    expect(serviceName).toBe('cliRunCommand');
+    expect(serviceName).toBe('cliInspectCommand');
     expect(serviceFn).toBeFunction();
-    expect(sut).toBeInstanceOf(CLIRunCommand);
+    expect(sut).toBeInstanceOf(CLIInspectCommand);
   });
 });

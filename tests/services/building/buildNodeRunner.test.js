@@ -13,26 +13,90 @@ describe('services/building:buildNodeRunner', () => {
   it('should be instantiated with all its dependencies', () => {
     // Given
     const buildNodeRunnerProcess = 'buildNodeRunnerProcess';
+    const projectConfiguration = {
+      others: {
+        nodemon: {
+          legacyWatch: false,
+        },
+      },
+    };
     const targets = 'targets';
     let sut = null;
     // When
-    sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
     // Then
     expect(sut).toBeInstanceOf(BuildNodeRunner);
     expect(sut.buildNodeRunnerProcess).toBe(buildNodeRunnerProcess);
     expect(sut.targets).toBe(targets);
   });
 
-  it('should throw an error when called with a target that requires bundling', () => {
+  it('should be instantiated and enable nodemon legacy watch mode', () => {
+    // Given
+    const buildNodeRunnerProcess = {
+      enableLegacyWatch: jest.fn(),
+    };
+    const projectConfiguration = {
+      others: {
+        nodemon: {
+          legacyWatch: true,
+        },
+      },
+    };
+    const targets = 'targets';
+    let sut = null;
+    // When
+    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+    // Then
+    expect(sut).toBeInstanceOf(BuildNodeRunner);
+    expect(sut.buildNodeRunnerProcess).toEqual(buildNodeRunnerProcess);
+    expect(sut.targets).toBe(targets);
+    expect(buildNodeRunnerProcess.enableLegacyWatch).toHaveBeenCalledTimes(1);
+  });
+
+  it('should throw an error when called with a browser target', () => {
     // Given
     const buildNodeRunnerProcess = 'buildNodeRunnerProcess';
+    const projectConfiguration = {
+      others: {
+        nodemon: {
+          legacyWatch: false,
+        },
+      },
+    };
     const targets = 'targets';
     const target = {
+      is: {
+        browser: true,
+      },
       bundle: true,
     };
     let sut = null;
     // When
-    sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+    // Then
+    expect(() => sut.runTarget(target)).toThrow(/is a browser target/i);
+  });
+
+  it('should throw an error when called with a target that requires bundling', () => {
+    // Given
+    const buildNodeRunnerProcess = 'buildNodeRunnerProcess';
+    const projectConfiguration = {
+      others: {
+        nodemon: {
+          legacyWatch: false,
+        },
+      },
+    };
+    const targets = 'targets';
+    const target = {
+      is: {
+        browser: false,
+      },
+      bundle: true,
+    };
+    let sut = null;
+    // When
+    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
     // Then
     expect(() => sut.runTarget(target)).toThrow(/needs to be bundled/i);
   });
@@ -40,7 +104,16 @@ describe('services/building:buildNodeRunner', () => {
   describe('without transpilation', () => {
     it('should run a target', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const targets = 'targets';
       const target = {
         bundle: false,
@@ -51,23 +124,80 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [],
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       sut.runTarget(target);
       // Then
-      expect(buildNodeRunnerProcess).toHaveBeenCalledTimes(1);
-      expect(buildNodeRunnerProcess).toHaveBeenCalledWith(
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.source}/${target.entry.development}`,
-        [target.paths.source]
+        [target.paths.source],
+        target.inspect
+      );
+    });
+
+    it('should run and inspect a target', () => {
+      // Given
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
+      const targets = 'targets';
+      const target = {
+        bundle: false,
+        transpile: false,
+        paths: {
+          source: 'target-source-path',
+        },
+        entry: {
+          development: 'index.development',
+        },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
+        includeTargets: [],
+      };
+      let sut = null;
+      // When
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut.runTarget(target, true);
+      // Then
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
+        `${target.paths.source}/${target.entry.development}`,
+        [target.paths.source],
+        Object.assign({}, target.inspect, { enabled: true })
       );
     });
 
     it('should run a target and watch another target source directory', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const includedTarget = {
         name: 'included-target',
         paths: {
@@ -86,26 +216,41 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [includedTarget.name],
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       sut.runTarget(target);
       // Then
-      expect(buildNodeRunnerProcess).toHaveBeenCalledTimes(1);
-      expect(buildNodeRunnerProcess).toHaveBeenCalledWith(
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.source}/${target.entry.development}`,
         [
           target.paths.source,
           includedTarget.paths.source,
-        ]
+        ],
+        target.inspect
       );
     });
 
     it('should throw an error when an included target requires bundling', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const includedTarget = {
         name: 'included-target',
         bundle: true,
@@ -122,17 +267,31 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [includedTarget.name],
       };
       let sut = null;
       // When/Then
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       expect(() => sut.runTarget(target)).toThrow(/requires bundling/i);
     });
 
     it('should throw an error when an included target requires transpilation', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const includedTarget = {
         name: 'included-target',
         transpile: true,
@@ -149,11 +308,16 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [includedTarget.name],
       };
       let sut = null;
       // When/Then
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       expect(() => sut.runTarget(target)).toThrow(/requires transpilation/i);
     });
   });
@@ -161,7 +325,16 @@ describe('services/building:buildNodeRunner', () => {
   describe('with transpilation', () => {
     it('should run a target', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const targets = 'targets';
       const target = {
         bundle: false,
@@ -173,17 +346,23 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [],
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       sut.runTarget(target);
       // Then
-      expect(buildNodeRunnerProcess).toHaveBeenCalledTimes(1);
-      expect(buildNodeRunnerProcess).toHaveBeenCalledWith(
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.build}/${target.entry.development}`,
         [target.paths.build],
+        target.inspect,
         [{
           from: target.paths.source,
           to: target.paths.build,
@@ -194,7 +373,16 @@ describe('services/building:buildNodeRunner', () => {
 
     it('should run a target and watch an included target that also requires transpilation', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const includedTarget = {
         name: 'included-target',
         transpile: true,
@@ -216,20 +404,26 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [includedTarget.name],
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       sut.runTarget(target);
       // Then
-      expect(buildNodeRunnerProcess).toHaveBeenCalledTimes(1);
-      expect(buildNodeRunnerProcess).toHaveBeenCalledWith(
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.build}/${target.entry.development}`,
         [
           target.paths.build,
           includedTarget.paths.build,
         ],
+        target.inspect,
         [
           {
             from: target.paths.source,
@@ -246,7 +440,16 @@ describe('services/building:buildNodeRunner', () => {
 
     it('should run a target and watch an included target that doesn\'t requires transp.', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const includedTarget = {
         name: 'included-target',
         transpile: false,
@@ -268,20 +471,26 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [includedTarget.name],
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       sut.runTarget(target);
       // Then
-      expect(buildNodeRunnerProcess).toHaveBeenCalledTimes(1);
-      expect(buildNodeRunnerProcess).toHaveBeenCalledWith(
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
+      expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.build}/${target.entry.development}`,
         [
           target.paths.build,
           includedTarget.paths.build,
         ],
+        target.inspect,
         [{
           from: target.paths.source,
           to: target.paths.build,
@@ -295,7 +504,16 @@ describe('services/building:buildNodeRunner', () => {
 
     it('should throw an error when an included target requires bundling', () => {
       // Given
-      const buildNodeRunnerProcess = jest.fn();
+      const buildNodeRunnerProcess = {
+        run: jest.fn(),
+      };
+      const projectConfiguration = {
+        others: {
+          nodemon: {
+            legacyWatch: false,
+          },
+        },
+      };
       const includedTarget = {
         name: 'included-target',
         bundle: true,
@@ -313,11 +531,16 @@ describe('services/building:buildNodeRunner', () => {
         entry: {
           development: 'index.development',
         },
+        is: {
+          browser: false,
+          node: true,
+        },
+        inspect: {},
         includeTargets: [includedTarget.name],
       };
       let sut = null;
       // When/Then
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, targets);
+      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
       expect(() => sut.runTarget(target)).toThrow(/requires bundling/i);
     });
   });
@@ -325,9 +548,22 @@ describe('services/building:buildNodeRunner', () => {
   it('should include a provider for the DIC', () => {
     // Given
     let sut = null;
+    const projectConfiguration = {
+      others: {
+        nodemon: {
+          legacyWatch: false,
+        },
+      },
+    };
     const container = {
       set: jest.fn(),
-      get: jest.fn((service) => service),
+      get: jest.fn(
+        (service) => (
+          service === 'projectConfiguration' ?
+            { getConfig: () => projectConfiguration } :
+            service
+        )
+      ),
     };
     let serviceName = null;
     let serviceFn = null;

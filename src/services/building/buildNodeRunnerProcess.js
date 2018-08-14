@@ -36,19 +36,31 @@ class BuildNodeRunnerProcess extends NodeWatcher {
      */
     this.running = false;
     /**
-     * @property {string} executable The path to the file `nodemon` will execute.
-     * @property {Array}  watch      The list of directories `nodemon` will watch in orderto reset
-     *                               the execution.
-     * @property {Array}  ignore     A list of patterns `nodemon` will ignore whilewatching
-     *                               directories.
-     * @property {Object} envVars    A dictionary of environment variables to send to theexecution
-     *                               process.
+     * @property {string}                executable     The path to the file `nodemon` will
+     *                                                  execute.
+     * @property {NodeInspectorSettings} inspectOptions The settings for the Node inspector.
+     * @property {Array}                 watch          The list of directories `nodemon` will
+     *                                                  watch in orderto reset the execution.
+     * @property {Array}                 ignore         A list of patterns `nodemon` will ignore
+     *                                                  while watching directories.
+     * @property {Object}                envVars        A dictionary of environment variables to
+     *                                                  send to the execution process.
+     * @property {boolean}               legacyWatch    Whether or not to enable `nodemon` legacy
+     *                                                  watch mode.
      */
     this.defaultOptions = {
       executable: '',
+      inspectOptions: {
+        enabled: false,
+        host: '0.0.0.0',
+        port: 9229,
+        command: 'inspect',
+        ndb: false,
+      },
       watch: [],
-      envVars: {},
       ignore: [],
+      envVars: {},
+      legacyWatch: false,
     };
     /**
      * This dictionary is where the parameters sent to the `run` method and the `defaultOptions`
@@ -71,11 +83,6 @@ class BuildNodeRunnerProcess extends NodeWatcher {
      */
     this._restaring = false;
     /**
-     * Bind the method that will be exported as the service.
-     * @ignore
-     */
-    this.run = this.run.bind(this);
-    /**
      * Bind the method to send it to the `nodemon` events listener.
      * @ignore
      */
@@ -97,22 +104,34 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     this._onNodemonQuit = this._onNodemonQuit.bind(this);
   }
   /**
+   * Enables `nodemon` legacy watch mode.
+   * @see https://github.com/remy/nodemon#application-isnt-restarting
+   */
+  enableLegacyWatch() {
+    this.options.legacyWatch = true;
+  }
+  /**
    * Run a Node application.
-   * @param {string} executable              The path to the file to execute.
-   * @param {Array}  watch                   The list of directories to watch in order to restart
-   *                                         the application.
-   * @param {Array}  [transpilationPaths=[]] A list of dictionaries with `from` and `to` paths the
-   *                                         service will use for transpilation when files change
-   *                                         during the execution, in order to restart the
-   *                                         application.
-   * @param {Array}  [copyPaths=[]]          A list of dictionaries with `from` and `to` paths the
-   *                                         service will use for copying files when they change
-   *                                         during the execution, in order to restart the
-   *                                         application.
-   * @param {Object} [envVars={}]            A dictionary with extra environment variables to send
-   *                                         to the execution process.
-   * @param {Array}  [ignore=['.test.js']]   A list of file name patterns the service that will be
-   *                                         ignored by the `nodemon` watcher.
+   * @param {string}                executable              The path to the file to execute.
+   * @param {Array}                 watch                   The list of directories to watch in
+   *                                                        order to restart the application.
+   * @param {NodeInspectorSettings} inspectOptions          The settings for the Node inspector.
+   * @param {Array}                 [transpilationPaths=[]] A list of dictionaries with `from` and
+   *                                                        `to` paths the service will use for
+   *                                                        transpilation when files change during
+   *                                                        the execution, in order to restart the
+   *                                                        application.
+   * @param {Array}                 [copyPaths=[]]          A list of dictionaries with `from` and
+   *                                                        `to` paths the service will use for
+   *                                                        copying files when they change during
+   *                                                        the execution, in order to restart the
+   *                                                        application.
+   * @param {Object}                [envVars={}]            A dictionary with extra environment
+   *                                                        variables to send to the execution
+   *                                                        process.
+   * @param {Array}                 [ignore=['.test.js']]   A list of file name patterns the
+   *                                                        service that will be ignored by the
+   *                                                        `nodemon` watcher.
    * @return {Nodemon}
    * @throws {Error} if the process is already running.
    * @throws {Error} if the executable doesn't exist.
@@ -120,6 +139,7 @@ class BuildNodeRunnerProcess extends NodeWatcher {
   run(
     executable,
     watch,
+    inspectOptions,
     transpilationPaths = [],
     copyPaths = [],
     envVars = {},
@@ -136,9 +156,10 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     // Turn on the flag that tells the service the process is running.
     this.running = true;
     // Merge the default options with the parameters.
-    this.options = extend(true, {}, this.defaultOptions, {
+    this.options = extend(true, {}, this.defaultOptions, this.options, {
       executable,
       watch,
+      inspectOptions,
       envVars,
       ignore,
     });
@@ -162,13 +183,10 @@ class BuildNodeRunnerProcess extends NodeWatcher {
         copyPaths
       );
     }
+    // Get the command for `nodemon`.
+    const command = this._getNodemonCommand();
     // Start `nodemon`.
-    nodemon({
-      script: this.options.executable,
-      watch: this.options.watch,
-      ignore: this.options.ignore,
-      env: Object.assign({}, process.env, this.options.envVars),
-    });
+    nodemon(command);
     // Add the `nodemon` listeners.
     nodemon.on('start', this._onNodemonStart);
     nodemon.on('restart', this._onNodemonRestart);
@@ -176,6 +194,55 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     nodemon.on('quit', this._onNodemonQuit);
 
     return nodemon;
+  }
+  /**
+   * Generates the `nodemon` command. The reason there's an specific method for generating it is
+   * because the service needs to validate the different options in order to enable or not the
+   * Node inspector (or ndb).
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getNodemonCommand() {
+    const {
+      executable,
+      watch,
+      ignore,
+      envVars,
+      inspectOptions,
+      legacyWatch,
+    } = this.options;
+    // Prefix the command with all the environment variables.
+    const command = [
+      ...Object.keys(envVars).map((varName) => {
+        const varValue = envVars[varName];
+        return `${varName}=${varValue}`;
+      }),
+    ];
+    // Add the `nodemon` command in the format required by the library.
+    command.push('node nodemon');
+    // If the native inspector is enabled, push the required flag.
+    if (inspectOptions.enabled && !inspectOptions.ndb) {
+      const { host, port, command: inspectCommand } = inspectOptions;
+      command.push(`--${inspectCommand}=${host}:${port}`);
+    }
+    // Add the path to the executable.
+    command.push(executable);
+    // If `ndb` is enabled, change the executable.
+    if (inspectOptions.enabled && inspectOptions.ndb) {
+      command.push('--exec "ndb node"');
+    }
+    // Push the paths to watch and ignore.
+    command.push(...[
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...ignore.map((ignorePath) => `--ignore ${ignorePath}`),
+    ]);
+    // If required, enable the legacy watch mode.
+    if (legacyWatch) {
+      command.push('--legacy-watch');
+    }
+    // Transform the list into a string and return it.
+    return command.join(' ').trim();
   }
   /**
    * This is called when a source file changes and it's detected by the service, not `nodemon`.
@@ -340,7 +407,7 @@ const buildNodeRunnerProcess = provider((app) => {
     app.get('appLogger'),
     app.get('buildTranspiler'),
     app.get('projectConfiguration').getConfig()
-  ).run);
+  ));
 });
 
 module.exports = {

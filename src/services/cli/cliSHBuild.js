@@ -141,6 +141,12 @@ class CLISHBuildCommand extends CLICommand {
         'when the build type is development',
       false
     );
+    this.addOption(
+      'inspect',
+      '-i, --inspect',
+      'Enables the Node inspector. It only works when running Node targets',
+      false
+    );
     /**
      * Hide the command from the help interface.
      * @type {boolean}
@@ -148,7 +154,7 @@ class CLISHBuildCommand extends CLICommand {
     this.hidden = true;
     /**
      * Enable unknown options so other services can customize the build command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
   }
@@ -175,6 +181,8 @@ class CLISHBuildCommand extends CLICommand {
       this.targets.getDefaultTarget();
     // Check if there's a reason for the target to be executed.
     const run = type === 'development' && (target.runOnDevelopment || options.run);
+    // Check if there's a reason for the Node inspector to be enabled.
+    const inspect = target.is.node && run && (target.inspect.enabled || options.inspect);
     // Check if the target files should be watched.
     const watch = !run && (target.watch[type] || options.watch);
     /**
@@ -196,6 +204,7 @@ class CLISHBuildCommand extends CLICommand {
       run,
       build,
       watch,
+      inspect,
     };
 
     // Based on the target type, get the list of commands.
@@ -319,7 +328,8 @@ class CLISHBuildCommand extends CLICommand {
       params.target,
       params.type,
       params.run,
-      params.watch
+      params.watch,
+      params.inspect
     );
   }
   /**
@@ -379,6 +389,7 @@ class CLISHBuildCommand extends CLICommand {
   _getNodeRunCommand(params) {
     return this.cliSHNodeRunCommand.generate({
       target: params.target.name,
+      inspect: params.inspect,
     });
   }
   /**

@@ -34,7 +34,7 @@ describe('services/cli:sh-validate-build', () => {
     expect(sut.tempFiles).toBe(tempFiles);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.addOption).toHaveBeenCalledTimes(3);
+    expect(sut.addOption).toHaveBeenCalledTimes(4);
     expect(sut.addOption).toHaveBeenCalledWith(
       'type',
       '-t, --type [type]',
@@ -50,6 +50,12 @@ describe('services/cli:sh-validate-build', () => {
     expect(sut.addOption).toHaveBeenCalledWith(
       'watch',
       '-w, --watch',
+      expect.any(String),
+      false
+    );
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'inspect',
+      '-i, --inspect',
       expect.any(String),
       false
     );
@@ -215,6 +221,36 @@ describe('services/cli:sh-validate-build', () => {
     sut.handle(targetName, null, { run, type, watch });
     // Then
     expect(appLogger.warning).toHaveBeenCalledTimes(0);
+  });
+
+  it('should throw an error when trying to inspect a browser target', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const targetName = 'some-target';
+    const target = {
+      is: {
+        node: false,
+      },
+      bundle: false,
+      transpile: false,
+      watch: {
+        production: false,
+        development: true,
+      },
+    };
+    const targets = {
+      getTarget: jest.fn(() => target),
+    };
+    const targetsHTML = 'targetsHTML';
+    const tempFiles = 'tempFiles';
+    const run = true;
+    const type = 'development';
+    const inspect = true;
+    let sut = null;
+    // When/Then
+    sut = new CLISHValidateBuildCommand(appLogger, targets, targetsHTML, tempFiles);
+    expect(() => sut.handle(targetName, null, { run, type, inspect }))
+    .toThrow(/is not a Node target/i);
   });
 
   it('should validate the temp directory when trying to build a browser target', () => {

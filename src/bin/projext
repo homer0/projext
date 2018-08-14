@@ -17,7 +17,7 @@ if [ "$task" = "" ]; then
   projext-cli --help
 else
   # ...otherwise, check if the task is a shell task that needs commands
-  if echo "$task" | grep -q "^\(build\|run\|watch\)$"; then
+  if echo "$task" | grep -q "^\(build\|run\|watch\|inspect\)$"; then
     isSHTask=true
   fi
 

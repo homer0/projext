@@ -1,11 +1,11 @@
 const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
- * This is a fake command the app uses to show the information of the run task. In reality, this
- * command is handled by a shell script.
+ * This is a fake command the app uses to show the information of the inspect task. In reality,
+ * this command is handled by a shell script.
  * @extends {CLICommand}
  */
-class CLIRunCommand extends CLICommand {
+class CLIInspectCommand extends CLICommand {
   /**
    * Class constructor.
    * @ignore
@@ -16,40 +16,34 @@ class CLIRunCommand extends CLICommand {
      * The instruction needed to trigger the command.
      * @type {string}
      */
-    this.command = 'run [target]';
+    this.command = 'inspect [target]';
     /**
      * A description of the command for the help interface.
      * @type {string}
      */
-    this.description = 'Run a target on a development build type';
+    this.description = 'Run a Node target on a development build type and enable the inspector';
     /**
      * Enable unknown options so other services can customize the run command.
      * @type {boolean}
      */
     this.allowUnknownOptions = true;
-    this.addOption(
-      'inspect',
-      '-i, --inspect',
-      'Enables the Node inspector. It only works with Node targets',
-      false
-    );
   }
 }
 /**
  * The service provider that once registered on the app container will set an instance of
- * `CLIRunCommand` as the `cliRunCommand` service.
+ * `CLIInspectCommand` as the `cliInspectCommand` service.
  * @example
  * // Register it on the container
- * container.register(cliRunCommand);
+ * container.register(cliInspectCommand);
  * // Getting access to the service instance
- * const cliRunCommand = container.get('cliRunCommand');
+ * const cliInspectCommand = container.get('cliInspectCommand');
  * @type {Provider}
  */
-const cliRunCommand = provider((app) => {
-  app.set('cliRunCommand', () => new CLIRunCommand());
+const cliInspectCommand = provider((app) => {
+  app.set('cliInspectCommand', () => new CLIInspectCommand());
 });
 
 module.exports = {
-  CLIRunCommand,
-  cliRunCommand,
+  CLIInspectCommand,
+  cliInspectCommand,
 };

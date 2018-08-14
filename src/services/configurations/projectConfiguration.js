@@ -86,6 +86,13 @@ class ProjectConfiguration extends ConfigurationFile {
             },
             production: null,
           },
+          inspect: {
+            enabled: false,
+            host: '0.0.0.0',
+            port: 9229,
+            command: 'inspect',
+            ndb: false,
+          },
           css: {
             modules: false,
           },
@@ -236,6 +243,9 @@ class ProjectConfiguration extends ConfigurationFile {
         },
         watch: {
           poll: true,
+        },
+        nodemon: {
+          legacyWatch: false,
         },
       },
     };

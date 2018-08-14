@@ -91,6 +91,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   folder: '',
   entry: { ... },
   output: { ... },
+  inspect: { ... },
   css: { ... },
   includeModules: [],
   excludeModules: [],
@@ -189,6 +190,43 @@ You can use the following placeholders:
 - `[hash]`: A random hash generated for cache busting.
 - `[name]`: The file original name (Not available for `css` and `js`).
 - `[ext]`: The file original extension (Not available for `css` and `js`).
+
+#### `inspect`
+> Default value:
+> 
+> ```js
+> {
+>   enabled: false,
+>   host: '0.0.0.0',
+>   port: 9229,
+>   command: 'inspect',
+>   ndb: false,
+> }
+> ```
+
+These options allow you to enable and customize the Node inspector for debugging your target code.
+
+**`inspect.enabled`**
+
+Whether or not the inspector should be enabled when the target is run for development. You can also leave this as `false` and force it using the `inspect` command or the `--inspect` flag on the `run` and `build` commands.
+
+**`inspect.host`**
+
+The native Node inspector uses a web socket so it can be accessed as a remote connection from the Chrome Developer tools. This setting is for the socket hostname.
+
+**`inspect.port`**
+
+The port the socket for the inspector will use.
+
+**`inspect.command`**
+
+The _"inspect flag"_ that will be used to enabled the inspector. It can be either `inspect` or `inspect-brk`. More information about this on the [Node documentation](https://nodejs.org/en/docs/guides/debugging-getting-started/).
+
+**`inspect.ndb`**
+
+Whether or not to use the new [Google's ndb](https://github.com/GoogleChromeLabs/ndb). Enabling this setting will make projext ignore the `host`, `port` and `command` as `ndb` is its own executable.
+
+Since `ndb` is experimental and **requires Node 8 or higher**, it's not included by `projext` automatically, so in order to enable it and avoid errors, you should run on a environment with Node 8 (or higher) and `ndb` should be installed (local or global, it doesn't matter).
 
 #### `css`
 > Default value:
@@ -913,6 +951,7 @@ Miscellaneous options.
 {
   findTargets: { ... },
   watch: { ... },
+  nodemon: { ... },
 }
 ```
 
@@ -949,3 +988,19 @@ The reason is outside the `targetsTemplate.node` is because this can be used for
 > Default value: `true`
 
 Whether or not to use polling to get the changes on the file system, and if so, it can also be used to specify the ms interval.
+
+### `nodemon`
+> Default value:
+>
+> ```js
+> {
+>   legacyWatch: false,
+> }
+> ```
+
+This is used by projext to configure [`nodemon`](https://yarnpkg.com/en/package/nodemon), which is used to execute and watch Node targets.
+
+#### `nodemon.legacyWatch`
+> Default value: `false`
+
+Whether or not to enable the `nodemon` legacy watch mode for systems where the refresh doesn't work. More information [check the `nodemon` documentation](https://github.com/remy/nodemon#application-isnt-restarting).

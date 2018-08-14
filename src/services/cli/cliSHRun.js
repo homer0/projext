@@ -43,16 +43,23 @@ class CLISHRunCommand extends CLICommand {
     this.hidden = true;
     /**
      * Enable unknown options so other services can customize the run command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
+    this.addOption(
+      'inspect',
+      '-i, --inspect',
+      'Enables the Node inspector. It only works with Node targets',
+      false
+    );
   }
   /**
    * Handle the execution of the command and outputs the list of commands to run.
-   * @param {?string} name The name of the target.
-   * @param {Command} command        The executed command (sent by `commander`).
-   * @param {Object}  options        The command options.
-   * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
+   * @param {?string} name            The name of the target.
+   * @param {Command} command         The executed command (sent by `commander`).
+   * @param {Object}  options         The command options.
+   * @param {boolean} options.inspect Whether or not to enable the Node inspector.
+   * @param {Object}  unknownOptions  A dictionary of extra options that command may have received.
    */
   handle(name, command, options, unknownOptions) {
     const target = name ?
@@ -68,6 +75,7 @@ class CLISHRunCommand extends CLICommand {
         target: target.name,
         type: 'development',
         run: true,
+        inspect: options.inspect,
       }
     )));
   }

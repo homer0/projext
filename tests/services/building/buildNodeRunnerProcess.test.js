@@ -74,18 +74,196 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
-    sut.run(executable, watch);
+    sut.run(executable, watch, inspectOptions);
     // Then
     expect(nodemon).toHaveBeenCalledTimes(1);
-    expect(nodemon).toHaveBeenCalledWith({
-      script: executable,
-      watch,
-      ignore: ['*.test.js'],
-      env: Object.assign({}, process.env, {}),
-    });
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
+    expect(nodemon.on).toHaveBeenCalledTimes(4);
+    expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+  });
+
+  it('should run a process and enable the inspector', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const buildTranspiler = 'buildTranspiler';
+    const projectConfiguration = {
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const executable = 'file.js';
+    const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: true,
+      host: '0.0.0.0',
+      port: 9229,
+      command: 'inspect',
+      ndb: false,
+    };
+    let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      `--${inspectOptions.command}=${inspectOptions.host}:${inspectOptions.port}`,
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
+    // When
+    sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
+    sut.run(executable, watch, inspectOptions);
+    // Then
+    expect(nodemon).toHaveBeenCalledTimes(1);
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
+    expect(nodemon.on).toHaveBeenCalledTimes(4);
+    expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+  });
+
+  it('should run a process and enable ndb', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const buildTranspiler = 'buildTranspiler';
+    const projectConfiguration = {
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const executable = 'file.js';
+    const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: true,
+      host: '0.0.0.0',
+      port: 9229,
+      command: 'inspect',
+      ndb: true,
+    };
+    let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      '--exec "ndb node"',
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
+    // When
+    sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
+    sut.run(executable, watch, inspectOptions);
+    // Then
+    expect(nodemon).toHaveBeenCalledTimes(1);
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
+    expect(nodemon.on).toHaveBeenCalledTimes(4);
+    expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+  });
+
+  it('should run a process and use nodemon legacy watch', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const buildTranspiler = 'buildTranspiler';
+    const projectConfiguration = {
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const executable = 'file.js';
+    const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
+    let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+      '--legacy-watch',
+    ]
+    .join(' ');
+    // When
+    sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
+    sut.enableLegacyWatch();
+    sut.run(executable, watch, inspectOptions);
+    // Then
+    expect(nodemon).toHaveBeenCalledTimes(1);
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
+    expect(nodemon.on).toHaveBeenCalledTimes(4);
+    expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+  });
+
+  it('should run a process with custom environment variables', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const buildTranspiler = 'buildTranspiler';
+    const projectConfiguration = {
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const executable = 'file.js';
+    const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
+    const envVars = {
+      HELLO: 'CHARITO!!!',
+    };
+    let sut = null;
+    const expectedCommand = [
+      ...Object.keys(envVars).map((name) => {
+        const value = envVars[name];
+        return `${name}=${value}`;
+      }),
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+      '--legacy-watch',
+    ]
+    .join(' ');
+    // When
+    sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
+    sut.enableLegacyWatch();
+    sut.run(executable, watch, inspectOptions, [], [], envVars);
+    // Then
+    expect(nodemon).toHaveBeenCalledTimes(1);
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
     expect(nodemon.on).toHaveBeenCalledTimes(4);
     expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
@@ -107,15 +285,25 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     const transpilationPath = {
       from: 'transpilation/path/source',
       to: 'transpilation/path/output',
     };
     const transpilationPaths = [transpilationPath];
     let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
-    sut.run(executable, watch, transpilationPaths);
+    sut.run(executable, watch, inspectOptions, transpilationPaths);
     // Then
     expect(NodeWatcherMock.mocks.watch).toHaveBeenCalledTimes(1);
     expect(NodeWatcherMock.mocks.watch).toHaveBeenCalledWith(
@@ -124,12 +312,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
       []
     );
     expect(nodemon).toHaveBeenCalledTimes(1);
-    expect(nodemon).toHaveBeenCalledWith({
-      script: executable,
-      watch,
-      ignore: ['*.test.js'],
-      env: Object.assign({}, process.env, {}),
-    });
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
     expect(nodemon.on).toHaveBeenCalledTimes(4);
     expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
@@ -151,6 +334,9 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     const transpilationPath = {
       from: 'transpilation/path/source',
       to: 'transpilation/path/output',
@@ -162,9 +348,16 @@ describe('services/building:buildNodeRunnerProcess', () => {
     };
     const copyPaths = [copyPath];
     let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
-    sut.run(executable, watch, transpilationPaths, copyPaths);
+    sut.run(executable, watch, inspectOptions, transpilationPaths, copyPaths);
     // Then
     expect(NodeWatcherMock.mocks.watch).toHaveBeenCalledTimes(1);
     expect(NodeWatcherMock.mocks.watch).toHaveBeenCalledWith(
@@ -176,12 +369,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
       copyPaths
     );
     expect(nodemon).toHaveBeenCalledTimes(1);
-    expect(nodemon).toHaveBeenCalledWith({
-      script: executable,
-      watch,
-      ignore: ['*.test.js'],
-      env: Object.assign({}, process.env, {}),
-    });
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
     expect(nodemon.on).toHaveBeenCalledTimes(4);
     expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
@@ -203,20 +391,25 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     let sut = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
-    sut.run(executable, watch);
+    sut.run(executable, watch, inspectOptions);
     // Then
     expect(() => sut.run(executable, watch))
     .toThrow(/The process is already running/i);
     expect(nodemon).toHaveBeenCalledTimes(1);
-    expect(nodemon).toHaveBeenCalledWith({
-      script: executable,
-      watch,
-      ignore: ['*.test.js'],
-      env: Object.assign({}, process.env, {}),
-    });
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
     expect(nodemon.on).toHaveBeenCalledTimes(4);
     expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
@@ -238,11 +431,14 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => false);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     let sut = null;
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
     // Then
-    expect(() => sut.run(executable, watch))
+    expect(() => sut.run(executable, watch, inspectOptions))
     .toThrow(/The target executable doesn't exist/i);
   });
 
@@ -267,22 +463,27 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     let sut = null;
     let onStart = null;
     let onRestart = null;
     let onCrash = null;
     let onQuit = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
-    sut.run(executable, watch);
+    sut.run(executable, watch, inspectOptions);
     // Then
     expect(nodemon).toHaveBeenCalledTimes(1);
-    expect(nodemon).toHaveBeenCalledWith({
-      script: executable,
-      watch,
-      ignore: ['*.test.js'],
-      env: Object.assign({}, process.env, {}),
-    });
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
     expect(nodemon.on).toHaveBeenCalledTimes(4);
     [
       [, onStart],
@@ -342,6 +543,9 @@ describe('services/building:buildNodeRunnerProcess', () => {
     fs.pathExistsSync.mockImplementationOnce(() => true);
     const executable = 'file.js';
     const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
     const transpilationPath = {
       from: 'transpilation/path/source',
       to: 'transpilation/path/output',
@@ -352,17 +556,19 @@ describe('services/building:buildNodeRunnerProcess', () => {
     let onRestart = null;
     let onCrash = null;
     let onQuit = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
-    sut.run(executable, watch, transpilationPaths);
+    sut.run(executable, watch, inspectOptions, transpilationPaths);
     // Then
     expect(nodemon).toHaveBeenCalledTimes(1);
-    expect(nodemon).toHaveBeenCalledWith({
-      script: executable,
-      watch,
-      ignore: ['*.test.js'],
-      env: Object.assign({}, process.env, {}),
-    });
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
     expect(nodemon.on).toHaveBeenCalledTimes(4);
     [
       [, onStart],
@@ -620,10 +826,11 @@ describe('services/building:buildNodeRunnerProcess', () => {
   it('should include a provider for the DIC', () => {
     // Given
     let sut = null;
+    const poll = true;
     const projectConfiguration = {
       others: {
         watch: {
-          poll: true,
+          poll,
         },
       },
     };
@@ -646,6 +853,12 @@ describe('services/building:buildNodeRunnerProcess', () => {
     // Then
     expect(serviceName).toBe('buildNodeRunnerProcess');
     expect(serviceFn).toBeFunction();
-    expect(sut).toBeFunction();
+    expect(sut).toBeInstanceOf(BuildNodeRunnerProcess);
+    expect(NodeWatcherMock.mocks.constructor).toHaveBeenCalledTimes(1);
+    expect(NodeWatcherMock.mocks.constructor).toHaveBeenCalledWith({
+      poll,
+    });
+    expect(sut.appLogger).toBe('appLogger');
+    expect(sut.buildTranspiler).toBe('buildTranspiler');
   });
 });

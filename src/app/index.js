@@ -43,15 +43,18 @@ const {
   cliCopyProjectFilesCommand,
   cliGenerateCommand,
   cliInfoCommand,
+  cliInspectCommand,
   cliRevisionCommand,
   cliRunCommand,
   cliSHBuildCommand,
   cliSHCopyCommand,
+  cliSHInspectCommand,
   cliSHNodeRunCommand,
   cliSHNodeWatchCommand,
   cliSHRunCommand,
   cliSHTranspileCommand,
   cliSHValidateBuildCommand,
+  cliSHValidateInspectCommand,
   cliSHValidateRunCommand,
   cliGenerators,
   cliSHValidateWatchCommand,
@@ -120,15 +123,18 @@ class Projext extends Jimple {
     this.register(cliCopyProjectFilesCommand);
     this.register(cliGenerateCommand);
     this.register(cliInfoCommand);
+    this.register(cliInspectCommand);
     this.register(cliRevisionCommand);
     this.register(cliRunCommand);
     this.register(cliSHBuildCommand);
     this.register(cliSHCopyCommand);
+    this.register(cliSHInspectCommand);
     this.register(cliSHNodeRunCommand);
     this.register(cliSHNodeWatchCommand);
     this.register(cliSHRunCommand);
     this.register(cliSHTranspileCommand);
     this.register(cliSHValidateBuildCommand);
+    this.register(cliSHValidateInspectCommand);
     this.register(cliSHValidateRunCommand);
     this.register(cliSHValidateWatchCommand);
     this.register(cliSHWatchCommand);
@@ -167,14 +173,17 @@ class Projext extends Jimple {
       this.get('cliCopyProjectFilesCommand'),
       generateCommand,
       this.get('cliInfoCommand'),
+      this.get('cliInspectCommand'),
       this.get('cliRevisionCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),
+      this.get('cliSHInspectCommand'),
       this.get('cliSHNodeRunCommand'),
       this.get('cliSHNodeWatchCommand'),
       this.get('cliSHRunCommand'),
       this.get('cliSHTranspileCommand'),
       this.get('cliSHValidateBuildCommand'),
+      this.get('cliSHValidateInspectCommand'),
       this.get('cliSHValidateRunCommand'),
       this.get('cliSHValidateWatchCommand'),
       this.get('cliSHWatchCommand'),

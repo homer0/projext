@@ -41,7 +41,7 @@ class CLISHNodeWatchCommand extends CLICommand {
     this.hidden = true;
     /**
      * Enable unknown options so other services can customize the run command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
   }

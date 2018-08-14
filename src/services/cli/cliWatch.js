@@ -24,7 +24,7 @@ class CLIWatchCommand extends CLICommand {
     this.description = 'Run a target on a development build type';
     /**
      * Enable unknown options so other services can customize the watch command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
     this.addOption(

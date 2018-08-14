@@ -32,7 +32,7 @@ class CLIGenerateCommand extends CLICommand {
       'for more information';
     /**
      * Enable unknown options in order to pick the generator options.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
   }

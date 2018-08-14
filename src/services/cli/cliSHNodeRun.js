@@ -40,18 +40,27 @@ class CLISHNodeRunCommand extends CLICommand {
     this.hidden = true;
     /**
      * Enable unknown options so other services can customize the run command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
+    this.addOption(
+      'inspect',
+      '-i, --inspect',
+      'Enables the Node inspector',
+      false
+    );
   }
   /**
    * Handle the execution of the command and runs a Node target.
-   * @param {string} name The name of the target.
+   * @param {string}  name            The name of the target.
+   * @param {Command} command         The executed command (sent by `commander`).
+   * @param {Object}  options         The command options.
+   * @param {boolean} options.inspect Whether or not to enable the Node inspector.
    * @return {Nodemon}
    */
-  handle(name) {
+  handle(name, command, options) {
     const target = this.targets.getTarget(name);
-    return this.buildNodeRunner.runTarget(target);
+    return this.buildNodeRunner.runTarget(target, options.inspect);
   }
 }
 /**

@@ -31,6 +31,13 @@ describe('services/cli:sh-node-run', () => {
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
     expect(sut.hidden).toBeTrue();
+    expect(sut.addOption).toHaveBeenCalledTimes(1);
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'inspect',
+      '-i, --inspect',
+      expect.any(String),
+      false
+    );
     expect(sut.allowUnknownOptions).toBeTrue();
   });
 
@@ -44,17 +51,20 @@ describe('services/cli:sh-node-run', () => {
     const targets = {
       getTarget: jest.fn(() => target),
     };
+    const options = {
+      inspect: false,
+    };
     let sut = null;
     let result = null;
     // When
     sut = new CLISHNodeRunCommand(buildNodeRunner, targets);
-    result = sut.handle(target);
+    result = sut.handle(target, null, options);
     // Then
     expect(result).toBe(message);
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target);
     expect(buildNodeRunner.runTarget).toHaveBeenCalledTimes(1);
-    expect(buildNodeRunner.runTarget).toHaveBeenCalledWith(target);
+    expect(buildNodeRunner.runTarget).toHaveBeenCalledWith(target, options.inspect);
   });
 
   it('should include a provider for the DIC', () => {

@@ -943,6 +943,9 @@
  * @param {boolean} [forceWatch=false]
  * Force the build engine to watch the target files even if the `watch` setting for the required
  * build type is set to `false`.
+ * @param {boolean} [forceInspect=false]
+ * Force the build engine to use the Node inspector even if the target setting is disabled. This
+ * only applies for Node targets.
  * @return {string}
  * The command the shell script will use to build the target.
  */

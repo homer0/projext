@@ -42,6 +42,18 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/building/buildnodewatcher.js~buildnodewatcher",
+    "class/src/services/building/buildNodeWatcher.js~BuildNodeWatcher.html",
+    "<span>BuildNodeWatcher</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeWatcher.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/building/buildnodewatcherprocess.js~buildnodewatcherprocess",
+    "class/src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess.html",
+    "<span>BuildNodeWatcherProcess</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeWatcherProcess.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/building/buildtranspiler.js~buildtranspiler",
     "class/src/services/building/buildTranspiler.js~BuildTranspiler.html",
     "<span>BuildTranspiler</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTranspiler.js</span>",
@@ -102,6 +114,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/cliinspect.js~cliinspectcommand",
+    "class/src/services/cli/cliInspect.js~CLIInspectCommand.html",
+    "<span>CLIInspectCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliInspect.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/clirevision.js~clirevisioncommand",
     "class/src/services/cli/cliRevision.js~CLIRevisionCommand.html",
     "<span>CLIRevisionCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRevision.js</span>",
@@ -126,9 +144,21 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/clishinspect.js~clishinspectcommand",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html",
+    "<span>CLISHInspectCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHInspect.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/clishnoderun.js~clishnoderuncommand",
     "class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html",
     "<span>CLISHNodeRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHNodeRun.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/cli/clishnodewatch.js~clishnodewatchcommand",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html",
+    "<span>CLISHNodeWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHNodeWatch.js</span>",
     "class"
   ],
   [
@@ -150,15 +180,39 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html",
+    "<span>CLISHValidateInspectCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateInspect.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/clishvalidaterun.js~clishvalidateruncommand",
     "class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html",
     "<span>CLISHValidateRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateRun.js</span>",
     "class"
   ],
   [
+    "projext/src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html",
+    "<span>CLISHValidateWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateWatch.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/cli/clishwatch.js~clishwatchcommand",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html",
+    "<span>CLISHWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHWatch.js</span>",
+    "class"
+  ],
+  [
     "projext/src/abstracts/clisubcommand.js~clisubcommand",
     "class/src/abstracts/cliSubCommand.js~CLISubCommand.html",
     "<span>CLISubCommand</span> <span class=\"search-result-import-path\">projext/src/abstracts/cliSubCommand.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/cli/cliwatch.js~cliwatchcommand",
+    "class/src/services/cli/cliWatch.js~CLIWatchCommand.html",
+    "<span>CLIWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliWatch.js</span>",
     "class"
   ],
   [
@@ -183,6 +237,12 @@ window.esdocSearchIndex = [
     "projext/src/services/common/events.js~events",
     "class/src/services/common/events.js~Events.html",
     "<span>Events</span> <span class=\"search-result-import-path\">projext/src/services/common/events.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/abstracts/nodewatcher.js~nodewatcher",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html",
+    "<span>NodeWatcher</span> <span class=\"search-result-import-path\">projext/src/abstracts/nodeWatcher.js</span>",
     "class"
   ],
   [
@@ -324,6 +384,18 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/building/buildnodewatcher.js~buildnodewatcher",
+    "variable/index.html#static-variable-buildNodeWatcher",
+    "<span>buildNodeWatcher</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeWatcher.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/building/buildnodewatcherprocess.js~buildnodewatcherprocess",
+    "variable/index.html#static-variable-buildNodeWatcherProcess",
+    "<span>buildNodeWatcherProcess</span> <span class=\"search-result-import-path\">projext/src/services/building/buildNodeWatcherProcess.js</span>",
+    "variable"
+  ],
+  [
     "projext/src/services/building/buildtranspiler.js~buildtranspiler",
     "variable/index.html#static-variable-buildTranspiler",
     "<span>buildTranspiler</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTranspiler.js</span>",
@@ -384,6 +456,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/cli/cliinspect.js~cliinspectcommand",
+    "variable/index.html#static-variable-cliInspectCommand",
+    "<span>cliInspectCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliInspect.js</span>",
+    "variable"
+  ],
+  [
     "projext/src/services/cli/clirevision.js~clirevisioncommand",
     "variable/index.html#static-variable-cliRevisionCommand",
     "<span>cliRevisionCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliRevision.js</span>",
@@ -408,9 +486,21 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/cli/clishinspect.js~clishinspectcommand",
+    "variable/index.html#static-variable-cliSHInspectCommand",
+    "<span>cliSHInspectCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHInspect.js</span>",
+    "variable"
+  ],
+  [
     "projext/src/services/cli/clishnoderun.js~clishnoderuncommand",
     "variable/index.html#static-variable-cliSHNodeRunCommand",
     "<span>cliSHNodeRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHNodeRun.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/clishnodewatch.js~clishnodewatchcommand",
+    "variable/index.html#static-variable-cliSHNodeWatchCommand",
+    "<span>cliSHNodeWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHNodeWatch.js</span>",
     "variable"
   ],
   [
@@ -432,9 +522,33 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand",
+    "variable/index.html#static-variable-cliSHValidateInspectCommand",
+    "<span>cliSHValidateInspectCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateInspect.js</span>",
+    "variable"
+  ],
+  [
     "projext/src/services/cli/clishvalidaterun.js~clishvalidateruncommand",
     "variable/index.html#static-variable-cliSHValidateRunCommand",
     "<span>cliSHValidateRunCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateRun.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand",
+    "variable/index.html#static-variable-cliSHValidateWatchCommand",
+    "<span>cliSHValidateWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateWatch.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/clishwatch.js~clishwatchcommand",
+    "variable/index.html#static-variable-cliSHWatchCommand",
+    "<span>cliSHWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHWatch.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/cliwatch.js~cliwatchcommand",
+    "variable/index.html#static-variable-cliWatchCommand",
+    "<span>cliWatchCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliWatch.js</span>",
     "variable"
   ],
   [
@@ -1038,6 +1152,48 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/abstracts/nodewatcher.js",
+    "file/src/abstracts/nodeWatcher.js.html",
+    "src/abstracts/nodeWatcher.js",
+    "file"
+  ],
+  [
+    "src/abstracts/nodewatcher.js~nodewatcher#_watcher",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html#instance-member-_watcher",
+    "src/abstracts/nodeWatcher.js~NodeWatcher#_watcher",
+    "member"
+  ],
+  [
+    "src/abstracts/nodewatcher.js~nodewatcher#constructor",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html#instance-constructor-constructor",
+    "src/abstracts/nodeWatcher.js~NodeWatcher#constructor",
+    "method"
+  ],
+  [
+    "src/abstracts/nodewatcher.js~nodewatcher#getpaths",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html#instance-method-getPaths",
+    "src/abstracts/nodeWatcher.js~NodeWatcher#getPaths",
+    "method"
+  ],
+  [
+    "src/abstracts/nodewatcher.js~nodewatcher#stop",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html#instance-method-stop",
+    "src/abstracts/nodeWatcher.js~NodeWatcher#stop",
+    "method"
+  ],
+  [
+    "src/abstracts/nodewatcher.js~nodewatcher#watch",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html#instance-method-watch",
+    "src/abstracts/nodeWatcher.js~NodeWatcher#watch",
+    "method"
+  ],
+  [
+    "src/abstracts/nodewatcher.js~nodewatcher#watching",
+    "class/src/abstracts/nodeWatcher.js~NodeWatcher.html#instance-member-watching",
+    "src/abstracts/nodeWatcher.js~NodeWatcher#watching",
+    "member"
+  ],
+  [
     "src/app/index.js",
     "file/src/app/index.js.html",
     "src/app/index.js",
@@ -1170,6 +1326,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/building/buildcopier.js~buildcopier#targets",
+    "class/src/services/building/buildCopier.js~BuildCopier.html#instance-member-targets",
+    "src/services/building/buildCopier.js~BuildCopier#targets",
+    "member"
+  ],
+  [
     "src/services/building/buildengines.js",
     "file/src/services/building/buildEngines.js.html",
     "src/services/building/buildEngines.js",
@@ -1200,18 +1362,6 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/services/building/buildnoderunner.js~buildnoderunner#_run",
-    "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html#instance-method-_run",
-    "src/services/building/buildNodeRunner.js~BuildNodeRunner#_run",
-    "method"
-  ],
-  [
-    "src/services/building/buildnoderunner.js~buildnoderunner#_runwithtranspilation",
-    "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html#instance-method-_runWithTranspilation",
-    "src/services/building/buildNodeRunner.js~BuildNodeRunner#_runWithTranspilation",
-    "method"
-  ],
-  [
     "src/services/building/buildnoderunner.js~buildnoderunner#buildnoderunnerprocess",
     "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html#instance-member-buildNodeRunnerProcess",
     "src/services/building/buildNodeRunner.js~BuildNodeRunner#buildNodeRunnerProcess",
@@ -1228,6 +1378,12 @@ window.esdocSearchIndex = [
     "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html#instance-method-runTarget",
     "src/services/building/buildNodeRunner.js~BuildNodeRunner#runTarget",
     "method"
+  ],
+  [
+    "src/services/building/buildnoderunner.js~buildnoderunner#targets",
+    "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html#instance-member-targets",
+    "src/services/building/buildNodeRunner.js~BuildNodeRunner#targets",
+    "member"
   ],
   [
     "src/services/building/buildnoderunnerprocess.js",
@@ -1260,6 +1416,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess#enablelegacywatch",
+    "class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html#instance-method-enableLegacyWatch",
+    "src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess#enableLegacyWatch",
+    "method"
+  ],
+  [
     "src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess#options",
     "class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html#instance-member-options",
     "src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess#options",
@@ -1278,10 +1440,58 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
-    "src/services/building/buildnoderunnerprocess.js~buildnoderunnerprocess#watcher",
-    "class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html#instance-member-watcher",
-    "src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess#watcher",
+    "src/services/building/buildnodewatcher.js",
+    "file/src/services/building/buildNodeWatcher.js.html",
+    "src/services/building/buildNodeWatcher.js",
+    "file"
+  ],
+  [
+    "src/services/building/buildnodewatcher.js~buildnodewatcher#buildnodewatcherprocess",
+    "class/src/services/building/buildNodeWatcher.js~BuildNodeWatcher.html#instance-member-buildNodeWatcherProcess",
+    "src/services/building/buildNodeWatcher.js~BuildNodeWatcher#buildNodeWatcherProcess",
     "member"
+  ],
+  [
+    "src/services/building/buildnodewatcher.js~buildnodewatcher#constructor",
+    "class/src/services/building/buildNodeWatcher.js~BuildNodeWatcher.html#instance-constructor-constructor",
+    "src/services/building/buildNodeWatcher.js~BuildNodeWatcher#constructor",
+    "method"
+  ],
+  [
+    "src/services/building/buildnodewatcher.js~buildnodewatcher#targets",
+    "class/src/services/building/buildNodeWatcher.js~BuildNodeWatcher.html#instance-member-targets",
+    "src/services/building/buildNodeWatcher.js~BuildNodeWatcher#targets",
+    "member"
+  ],
+  [
+    "src/services/building/buildnodewatcher.js~buildnodewatcher#watchtarget",
+    "class/src/services/building/buildNodeWatcher.js~BuildNodeWatcher.html#instance-method-watchTarget",
+    "src/services/building/buildNodeWatcher.js~BuildNodeWatcher#watchTarget",
+    "method"
+  ],
+  [
+    "src/services/building/buildnodewatcherprocess.js",
+    "file/src/services/building/buildNodeWatcherProcess.js.html",
+    "src/services/building/buildNodeWatcherProcess.js",
+    "file"
+  ],
+  [
+    "src/services/building/buildnodewatcherprocess.js~buildnodewatcherprocess#applogger",
+    "class/src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess.html#instance-member-appLogger",
+    "src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess#appLogger",
+    "member"
+  ],
+  [
+    "src/services/building/buildnodewatcherprocess.js~buildnodewatcherprocess#buildtranspiler",
+    "class/src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess.html#instance-member-buildTranspiler",
+    "src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess#buildTranspiler",
+    "member"
+  ],
+  [
+    "src/services/building/buildnodewatcherprocess.js~buildnodewatcherprocess#constructor",
+    "class/src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess.html#instance-constructor-constructor",
+    "src/services/building/buildNodeWatcherProcess.js~BuildNodeWatcherProcess#constructor",
+    "method"
   ],
   [
     "src/services/building/buildtranspiler.js",
@@ -1704,6 +1914,30 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/cli/cliinspect.js",
+    "file/src/services/cli/cliInspect.js.html",
+    "src/services/cli/cliInspect.js",
+    "file"
+  ],
+  [
+    "src/services/cli/cliinspect.js~cliinspectcommand#allowunknownoptions",
+    "class/src/services/cli/cliInspect.js~CLIInspectCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliInspect.js~CLIInspectCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/cliinspect.js~cliinspectcommand#command",
+    "class/src/services/cli/cliInspect.js~CLIInspectCommand.html#instance-member-command",
+    "src/services/cli/cliInspect.js~CLIInspectCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/cliinspect.js~cliinspectcommand#description",
+    "class/src/services/cli/cliInspect.js~CLIInspectCommand.html#instance-member-description",
+    "src/services/cli/cliInspect.js~CLIInspectCommand#description",
+    "member"
+  ],
+  [
     "src/services/cli/clirevision.js",
     "file/src/services/cli/cliRevision.js.html",
     "src/services/cli/cliRevision.js",
@@ -1812,6 +2046,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/cli/clishbuild.js~clishbuildcommand#clishnodewatchcommand",
+    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-member-cliSHNodeWatchCommand",
+    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#cliSHNodeWatchCommand",
+    "member"
+  ],
+  [
     "src/services/cli/clishbuild.js~clishbuildcommand#clishtranspilecommand",
     "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-member-cliSHTranspileCommand",
     "src/services/cli/cliSHBuild.js~CLISHBuildCommand#cliSHTranspileCommand",
@@ -1840,60 +2080,6 @@ window.esdocSearchIndex = [
     "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-member-events",
     "src/services/cli/cliSHBuild.js~CLISHBuildCommand#events",
     "member"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getbuildcommandifneeded",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getBuildCommandIfNeeded",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getBuildCommandIfNeeded",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getcleancommandifneeded",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getCleanCommandIfNeeded",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getCleanCommandIfNeeded",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getcommandsforbrowsertarget",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getCommandsForBrowserTarget",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getCommandsForBrowserTarget",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getcommandsfornodetarget",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getCommandsForNodeTarget",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getCommandsForNodeTarget",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getcopycommand",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getCopyCommand",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getCopyCommand",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getcopyprojectfilescommand",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getCopyProjectFilesCommand",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getCopyProjectFilesCommand",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getnoderuncommand",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getNodeRunCommand",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getNodeRunCommand",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#getrevisioncommand",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getRevisionCommand",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getRevisionCommand",
-    "method"
-  ],
-  [
-    "src/services/cli/clishbuild.js~clishbuildcommand#gettranspilecommand",
-    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-method-getTranspileCommand",
-    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#getTranspileCommand",
-    "method"
   ],
   [
     "src/services/cli/clishbuild.js~clishbuildcommand#handle",
@@ -1962,6 +2148,60 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/cli/clishinspect.js",
+    "file/src/services/cli/cliSHInspect.js.html",
+    "src/services/cli/cliSHInspect.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#clibuildcommand",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-member-cliBuildCommand",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#cliBuildCommand",
+    "member"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#command",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-member-command",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#constructor",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#description",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-member-description",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#handle",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-method-handle",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#hidden",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishinspect.js~clishinspectcommand#targets",
+    "class/src/services/cli/cliSHInspect.js~CLISHInspectCommand.html#instance-member-targets",
+    "src/services/cli/cliSHInspect.js~CLISHInspectCommand#targets",
+    "member"
+  ],
+  [
     "src/services/cli/clishnoderun.js",
     "file/src/services/cli/cliSHNodeRun.js.html",
     "src/services/cli/cliSHNodeRun.js",
@@ -2013,6 +2253,60 @@ window.esdocSearchIndex = [
     "src/services/cli/clishnoderun.js~clishnoderuncommand#targets",
     "class/src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand.html#instance-member-targets",
     "src/services/cli/cliSHNodeRun.js~CLISHNodeRunCommand#targets",
+    "member"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js",
+    "file/src/services/cli/cliSHNodeWatch.js.html",
+    "src/services/cli/cliSHNodeWatch.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#buildnodewatcher",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-member-buildNodeWatcher",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#buildNodeWatcher",
+    "member"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#command",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-member-command",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#constructor",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#description",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-member-description",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#handle",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-method-handle",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#hidden",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishnodewatch.js~clishnodewatchcommand#targets",
+    "class/src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand.html#instance-member-targets",
+    "src/services/cli/cliSHNodeWatch.js~CLISHNodeWatchCommand#targets",
     "member"
   ],
   [
@@ -2178,6 +2472,54 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/cli/clishvalidateinspect.js",
+    "file/src/services/cli/cliSHValidateInspect.js.html",
+    "src/services/cli/cliSHValidateInspect.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#command",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-member-command",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#constructor",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#description",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-member-description",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#handle",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-method-handle",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#hidden",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateinspect.js~clishvalidateinspectcommand#targets",
+    "class/src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand.html#instance-member-targets",
+    "src/services/cli/cliSHValidateInspect.js~CLISHValidateInspectCommand#targets",
+    "member"
+  ],
+  [
     "src/services/cli/clishvalidaterun.js",
     "file/src/services/cli/cliSHValidateRun.js.html",
     "src/services/cli/cliSHValidateRun.js",
@@ -2223,6 +2565,132 @@ window.esdocSearchIndex = [
     "src/services/cli/clishvalidaterun.js~clishvalidateruncommand#targets",
     "class/src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand.html#instance-member-targets",
     "src/services/cli/cliSHValidateRun.js~CLISHValidateRunCommand#targets",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js",
+    "file/src/services/cli/cliSHValidateWatch.js.html",
+    "src/services/cli/cliSHValidateWatch.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#command",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-member-command",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#constructor",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#description",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-member-description",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#handle",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-method-handle",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#hidden",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidatewatch.js~clishvalidatewatchcommand#targets",
+    "class/src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand.html#instance-member-targets",
+    "src/services/cli/cliSHValidateWatch.js~CLISHValidateWatchCommand#targets",
+    "member"
+  ],
+  [
+    "src/services/cli/clishwatch.js",
+    "file/src/services/cli/cliSHWatch.js.html",
+    "src/services/cli/cliSHWatch.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#allowunknownoptions",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#clibuildcommand",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-member-cliBuildCommand",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#cliBuildCommand",
+    "member"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#command",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-member-command",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#constructor",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#description",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-member-description",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#handle",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-method-handle",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#hidden",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishwatch.js~clishwatchcommand#targets",
+    "class/src/services/cli/cliSHWatch.js~CLISHWatchCommand.html#instance-member-targets",
+    "src/services/cli/cliSHWatch.js~CLISHWatchCommand#targets",
+    "member"
+  ],
+  [
+    "src/services/cli/cliwatch.js",
+    "file/src/services/cli/cliWatch.js.html",
+    "src/services/cli/cliWatch.js",
+    "file"
+  ],
+  [
+    "src/services/cli/cliwatch.js~cliwatchcommand#allowunknownoptions",
+    "class/src/services/cli/cliWatch.js~CLIWatchCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliWatch.js~CLIWatchCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/cliwatch.js~cliwatchcommand#command",
+    "class/src/services/cli/cliWatch.js~CLIWatchCommand.html#instance-member-command",
+    "src/services/cli/cliWatch.js~CLIWatchCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/cliwatch.js~cliwatchcommand#description",
+    "class/src/services/cli/cliWatch.js~CLIWatchCommand.html#instance-member-description",
+    "src/services/cli/cliWatch.js~CLIWatchCommand#description",
     "member"
   ],
   [
@@ -3120,6 +3588,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~clibuildcommandparams",
+    "typedef/index.html#static-typedef-CLIBuildCommandParams",
+    "src/typedef.js~CLIBuildCommandParams",
+    "typedef"
+  ],
+  [
     "src/typedef.js~command",
     "https://tj.github.io/commander.js/#Command",
     "src/typedef.js~Command",
@@ -3154,6 +3628,12 @@ window.esdocSearchIndex = [
     "https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html",
     "src/typedef.js~Logger",
     "external"
+  ],
+  [
+    "src/typedef.js~nodeinspectorsettings",
+    "typedef/index.html#static-typedef-NodeInspectorSettings",
+    "src/typedef.js~NodeInspectorSettings",
+    "typedef"
   ],
   [
     "src/typedef.js~nodetarget",
@@ -3246,6 +3726,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~projectconfigurationnodetargetinspectsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetInspectSettings",
+    "src/typedef.js~ProjectConfigurationNodeTargetInspectSettings",
+    "typedef"
+  ],
+  [
     "src/typedef.js~projectconfigurationnodetargettemplate",
     "typedef/index.html#static-typedef-ProjectConfigurationNodeTargetTemplate",
     "src/typedef.js~ProjectConfigurationNodeTargetTemplate",
@@ -3270,6 +3756,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~projectconfigurationnodemonsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationNodemonSettings",
+    "src/typedef.js~ProjectConfigurationNodemonSettings",
+    "typedef"
+  ],
+  [
     "src/typedef.js~projectconfigurationothersettings",
     "typedef/index.html#static-typedef-ProjectConfigurationOtherSettings",
     "src/typedef.js~ProjectConfigurationOtherSettings",
@@ -3285,6 +3777,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~projectconfigurationsettings",
     "typedef/index.html#static-typedef-ProjectConfigurationSettings",
     "src/typedef.js~ProjectConfigurationSettings",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationtargetfindersettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetFinderSettings",
+    "src/typedef.js~ProjectConfigurationTargetFinderSettings",
     "typedef"
   ],
   [
@@ -3315,6 +3813,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~projectconfigurationtargettemplates",
     "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplates",
     "src/typedef.js~ProjectConfigurationTargetTemplates",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationtargetwatchoptions",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetWatchOptions",
+    "src/typedef.js~ProjectConfigurationTargetWatchOptions",
     "typedef"
   ],
   [
@@ -3447,6 +3951,18 @@ window.esdocSearchIndex = [
     "src/typedef.js~watchpack",
     "https://yarnpkg.com/en/package/watchpack",
     "src/typedef.js~Watchpack",
+    "external"
+  ],
+  [
+    "src/typedef.js~watchpackoptions",
+    "https://github.com/webpack/watchpack#api",
+    "src/typedef.js~WatchpackOptions",
+    "external"
+  ],
+  [
+    "src/typedef.js~ndb",
+    "https://github.com/GoogleChromeLabs/ndb",
+    "src/typedef.js~ndb",
     "external"
   ]
 ]

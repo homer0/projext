@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 481,
-  "actualCount": 481,
+  "expectCount": 581,
+  "actualCount": 581,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 23,
@@ -18,6 +18,11 @@
       "actualCount": 13,
       "undocumentLines": []
     },
+    "src/abstracts/nodeWatcher.js": {
+      "expectCount": 17,
+      "actualCount": 17,
+      "undocumentLines": []
+    },
     "src/app/index.js": {
       "expectCount": 5,
       "actualCount": 5,
@@ -29,8 +34,8 @@
       "undocumentLines": []
     },
     "src/services/building/buildCopier.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 12,
+      "actualCount": 12,
       "undocumentLines": []
     },
     "src/services/building/buildEngines.js": {
@@ -39,13 +44,23 @@
       "undocumentLines": []
     },
     "src/services/building/buildNodeRunner.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     },
     "src/services/building/buildNodeRunnerProcess.js": {
-      "expectCount": 18,
-      "actualCount": 18,
+      "expectCount": 21,
+      "actualCount": 21,
+      "undocumentLines": []
+    },
+    "src/services/building/buildNodeWatcher.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
+    "src/services/building/buildNodeWatcherProcess.js": {
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/services/building/buildTranspiler.js": {
@@ -93,6 +108,11 @@
       "actualCount": 9,
       "undocumentLines": []
     },
+    "src/services/cli/cliInspect.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
     "src/services/cli/cliRevision.js": {
       "expectCount": 7,
       "actualCount": 7,
@@ -104,8 +124,8 @@
       "undocumentLines": []
     },
     "src/services/cli/cliSHBuild.js": {
-      "expectCount": 27,
-      "actualCount": 27,
+      "expectCount": 29,
+      "actualCount": 29,
       "undocumentLines": []
     },
     "src/services/cli/cliSHCopy.js": {
@@ -113,7 +133,17 @@
       "actualCount": 8,
       "undocumentLines": []
     },
+    "src/services/cli/cliSHInspect.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
     "src/services/cli/cliSHNodeRun.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/services/cli/cliSHNodeWatch.js": {
       "expectCount": 10,
       "actualCount": 10,
       "undocumentLines": []
@@ -133,9 +163,29 @@
       "actualCount": 12,
       "undocumentLines": []
     },
+    "src/services/cli/cliSHValidateInspect.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
     "src/services/cli/cliSHValidateRun.js": {
       "expectCount": 9,
       "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/services/cli/cliSHValidateWatch.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
+    "src/services/cli/cliSHWatch.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
+    "src/services/cli/cliWatch.js": {
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/services/cli/generators/projectConfigurationFile.js": {

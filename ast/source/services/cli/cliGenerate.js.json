@@ -814,7 +814,7 @@
                     "trailingComments": [
                       {
                         "type": "CommentBlock",
-                        "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {Boolean}\n     ",
+                        "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {boolean}\n     ",
                         "start": 1210,
                         "end": 1314,
                         "loc": {
@@ -930,7 +930,7 @@
                     "leadingComments": [
                       {
                         "type": "CommentBlock",
-                        "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {Boolean}\n     ",
+                        "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {boolean}\n     ",
                         "start": 1210,
                         "end": 1314,
                         "loc": {
@@ -6676,7 +6676,7 @@
                       "trailingComments": [
                         {
                           "type": "CommentBlock",
-                          "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {Boolean}\n     ",
+                          "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {boolean}\n     ",
                           "start": 1210,
                           "end": 1314,
                           "loc": {
@@ -6792,7 +6792,7 @@
                       "leadingComments": [
                         {
                           "type": "CommentBlock",
-                          "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {Boolean}\n     ",
+                          "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {boolean}\n     ",
                           "start": 1210,
                           "end": 1314,
                           "loc": {
@@ -11952,7 +11952,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {Boolean}\n     ",
+      "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {boolean}\n     ",
       "start": 1210,
       "end": 1314,
       "loc": {
@@ -13389,7 +13389,7 @@
     },
     {
       "type": "CommentBlock",
-      "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {Boolean}\n     ",
+      "value": "*\n     * Enable unknown options in order to pick the generator options.\n     * @type {boolean}\n     ",
       "start": 1210,
       "end": 1314,
       "loc": {

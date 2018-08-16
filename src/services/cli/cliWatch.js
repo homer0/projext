@@ -1,11 +1,11 @@
 const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
- * This is a fake command the app uses to show the information of the run task. In reality, this
+ * This is a fake command the app uses to show the information of the watch task. In reality, this
  * command is handled by a shell script.
  * @extends {CLICommand}
  */
-class CLIRunCommand extends CLICommand {
+class CLIWatchCommand extends CLICommand {
   /**
    * Class constructor.
    * @ignore
@@ -16,40 +16,40 @@ class CLIRunCommand extends CLICommand {
      * The instruction needed to trigger the command.
      * @type {string}
      */
-    this.command = 'run [target]';
+    this.command = 'watch [target]';
     /**
      * A description of the command for the help interface.
      * @type {string}
      */
     this.description = 'Run a target on a development build type';
     /**
-     * Enable unknown options so other services can customize the run command.
+     * Enable unknown options so other services can customize the watch command.
      * @type {boolean}
      */
     this.allowUnknownOptions = true;
     this.addOption(
-      'inspect',
-      '-i, --inspect',
-      'Enables the Node inspector. It only works with Node targets',
-      false
+      'type',
+      '-t, --type [type]',
+      'Which build type: development (default) or production',
+      'development'
     );
   }
 }
 /**
  * The service provider that once registered on the app container will set an instance of
- * `CLIRunCommand` as the `cliRunCommand` service.
+ * `CLIWatchCommand` as the `cliWatchCommand` service.
  * @example
  * // Register it on the container
- * container.register(cliRunCommand);
+ * container.register(cliWatchCommand);
  * // Getting access to the service instance
- * const cliRunCommand = container.get('cliRunCommand');
+ * const cliWatchCommand = container.get('cliWatchCommand');
  * @type {Provider}
  */
-const cliRunCommand = provider((app) => {
-  app.set('cliRunCommand', () => new CLIRunCommand());
+const cliWatchCommand = provider((app) => {
+  app.set('cliWatchCommand', () => new CLIWatchCommand());
 });
 
 module.exports = {
-  CLIRunCommand,
-  cliRunCommand,
+  CLIWatchCommand,
+  cliWatchCommand,
 };

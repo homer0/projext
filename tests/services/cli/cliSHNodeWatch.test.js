@@ -3,68 +3,58 @@ const CLICommandMock = require('/tests/mocks/cliCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('/src/abstracts/cliCommand', () => CLICommandMock);
-jest.unmock('/src/services/cli/cliSHNodeRun');
+jest.unmock('/src/services/cli/cliSHNodeWatch');
 
 require('jasmine-expect');
 const {
-  CLISHNodeRunCommand,
-  cliSHNodeRunCommand,
-} = require('/src/services/cli/cliSHNodeRun');
+  CLISHNodeWatchCommand,
+  cliSHNodeWatchCommand,
+} = require('/src/services/cli/cliSHNodeWatch');
 
-describe('services/cli:sh-node-run', () => {
+describe('services/cli:sh-node-watch', () => {
   beforeEach(() => {
     CLICommandMock.reset();
   });
 
   it('should be instantiated with all its dependencies', () => {
     // Given
-    const buildNodeRunner = 'buildNodeRunner';
+    const buildNodeWatcher = 'buildNodeWatcher';
     const targets = 'targets';
     let sut = null;
     // When
-    sut = new CLISHNodeRunCommand(buildNodeRunner, targets);
+    sut = new CLISHNodeWatchCommand(buildNodeWatcher, targets);
     // Then
-    expect(sut).toBeInstanceOf(CLISHNodeRunCommand);
+    expect(sut).toBeInstanceOf(CLISHNodeWatchCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
-    expect(sut.buildNodeRunner).toBe(buildNodeRunner);
+    expect(sut.buildNodeWatcher).toBe(buildNodeWatcher);
     expect(sut.targets).toBe(targets);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
     expect(sut.hidden).toBeTrue();
-    expect(sut.addOption).toHaveBeenCalledTimes(1);
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'inspect',
-      '-i, --inspect',
-      expect.any(String),
-      false
-    );
     expect(sut.allowUnknownOptions).toBeTrue();
   });
 
-  it('should call the method to run a node target when executed', () => {
+  it('should call the method to watch a node target when executed', () => {
     // Given
     const message = 'done';
     const target = 'some-target';
-    const buildNodeRunner = {
-      runTarget: jest.fn(() => message),
+    const buildNodeWatcher = {
+      watchTarget: jest.fn(() => message),
     };
     const targets = {
       getTarget: jest.fn(() => target),
     };
-    const options = {
-      inspect: false,
-    };
     let sut = null;
     let result = null;
     // When
-    sut = new CLISHNodeRunCommand(buildNodeRunner, targets);
-    result = sut.handle(target, null, options);
+    sut = new CLISHNodeWatchCommand(buildNodeWatcher, targets);
+    result = sut.handle(target);
     // Then
     expect(result).toBe(message);
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target);
-    expect(buildNodeRunner.runTarget).toHaveBeenCalledTimes(1);
-    expect(buildNodeRunner.runTarget).toHaveBeenCalledWith(target, options.inspect);
+    expect(buildNodeWatcher.watchTarget).toHaveBeenCalledTimes(1);
+    expect(buildNodeWatcher.watchTarget).toHaveBeenCalledWith(target);
   });
 
   it('should include a provider for the DIC', () => {
@@ -77,14 +67,14 @@ describe('services/cli:sh-node-run', () => {
     let serviceName = null;
     let serviceFn = null;
     // When
-    cliSHNodeRunCommand(container);
+    cliSHNodeWatchCommand(container);
     [[serviceName, serviceFn]] = container.set.mock.calls;
     sut = serviceFn();
     // Then
-    expect(serviceName).toBe('cliSHNodeRunCommand');
+    expect(serviceName).toBe('cliSHNodeWatchCommand');
     expect(serviceFn).toBeFunction();
-    expect(sut).toBeInstanceOf(CLISHNodeRunCommand);
-    expect(sut.buildNodeRunner).toBe('buildNodeRunner');
+    expect(sut).toBeInstanceOf(CLISHNodeWatchCommand);
+    expect(sut.buildNodeWatcher).toBe('buildNodeWatcher');
     expect(sut.targets).toBe('targets');
   });
 });

@@ -51,6 +51,8 @@ describe('services/building:builder', () => {
     };
     const buildType = 'development';
     const forceRun = false;
+    const forceWatch = false;
+    const forceInspect = false;
     let sut = null;
     let result = null;
     // When
@@ -70,7 +72,9 @@ describe('services/building:builder', () => {
     expect(engine.getBuildCommand).toHaveBeenCalledWith(
       target,
       buildType,
-      forceRun
+      forceRun,
+      forceWatch,
+      forceInspect
     );
   });
 
@@ -93,6 +97,8 @@ describe('services/building:builder', () => {
     };
     const buildType = 'development';
     const forceRun = true;
+    const forceWatch = false;
+    const forceInspect = false;
     let sut = null;
     let result = null;
     // When
@@ -112,7 +118,101 @@ describe('services/building:builder', () => {
     expect(engine.getBuildCommand).toHaveBeenCalledWith(
       target,
       buildType,
-      forceRun
+      forceRun,
+      forceWatch,
+      forceInspect
+    );
+  });
+
+  it('should return the build command for a bundled target and force watch', () => {
+    // Given
+    const buildCleaner = 'buildCleaner';
+    const buildCopier = 'buildCopier';
+    const command = 'some-command';
+    const engine = {
+      getBuildCommand: jest.fn(() => command),
+    };
+    const buildEngines = {
+      getEngine: jest.fn(() => engine),
+    };
+    const buildTranspiler = 'buildTranspiler';
+    const targets = 'targets';
+    const target = {
+      bundle: true,
+      engine: 'webpack',
+    };
+    const buildType = 'development';
+    const forceRun = false;
+    const forceWatch = true;
+    const forceInspect = false;
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Builder(
+      buildCleaner,
+      buildCopier,
+      buildEngines,
+      buildTranspiler,
+      targets
+    );
+    result = sut.getTargetBuildCommand(target, buildType, forceRun, forceWatch);
+    // Then
+    expect(result).toBe(command);
+    expect(buildEngines.getEngine).toHaveBeenCalledTimes(1);
+    expect(buildEngines.getEngine).toHaveBeenCalledWith(target.engine);
+    expect(engine.getBuildCommand).toHaveBeenCalledTimes(1);
+    expect(engine.getBuildCommand).toHaveBeenCalledWith(
+      target,
+      buildType,
+      forceRun,
+      forceWatch,
+      forceInspect
+    );
+  });
+
+  it('should return the build command for a bundled target and enable the Node inspector', () => {
+    // Given
+    const buildCleaner = 'buildCleaner';
+    const buildCopier = 'buildCopier';
+    const command = 'some-command';
+    const engine = {
+      getBuildCommand: jest.fn(() => command),
+    };
+    const buildEngines = {
+      getEngine: jest.fn(() => engine),
+    };
+    const buildTranspiler = 'buildTranspiler';
+    const targets = 'targets';
+    const target = {
+      bundle: true,
+      engine: 'webpack',
+    };
+    const buildType = 'development';
+    const forceRun = false;
+    const forceWatch = true;
+    const forceInspect = true;
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Builder(
+      buildCleaner,
+      buildCopier,
+      buildEngines,
+      buildTranspiler,
+      targets
+    );
+    result = sut.getTargetBuildCommand(target, buildType, forceRun, forceWatch, forceInspect);
+    // Then
+    expect(result).toBe(command);
+    expect(buildEngines.getEngine).toHaveBeenCalledTimes(1);
+    expect(buildEngines.getEngine).toHaveBeenCalledWith(target.engine);
+    expect(engine.getBuildCommand).toHaveBeenCalledTimes(1);
+    expect(engine.getBuildCommand).toHaveBeenCalledWith(
+      target,
+      buildType,
+      forceRun,
+      forceWatch,
+      forceInspect
     );
   });
 

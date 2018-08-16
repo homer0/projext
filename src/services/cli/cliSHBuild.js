@@ -4,6 +4,7 @@ const CLICommand = require('../../abstracts/cliCommand');
  * This is the _'real build command'_. This is a private command the shell script executes in order
  * to get a list of commands to run.
  * @extends {CLICommand}
+ * @todo This whole class needs a refactor (args and params are the same!).
  */
 class CLISHBuildCommand extends CLICommand {
   /**
@@ -27,6 +28,9 @@ class CLISHBuildCommand extends CLICommand {
    * @param {CLISHNodeRunCommand}          cliSHNodeRunCommand        Needed to generate the command
    *                                                                  to run a Node target if the
    *                                                                  `run` option is used.
+   * @param {CLISHNodeWatchCommand}        cliSHNodeWatchCommand      Needed to generate the command
+   *                                                                  to watch a Node target files
+   *                                                                  if the `watch` option is used.
    * @param {CLISHTranspileCommand}        cliSHTranspileCommand      Needed to generate the command
    *                                                                  to transpile a Node target
    *                                                                  code.
@@ -44,6 +48,7 @@ class CLISHBuildCommand extends CLICommand {
     cliRevisionCommand,
     cliSHCopyCommand,
     cliSHNodeRunCommand,
+    cliSHNodeWatchCommand,
     cliSHTranspileCommand,
     events,
     projectConfiguration,
@@ -80,6 +85,11 @@ class CLISHBuildCommand extends CLICommand {
      * @type {CliSHNodeRunCommand}
      */
     this.cliSHNodeRunCommand = cliSHNodeRunCommand;
+    /**
+     * A local reference for the `cliSHNodeWatchCommand` service.
+     * @type {CliSHNodeWatchCommand}
+     */
+    this.cliSHNodeWatchCommand = cliSHNodeWatchCommand;
     /**
      * A local reference for the `cliSHTranspileCommand` service.
      * @type {CliSHTranspileCommand}
@@ -124,6 +134,19 @@ class CLISHBuildCommand extends CLICommand {
         'build type is development',
       false
     );
+    this.addOption(
+      'watch',
+      '-w, --watch',
+      'Rebuild the target every time one of its files changes. It only works ' +
+        'when the build type is development',
+      false
+    );
+    this.addOption(
+      'inspect',
+      '-i, --inspect',
+      'Enables the Node inspector. It only works when running Node targets',
+      false
+    );
     /**
      * Hide the command from the help interface.
      * @type {boolean}
@@ -131,7 +154,7 @@ class CLISHBuildCommand extends CLICommand {
     this.hidden = true;
     /**
      * Enable unknown options so other services can customize the build command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
   }
@@ -145,6 +168,7 @@ class CLISHBuildCommand extends CLICommand {
    * @param {Object}  options        The command options.
    * @param {string}  options.type   The type of build.
    * @param {boolean} options.run    Whether or not the target also needs to be executed.
+   * @param {boolean} options.watch  Whether or not the target files will be watched.
    * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
    */
   handle(name, command, options, unknownOptions) {
@@ -157,17 +181,41 @@ class CLISHBuildCommand extends CLICommand {
       this.targets.getDefaultTarget();
     // Check if there's a reason for the target to be executed.
     const run = type === 'development' && (target.runOnDevelopment || options.run);
+    // Check if there's a reason for the Node inspector to be enabled.
+    const inspect = target.is.node && run && (target.inspect.enabled || options.inspect);
+    // Check if the target files should be watched.
+    const watch = !run && (target.watch[type] || options.watch);
+    /**
+     * Check whether or not a build will be created. This is always `true` for browser targets, but
+     * it can be `false` for Node targets if bundling and transpiling is disabled.
+     */
+    let build = true;
+    if (target.is.node) {
+      build = (
+        type === 'production' ||
+        target.bundle ||
+        target.transpile
+      );
+    }
+    // Define the parameters object to send to the other methods.
+    const params = {
+      target,
+      type,
+      run,
+      build,
+      watch,
+      inspect,
+    };
+
     // Based on the target type, get the list of commands.
     const commands = target.is.node ?
-      this.getCommandsForNodeTarget(target, type, run) :
-      this.getCommandsForBrowserTarget(target, type, run);
+      this._getCommandsForNodeTarget(params) :
+      this._getCommandsForBrowserTarget(params);
     // Reduce the list of commands.
     const output = this.events.reduce(
       'build-target-commands-list',
       commands.filter((cmd) => !!cmd),
-      target,
-      type,
-      run,
+      params,
       unknownOptions
     )
     // Join the commands on a single string.
@@ -177,81 +225,68 @@ class CLISHBuildCommand extends CLICommand {
   }
   /**
    * Get the build (and run) commands for a Node target.
-   * @param {Target}  target The target information.
-   * @param {string}  type   The intended build type: `development` or `production`.
-   * @param {boolean} run    Whether or not the target needs to be executed.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {Array}
+   * @access protected
+   * @ignore
    */
-  getCommandsForNodeTarget(target, type, run) {
-    /**
-     * Define the arguments that will be sent to the other methods. The reason we defined them this
-     * way is because this is the format they'll be sent to the `.generate` method of the other
-     * CLI commands.
-     */
-    const args = {
-      target: target.name,
-      type,
-      run,
-    };
-    // Check whether or not the target needs to be build.
-    const build = (
-      type === 'production' ||
-      target.bundle ||
-      target.transpile
-    );
+  _getCommandsForNodeTarget(params) {
     // Get the base commands.
     const commands = [
-      this.getCleanCommandIfNeeded(args, target, type, build, run),
-      this.getBuildCommandIfNeeded(args, target, type, build, run),
-      this.getCopyCommand(args, target, type, build, run),
-      this.getTranspileCommand(args, target, type, build, run),
+      this._getCleanCommandIfNeeded(params),
+      this._getBuildCommandIfNeeded(params),
+      this._getCopyCommandIfNeeded(params),
+      this._getTranspileCommandIfNeeded(params),
     ];
-    // If the target won't be executed...
-    if (!run) {
+    // If the target won't be executed nor their files will be watched...
+    if (!params.run && !params.watch) {
       // ...push the commands to create the revision file and copy the project files.
       commands.push(...[
-        this.getRevisionCommand(args, target, type),
-        this.getCopyProjectFilesCommand(args, target, type),
+        this._getRevisionCommandIfNeeded(params),
+        this._getCopyProjectFilesCommand(params),
       ]);
-    } else if (!target.bundle) {
+    } else if (!params.target.bundle) {
       /**
-       * ...but if the target will run and is not a bundled target, push the command to run the
-       * target with `nodemon`.
+       * If the target will be executed or their files will be watched, and is not a bundled target,
+       * push the command to either run or watch. The reason it's handled this ways is because if
+       * the target is bundled, the build engine will take care of the execution/watch.
        */
-      commands.push(this.getNodeRunCommand(args, target, type));
+      if (params.run) {
+        // Run the target with `nodemon`.
+        commands.push(this._getNodeRunCommand(params));
+      } else if (params.type === 'production' || params.target.transpile) {
+        // Watch the target with `watchpack`.
+        commands.push(this._getNodeWatchCommand(params));
+      }
     }
 
     return commands;
   }
   /**
    * Get the build (and run) commands for a browser target.
-   * @param {Target}  target The target information.
-   * @param {string}  type   The intended build type: `development` or `production`.
-   * @param {boolean} run    Whether or not the target needs to be executed.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {Array}
+   * @access protected
+   * @ignore
    */
-  getCommandsForBrowserTarget(target, type, run) {
-    /**
-     * Define the arguments that will be sent to the other methods. The reason we defined them this
-     * way is because this is the format they'll be sent to the `.generate` method of the other
-     * CLI commands.
-     */
-    const args = {
-      target: target.name,
-      type,
-      run,
-    };
+  _getCommandsForBrowserTarget(params) {
     // Get the base commands.
     const commands = [
-      this.getCleanCommandIfNeeded(args, target, type, true, run),
-      this.getBuildCommandIfNeeded(args, target, type, true, run),
+      this._getCleanCommandIfNeeded(params),
+      this._getBuildCommandIfNeeded(params),
     ];
     // If the target won't be executed...
-    if (!run) {
+    if (!params.run && !params.watch) {
       // ...push the commands to create the revision file and copy the project files.
       commands.push(...[
-        this.getRevisionCommand(args, target, type),
-        this.getCopyProjectFilesCommand(args, target, type),
+        this._getRevisionCommandIfNeeded(params),
+        this._getCopyProjectFilesCommand(params),
       ]);
     }
 
@@ -260,96 +295,130 @@ class CLISHBuildCommand extends CLICommand {
   /**
    * Get the command to remove the previous build files of a target, but only if the target will be
    * build, otherwise, it will return an empty string.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
-   * @param {Target}  target      The target information.
-   * @param {string}  type        The intended build type: `development` or `production`.
-   * @param {boolean} build       Whether or not the target will be build.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getCleanCommandIfNeeded(args, target, type, build) {
-    return build && target.cleanBeforeBuild ?
-      this.cliCleanCommand.generate(args) :
-      '';
+  _getCleanCommandIfNeeded(params) {
+    let command = '';
+    if (params.build && params.target.cleanBeforeBuild) {
+      command = this.cliCleanCommand.generate({
+        target: params.target.name,
+      });
+    }
+
+    return command;
   }
   /**
    * Get the command to actually build a target.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
-   * @param {Target}  target      The target information.
-   * @param {string}  type        The intended build type: `development` or `production`.
-   * @param {boolean} build       Whether or not the target will be build.
-   * @param {boolean} run         Whether or not the target will be executed.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getBuildCommandIfNeeded(args, target, type, build, run) {
-    return this.builder.getTargetBuildCommand(target, type, run);
+  _getBuildCommandIfNeeded(params) {
+    return this.builder.getTargetBuildCommand(
+      params.target,
+      params.type,
+      params.run,
+      params.watch,
+      params.inspect
+    );
   }
   /**
    * Get the command to copy a target files, but only if the target will be _'build'_ (transpiled
    * counts) and it doesn't support bundling, otherwise, it will return an empty string.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
-   * @param {Target}  target      The target information.
-   * @param {string}  type        The intended build type: `development` or `production`.
-   * @param {boolean} build       Whether or not the target will be build.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getCopyCommand(args, target, type, build) {
-    return build && !target.bundle ?
-      this.cliSHCopyCommand.generate(args) :
-      '';
+  _getCopyCommandIfNeeded(params) {
+    let command = '';
+    if (params.build && !params.target.bundle) {
+      command = this.cliSHCopyCommand.generate({
+        target: params.target.name,
+        type: params.type,
+      });
+    }
+
+    return command;
   }
   /**
    * Get the command to transpile a target files, but only if the target will be _'build'_
    * (transpiled counts) and it doesn't support bundling, otherwise, it will return an empty string.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
-   * @param {Target}  target      The target information.
-   * @param {string}  type        The intended build type: `development` or `production`.
-   * @param {boolean} build       Whether or not the target will be build.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getTranspileCommand(args, target, type, build) {
-    return build && !target.bundle ?
-      this.cliSHTranspileCommand.generate(args) :
-      '';
+  _getTranspileCommandIfNeeded(params) {
+    let command = '';
+    if (params.build && !params.target.bundle) {
+      command = this.cliSHTranspileCommand.generate({
+        target: params.target.name,
+        type: params.type,
+      });
+    }
+
+    return command;
   }
   /**
    * Get the command to run a Node target.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getNodeRunCommand(args) {
-    return this.cliSHNodeRunCommand.generate(args);
+  _getNodeRunCommand(params) {
+    return this.cliSHNodeRunCommand.generate({
+      target: params.target.name,
+      inspect: params.inspect,
+    });
+  }
+  /**
+   * Get the command to watch a Node target.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getNodeWatchCommand(params) {
+    return this.cliSHNodeWatchCommand.generate({
+      target: params.target.name,
+    });
   }
   /**
    * Get the command to create the revision file, but only if the feature is enabled, otherwise,
    * it will return an empty string.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getRevisionCommand(args) {
+  _getRevisionCommandIfNeeded(params) {
     const {
       enabled,
       createRevisionOnBuild,
@@ -357,9 +426,9 @@ class CLISHBuildCommand extends CLICommand {
     let command = '';
     if (enabled && createRevisionOnBuild.enabled) {
       const revisionEnvCheck = !createRevisionOnBuild.onlyOnProduction ||
-        (createRevisionOnBuild.onlyOnProduction && args.type === 'production');
+        (createRevisionOnBuild.onlyOnProduction && params.type === 'production');
       const revisionTargetCheck = !createRevisionOnBuild.targets.length ||
-        createRevisionOnBuild.targets.includes(args.target);
+        createRevisionOnBuild.targets.includes(params.target.name);
 
       if (revisionEnvCheck && revisionTargetCheck) {
         command = this.cliRevisionCommand.generate();
@@ -371,21 +440,22 @@ class CLISHBuildCommand extends CLICommand {
   /**
    * Get the command to copy the project files, but only if the feature is enabled, otherwise,
    * it will return an empty string.
-   * @param {Object}  args        The arguments ready to be sent to a `CLICommand` `generate`
-   *                              method.
-   * @param {string}  args.target The target name.
-   * @param {string}  args.type   The intended build type: `development` or `production`.
-   * @param {boolean} args.run    Whether or not the target will be executed.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
    * @return {string}
+   * @access protected
+   * @ignore
    */
-  getCopyProjectFilesCommand(args) {
+  _getCopyProjectFilesCommand(params) {
     const { enabled, copyOnBuild } = this.projectConfiguration.copy;
     let command = '';
     if (enabled && copyOnBuild.enabled) {
       const copyEnvCheck = !copyOnBuild.onlyOnProduction ||
-        (copyOnBuild.onlyOnProduction && args.type === 'production');
+        (copyOnBuild.onlyOnProduction && params.type === 'production');
       const copyTargetCheck = !copyOnBuild.targets.length ||
-        copyOnBuild.targets.includes(args.target);
+        copyOnBuild.targets.includes(params.target.name);
 
       if (copyEnvCheck && copyTargetCheck) {
         command = this.cliCopyProjectFilesCommand.generate();
@@ -413,6 +483,7 @@ const cliSHBuildCommand = provider((app) => {
     app.get('cliRevisionCommand'),
     app.get('cliSHCopyCommand'),
     app.get('cliSHNodeRunCommand'),
+    app.get('cliSHNodeWatchCommand'),
     app.get('cliSHTranspileCommand'),
     app.get('events'),
     app.get('projectConfiguration').getConfig(),

@@ -86,6 +86,13 @@ class ProjectConfiguration extends ConfigurationFile {
             },
             production: null,
           },
+          inspect: {
+            enabled: false,
+            host: '0.0.0.0',
+            port: 9229,
+            command: 'inspect',
+            ndb: false,
+          },
           css: {
             modules: false,
           },
@@ -93,6 +100,10 @@ class ProjectConfiguration extends ConfigurationFile {
           excludeModules: [],
           includeTargets: [],
           runOnDevelopment: false,
+          watch: {
+            development: false,
+            production: false,
+          },
           babel: {
             features: [],
             nodeVersion: 'current',
@@ -147,7 +158,12 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           includeModules: [],
           includeTargets: [],
+          uglifyOnProduction: true,
           runOnDevelopment: false,
+          watch: {
+            development: false,
+            production: false,
+          },
           babel: {
             features: [],
             browserVersions: 2,
@@ -227,6 +243,9 @@ class ProjectConfiguration extends ConfigurationFile {
         },
         watch: {
           poll: true,
+        },
+        nodemon: {
+          legacyWatch: false,
         },
       },
     };

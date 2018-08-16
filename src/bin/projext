@@ -5,6 +5,11 @@ task=$1
 disableSHTasks=false
 # Determine whether the task is a private helper task or not
 isSHTask=false
+# Whether or not the real bash command will be shown
+showSHCommand=false
+if echo "$*" | grep -q "\(\s\-\-\(projextdebug\)\(\s\|$\)\)"; then
+  showSHCommand=true
+fi
 
 # If no task was specified...
 if [ "$task" = "" ]; then
@@ -12,7 +17,7 @@ if [ "$task" = "" ]; then
   projext-cli --help
 else
   # ...otherwise, check if the task is a shell task that needs commands
-  if echo "$task" | grep -q "^\(build\|run\)$"; then
+  if echo "$task" | grep -q "^\(build\|run\|watch\|inspect\)$"; then
     isSHTask=true
   fi
 
@@ -25,13 +30,22 @@ else
   if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
       # ...execute a validation command to avoid any error being thrown on the
       # command that returns the list.
+      if [ "$showSHCommand" = true ]; then
+        echo "> projext-cli sh-validate-$*"
+      fi
       eval "projext-cli sh-validate-$*"
       # Capture the commands that need to run
+      if [ "$showSHCommand" = true ]; then
+        echo "> projext-cli sh-$*"
+      fi
       command=$(eval "projext-cli sh-$*")
       # If there are commands to run...
       if [ "$command" != "" ]; then
-        # ...execute them
-        # echo "> $command"
+        # Show the real command(s) if the debug flag was used.
+        if [ "$showSHCommand" = true ]; then
+          echo "> $command"
+        fi
+        # ...and execute the commands
         eval "$command"
       fi
   else

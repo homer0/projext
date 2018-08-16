@@ -48,6 +48,16 @@ class CLISHValidateBuildCommand extends CLICommand {
      * @type {string}
      */
     this.description = 'Validate the arguments before the shell executes the task';
+    /**
+     * Hide the command from the help interface.
+     * @type {boolean}
+     */
+    this.hidden = true;
+    /**
+     * Enable unknown options so other services can customize the build command.
+     * @type {boolean}
+     */
+    this.allowUnknownOptions = true;
     this.addOption(
       'type',
       '-t, --type [type]',
@@ -61,49 +71,71 @@ class CLISHValidateBuildCommand extends CLICommand {
         'build type is development',
       false
     );
-    /**
-     * Hide the command from the help interface.
-     * @type {boolean}
-     */
-    this.hidden = true;
-    /**
-     * Enable unknown options so other services can customize the build command.
-     * @type {Boolean}
-     */
-    this.allowUnknownOptions = true;
+    this.addOption(
+      'watch',
+      '-w, --watch',
+      'Rebuild the target every time one of its files changes. It only works ' +
+        'when the build type is development',
+      false
+    );
+    this.addOption(
+      'inspect',
+      '-i, --inspect',
+      'Enables the Node inspector. It only works with Node targets',
+      false
+    );
   }
   /**
    * Handle the execution of the command and validate all the arguments.
-   * @param {?string} name         The name of the target.
-   * @param {Command} command      The executed command (sent by `commander`).
-   * @param {Object}  options      The command options.
-   * @param {string}  options.type The type of build.
-   * @param {string}  options.type Whether or not the target should be executed.
+   * @param {?string} name            The name of the target.
+   * @param {Command} command         The executed command (sent by `commander`).
+   * @param {Object}  options         The command options.
+   * @param {string}  options.type    The type of build.
+   * @param {string}  options.run     Whether or not the target should be executed.
+   * @param {boolean} options.watch   Whether or not the target files will be watched.
+   * @param {boolean} options.inspect Whether or not to enable the Node inspector.
+   * @throws {Error} If the `inspect` option is used for a browser target.
    */
   handle(name, command, options) {
-    const { run, type } = options;
+    const { type } = options;
     const target = name ?
       // If the target doesn't exist, this will throw an error.
       this.targets.getTarget(name) :
       // Get the default target or throw an error if the project doesn't have targets.
       this.targets.getDefaultTarget();
 
-    if (
-      target.is.node &&
-      type === 'development' &&
-      !run &&
-      !target.runOnDevelopment &&
-      !target.bundle &&
-      !target.transpile
-    ) {
-      this.appLogger.warning(
-        `The target '${target.name}' doesn't need bundling nor transpilation, ` +
-        'so there\'s no need to build it'
-      );
-    } else if (
-      target.is.browser &&
-      !(target.library && type === 'production')
-    ) {
+    const development = type === 'development';
+    const run = development && (target.runOnDevelopment || options.run);
+    const watch = !run && (target.watch[type] || options.watch);
+    const inspect = run && options.inspect;
+
+    if (target.is.node) {
+      if (
+        development &&
+        !run &&
+        !watch &&
+        !target.bundle &&
+        !target.transpile
+      ) {
+        this.appLogger.warning(
+          `The target '${target.name}' doesn't need bundling nor transpilation, ` +
+          'so there\'s no need to build it'
+        );
+      } else if (
+        development &&
+        !run &&
+        watch &&
+        !target.bundle &&
+        !target.transpile
+      ) {
+        this.appLogger.warning(
+          `The target '${target.name}' doesn't need bundling nor transpilation, ` +
+          'so there\'s no need to watch it'
+        );
+      }
+    } else if (inspect) {
+      throw new Error(`'${target.name}' is not a Node target, so it can't be inspected`);
+    } else if (!(target.library && type === 'production')) {
       this.tempFiles.ensureDirectorySync();
       const htmlStatus = this.targetsHTML.validate(target);
       if (!htmlStatus.exists) {

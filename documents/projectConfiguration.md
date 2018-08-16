@@ -28,7 +28,7 @@ There's no _"top level"_ setting, everything is separated in different scopes re
 
   // The settings of the feature the manages your project version.
   version: ...,
-  
+
   // The path to custom plugins projext should load
   plugins: ...,
 
@@ -91,11 +91,13 @@ Since there are a lot of settings for the templates, will divide them by type an
   folder: '',
   entry: { ... },
   output: { ... },
+  inspect: { ... },
   css: { ... },
   includeModules: [],
   excludeModules: [],
   includeTargets: [],
   runOnDevelopment: false,
+  watch: { ... },
   babel: { ... },
   flow: false,
   library: false,
@@ -189,6 +191,43 @@ You can use the following placeholders:
 - `[name]`: The file original name (Not available for `css` and `js`).
 - `[ext]`: The file original extension (Not available for `css` and `js`).
 
+#### `inspect`
+> Default value:
+> 
+> ```js
+> {
+>   enabled: false,
+>   host: '0.0.0.0',
+>   port: 9229,
+>   command: 'inspect',
+>   ndb: false,
+> }
+> ```
+
+These options allow you to enable and customize the Node inspector for debugging your target code.
+
+**`inspect.enabled`**
+
+Whether or not the inspector should be enabled when the target is run for development. You can also leave this as `false` and force it using the `inspect` command or the `--inspect` flag on the `run` and `build` commands.
+
+**`inspect.host`**
+
+The native Node inspector uses a web socket so it can be accessed as a remote connection from the Chrome Developer tools. This setting is for the socket hostname.
+
+**`inspect.port`**
+
+The port the socket for the inspector will use.
+
+**`inspect.command`**
+
+The _"inspect flag"_ that will be used to enabled the inspector. It can be either `inspect` or `inspect-brk`. More information about this on the [Node documentation](https://nodejs.org/en/docs/guides/debugging-getting-started/).
+
+**`inspect.ndb`**
+
+Whether or not to use the new [Google's ndb](https://github.com/GoogleChromeLabs/ndb). Enabling this setting will make projext ignore the `host`, `port` and `command` as `ndb` is its own executable.
+
+Since `ndb` is experimental and **requires Node 8 or higher**, it's not included by `projext` automatically, so in order to enable it and avoid errors, you should run on a environment with Node 8 (or higher) and `ndb` should be installed (local or global, it doesn't matter).
+
 #### `css`
 > Default value:
 >
@@ -233,6 +272,18 @@ You have two possible solutions now, thanks to `includeTargets`: You can either 
 This tells projext that when the target is builded (bundled/copied) on a development environment, it should execute it.
 
 When the target needs to be bundled, it will relay on the build engined to do it, otherwise, projext will use its custom implementation of [`nodemon`](https://yarnpkg.com/en/package/nodemon) for watching and, if needed, transpile your target code.
+
+#### `watch`
+> Default value:
+>
+> ```js
+> {
+>   development: false,
+>   production: false,
+> }
+> ```
+
+Using this flags, you can tell projext to always watch your files when building for an specific environment.
 
 #### `babel`
 > Default value:
@@ -323,7 +374,9 @@ This is different from the main `copy` feature as this is specific to targets an
   css: { ... },
   includeModules: [],
   includeTargets: [],
+  uglifyOnProduction: true,
   runOnDevelopment: false,
+  watch: { ... },
   babel: { ... },
   flow: false,
   library: false,
@@ -480,10 +533,29 @@ For example, you have two targets, let's call them `frontend` and `backend`, tha
 
 You have two possible solutions now, thanks to `includeTargets`: You can either add the other target name on each `includeTargets` setting, or define a third `shared` target that both have on the setting.
 
+#### `uglifyOnProduction`
+> Default value: `true`
+
+When a bundle is created, this setting will tell the build engine whether to uglify the code for production or not.
+
+This can be useful for debugging production code.
+
 #### `runOnDevelopment`
 > Default value: `false`
 
 This will tell the build engine that when you build the target for a development environment, it should bring up an `http` server to _"run"_ your target.
+
+#### `watch`
+> Default value:
+>
+> ```js
+> {
+>   development: false,
+>   production: false,
+> }
+> ```
+
+Using this flags, you can tell projext to always watch your files when building for an specific environment.
 
 #### `babel`
 > Default value:
@@ -879,6 +951,7 @@ Miscellaneous options.
 {
   findTargets: { ... },
   watch: { ... },
+  nodemon: { ... },
 }
 ```
 
@@ -915,3 +988,19 @@ The reason is outside the `targetsTemplate.node` is because this can be used for
 > Default value: `true`
 
 Whether or not to use polling to get the changes on the file system, and if so, it can also be used to specify the ms interval.
+
+### `nodemon`
+> Default value:
+>
+> ```js
+> {
+>   legacyWatch: false,
+> }
+> ```
+
+This is used by projext to configure [`nodemon`](https://yarnpkg.com/en/package/nodemon), which is used to execute and watch Node targets.
+
+#### `nodemon.legacyWatch`
+> Default value: `false`
+
+Whether or not to enable the `nodemon` legacy watch mode for systems where the refresh doesn't work. More information [check the `nodemon` documentation](https://github.com/remy/nodemon#application-isnt-restarting).

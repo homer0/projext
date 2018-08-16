@@ -1,13 +1,13 @@
 const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
- * This is a private command the shell script executes before running the run command in order to
- * validate the arguments and throw any necessary error. The reason we do this in two separated
+ * This is a private command the shell script executes before running the inspect command in order
+ * to validate the arguments and throw any necessary error. The reason we do this in two separated
  * commands is that the shell script takes all the output of the run command and tries to execute
  * it, so we can't include execptions in there.
  * @extends {CLICommand}
  */
-class CLISHValidateRunCommand extends CLICommand {
+class CLISHValidateInspectCommand extends CLICommand {
   /**
    * Class constructor.
    * @param {Targets} targets To validate a target existence.
@@ -23,7 +23,7 @@ class CLISHValidateRunCommand extends CLICommand {
      * The instruction needed to trigger the command.
      * @type {string}
      */
-    this.command = 'sh-validate-run [target]';
+    this.command = 'sh-validate-inspect [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
@@ -44,32 +44,39 @@ class CLISHValidateRunCommand extends CLICommand {
   /**
    * Handle the execution of the command and validate the target existence.
    * @param {?string} name The name of the target.
+   * @throws {Error} If the target type is `browser`.
    */
   handle(name) {
-    return name ?
+    const target = name ?
       // If the target doesn't exist, this will throw an error.
       this.targets.getTarget(name) :
       // Get the default target or throw an error if the project doesn't have targets.
       this.targets.getDefaultTarget();
+
+    if (target.is.browser) {
+      throw new Error(`'${target.name}' is not a Node target, so it can't be inspected`);
+    }
+
+    return target;
   }
 }
 /**
  * The service provider that once registered on the app container will set an instance of
- * `CLISHValidateRunCommand` as the `cliSHValidateRunCommand` service.
+ * `CLISHValidateInspectCommand` as the `cliSHValidateInspectCommand` service.
  * @example
  * // Register it on the container
- * container.register(cliSHValidateRunCommand);
+ * container.register(cliSHValidateInspectCommand);
  * // Getting access to the service instance
- * const cliSHValidateRunCommand = container.get('cliSHValidateRunCommand');
+ * const cliSHValidateInspectCommand = container.get('cliSHValidateInspectCommand');
  * @type {Provider}
  */
-const cliSHValidateRunCommand = provider((app) => {
-  app.set('cliSHValidateRunCommand', () => new CLISHValidateRunCommand(
+const cliSHValidateInspectCommand = provider((app) => {
+  app.set('cliSHValidateInspectCommand', () => new CLISHValidateInspectCommand(
     app.get('targets')
   ));
 });
 
 module.exports = {
-  CLISHValidateRunCommand,
-  cliSHValidateRunCommand,
+  CLISHValidateInspectCommand,
+  cliSHValidateInspectCommand,
 };

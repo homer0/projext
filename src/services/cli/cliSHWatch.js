@@ -1,15 +1,15 @@
 const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
- * This is the _'real run command'_. This is a private command the shell script executes in order
+ * This is the _'real watch command'_. This is a private command the shell script executes in order
  * to get a list of commands it should execute.
  * @extends {CLICommand}
  */
-class CLISHRunCommand extends CLICommand {
+class CLISHWatchCommand extends CLICommand {
   /**
    * Class constructor.
    * @param {CLIBuildCommand} cliBuildCommand The run command is actually an alias for the build
-   *                                          command with the `--run` option flag set to true.
+   *                                          command with the `--watch` option flag set to true.
    * @param {Targets}         targets         To get the name of the default target if no other is
    *                                          specified.
    */
@@ -29,7 +29,7 @@ class CLISHRunCommand extends CLICommand {
      * The instruction needed to trigger the command.
      * @type {string}
      */
-    this.command = 'sh-run [target]';
+    this.command = 'sh-watch [target]';
     /**
      * A description of the command, just to follow the interface as the command won't show up on
      * the help interface.
@@ -42,26 +42,26 @@ class CLISHRunCommand extends CLICommand {
      */
     this.hidden = true;
     /**
-     * Enable unknown options so other services can customize the run command.
+     * Enable unknown options so other services can customize the watch command.
      * @type {boolean}
      */
     this.allowUnknownOptions = true;
     this.addOption(
-      'inspect',
-      '-i, --inspect',
-      'Enables the Node inspector. It only works with Node targets',
-      false
+      'type',
+      '-t, --type [type]',
+      'Which build type: development (default) or production',
+      'development'
     );
   }
   /**
    * Handle the execution of the command and outputs the list of commands to run.
-   * @param {?string} name            The name of the target.
-   * @param {Command} command         The executed command (sent by `commander`).
-   * @param {Object}  options         The command options.
-   * @param {boolean} options.inspect Whether or not to enable the Node inspector.
-   * @param {Object}  unknownOptions  A dictionary of extra options that command may have received.
+   * @param {?string} name           The name of the target.
+   * @param {Command} command        The executed command (sent by `commander`).
+   * @param {Object}  options        The command options.
+   * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
    */
   handle(name, command, options, unknownOptions) {
+    const { type } = options;
     const target = name ?
       // If the target doesn't exist, this will throw an error.
       this.targets.getTarget(name) :
@@ -73,31 +73,30 @@ class CLISHRunCommand extends CLICommand {
       unknownOptions,
       {
         target: target.name,
-        type: 'development',
-        run: true,
-        inspect: options.inspect,
+        type,
+        watch: true,
       }
     )));
   }
 }
 /**
  * The service provider that once registered on the app container will set an instance of
- * `CLISHRunCommand` as the `cliSHRunCommand` service.
+ * `CLISHWatchCommand` as the `cliSHWatchCommand` service.
  * @example
  * // Register it on the container
- * container.register(cliSHRunCommand);
+ * container.register(cliSHWatchCommand);
  * // Getting access to the service instance
- * const cliSHRunCommand = container.get('cliSHRunCommand');
+ * const cliSHWatchCommand = container.get('cliSHWatchCommand');
  * @type {Provider}
  */
-const cliSHRunCommand = provider((app) => {
-  app.set('cliSHRunCommand', () => new CLISHRunCommand(
+const cliSHWatchCommand = provider((app) => {
+  app.set('cliSHWatchCommand', () => new CLISHWatchCommand(
     app.get('cliBuildCommand'),
     app.get('targets')
   ));
 });
 
 module.exports = {
-  CLISHRunCommand,
-  cliSHRunCommand,
+  CLISHWatchCommand,
+  cliSHWatchCommand,
 };

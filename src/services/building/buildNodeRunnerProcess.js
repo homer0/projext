@@ -2,21 +2,24 @@ const path = require('path');
 const fs = require('fs-extra');
 const extend = require('extend');
 const nodemon = require('nodemon');
-const Watchpack = require('watchpack');
 const { provider } = require('jimple');
+const NodeWatcher = require('../../abstracts/nodeWatcher');
 /**
- * This service implements both `nodemon` and `watchpack` in order to run Node apps while watching
- * and transpiling if necessary.
+ * This service implements `nodemon` and {@link NodeWatcher} in order to run Node apps while
+ * watching, transpiling and copying files.
+ * @extends {NodeWatcher}
  */
-class BuildNodeRunnerProcess {
+class BuildNodeRunnerProcess extends NodeWatcher {
   /**
-   * Class constructor.
    * @param {Logger}                       appLogger            The inform on the CLI of the events
    *                                                            of the runner.
-   * @param {BuildTranspiler}              buildTranspiler      To transpile files if required.
-   * @param {ProjectConfigurationSettings} projectConfiguration To read the project paths.
+   * @param {BuildTranspiler}              buildTranspiler      To transpile files if needed.
+   * @param {ProjectConfigurationSettings} projectConfiguration To read the watch settings.
    */
   constructor(appLogger, buildTranspiler, projectConfiguration) {
+    super({
+      poll: projectConfiguration.others.watch.poll,
+    });
     /**
      * A local reference for the `appLogger` service.
      * @type {Logger}
@@ -28,38 +31,36 @@ class BuildNodeRunnerProcess {
      */
     this.buildTranspiler = buildTranspiler;
     /**
-     * The watcher that will check of changes on the target source directory.
-     * @type {Watchpack}
-     */
-    this.watcher = new Watchpack({
-      poll: projectConfiguration.others.watch.poll,
-    });
-    /**
      * A simple flag to check whether the process is running or not.
      * @type {boolean}
      */
     this.running = false;
     /**
-     * The default options for when the service runs a target. These will be overwritten by the
-     * parameters sent to the `run` method.
-     * @type {Object}
-     * @property {string}  executable            The path to the executable file.
-     * @property {Array}   watch                 A list of directories to watch.
-     * @property {Array}   ignore                A list of patterns to ignore.
-     * @property {string}  sourcePath            The path to the source files.
-     * @property {string}  executionPath         The path to the files being executed.
-     * @property {Object}  envVars               A dictionary of environment variables to send to
-     *                                           the process.
-     * @property {boolean} requiresTranspilation Whether or not the target requires transpilation.
+     * @property {string}                executable     The path to the file `nodemon` will
+     *                                                  execute.
+     * @property {NodeInspectorSettings} inspectOptions The settings for the Node inspector.
+     * @property {Array}                 watch          The list of directories `nodemon` will
+     *                                                  watch in orderto reset the execution.
+     * @property {Array}                 ignore         A list of patterns `nodemon` will ignore
+     *                                                  while watching directories.
+     * @property {Object}                envVars        A dictionary of environment variables to
+     *                                                  send to the execution process.
+     * @property {boolean}               legacyWatch    Whether or not to enable `nodemon` legacy
+     *                                                  watch mode.
      */
     this.defaultOptions = {
       executable: '',
+      inspectOptions: {
+        enabled: false,
+        host: '0.0.0.0',
+        port: 9229,
+        command: 'inspect',
+        ndb: false,
+      },
       watch: [],
       ignore: [],
-      sourcePath: '',
-      executionPath: '',
       envVars: {},
-      requiresTranspilation: false,
+      legacyWatch: false,
     };
     /**
      * This dictionary is where the parameters sent to the `run` method and the `defaultOptions`
@@ -82,11 +83,6 @@ class BuildNodeRunnerProcess {
      */
     this._restaring = false;
     /**
-     * Bind the method to export it as the main service.
-     * @ignore
-     */
-    this.run = this.run.bind(this);
-    /**
      * Bind the method to send it to the `nodemon` events listener.
      * @ignore
      */
@@ -106,34 +102,46 @@ class BuildNodeRunnerProcess {
      * @ignore
      */
     this._onNodemonQuit = this._onNodemonQuit.bind(this);
-    /**
-     * Bind the method to send it to the `watchpack` events listener.
-     * @ignore
-     */
-    this._onFileChange = this._onFileChange.bind(this);
   }
   /**
-   * Run a Node app.
-   * @param {string} executable             The app executable.
-   * @param {Array}  watchOn                A list of directories to watch.
-   * @param {string} sourcePath             The path to the source code of the app. If it doesn't
-   *                                        match with `executionPath`, then the code needs
-   *                                        transpilation.
-   * @param {string} executionPath          The path to where the app is being executed. If it
-   *                                        doesn't match with `sourcePath`, then the code needs
-   *                                        transpilation.
-   * @param {Object} [envVars={}]           A dictionary with extra environment variables to send to
-   *                                        the process.
-   * @param {Array}  [ignore=['*.test.js']] A list of patterns to ignore on the watch.
+   * Enables `nodemon` legacy watch mode.
+   * @see https://github.com/remy/nodemon#application-isnt-restarting
+   */
+  enableLegacyWatch() {
+    this.options.legacyWatch = true;
+  }
+  /**
+   * Run a Node application.
+   * @param {string}                executable              The path to the file to execute.
+   * @param {Array}                 watch                   The list of directories to watch in
+   *                                                        order to restart the application.
+   * @param {NodeInspectorSettings} inspectOptions          The settings for the Node inspector.
+   * @param {Array}                 [transpilationPaths=[]] A list of dictionaries with `from` and
+   *                                                        `to` paths the service will use for
+   *                                                        transpilation when files change during
+   *                                                        the execution, in order to restart the
+   *                                                        application.
+   * @param {Array}                 [copyPaths=[]]          A list of dictionaries with `from` and
+   *                                                        `to` paths the service will use for
+   *                                                        copying files when they change during
+   *                                                        the execution, in order to restart the
+   *                                                        application.
+   * @param {Object}                [envVars={}]            A dictionary with extra environment
+   *                                                        variables to send to the execution
+   *                                                        process.
+   * @param {Array}                 [ignore=['.test.js']]   A list of file name patterns the
+   *                                                        service that will be ignored by the
+   *                                                        `nodemon` watcher.
    * @return {Nodemon}
    * @throws {Error} if the process is already running.
    * @throws {Error} if the executable doesn't exist.
    */
   run(
     executable,
-    watchOn,
-    sourcePath,
-    executionPath,
+    watch,
+    inspectOptions,
+    transpilationPaths = [],
+    copyPaths = [],
     envVars = {},
     ignore = ['*.test.js']
   ) {
@@ -147,29 +155,38 @@ class BuildNodeRunnerProcess {
     }
     // Turn on the flag that tells the service the process is running.
     this.running = true;
-    // Define the options.
-    this.options = extend(true, {}, this.defaultOptions, {
+    // Merge the default options with the parameters.
+    this.options = extend(true, {}, this.defaultOptions, this.options, {
       executable,
-      watchOn,
-      ignore,
-      sourcePath,
-      executionPath,
+      watch,
+      inspectOptions,
       envVars,
-      requiresTranspilation: (sourcePath !== executionPath),
+      ignore,
     });
-    // If the code requires transpilation...
-    if (this.options.requiresTranspilation) {
-      // ...turn on `watchpack`.
-      this.watcher.watch([], [this.options.sourcePath]);
-      this.watcher.on('change', this._onFileChange);
+    /**
+     * This part is tricky...
+     * First, make sure there's at least one item on the transpilation paths list, because that
+     * means that the files are being executed from a different path than its source directory.
+     * If the files change location, and the application depends on files outside its directory,
+     * then the service will watch the transpilation paths, for files that need to be moved and
+     * transpiled, and the copy files, for files that just need to be moved.
+     * The reason this is _"tricky"_ is because the copy paths are only added if there's
+     * transpilation, because there's no need to copy files if the code doesn't change locations.
+     */
+    if (transpilationPaths.length) {
+      this.watch(
+        [
+          ...transpilationPaths.map(({ from }) => from),
+          ...copyPaths.map(({ from }) => from),
+        ],
+        transpilationPaths,
+        copyPaths
+      );
     }
-    // Execute `nodemon`.
-    nodemon({
-      script: this.options.executable,
-      watch: this.options.watchOn,
-      ignore: this.options.ignore,
-      env: Object.assign({}, process.env, this.options.envVars),
-    });
+    // Get the command for `nodemon`.
+    const command = this._getNodemonCommand();
+    // Start `nodemon`.
+    nodemon(command);
     // Add the `nodemon` listeners.
     nodemon.on('start', this._onNodemonStart);
     nodemon.on('restart', this._onNodemonRestart);
@@ -177,6 +194,120 @@ class BuildNodeRunnerProcess {
     nodemon.on('quit', this._onNodemonQuit);
 
     return nodemon;
+  }
+  /**
+   * Generates the `nodemon` command. The reason there's an specific method for generating it is
+   * because the service needs to validate the different options in order to enable or not the
+   * Node inspector (or ndb).
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getNodemonCommand() {
+    const {
+      executable,
+      watch,
+      ignore,
+      envVars,
+      inspectOptions,
+      legacyWatch,
+    } = this.options;
+    // Prefix the command with all the environment variables.
+    const command = [
+      ...Object.keys(envVars).map((varName) => {
+        const varValue = envVars[varName];
+        return `${varName}=${varValue}`;
+      }),
+    ];
+    // Add the `nodemon` command in the format required by the library.
+    command.push('node nodemon');
+    // If the native inspector is enabled, push the required flag.
+    if (inspectOptions.enabled && !inspectOptions.ndb) {
+      const { host, port, command: inspectCommand } = inspectOptions;
+      command.push(`--${inspectCommand}=${host}:${port}`);
+    }
+    // Add the path to the executable.
+    command.push(executable);
+    // If `ndb` is enabled, change the executable.
+    if (inspectOptions.enabled && inspectOptions.ndb) {
+      command.push('--exec "ndb node"');
+    }
+    // Push the paths to watch and ignore.
+    command.push(...[
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...ignore.map((ignorePath) => `--ignore ${ignorePath}`),
+    ]);
+    // If required, enable the legacy watch mode.
+    if (legacyWatch) {
+      command.push('--legacy-watch');
+    }
+    // Transform the list into a string and return it.
+    return command.join(' ').trim();
+  }
+  /**
+   * This is called when a source file changes and it's detected by the service, not `nodemon`.
+   * The overwrite is just to show a log message saying that the process will be restarted, as the
+   * parent class will end up transpiling or copying a file into one the directories `nodemon`
+   * watches.
+   * @param {string} file The path to the file that changed.
+   * @access protected
+   * @ignore
+   */
+  _onChange(file) {
+    this.appLogger.warning(`Restarting because a file was modified: ${file}`);
+    super._onChange(file);
+  }
+  /**
+   * This is called when a source file changes and the service can't find a matching path on neither
+   * the transpilation paths nor the copy paths.
+   * The method will just show an error message explaning the problem and call the method that shows
+   * the error when `nodemon` crashes.
+   * @access protected
+   * @ignore
+   */
+  _onInvalidPathForChange() {
+    this.appLogger.error('Error: The file directory is not on the list of allowed paths');
+    this._onNodemonCrash();
+  }
+  /**
+   * Transpiles a file from a source directory into a build directory, which `nodemon` watches.
+   * @param {string} source The path to the source file.
+   * @param {string} output The path for the source file once transpiled.
+   * @access protected
+   * @ignore
+   */
+  _transpileFile(source, output) {
+    try {
+      // Make sure the path to the directory exists.
+      fs.ensureDirSync(path.dirname(output));
+      // Transpile the file.
+      this.buildTranspiler.transpileFileSync({ source, output });
+      this.appLogger.success('The file was successfully copied and transpiled');
+    } catch (error) {
+      this.appLogger.error('Error: The file couldn\'t be updated');
+      this.appLogger.error(error);
+      this._onNodemonCrash();
+    }
+  }
+  /**
+   * Copies a file from a source directory into a build directory, which `nodemon` watches.
+   * @param {string} from The original path of the file.
+   * @param {string} to   The new path for the file.
+   * @access protected
+   * @ignore
+   */
+  _copyFile(from, to) {
+    try {
+      // Make sure the path to the directory exists.
+      fs.ensureDirSync(path.dirname(to));
+      // Copy the file.
+      fs.copySync(from, to);
+      this.appLogger.success('The file was successfully copied');
+    } catch (error) {
+      this.appLogger.error('Error: The file couldn\'t be copied');
+      this.appLogger.error(error);
+      this._onNodemonCrash();
+    }
   }
   /**
    * This is called when `nodemon` starts the process and after each time it restarts it. The
@@ -194,7 +325,7 @@ class BuildNodeRunnerProcess {
       this.appLogger.success(`Starting ${this.options.executable}`);
       this.appLogger.info([
         'to restart at any time, enter \'rs\'',
-        ...this.options.watchOn.map((directory) => `watching: ${directory}`),
+        ...this.options.watch.map((directory) => `watching: ${directory}`),
       ]);
       // Turn on the flag that informs the service this method was executed at least once.
       this._started = true;
@@ -209,10 +340,11 @@ class BuildNodeRunnerProcess {
    */
   _onNodemonRestart(files) {
     /**
-     * If the code requires transpilation and this was triggered by file changes, the restart
-     * message was already printed by the `watchpack` listener, so no need to print anything else.
+     * If the code requires transpilation (which means that the service is watching directories)
+     * and this was triggered by file changes, the restart message was already printed by the
+     * `_onChange` method, so no need to print anything else.
      */
-    if (!this.options.requiresTranspilation) {
+    if (!this.watching) {
       if (files && files.length) {
         const [file] = files;
         this.appLogger.warning(`Restarting because file was modified: ${file}`);
@@ -245,58 +377,19 @@ class BuildNodeRunnerProcess {
   }
   /**
    * This is called when the `nodemon` process is stopeed. It first checks if it needs to turn off
-   * the `watchpack` listener and then exists the current process.
+   * the watcher and then exits the current process.
    * @ignore
    * @access protected
    */
   _onNodemonQuit() {
-    // If the code needs transpilation...
-    if (this.options.requiresTranspilation) {
-      // ...then `watchpack` is listening and should be stopped.
-      this.watcher.close();
+    // If the service is watching directories...
+    if (this.watching) {
+      // ...then it should be stopped.
+      this.stop();
     }
 
     // eslint-disable-next-line no-process-exit
     process.exit();
-  }
-  /**
-   * This is the `watchpack` listener and it gets called every time a source file changes. When this
-   * happens, the service transpiles the file, thus triggering `nodemon` restart.
-   * @param {string} file The path to the modified file.
-   * @ignore
-   * @access protected
-   */
-  _onFileChange(file) {
-    this.appLogger.warning(`Restarting because file was modified: ${file}`);
-    this._transpileFile(file);
-  }
-  /**
-   * Transpile a file from the source directory into the execution directory (the one `nodemon` is
-   * watching).
-   * @param {string} file The path to the file.
-   * @ignore
-   * @access protected
-   */
-  _transpileFile(file) {
-    const { sourcePath, executionPath } = this.options;
-    const relative = file.substr(sourcePath.length);
-
-    try {
-      this.buildTranspiler.transpileFileSync({
-        source: path.join(sourcePath, relative),
-        output: path.join(executionPath, relative),
-      });
-
-      this.appLogger.success('The file was successfully copied and transpiled');
-    } catch (error) {
-      /**
-       * By no throwing the error, we allow `nodemon` to keep listening so we can try making other
-       * changes to the file in order transpile it correctly.
-       */
-      this.appLogger.error('Error: The file couldn\'t be updated');
-      this.appLogger.error(error);
-      this._onNodemonCrash();
-    }
   }
 }
 /**
@@ -314,7 +407,7 @@ const buildNodeRunnerProcess = provider((app) => {
     app.get('appLogger'),
     app.get('buildTranspiler'),
     app.get('projectConfiguration').getConfig()
-  ).run);
+  ));
 });
 
 module.exports = {

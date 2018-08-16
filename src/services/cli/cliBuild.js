@@ -34,9 +34,22 @@ class CLIBuildCommand extends CLICommand {
         'build type is development',
       false
     );
+    this.addOption(
+      'watch',
+      '-w, --watch',
+      'Rebuild the target every time one of its files changes. It only works ' +
+        'when the build type is development',
+      false
+    );
+    this.addOption(
+      'inspect',
+      '-i, --inspect',
+      'Enables the Node inspector. It only works with Node targets',
+      false
+    );
     /**
      * Enable unknown options so other services can customize the build command.
-     * @type {Boolean}
+     * @type {boolean}
      */
     this.allowUnknownOptions = true;
   }

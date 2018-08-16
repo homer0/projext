@@ -25,6 +25,11 @@
  */
 
 /**
+ * @external {WatchpackOptions}
+ * https://github.com/webpack/watchpack#api
+ */
+
+/**
  * @external {AppConfiguration}
  * https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html
  */
@@ -62,6 +67,11 @@
 /**
  * @external {Buffer}
  * https://nodejs.org/api/buffer.html
+ */
+
+/**
+ * @external {ndb}
+ * https://github.com/GoogleChromeLabs/ndb
  */
 
 /**
@@ -185,6 +195,16 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetWatchOptions
+ * @property {boolean} [development=false] Whether or not to watch the target files when it gets
+ *                                         build for development. If the target type is Node and it
+ *                                         doesn't require bundling nor transpiling, it won't do
+ *                                         anything.
+ * @property {boolean} [production=false]  Whether or not to watch the target files when it gets
+ *                                         build for production.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -216,6 +236,20 @@
  * @property {boolean} [modules=false]
  * Whether or not your application uses CSS Modules. If this is enabled, all your styles will be
  * prefixed with a unique identifier.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationNodeTargetInspectSettings
+ * @property {boolean} [enabled=false]     Whether or not to enable the Node inspector when running
+ *                                         the app for development.
+ * @property {string}  [host='0.0.0.0']    The host where the Node inspector will run.
+ * @property {number}  [port=9229]         The port the Node inspector will use.
+ * @property {string}  [command='inspect'] The Node inspector flag command (`inspect` or
+ *                                         `inspect-brk`).
+ * @property {boolean} [ndb=false]         Whether or not to use Google's {@link ndb} instead of
+ *                                         the native inspector. The way it will be used will be
+ *                                         by calling the executable without path, so it's up to
+ *                                         the project to install it (global or local).
  */
 
 /**
@@ -381,6 +415,8 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
+ * @property {ProjectConfigurationNodeTargetInspectSettings} [inspect]
+ * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} [css]
  * These options help you customize the way the bundling process handles your CSS code.
  * @property {Array} [includeModules=[]]
@@ -396,6 +432,9 @@
  * @property {boolean} [runOnDevelopment=false]
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
+ * @property {ProjectConfigurationTargetWatchOptions} [watch]
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} [babel]
  * The target transpilation options.
  * @property {boolean} [flow=false]
@@ -445,6 +484,8 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationNodeTargetInspectSettings} inspect
+ * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} css
  * These options help you customize the way the bundling process handles your CSS code.
  * @property {Array} includeModules
@@ -461,6 +502,9 @@
  * @property {boolean} runOnDevelopment
  * This tells projext that when the target is builded (bundled/copied) on a development
  * environment, it should execute it.
+ * @property {ProjectConfigurationTargetWatchOptions} watch
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationNodeTargetTemplateBabelSettings} babel
  * The target transpilation options.
  * @property {boolean} flow
@@ -526,9 +570,15 @@
  * @property {Array} [includeTargets=[]]
  * This setting can be used to specify a list of other targets you want to process on your bundle.
  * This means that JS and SCSS files from these targets will be transpiled/processed.
+ * @property {boolean} [uglifyOnProduction=true]
+ * When a bundle is created, this setting will tell the build engine whether to uglify the code
+ * for production or not.
  * @property {boolean} [runOnDevelopment=false]
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
+ * @property {ProjectConfigurationTargetWatchOptions} [watch]
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} [babel]
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} [flow=false]
@@ -587,9 +637,15 @@
  * @property {Array} includeTargets
  * This setting can be used to specify a list of other targets you want to process on your bundle.
  * This means that JS and SCSS files from these targets will be transpiled/processed.
+ * @property {boolean} uglifyOnProduction
+ * When a bundle is created, this setting will tell the build engine whether to uglify the code
+ * for production or not.
  * @property {boolean} runOnDevelopment
  * This will tell the build engine that when you build the target for a development environment,
  * it should bring up an `http` server to _"run"_ your target.
+ * @property {ProjectConfigurationTargetWatchOptions} watch
+ * The settings for the projext watch mode, which watches the target files for changes and updates
+ * the build without executing it.
  * @property {ProjectConfigurationBrowserTargetTemplateBabelSettings} babel
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} flow
@@ -706,6 +762,12 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetFinderSettings
+ * @property {boolean} [enabled=true]
+ * Whether or not to automatically search for targets on the project folders.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationWatchSettings
  * @property {boolean} [poll=true]
  * Whether or not to use polling to get the changes on the file system, and if so, it can also be
@@ -713,10 +775,21 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationNodemonSettings
+ * @property {boolean} [legacyWatch=true]
+ * Whether or not to enable `nodemon` legacy watch mode.
+ */
+
+/**
  * @typedef {Object} ProjectConfigurationOtherSettings
+ * @property {ProjectConfigurationTargetFinderSettings}
+ * These are the settings for projext _"targets finder"_, the feature that reads the project in
+ * order to identify targets and their settings.
  * @property {ProjectConfigurationWatchSettings}
  * This is used by projext to configure `watchpack`, which is used to watch Node files that need to
  * be transpiled.
+ * @property {ProjectConfigurationNodemonSettings}
+ * This is used by projext to configure `nodemon`, which is used to execute and watch Node targets.
  */
 
 /**
@@ -761,18 +834,6 @@
  * @property {string} title The value of the `<title />` tag.
  * @property {string} bodyAttributes Extra attributes for the `<body />` tag.
  * @property {string} bodyContents The content of the `<body />` tag.
- */
-
-/**
- * @typedef {function} BuildEngineGetCommand
- * @param {Target} target
- * The target information.
- * @param {string} buildType
- * The intended build type: `development` or `production`.
- * @param {boolean} [forceRun=false]
- * Force the target to run even if the `runOnDevelopment` setting is `false`.
- * @return {string}
- * The command the shell script will use to build the target.
  */
 
 /**
@@ -854,15 +915,63 @@
  */
 
 /**
+ * @typedef {Object} NodeInspectorSettings
+ * @property {boolean} enabled Whether or not to enable the Node inspector.
+ * @property {string}  host    The host where the Node inspector will run.
+ * @property {number}  port    The port where the Node inspector will run.
+ * @property {string}  command The Node inspector flag command (`inspect` or `inspect-brk`).
+ * @property {boolean} ndb     Whether or not to use Google's {@link ndb} instead of the native
+ *                             inspector. The way it will be used will be by calling the
+ *                             executable without path, so it's up to the project to install it
+ *                             (global or local).
+ */
+
+/**
  * ================================================================================================
  * "Interfaces"
  * ================================================================================================
  */
 
 /**
+ * @typedef {function} BuildEngineGetCommand
+ * @param {Target} target
+ * The target information.
+ * @param {string} buildType
+ * The intended build type: `development` or `production`.
+ * @param {boolean} [forceRun=false]
+ * Force the target to run even if the `runOnDevelopment` setting is `false`.
+ * @param {boolean} [forceWatch=false]
+ * Force the build engine to watch the target files even if the `watch` setting for the required
+ * build type is set to `false`.
+ * @param {boolean} [forceInspect=false]
+ * Force the build engine to use the Node inspector even if the target setting is disabled. This
+ * only applies for Node targets.
+ * @return {string}
+ * The command the shell script will use to build the target.
+ */
+
+/**
  * @typedef {Object} BuildEngine
  * @property {BuildEngineGetCommand} getBuildCommand
  * The method used by projext in order to get the shell comands to build and/or run a target.
+ */
+
+/**
+ * ================================================================================================
+ * Building
+ * ================================================================================================
+ */
+
+/**
+ * @typedef {Object} CLIBuildCommandParams
+ * @property {Target}  target  The target information.
+ * @property {string}  type    The intended build type: `development` or `production`.
+ * @property {boolean} run     Whether or not the target needs to be executed.
+ * @property {boolean} build   Whether or not a build will be created. This is always `true` for
+ *                             browser targets but it may be false for Node targets if bundling and
+ *                             transpiling is disabled.
+ * @property {boolean} watch   Whether or not the target files will be watched.
+ * @property {boolean} inspect Whether or not to enable the Node inspector.
  */
 
 /**

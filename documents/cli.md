@@ -11,23 +11,48 @@ You can run this commands with either [yarn](https://yarnpkg.com), [npx](https:/
 It builds a target and moves it bundle to the distribution directory.
 
 ```bash
-projext build [target] [--type [type]] [--run]
+projext build [target] [--type [type]] [--watch] [--run] [--inspect]
 ```
 
 - **target:** The name of the target you intend to build. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
 - **type:** Which build type: `development` (default) or `production`.
+- **watch:** Watch the target files and update the build. If the target type is Node and it doesn't require bundling nor transpiling, it won't do anything.
 - **run:** Run the target after the build is completed. It only works when the build type is `development`.
+- **inspect:** Enable the Node inspector. It only works with the `run` flag and if the target type is `node`.
+
+### Watching a target
+
+It tells projext to watch your target files and update the build if they change.
+
+```bash
+projext run [target]
+```
+- **target:** The name of the target you intend to build and watch. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
+
+> This is basically an alias of `projext build` that uses the `--watch` flag by default.
 
 ### Running a target
 
 If the target is a Node app, it will execute it, otherwise, it will bring up an `http` server to _"run"_ your target.
 
 ```bash
-projext run [target]
+projext run [target] [--inspect]
 ```
 - **target:** The name of the target you intend to build and run. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
+- **inspect:** Enable the Node inspector. It only works if the target type is `node`.
 
 > This is basically an alias of `projext build` that uses the `--run` flag by default.
+
+### Inspecting a Node target
+
+If the target is a Node app, it will execute it and enable the Node inspector.
+
+```bash
+projext inspect [target]
+```
+- **target:** The name of the target you intend to build, run and inspect. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
+
+> This is basically an alias of `projext build` that uses the `--run` and `--inspect` flags by default.
 
 ### Cleaning previous builds
 

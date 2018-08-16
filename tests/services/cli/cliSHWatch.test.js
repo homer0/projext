@@ -3,15 +3,15 @@ const CLICommandMock = require('/tests/mocks/cliCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('/src/abstracts/cliCommand', () => CLICommandMock);
-jest.unmock('/src/services/cli/cliSHRun');
+jest.unmock('/src/services/cli/cliSHWatch');
 
 require('jasmine-expect');
 const {
-  CLISHRunCommand,
-  cliSHRunCommand,
-} = require('/src/services/cli/cliSHRun');
+  CLISHWatchCommand,
+  cliSHWatchCommand,
+} = require('/src/services/cli/cliSHWatch');
 
-describe('services/cli:sh-run', () => {
+describe('services/cli:sh-watch', () => {
   beforeEach(() => {
     CLICommandMock.reset();
   });
@@ -22,28 +22,22 @@ describe('services/cli:sh-run', () => {
     const targets = 'targets';
     let sut = null;
     // When
-    sut = new CLISHRunCommand(cliBuildCommand, targets);
+    sut = new CLISHWatchCommand(cliBuildCommand, targets);
     // Then
-    expect(sut).toBeInstanceOf(CLISHRunCommand);
+    expect(sut).toBeInstanceOf(CLISHWatchCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.cliBuildCommand).toBe(cliBuildCommand);
     expect(sut.targets).toBe(targets);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
     expect(sut.hidden).toBeTrue();
-    expect(sut.addOption).toHaveBeenCalledTimes(1);
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'inspect',
-      '-i, --inspect',
-      expect.any(String),
-      false
-    );
     expect(sut.allowUnknownOptions).toBeTrue();
   });
 
-  it('should return the command to run a target when executed', () => {
+  it('should return the command to watch a target when executed', () => {
     // Given
     const target = 'some-target';
+    const type = 'development';
     const buildCommand = 'build';
     const cliBuildCommand = {
       generate: jest.fn(() => buildCommand),
@@ -51,39 +45,33 @@ describe('services/cli:sh-run', () => {
     const targets = {
       getTarget: jest.fn(() => ({ name: target })),
     };
-    const options = {
-      inspect: false,
-    };
     let sut = null;
     // When
-    sut = new CLISHRunCommand(cliBuildCommand, targets);
-    sut.handle(target, null, options);
+    sut = new CLISHWatchCommand(cliBuildCommand, targets);
+    sut.handle(target, null, { type });
     // Then
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target);
     expect(cliBuildCommand.generate).toHaveBeenCalledTimes(1);
     expect(cliBuildCommand.generate).toHaveBeenCalledWith({
       target,
-      type: 'development',
-      run: true,
-      inspect: options.inspect,
+      type,
+      watch: true,
     });
     expect(sut.output).toHaveBeenCalledTimes(1);
     expect(sut.output).toHaveBeenCalledWith(buildCommand);
   });
 
-  it('should return the command to run a target when executed and include unkown options', () => {
+  it('should return the command to watch a target when executed and include unkown options', () => {
     // Given
     const target = 'some-target';
+    const type = 'development';
     const buildCommand = 'build';
     const cliBuildCommand = {
       generate: jest.fn(() => buildCommand),
     };
     const targets = {
       getTarget: jest.fn(() => ({ name: target })),
-    };
-    const options = {
-      inspect: true,
     };
     const unknownOptName = 'name';
     const unknownOptValue = 'Rosario';
@@ -93,17 +81,16 @@ describe('services/cli:sh-run', () => {
     };
     let sut = null;
     // When
-    sut = new CLISHRunCommand(cliBuildCommand, targets);
-    sut.handle(target, null, options, unknownOptions);
+    sut = new CLISHWatchCommand(cliBuildCommand, targets);
+    sut.handle(target, null, { type }, unknownOptions);
     // Then
     expect(targets.getTarget).toHaveBeenCalledTimes(1);
     expect(targets.getTarget).toHaveBeenCalledWith(target);
     expect(cliBuildCommand.generate).toHaveBeenCalledTimes(1);
     expect(cliBuildCommand.generate).toHaveBeenCalledWith({
       target,
-      type: 'development',
-      run: true,
-      inspect: options.inspect,
+      type,
+      watch: true,
       [unknownOptName]: unknownOptValue,
     });
     expect(sut.output).toHaveBeenCalledTimes(1);
@@ -113,6 +100,7 @@ describe('services/cli:sh-run', () => {
   it('should return the command to run the default target when executed', () => {
     // Given
     const target = 'some-target';
+    const type = 'development';
     const buildCommand = 'build';
     const cliBuildCommand = {
       generate: jest.fn(() => buildCommand),
@@ -122,15 +110,15 @@ describe('services/cli:sh-run', () => {
     };
     let sut = null;
     // When
-    sut = new CLISHRunCommand(cliBuildCommand, targets);
-    sut.handle(null, null, {});
+    sut = new CLISHWatchCommand(cliBuildCommand, targets);
+    sut.handle(null, null, { type });
     // Then
     expect(targets.getDefaultTarget).toHaveBeenCalledTimes(1);
     expect(cliBuildCommand.generate).toHaveBeenCalledTimes(1);
     expect(cliBuildCommand.generate).toHaveBeenCalledWith({
       target,
-      type: 'development',
-      run: true,
+      type,
+      watch: true,
     });
     expect(sut.output).toHaveBeenCalledTimes(1);
     expect(sut.output).toHaveBeenCalledWith(buildCommand);
@@ -146,13 +134,13 @@ describe('services/cli:sh-run', () => {
     let serviceName = null;
     let serviceFn = null;
     // When
-    cliSHRunCommand(container);
+    cliSHWatchCommand(container);
     [[serviceName, serviceFn]] = container.set.mock.calls;
     sut = serviceFn();
     // Then
-    expect(serviceName).toBe('cliSHRunCommand');
+    expect(serviceName).toBe('cliSHWatchCommand');
     expect(serviceFn).toBeFunction();
-    expect(sut).toBeInstanceOf(CLISHRunCommand);
+    expect(sut).toBeInstanceOf(CLISHWatchCommand);
     expect(sut.cliBuildCommand).toBe('cliBuildCommand');
     expect(sut.targets).toBe('targets');
   });

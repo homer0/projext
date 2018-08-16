@@ -26,7 +26,7 @@ describe('services/cli:build', () => {
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.addOption).toHaveBeenCalledTimes(2);
+    expect(sut.addOption).toHaveBeenCalledTimes(4);
     expect(sut.addOption).toHaveBeenCalledWith(
       'type',
       '-t, --type [type]',
@@ -36,6 +36,18 @@ describe('services/cli:build', () => {
     expect(sut.addOption).toHaveBeenCalledWith(
       'run',
       '-r, --run',
+      expect.any(String),
+      false
+    );
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'watch',
+      '-w, --watch',
+      expect.any(String),
+      false
+    );
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'inspect',
+      '-i, --inspect',
       expect.any(String),
       false
     );

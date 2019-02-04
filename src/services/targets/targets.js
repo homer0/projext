@@ -453,16 +453,12 @@ class Targets {
     const newOutput = Object.assign({}, target.output);
     Object.keys(newOutput).forEach((name) => {
       const value = newOutput[name];
-      if (typeof value === 'string') {
-        newOutput[name] = this.utils.replacePlaceholders(value, placeholders);
-      } else if (value) {
-        Object.keys(value).forEach((propName) => {
-          newOutput[name][propName] = this.utils.replacePlaceholders(
-            newOutput[name][propName],
-            placeholders
-          );
-        });
-      }
+      Object.keys(value).forEach((propName) => {
+        newOutput[name][propName] = this.utils.replacePlaceholders(
+          newOutput[name][propName],
+          placeholders
+        );
+      });
     });
 
     return newOutput;

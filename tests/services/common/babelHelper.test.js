@@ -251,7 +251,7 @@ describe('services/common:babelHelper', () => {
     let result = null;
     const expectedConfiguration = {
       presets: [
-        ['env', extraOptions],
+        ['@babel/preset-env', extraOptions],
       ],
     };
     // When
@@ -266,7 +266,7 @@ describe('services/common:babelHelper', () => {
     const defaultOptions = { modules: false };
     const configurationInitialValue = {
       presets: [
-        ['env', defaultOptions],
+        ['@babel/preset-env', defaultOptions],
       ],
     };
     const configuration = Object.assign({}, configurationInitialValue);
@@ -274,7 +274,7 @@ describe('services/common:babelHelper', () => {
     let result = null;
     const expectedConfiguration = {
       presets: [
-        ['env', Object.assign({}, defaultOptions, extraOptions)],
+        ['@babel/preset-env', Object.assign({}, defaultOptions, extraOptions)],
       ],
     };
     // When
@@ -311,7 +311,7 @@ describe('services/common:babelHelper', () => {
     const expectedConfiguration = {
       presets: [
         [
-          'env',
+          '@babel/preset-env',
           {
             include: [feature],
           },
@@ -337,7 +337,7 @@ describe('services/common:babelHelper', () => {
     const expectedConfiguration = {
       presets: [
         [
-          'env',
+          '@babel/preset-env',
           {
             include: features,
           },
@@ -356,7 +356,7 @@ describe('services/common:babelHelper', () => {
     const configuration = {
       presets: [
         [
-          'env',
+          '@babel/preset-env',
           {
             include: [feature],
           },
@@ -378,7 +378,7 @@ describe('services/common:babelHelper', () => {
     const expectedConfiguration = {
       presets: [
         [
-          'env',
+          '@babel/preset-env',
           {
             modules: false,
           },

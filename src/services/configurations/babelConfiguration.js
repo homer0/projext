@@ -18,8 +18,8 @@ class BabelConfiguration {
      * @type {Object}
      */
     this.plugins = {
-      properties: 'transform-class-properties',
-      decorators: 'transform-decorators-legacy',
+      properties: '@babel/plugin-proposal-class-properties',
+      decorators: '@babel/plugin-proposal-decorators',
     };
   }
   /**
@@ -47,9 +47,11 @@ class BabelConfiguration {
     const presets = config.presets || [];
     // Define the list of plugins.
     const plugins = config.plugins || [];
+    // Define the name of `env` preset; to avoid having the string on multiple places.
+    const envPresetName = '@babel/preset-env';
     // Check whether or not the presets include the `env` preset.
     const hasEnv = presets
-    .find((preset) => (Array.isArray(preset) && preset[0] === 'env'));
+    .find((preset) => (Array.isArray(preset) && preset[0] === envPresetName));
 
     // If it doesn't have the `env` preset...
     if (!hasEnv) {
@@ -67,7 +69,7 @@ class BabelConfiguration {
         presetTargets.node = nodeVersion;
       }
       // Push the new `env` preset on top of the list.
-      presets.unshift(['env', { targets: presetTargets }]);
+      presets.unshift([envPresetName, { targets: presetTargets }]);
     }
     // Check if the configuration should include any _'known plugin'_.
     features.forEach((feature) => {
@@ -82,7 +84,7 @@ class BabelConfiguration {
      * the _'properties'_ plugin.
      */
     if (flow) {
-      presets.push(['flow']);
+      presets.push(['@babel/preset-flow']);
       if (!plugins.includes(this.plugins.properties)) {
         plugins.push(this.plugins.properties);
       }

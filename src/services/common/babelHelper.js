@@ -58,7 +58,7 @@ class BabelHelper {
      */
     let envPresetIndex = -1;
     // Define the name of `env` preset; to avoid having the string on multiple places.
-    const envPresetName = 'env';
+    const envPresetName = '@babel/preset-env';
     // If the configuration has presets...
     if (updatedConfiguration.presets && updatedConfiguration.presets.length) {
       // ...get the index of the `env` preset.

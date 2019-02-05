@@ -433,10 +433,8 @@ class TargetsFinder {
           const [, extract] = match;
           // Normalize the extracted text.
           const normalized = extract.toLowerCase().trim();
-          // If it's not on the list, add it.
-          if (!items.includes(normalized)) {
-            items.push(normalized);
-          }
+          // Add it to the list.
+          items.push(normalized);
           // Continue the execution loop.
           match = regex.exec(contents);
         }

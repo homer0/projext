@@ -213,9 +213,9 @@
 /**
  * @typedef {Object} ProjectConfigurationNodeTargetTemplateBabelSettings
  * @property {Array} [features=[]]
- * projext includes by default two Babel plugins: `transform-class-properties` and
- * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
- * to include them.
+ * projext includes by default two Babel plugins: `@babel/plugin-proposal-class-properties` and
+ * `@babel/plugin-proposal-decorators`. On this list you can use the values `properties` or
+ * `decorators` to include them.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {string} [nodeVersion='current']
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
@@ -294,9 +294,9 @@
 /**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateBabelSettings
  * @property {Array} [features=[]]
- * projext includes by default two Babel plugins: `transform-class-properties` and
- * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
- * to include them.
+ * projext includes by default two Babel plugins: `@babel/plugin-proposal-class-properties` and
+ * `@babel/plugin-proposal-decorators`. On this list you can use the values `properties` or
+ * `decorators` to include them.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {number} [browserVersions=2]
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the

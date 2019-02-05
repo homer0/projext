@@ -1,14 +1,14 @@
 const JimpleMock = require('/tests/mocks/jimple.mock');
 
 jest.mock('jimple', () => JimpleMock);
-jest.mock('babel-core');
+jest.mock('@babel/core');
 jest.mock('fs');
 jest.mock('glob');
 jest.mock('fs-extra');
 jest.unmock('/src/services/building/buildTranspiler');
 
 const path = require('path');
-const babel = require('babel-core');
+const babel = require('@babel/core');
 const glob = require('glob');
 const fs = require('fs-extra');
 require('jasmine-expect');

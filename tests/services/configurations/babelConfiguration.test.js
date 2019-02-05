@@ -44,7 +44,7 @@ describe('services/configurations:babelConfiguration', () => {
     const expected = {
       plugins: [],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             browsers: [
@@ -92,7 +92,7 @@ describe('services/configurations:babelConfiguration', () => {
     const expected = {
       plugins: [],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             browsers: [
@@ -137,7 +137,7 @@ describe('services/configurations:babelConfiguration', () => {
     const expected = {
       plugins: [],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             node: nodeVersion,
@@ -175,9 +175,9 @@ describe('services/configurations:babelConfiguration', () => {
       flow: false,
     };
     const expected = {
-      plugins: ['transform-class-properties'],
+      plugins: ['@babel/plugin-proposal-class-properties'],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             node: nodeVersion,
@@ -215,9 +215,9 @@ describe('services/configurations:babelConfiguration', () => {
       flow: false,
     };
     const expected = {
-      plugins: ['transform-decorators-legacy'],
+      plugins: ['@babel/plugin-proposal-decorators'],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             node: nodeVersion,
@@ -243,9 +243,12 @@ describe('services/configurations:babelConfiguration', () => {
       reduce: jest.fn((name, config) => config),
     };
     const overwrites = {
-      plugins: ['transform-decorators-legacy', 'transform-class-properties'],
+      plugins: [
+        '@babel/plugin-proposal-decorators',
+        '@babel/plugin-proposal-class-properties',
+      ],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             node: 'current',
@@ -293,14 +296,14 @@ describe('services/configurations:babelConfiguration', () => {
       flow: true,
     };
     const expected = {
-      plugins: ['transform-class-properties'],
+      plugins: ['@babel/plugin-proposal-class-properties'],
       presets: [
-        ['env', {
+        ['@babel/preset-env', {
           targets: {
             node: nodeVersion,
           },
         }],
-        ['flow'],
+        ['@babel/preset-flow'],
       ],
     };
     let sut = null;
@@ -333,14 +336,14 @@ describe('services/configurations:babelConfiguration', () => {
       flow: true,
     };
     const expected = {
-      plugins: ['transform-class-properties'],
+      plugins: ['@babel/plugin-proposal-class-properties'],
       presets: [
-        ['env', {
+        ['@babel/preset-env', {
           targets: {
             node: nodeVersion,
           },
         }],
-        ['flow'],
+        ['@babel/preset-flow'],
       ],
     };
     let sut = null;

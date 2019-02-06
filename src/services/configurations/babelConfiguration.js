@@ -20,6 +20,7 @@ class BabelConfiguration {
     this.plugins = {
       properties: '@babel/plugin-proposal-class-properties',
       decorators: '@babel/plugin-proposal-decorators',
+      dynamicImports: '@babel/plugin-syntax-dynamic-import',
     };
   }
   /**
@@ -34,6 +35,7 @@ class BabelConfiguration {
     const {
       babel: {
         features,
+        defaultFeatures,
         nodeVersion,
         browserVersions,
         mobileSupport,
@@ -71,6 +73,17 @@ class BabelConfiguration {
       // Push the new `env` preset on top of the list.
       presets.unshift([envPresetName, { targets: presetTargets }]);
     }
+
+    // Check for the default _"features"_.
+    Object.keys(defaultFeatures).forEach((feature) => {
+      if (defaultFeatures[feature]) {
+        const featurePlugin = this.plugins[feature];
+        if (!plugins.includes(featurePlugin)) {
+          plugins.push(featurePlugin);
+        }
+      }
+    });
+
     // Check if the configuration should include any _'known plugin'_.
     features.forEach((feature) => {
       const featurePlugin = this.plugins[feature];

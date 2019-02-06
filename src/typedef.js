@@ -205,6 +205,13 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetTemplateBabelDefaultFeatures
+ * @property {boolean} [dynamicImports=true]
+ * This enables `@babel/plugin-syntax-dynamic-import` so the targets can do dynamic imports and
+ * code splitting.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -217,6 +224,8 @@
  * `@babel/plugin-proposal-decorators`. On this list you can use the values `properties` or
  * `decorators` to include them.
  * If you need other plugins, they can be included on the `overwrites` option.
+ * @property {ProjectConfigurationTargetTemplateBabelDefaultFeatures} [defaultFeatures]
+ * A dictionary where you can turn off any of the default Babel plugins projext enables by default.
  * @property {string} [nodeVersion='current']
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
  * necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
@@ -298,6 +307,8 @@
  * `@babel/plugin-proposal-decorators`. On this list you can use the values `properties` or
  * `decorators` to include them.
  * If you need other plugins, they can be included on the `overwrites` option.
+ * @property {ProjectConfigurationTargetTemplateBabelDefaultFeatures} [defaultFeatures]
+ * A dictionary where you can turn off any of the default Babel plugins projext enables by default.
  * @property {number} [browserVersions=2]
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
  * necessary stuff. This setting tells how many old versions of the major browsers the target needs

@@ -35,6 +35,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         browserVersions,
         features: [],
+        defaultFeatures: {},
         mobileSupport: true,
         overwrites: {},
         polyfill: true,
@@ -84,6 +85,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         browserVersions,
         features: [],
+        defaultFeatures: {},
         mobileSupport: false,
         overwrites: {},
       },
@@ -130,12 +132,144 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         nodeVersion,
         features: [],
+        defaultFeatures: {},
         overwrites: {},
       },
       flow: false,
     };
     const expected = {
       plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create a Babel config and include the `dynamic imports` feature by default', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: [],
+        defaultFeatures: {
+          dynamicImports: true,
+        },
+        overwrites: {},
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: ['@babel/plugin-syntax-dynamic-import'],
+      presets: [[
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create a Babel config and disable the `dynamic imports` feature by default', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: [],
+        defaultFeatures: {
+          dynamicImports: false,
+        },
+        overwrites: {},
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create a Babel config and avoid adding the `dynamic imports` feature twice', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: [],
+        defaultFeatures: {
+          dynamicImports: true,
+        },
+        overwrites: {
+          plugins: ['@babel/plugin-syntax-dynamic-import'],
+        },
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: ['@babel/plugin-syntax-dynamic-import'],
       presets: [[
         '@babel/preset-env',
         {
@@ -170,6 +304,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         nodeVersion,
         features: ['properties'],
+        defaultFeatures: {},
         overwrites: {},
       },
       flow: false,
@@ -210,6 +345,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         nodeVersion,
         features: ['decorators'],
+        defaultFeatures: {},
         overwrites: {},
       },
       flow: false,
@@ -263,6 +399,7 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         features: ['decorators'],
+        defaultFeatures: {},
         overwrites,
       },
       flow: false,
@@ -292,6 +429,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         nodeVersion,
         features: ['properties'],
+        defaultFeatures: {},
       },
       flow: true,
     };
@@ -331,6 +469,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         nodeVersion,
         features: [],
+        defaultFeatures: {},
         overwrites: {},
       },
       flow: true,

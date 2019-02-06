@@ -106,6 +106,9 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           babel: {
             features: [],
+            defaultFeatures: {
+              dynamicImports: true,
+            },
             nodeVersion: 'current',
             overwrites: {},
           },
@@ -166,6 +169,9 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           babel: {
             features: [],
+            defaultFeatures: {
+              dynamicImports: true,
+            },
             browserVersions: 2,
             mobileSupport: true,
             polyfill: true,

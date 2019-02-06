@@ -377,6 +377,7 @@ describe('services/targets:targets', () => {
           output: {
             default: {
               js: 'app/[target-name].js',
+              jsChunks: true,
               fonts: 'app/fonts/[name].[ext]',
               css: 'app/styles/[target-name].css',
               images: 'app/images/[name].[ext]',
@@ -395,12 +396,14 @@ describe('services/targets:targets', () => {
           output: {
             development: {
               js: 'app/[target-name].js',
+              jsChunks: true,
               fonts: 'app/fonts/[name].[ext]',
               css: 'app/styles/[target-name].css',
               images: 'app/images/[name].[ext]',
             },
             production: {
               js: 'app/[target-name].js',
+              jsChunks: true,
               fonts: 'app/fonts/[name].[ext]',
               css: 'app/styles/[target-name].css',
               images: 'app/images/[name].[ext]',
@@ -483,6 +486,7 @@ describe('services/targets:targets', () => {
       expectedTargets[data.expected.name].originalOutput = data.expected.output;
       expectedReplacements.push(
         ...Object.keys(data.expected.output.development)
+        .filter((name) => typeof data.expected.output.development[name] === 'string')
         .map((name) => ({
           targetName: data.expected.name,
           string: data.expected.output.development[name],
@@ -490,6 +494,7 @@ describe('services/targets:targets', () => {
       );
       expectedReplacements.push(
         ...Object.keys(data.expected.output.production)
+        .filter((name) => typeof data.expected.output.production[name] === 'string')
         .map((name) => ({
           targetName: data.expected.name,
           string: data.expected.output.production[name],

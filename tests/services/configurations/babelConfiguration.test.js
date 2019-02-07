@@ -213,7 +213,7 @@ describe('services/configurations:babelConfiguration', () => {
         nodeVersion,
         features: {
           dynamicImports: false,
-          properties: true,
+          classProperties: true,
           unknownFeature: true,
         },
         overwrites: {},
@@ -342,7 +342,7 @@ describe('services/configurations:babelConfiguration', () => {
       babel: {
         nodeVersion,
         features: {
-          properties: true,
+          classProperties: true,
         },
       },
       flow: true,

@@ -294,6 +294,7 @@ Using this flags, you can tell projext to always watch your files when building 
 >     classProperties: false,
 >     decorators: false,
 >     dynamicImports: true,
+>     objectRestSpread: false,
 >   },
 >   nodeVersion: 'current',
 >   overwrites: {},
@@ -309,6 +310,7 @@ This object can be used to enable/disable the Babel plugins projext includes:
 - `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
 - `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
 - `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
+- `objectRestSpread` (enabled): [`@babel/plugin-proposal-object-rest-spread`](https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread).
 
 If you need other plugins, they can be included on the `overwrites` option.
 
@@ -574,6 +576,7 @@ Using this flags, you can tell projext to always watch your files when building 
 >     classProperties: false,
 >     decorators: false,
 >     dynamicImports: true,
+>     objectRestSpread: false,
 >   },
 >   browserVersions: 2,
 >   mobileSupport: true,
@@ -591,6 +594,7 @@ This object can be used to enable/disable the Babel plugins projext includes:
 - `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
 - `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
 - `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
+- `objectRestSpread` (enabled): [`@babel/plugin-proposal-object-rest-spread`](https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread).
 
 If you need other plugins, they can be included on the `overwrites` option.
 

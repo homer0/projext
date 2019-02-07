@@ -21,6 +21,7 @@ class BabelConfiguration {
       classProperties: '@babel/plugin-proposal-class-properties',
       decorators: '@babel/plugin-proposal-decorators',
       dynamicImports: '@babel/plugin-syntax-dynamic-import',
+      objectRestSpread: '@babel/plugin-proposal-object-rest-spread',
     };
   }
   /**

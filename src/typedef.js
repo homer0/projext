@@ -215,6 +215,9 @@
  * @property {boolean} [dynamicImports=true]
  * This enables `@babel/plugin-syntax-dynamic-import` so the targets can do dynamic imports and
  * code splitting.
+ * @property {boolean} [objectRestSpread=true]
+ * This enables `@babel/plugin-proposal-object-rest-spread` so the targets can use rest and spread
+ * with objects.
  */
 
 /**

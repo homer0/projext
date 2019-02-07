@@ -284,6 +284,48 @@ describe('services/configurations:babelConfiguration', () => {
     expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
   });
 
+  it('should create a Babel configuration and include the `objectRestSpread` feature', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          objectRestSpread: true,
+        },
+        overwrites: {},
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
+      presets: [[
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
   it('shouldn\'t add plugins or modify the env preset if it\'s already defined', () => {
     // Given
     const eventName = 'babel-configuration';

@@ -81,8 +81,8 @@ class TargetsFileRules {
         // Push it to the list of paths.
         pathsInclude.push(new RegExp(config, 'i'));
         // Push it to the lists of files.
-        filesInclude.push(new RegExp(`${config}/.*?\\.jsx?$`, 'i'));
-        filesGlobInclude.push(`${config}/**/*.{js,jsx}`);
+        filesInclude.push(new RegExp(`${config}/.*?\\.[jt]sx?$`, 'i'));
+        filesGlobInclude.push(`${config}/**/*.{js,jsx,ts,tsx}`);
       }
       // Define the allowed paths.
       pathsInclude.push(...[
@@ -96,25 +96,25 @@ class TargetsFileRules {
       // Define the allowed file paths.
       filesInclude.push(...[
         // Target files.
-        new RegExp(`${ruleTarget.paths.source}/.*?\\.jsx?$`, 'i'),
+        new RegExp(`${ruleTarget.paths.source}/.*?\\.[jt]sx?$`, 'i'),
         // Files of modules that have been explicity included on the target settings.
         ...ruleTarget.includeModules.map((modName) => (
-          new RegExp(`node_modules/${modName}/.*?\\.jsx?$`, 'i')
+          new RegExp(`node_modules/${modName}/.*?\\.[jt]sx?$`, 'i')
         )),
       ]);
       // Define the allowed file paths, on glob format.
       filesGlobInclude.push(...[
         // Target files.
-        `${ruleTarget.paths.source}/**/*.{js,jsx}`,
+        `${ruleTarget.paths.source}/**/*.{js,jsx,ts,tsx}`,
         // Files of modules that have been explicity included on the target settings.
         ...ruleTarget.includeModules.map((modName) => (
-          `node_modules/${modName}/**/*.{js,jsx}`
+          `node_modules/${modName}/**/*.{js,jsx,ts,tsx}`
         )),
       ]);
       // Return the rule settings.
       return {
-        extension: /\.jsx?$/i,
-        glob: '**/*.{js,jsx}',
+        extension: /\.[jt]sx?$/i,
+        glob: '**/*.{js,jsx,ts,tsx}',
         paths: {
           include: pathsInclude,
           exclude: [],

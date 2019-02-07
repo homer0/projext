@@ -205,12 +205,13 @@ class BuildTranspiler {
   }
   /**
    * Find files of a given type on a directory.
-   * @param {string} directory                 The directory where the files will be searched for.
-   * @param {string} [pattern='**\/*.{js,jsx}'] A glob pattern to match the files.
+   * @param {string} directory                         The directory where the files will be
+   *                                                   searched for.
+   * @param {string} [pattern='**\/*.{js,jsx,ts,tsx}'] A glob pattern to match the files.
    * @return {Promise<Array,Error>} If everything goes well, the promise will resolve on the list
    *                                of files found.
    */
-  findFiles(directory, pattern = '**/*.{js,jsx}') {
+  findFiles(directory, pattern = '**/*.{js,jsx,ts,tsx}') {
     return new Promise((resolve, reject) => {
       glob(pattern, { cwd: directory }, (error, files) => {
         if (error) {

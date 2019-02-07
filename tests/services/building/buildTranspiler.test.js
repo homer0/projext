@@ -89,7 +89,7 @@ describe('services/building:buildTranspiler', () => {
       // Then
       expect(glob).toHaveBeenCalledTimes(1);
       expect(glob).toHaveBeenCalledWith(
-        '**/*.{js,jsx}',
+        '**/*.{js,jsx,ts,tsx}',
         {
           cwd: target.paths.build,
         },
@@ -182,14 +182,14 @@ describe('services/building:buildTranspiler', () => {
       // Then
       expect(glob).toHaveBeenCalledTimes(2);
       expect(glob).toHaveBeenCalledWith(
-        '**/*.{js,jsx}',
+        '**/*.{js,jsx,ts,tsx}',
         {
           cwd: target.paths.build,
         },
         expect.any(Function)
       );
       expect(glob).toHaveBeenCalledWith(
-        '**/*.{js,jsx}',
+        '**/*.{js,jsx,ts,tsx}',
         {
           cwd: includedTarget.paths.build,
         },
@@ -264,7 +264,7 @@ describe('services/building:buildTranspiler', () => {
       // Then
       expect(glob).toHaveBeenCalledTimes(1);
       expect(glob).toHaveBeenCalledWith(
-        '**/*.{js,jsx}',
+        '**/*.{js,jsx,ts,tsx}',
         {
           cwd: target.paths.build,
         },

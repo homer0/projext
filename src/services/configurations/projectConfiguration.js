@@ -105,8 +105,9 @@ class ProjectConfiguration extends ConfigurationFile {
             production: false,
           },
           babel: {
-            features: [],
-            defaultFeatures: {
+            features: {
+              classProperties: false,
+              decorators: false,
               dynamicImports: true,
             },
             nodeVersion: 'current',
@@ -168,8 +169,9 @@ class ProjectConfiguration extends ConfigurationFile {
             production: false,
           },
           babel: {
-            features: [],
-            defaultFeatures: {
+            features: {
+              classProperties: false,
+              decorators: false,
               dynamicImports: true,
             },
             browserVersions: 2,

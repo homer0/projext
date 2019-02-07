@@ -208,7 +208,6 @@ When you try to bundle a Node target for development, if you didn't change the s
 
 Now, Node targets have two special settings: `bundle` and `transpile`. With `bundle` you can specify whether you want to bundle the entire code on a single file or not; and with `transpile` you can tell projext to just transpile the files content using Babel but keeping all the files.
 
-
 ## Other features
 
 ### Running the targets

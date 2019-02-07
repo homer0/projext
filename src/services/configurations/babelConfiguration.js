@@ -35,7 +35,6 @@ class BabelConfiguration {
     const {
       babel: {
         features,
-        defaultFeatures,
         nodeVersion,
         browserVersions,
         mobileSupport,
@@ -74,21 +73,13 @@ class BabelConfiguration {
       presets.unshift([envPresetName, { targets: presetTargets }]);
     }
 
-    // Check for the default _"features"_.
-    Object.keys(defaultFeatures).forEach((feature) => {
-      if (defaultFeatures[feature]) {
+    // Check if the configuration should include any _'known plugin'_.
+    Object.keys(features).forEach((feature) => {
+      if (features[feature] && this.plugins[feature]) {
         const featurePlugin = this.plugins[feature];
         if (!plugins.includes(featurePlugin)) {
           plugins.push(featurePlugin);
         }
-      }
-    });
-
-    // Check if the configuration should include any _'known plugin'_.
-    features.forEach((feature) => {
-      const featurePlugin = this.plugins[feature];
-      if (!plugins.includes(featurePlugin)) {
-        plugins.push(featurePlugin);
       }
     });
 

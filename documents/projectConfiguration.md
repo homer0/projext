@@ -290,8 +290,9 @@ Using this flags, you can tell projext to always watch your files when building 
 >
 > ```js
 > {
->   features: [],
->   defaultFeatures: {
+>   features: {
+>     classProperties: false,
+>     decorators: false,
 >     dynamicImports: true,
 >   },
 >   nodeVersion: 'current',
@@ -303,15 +304,13 @@ These options are used in the case the target needs to be bundled or transpile t
 
 **`babel.features`**
 
-projext includes by default two Babel plugins: [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties) and [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators). On this list you can use the values `properties` or `decorators` to include them.
+This object can be used to enable/disable the Babel plugins projext includes:
+
+- `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
+- `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
+- `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
 
 If you need other plugins, they can be included on the `overwrites` option.
-
-**`babel.defaultFeatures`**
-
-This is a dictionary where you can turn off any of the default Babel plugins projext enables by default:
-
-- `dynamicImports`: This enables `@babel/plugin-syntax-dynamic-import` so a target can do dynamic imports and code splitting.
 
 **`babel.nodeVersion`**
 
@@ -571,8 +570,9 @@ Using this flags, you can tell projext to always watch your files when building 
 >
 > ```js
 > {
->   features: [],
->   defaultFeatures: {
+>   features: {
+>     classProperties: false,
+>     decorators: false,
 >     dynamicImports: true,
 >   },
 >   browserVersions: 2,
@@ -586,15 +586,13 @@ These options are used by the build engine to configure [Babel](https://babeljs.
 
 **`babel.features`**
 
-projext includes by default two Babel plugins: [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties) and [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators). On this list you can use the values `properties` or `decorators` to include them.
+This object can be used to enable/disable the Babel plugins projext includes:
+
+- `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
+- `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
+- `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
 
 If you need other plugins, they can be included on the `overwrites` option.
-
-**`babel.defaultFeatures`**
-
-This is a dictionary where you can turn off any of the default Babel plugins projext enables by default:
-
-- `dynamicImports`: This enables `@babel/plugin-syntax-dynamic-import` so a target can do dynamic imports and code splitting.
 
 **`babel.browserVersions`**
 

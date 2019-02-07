@@ -124,6 +124,8 @@ class BuildTranspiler {
       from = filepath.source;
       to = filepath.output;
     }
+    // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
+    to = this._normalizeExtension(to);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from);
     // First, transform the file with Babel.
@@ -183,7 +185,8 @@ class BuildTranspiler {
       from = filepath.source;
       to = filepath.output;
     }
-
+    // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
+    to = this._normalizeExtension(to);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from);
     // First, transform the file with Babel.
@@ -236,6 +239,25 @@ class BuildTranspiler {
     const target = this.targets.findTargetForFile(file);
     // Return the Babel configuration for the found target.
     return this.babelConfiguration.getConfigForTarget(target);
+  }
+  /**
+   * This is a helper method that checks if a file path for JS file uses a `.js` extension, and if
+   * it doesn't, it replaces the extension in order to normalize it for transpilation output.
+   * @param  {string} filepath The file path to check.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _normalizeExtension(filepath) {
+    let result;
+    const parsed = path.parse(filepath);
+    if (parsed.ext.match(/\.js$/i)) {
+      result = filepath;
+    } else {
+      result = path.join(parsed.dir, `${parsed.name}.js`);
+    }
+
+    return result;
   }
 }
 /**

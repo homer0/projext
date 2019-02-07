@@ -106,7 +106,7 @@ describe('services/building:buildTranspiler', () => {
           expect.any(Function)
         );
         expect(fs.writeFile).toHaveBeenCalledWith(
-          path.join(target.paths.build, file),
+          path.join(target.paths.build, file.replace(/\.[jt]sx?$/i, '.js')),
           code
         );
       });
@@ -207,7 +207,7 @@ describe('services/building:buildTranspiler', () => {
           expect.any(Function)
         );
         expect(fs.writeFile).toHaveBeenCalledWith(
-          path.join(target.paths.build, file),
+          path.join(target.paths.build, file.replace(/\.[jt]sx?$/i, '.js')),
           code
         );
         expect(babel.transformFile).toHaveBeenCalledWith(
@@ -216,7 +216,7 @@ describe('services/building:buildTranspiler', () => {
           expect.any(Function)
         );
         expect(fs.writeFile).toHaveBeenCalledWith(
-          path.join(includedTarget.paths.build, file),
+          path.join(includedTarget.paths.build, file.replace(/\.[jt]sx?$/i, '.js')),
           code
         );
       });

@@ -193,7 +193,7 @@ You can use the following placeholders:
 
 #### `inspect`
 > Default value:
-> 
+>
 > ```js
 > {
 >   enabled: false,
@@ -290,7 +290,11 @@ Using this flags, you can tell projext to always watch your files when building 
 >
 > ```js
 > {
->   features: [],
+>   features: {
+>     classProperties: false,
+>     decorators: false,
+>     dynamicImports: true,
+>   },
 >   nodeVersion: 'current',
 >   overwrites: {},
 > }
@@ -300,13 +304,17 @@ These options are used in the case the target needs to be bundled or transpile t
 
 **`babel.features`**
 
-projext includes by default two Babel plugins: [`transform-class-properties`](https://yarnpkg.com/en/package/babel-plugin-transform-class-properties) and [`transform-decorators-legacy`](https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy). On this list you can use the values `properties` or `decorators` to include them.
+This object can be used to enable/disable the Babel plugins projext includes:
+
+- `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
+- `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
+- `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
 
 If you need other plugins, they can be included on the `overwrites` option.
 
 **`babel.nodeVersion`**
 
-When building the Babel configuration, projext uses the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) to just include the necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
+When building the Babel configuration, projext uses the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env) to just include the necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
 
 **`babel.overwrites`**
 
@@ -562,7 +570,11 @@ Using this flags, you can tell projext to always watch your files when building 
 >
 > ```js
 > {
->   features: [],
+>   features: {
+>     classProperties: false,
+>     decorators: false,
+>     dynamicImports: true,
+>   },
 >   browserVersions: 2,
 >   mobileSupport: true,
 >   polyfill: true,
@@ -574,13 +586,17 @@ These options are used by the build engine to configure [Babel](https://babeljs.
 
 **`babel.features`**
 
-projext includes by default two Babel plugins: [`transform-class-properties`](https://yarnpkg.com/en/package/babel-plugin-transform-class-properties) and [`transform-decorators-legacy`](https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy). On this list you can use the values `properties` or `decorators` to include them.
+This object can be used to enable/disable the Babel plugins projext includes:
+
+- `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
+- `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
+- `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
 
 If you need other plugins, they can be included on the `overwrites` option.
 
 **`babel.browserVersions`**
 
-When building the Babel configuration, projext uses the [`babel-preset-env`](https://yarnpkg.com/en/package/babel-preset-env) to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.
+When building the Babel configuration, projext uses the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env) to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.
 
 > Major browsers: Firefox, Chrome, Safari and Edge.
 

@@ -105,7 +105,11 @@ class ProjectConfiguration extends ConfigurationFile {
             production: false,
           },
           babel: {
-            features: [],
+            features: {
+              classProperties: false,
+              decorators: false,
+              dynamicImports: true,
+            },
             nodeVersion: 'current',
             overwrites: {},
           },
@@ -165,7 +169,11 @@ class ProjectConfiguration extends ConfigurationFile {
             production: false,
           },
           babel: {
-            features: [],
+            features: {
+              classProperties: false,
+              decorators: false,
+              dynamicImports: true,
+            },
             browserVersions: 2,
             mobileSupport: true,
             polyfill: true,

@@ -114,7 +114,7 @@ This is aimed to those who use bundlers everyday to build web sites, libraries a
 |--------------|-------------------------------------------------------------------------------|
 | Package      | projext                                                                       |
 | Description  | Bundle your Javascript projects without having to learn how to use a bundler. |
-| Node Version | >= v6.10.0                                                                    |
+| Node Version | >= v8.0.0                                                                    |
 
 ## Usage
 
@@ -208,7 +208,6 @@ When you try to bundle a Node target for development, if you didn't change the s
 
 Now, Node targets have two special settings: `bundle` and `transpile`. With `bundle` you can specify whether you want to bundle the entire code on a single file or not; and with `transpile` you can tell projext to just transpile the files content using Babel but keeping all the files.
 
-
 ## Other features
 
 ### Running the targets
@@ -281,19 +280,19 @@ Before doing anything, install the repository hooks:
 
 ```bash
 # You can either use npm or yarn, it doesn't matter
-npm run install-hooks
+yarn run hooks
 ```
 
 ### NPM/Yarn Tasks
 
 | Task                    | Description                         |
 |-------------------------|-------------------------------------|
-| `npm run install-hooks` | Install the GIT repository hooks.   |
-| `npm test`              | Run the project unit tests.         |
-| `npm run lint`          | Lint the modified files.            |
-| `npm run lint:full`     | Lint the project code.              |
-| `npm run docs`          | Generate the project documentation. |
-| `npm run todo`          | List all the pending to-do's.       |
+| `yarn run hooks`        | Install the GIT repository hooks.   |
+| `yarn test`             | Run the project unit tests.         |
+| `yarn run lint`         | Lint the modified files.            |
+| `yarn run lint:full`    | Lint the project code.              |
+| `yarn run docs`         | Generate the project documentation. |
+| `yarn run todo`         | List all the pending to-do's.       |
 
 ### Testing
 

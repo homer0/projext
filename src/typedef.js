@@ -205,6 +205,19 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetTemplateBabelFeatures
+ * @property {boolean} [classProperties=false]
+ * This enables `@babel/plugin-proposal-class-properties` so the targets can use classes with
+ * properties.
+ * @property {boolean} [decorators=false]
+ * This enables `@babel/plugin-proposal-decorators` so the targets can use decorators (based on
+ * the current TC39 proposal).
+ * @property {boolean} [dynamicImports=true]
+ * This enables `@babel/plugin-syntax-dynamic-import` so the targets can do dynamic imports and
+ * code splitting.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -212,10 +225,8 @@
 
 /**
  * @typedef {Object} ProjectConfigurationNodeTargetTemplateBabelSettings
- * @property {Array} [features=[]]
- * projext includes by default two Babel plugins: `@babel/plugin-proposal-class-properties` and
- * `@babel/plugin-proposal-decorators`. On this list you can use the values `properties` or
- * `decorators` to include them.
+ * @property {ProjectConfigurationTargetTemplateBabelFeatures} [features]
+ * This object can be used to enable/disable the Babel plugins projext includes.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {string} [nodeVersion='current']
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
@@ -293,10 +304,8 @@
 
 /**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateBabelSettings
- * @property {Array} [features=[]]
- * projext includes by default two Babel plugins: `@babel/plugin-proposal-class-properties` and
- * `@babel/plugin-proposal-decorators`. On this list you can use the values `properties` or
- * `decorators` to include them.
+ * @property {ProjectConfigurationTargetTemplateBabelFeatures} [features]
+ * This object can be used to enable/disable the Babel plugins projext includes.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {number} [browserVersions=2]
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
@@ -439,7 +448,7 @@
  * The target transpilation options.
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
- * configuration in order to add support and, in case it was disabled, it will enable transpilation.
+ * configuration in order to add support and, in case it was disabled, enable transpilation.
  * @property {boolean} [library=false]
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
@@ -509,7 +518,7 @@
  * The target transpilation options.
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
- * configuration in order to add support and, in case it was disabled, it will enable transpilation.
+ * configuration in order to add support and, in case it was disabled, enable transpilation.
  * @property {boolean} library
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.

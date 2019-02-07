@@ -18,8 +18,9 @@ class BabelConfiguration {
      * @type {Object}
      */
     this.plugins = {
-      properties: '@babel/plugin-proposal-class-properties',
+      classProperties: '@babel/plugin-proposal-class-properties',
       decorators: '@babel/plugin-proposal-decorators',
+      dynamicImports: '@babel/plugin-syntax-dynamic-import',
     };
   }
   /**
@@ -71,11 +72,14 @@ class BabelConfiguration {
       // Push the new `env` preset on top of the list.
       presets.unshift([envPresetName, { targets: presetTargets }]);
     }
+
     // Check if the configuration should include any _'known plugin'_.
-    features.forEach((feature) => {
-      const featurePlugin = this.plugins[feature];
-      if (!plugins.includes(featurePlugin)) {
-        plugins.push(featurePlugin);
+    Object.keys(features).forEach((feature) => {
+      if (features[feature] && this.plugins[feature]) {
+        const featurePlugin = this.plugins[feature];
+        if (!plugins.includes(featurePlugin)) {
+          plugins.push(featurePlugin);
+        }
       }
     });
 
@@ -85,8 +89,8 @@ class BabelConfiguration {
      */
     if (flow) {
       presets.push(['@babel/preset-flow']);
-      if (!plugins.includes(this.plugins.properties)) {
-        plugins.push(this.plugins.properties);
+      if (!plugins.includes(this.plugins.classProperties)) {
+        plugins.push(this.plugins.classProperties);
       }
     }
 

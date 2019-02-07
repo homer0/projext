@@ -13,7 +13,8 @@
               "./documents/overwrite.md",
               "./documents/plugins.md",
               "./documents/engines.md",
-              "./documents/browserTargetConfiguration.md"
+              "./documents/browserTargetConfiguration.md",
+              "./documents/codeSplitting.md"
             ]
           }
         }

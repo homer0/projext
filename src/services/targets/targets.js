@@ -156,9 +156,36 @@ class Targets {
           // Check if there are missing settings that should be replaced with a fallback.
           newTarget.html = this._normalizeTargetHTML(newTarget.html);
         }
+        /**
+         * If the target doesn't have the `typeScript` option enabled but one of the entry files
+         * extension is `.ts`, turn on the option; and if the extension is `.tsx`, set the
+         * framework to React.
+         */
+        if (!newTarget.typeScript) {
+          const hasATSFile = Object.keys(newTarget.entry).some((entryEnv) => {
+            let found = false;
+            const entryFile = newTarget.entry[entryEnv];
+            if (entryFile) {
+              found = entryFile.match(/\.tsx?$/i);
+              if (
+                found &&
+                entryFile.match(/\.tsx$/i) &&
+                typeof newTarget.framework === 'undefined'
+              ) {
+                newTarget.framework = 'react';
+              }
+            }
+
+            return found;
+          });
+
+          if (hasATSFile) {
+            newTarget.typeScript = true;
+          }
+        }
 
         // Check if the target should be transpiled (You can use types without transpilation).
-        if (!newTarget.transpile && newTarget.flow) {
+        if (!newTarget.transpile && (newTarget.flow || newTarget.typeScript)) {
           newTarget.transpile = true;
         }
         // Generate the target paths and folders.

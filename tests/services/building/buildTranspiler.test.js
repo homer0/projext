@@ -20,7 +20,11 @@ const {
 describe('services/building:buildTranspiler', () => {
   beforeEach(() => {
     fs.writeFile.mockReset();
+    fs.pathExists.mockReset();
+    fs.remove.mockReset();
     fs.writeFileSync.mockReset();
+    fs.pathExistsSync.mockReset();
+    fs.removeSync.mockReset();
     babel.transformFile.mockReset();
     babel.transformFileSync.mockReset();
     glob.mockReset();
@@ -48,9 +52,10 @@ describe('services/building:buildTranspiler', () => {
   it('should transpile a target files', () => {
     // Given
     const code = 'module.exports = someFunction();';
+    const jsxFile = 'fileB.jsx';
     const files = [
       'fileA.js',
-      'fileB.jsx',
+      jsxFile,
     ];
     glob.mockImplementationOnce((pattern, options, fn) => {
       fn(null, files);
@@ -60,6 +65,7 @@ describe('services/building:buildTranspiler', () => {
         fn(null, { code });
       });
     });
+    fs.pathExists.mockImplementationOnce(() => true);
     const babelConfiguration = {
       getConfigForTarget: jest.fn(() => ({})),
     };
@@ -111,6 +117,10 @@ describe('services/building:buildTranspiler', () => {
         );
       });
 
+      expect(fs.pathExists).toHaveBeenCalledTimes(1);
+      expect(fs.pathExists).toHaveBeenCalledWith(path.join(target.paths.build, jsxFile));
+      expect(fs.remove).toHaveBeenCalledTimes(1);
+      expect(fs.remove).toHaveBeenCalledWith(path.join(target.paths.build, jsxFile));
       expect(appLogger.success).toHaveBeenCalledTimes(1);
       expect(appLogger.info).toHaveBeenCalledTimes(files.length);
     })
@@ -529,6 +539,43 @@ describe('services/building:buildTranspiler', () => {
     expect(babel.transformFileSync).toHaveBeenCalledWith(file, {});
     expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
     expect(fs.writeFileSync).toHaveBeenCalledWith(file, code);
+  });
+
+  it('should transpile a JSX file (sync) and then remove the source', () => {
+    // Given
+    const code = 'module.exports = something();';
+    const file = 'someFile.jsx';
+    babel.transformFileSync.mockImplementationOnce(() => ({ code }));
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const babelConfiguration = {
+      getConfigForTarget: jest.fn(() => ({})),
+    };
+    const appLogger = 'appLogger';
+    const target = {
+      name: 'some-target',
+    };
+    const targets = {
+      findTargetForFile: jest.fn(() => target),
+    };
+    let sut = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    sut.transpileFileSync(file);
+    // Then
+    expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledTimes(1);
+    expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(target);
+    expect(babel.transformFileSync).toHaveBeenCalledTimes(1);
+    expect(babel.transformFileSync).toHaveBeenCalledWith(file, {});
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(1);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(file.replace(/\.[jt]sx?$/i, '.js'), code);
+    expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
+    expect(fs.pathExistsSync).toHaveBeenCalledWith(file);
+    expect(fs.removeSync).toHaveBeenCalledTimes(1);
+    expect(fs.removeSync).toHaveBeenCalledWith(file);
   });
 
   it('should transpile a file to a different path (sync)', () => {

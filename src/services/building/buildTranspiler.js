@@ -112,6 +112,7 @@ class BuildTranspiler {
    */
   transpileFile(filepath, options = null, writeFile = true) {
     let from = '';
+    let originalTo = '';
     let to = '';
     /**
      * Check if the file is a string or an object and define the from where to where the
@@ -119,13 +120,13 @@ class BuildTranspiler {
      */
     if (typeof filepath === 'string') {
       from = filepath;
-      to = filepath;
+      originalTo = filepath;
     } else {
       from = filepath.source;
-      to = filepath.output;
+      originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this._normalizeExtension(to);
+    to = this._normalizeExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from);
     // First, transform the file with Babel.
@@ -145,6 +146,9 @@ class BuildTranspiler {
       result = firstStep
       // ...write the file.
       .then((code) => fs.writeFile(to, code))
+      // ...if the file wasn't a normal `.js` and the original still exists, delete it.
+      .then(() => (to !== originalTo ? fs.pathExists(originalTo) : false))
+      .then((exists) => (exists ? fs.remove(originalTo) : null))
       // And return the path to the transpiled file.
       .then(() => to);
     } else {
@@ -173,6 +177,7 @@ class BuildTranspiler {
    */
   transpileFileSync(filepath, options = null, writeFile = true) {
     let from = '';
+    let originalTo = '';
     let to = '';
     /**
      * Check if the file is a string or an object and define the from where to where the
@@ -180,13 +185,13 @@ class BuildTranspiler {
      */
     if (typeof filepath === 'string') {
       from = filepath;
-      to = filepath;
+      originalTo = filepath;
     } else {
       from = filepath.source;
-      to = filepath.output;
+      originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this._normalizeExtension(to);
+    to = this._normalizeExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from);
     // First, transform the file with Babel.
@@ -197,6 +202,10 @@ class BuildTranspiler {
     if (writeFile) {
       // ...write the file.
       fs.writeFileSync(to, code);
+      // ...if the file wasn't a normal `.js` and the original still exists, delete it.
+      if (to !== originalTo && fs.pathExistsSync(originalTo)) {
+        fs.removeSync(originalTo);
+      }
       // And set to return the path to the transpiled file.
       result = to;
     } else {

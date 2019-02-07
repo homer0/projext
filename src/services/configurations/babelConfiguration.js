@@ -48,6 +48,7 @@ class BabelConfiguration {
       },
       flow,
       typeScript,
+      framework,
     } = target;
     // Define the configuration we are going to _'update'_.
     const config = Object.assign({}, overwrites || {});
@@ -105,7 +106,12 @@ class BabelConfiguration {
        * object rest/spread plugins.
        */
       if (!this._includesConfigurationItem(presets, this._typesPresets.typeScript)) {
-        presets.push([this._typesPresets.typeScript]);
+        const tsOptions = {};
+        if (framework === 'react') {
+          tsOptions.isTSX = true;
+          tsOptions.allExtensions = true;
+        }
+        presets.push([this._typesPresets.typeScript, tsOptions]);
       }
       if (!this._includesConfigurationItem(plugins, this.plugins.classProperties)) {
         plugins.push(this.plugins.classProperties);

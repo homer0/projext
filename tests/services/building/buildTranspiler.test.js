@@ -133,6 +133,87 @@ describe('services/building:buildTranspiler', () => {
     });
   });
 
+  it('should transpile a target files and avoid already transpiled .ts files', () => {
+    // Given
+    const code = 'module.exports = someFunction();';
+    const filename = 'fileX';
+    const jsFile = `${filename}.js`;
+    const tsFile = `${filename}.ts`;
+    const files = [
+      jsFile,
+      tsFile,
+    ];
+    glob.mockImplementationOnce((pattern, options, fn) => {
+      fn(null, files);
+    });
+    files.forEach(() => {
+      babel.transformFile.mockImplementationOnce((from, options, fn) => {
+        fn(null, { code });
+      });
+    });
+    fs.pathExists.mockImplementationOnce(() => true);
+    const babelConfiguration = {
+      getConfigForTarget: jest.fn(() => ({})),
+    };
+    const appLogger = {
+      success: jest.fn(),
+      info: jest.fn(),
+    };
+    const targets = 'targets';
+    const target = {
+      paths: {
+        build: '/some-absolute-path/to-the/build/directory',
+      },
+      folders: {
+        build: 'build/directory',
+      },
+      includeTargets: [],
+      sourceMap: {
+        development: false,
+        production: true,
+      },
+    };
+    let sut = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    return sut.transpileTargetFiles(target)
+    .then(() => {
+      // Then
+      expect(glob).toHaveBeenCalledTimes(1);
+      expect(glob).toHaveBeenCalledWith(
+        '**/*.{js,jsx,ts,tsx}',
+        {
+          cwd: target.paths.build,
+        },
+        expect.any(Function)
+      );
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledTimes(1);
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(target);
+      expect(babel.transformFile).toHaveBeenCalledTimes(1);
+      expect(babel.transformFile).toHaveBeenCalledWith(
+        path.join(target.paths.build, tsFile),
+        {},
+        expect.any(Function)
+      );
+      expect(fs.writeFile).toHaveBeenCalledTimes(1);
+      expect(fs.writeFile).toHaveBeenCalledWith(
+        path.join(target.paths.build, jsFile),
+        code
+      );
+      expect(fs.remove).toHaveBeenCalledTimes(1);
+      expect(fs.remove).toHaveBeenCalledWith(path.join(target.paths.build, tsFile));
+      expect(appLogger.success).toHaveBeenCalledTimes(1);
+      expect(appLogger.info).toHaveBeenCalledTimes(1);
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
   it('should transpile a target and its `includeTargets` files', () => {
     // Given
     const code = 'module.exports = someFunction();';

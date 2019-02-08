@@ -43,6 +43,7 @@ class CLISHBuildCommand extends CLICommand {
    */
   constructor(
     builder,
+    buildTypeScriptHelper,
     cliCleanCommand,
     cliCopyProjectFilesCommand,
     cliRevisionCommand,
@@ -60,6 +61,11 @@ class CLISHBuildCommand extends CLICommand {
      * @type {Builder}
      */
     this.builder = builder;
+    /**
+     * A local reference for the `buildTypeScriptHelper` service.
+     * @type {BuildTypeScriptHelper}
+     */
+    this.buildTypeScriptHelper = buildTypeScriptHelper;
     /**
      * A local reference for the `cliCleanCommand` service.
      * @type {CliCleanCommand}
@@ -240,6 +246,7 @@ class CLISHBuildCommand extends CLICommand {
       this._getBuildCommandIfNeeded(params),
       this._getCopyCommandIfNeeded(params),
       this._getTranspileCommandIfNeeded(params),
+      this._getTypeScriptDeclarationsCommandIfNeeded(params),
     ];
     // If the target won't be executed nor their files will be watched...
     if (!params.run && !params.watch) {
@@ -377,6 +384,30 @@ class CLISHBuildCommand extends CLICommand {
     return command;
   }
   /**
+   * Get the command to generate a TypeScript target type declarations, but only if the target
+   * uses TypeScript, won't run and doesn't need to be bundled.
+   * @param {CLIBuildCommandParams} params A dictionary with all the required information the
+   *                                       service needs to run the command: The target
+   *                                       information, the build type, whether or not the target
+   *                                       will be executed, etc.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _getTypeScriptDeclarationsCommandIfNeeded(params) {
+    let command = '';
+    if (
+      params.target.typeScript &&
+      params.build &&
+      !params.run &&
+      !params.target.bundle
+    ) {
+      command = this.buildTypeScriptHelper.getDeclarationsCommand(params.target);
+    }
+
+    return command;
+  }
+  /**
    * Get the command to run a Node target.
    * @param {CLIBuildCommandParams} params A dictionary with all the required information the
    *                                       service needs to run the command: The target
@@ -478,6 +509,7 @@ class CLISHBuildCommand extends CLICommand {
 const cliSHBuildCommand = provider((app) => {
   app.set('cliSHBuildCommand', () => new CLISHBuildCommand(
     app.get('builder'),
+    app.get('buildTypeScriptHelper'),
     app.get('cliCleanCommand'),
     app.get('cliCopyProjectFilesCommand'),
     app.get('cliRevisionCommand'),

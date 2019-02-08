@@ -32,6 +32,7 @@ const {
   buildNodeWatcher,
   buildNodeWatcherProcess,
   buildTranspiler,
+  buildTypeScriptHelper,
   buildVersion,
   builder,
 } = require('../services/building');
@@ -114,6 +115,7 @@ class Projext extends Jimple {
     this.register(buildNodeWatcher);
     this.register(buildNodeWatcherProcess);
     this.register(buildTranspiler);
+    this.register(buildTypeScriptHelper);
     this.register(buildVersion);
     this.register(builder);
 

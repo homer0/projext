@@ -23,7 +23,12 @@ class BabelConfiguration {
       dynamicImports: '@babel/plugin-syntax-dynamic-import',
       objectRestSpread: '@babel/plugin-proposal-object-rest-spread',
     };
-
+    /**
+     * A dictionary with familiar names for Babel presets for type check.
+     * @type {Object}
+     * @access protected
+     * @ignore
+     */
     this._typesPresets = {
       flow: '@babel/preset-flow',
       typeScript: '@babel/preset-typescript',

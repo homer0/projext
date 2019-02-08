@@ -366,7 +366,11 @@ class TargetsFinder {
 
     if (entryPath.match(this._extensions.typeScript)) {
       info.typeScript = true;
-      if (isBrowser && !framework && entryPath.match(this._extensions.typeScriptReact)) {
+      info.sourceMap = {
+        development: true,
+        production: true,
+      };
+      if (!framework && entryPath.match(this._extensions.typeScriptReact)) {
         info.framework = 'react';
       }
     }

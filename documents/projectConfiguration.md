@@ -91,6 +91,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   folder: '',
   entry: { ... },
   output: { ... },
+  sourceMap: { ... },
   inspect: { ... },
   css: { ... },
   includeModules: [],
@@ -190,6 +191,18 @@ You can use the following placeholders:
 - `[hash]`: A random hash generated for cache busting.
 - `[name]`: The file original name (Not available for `css` and `js`).
 - `[ext]`: The file original extension (Not available for `css` and `js`).
+
+#### `sourceMap`
+> Default value:
+>
+> ```js
+> {
+>   development: false,
+>   production: true,
+> }
+> ```
+
+Whether or not to disable source map generation for each environment.
 
 #### `inspect`
 > Default value:

@@ -38,14 +38,19 @@ class BuildTranspiler {
   /**
    * Transpile a target files for a given build type. This requires the target files to have been
    * previously copied to the distribution directory.
-   * @param {Target} target The target information.
+   * @param {Target} target                    The target information.
+   * @param {string} [buildType='development'] The build type for which the target is being
+   *                                           transpiled for. This will be used to read the source
+   *                                           map settings of the target and tell Babel if it needs
+   *                                           to create them.
    * @return {Promise<undefined,Error}
    */
-  transpileTargetFiles(target) {
+  transpileTargetFiles(target, buildType = 'development') {
     const {
       paths: { build: buildPath },
       folders: { build: buildFolder },
       includeTargets,
+      sourceMap,
     } = target;
     // Define the variable to return.
     let result;
@@ -64,8 +69,16 @@ class BuildTranspiler {
       .then((files) => {
         // Get the Babel configuration for the target.
         const babelConfig = this.babelConfiguration.getConfigForTarget(target);
+        // Enable source map if the target requires it for the specified build type.
+        if (sourceMap[buildType]) {
+          babelConfig.sourceMaps = true;
+        }
         // Loop all the files and transpile them
-        return Promise.all(files.map((file) => this.transpileFile(file, babelConfig)));
+        return Promise.all(files.map((file) => this.transpileFile(
+          file,
+          buildType,
+          babelConfig
+        )));
       })
       .then((files) => {
         this.appLogger.success('The following files have been successfully transpiled:');
@@ -95,22 +108,30 @@ class BuildTranspiler {
   }
   /**
    * Transpile a file.
-   * @param {string|Object} filepath         If used as a string, it's the path to the file to
-   *                                         transpile; if used as an object, it should have
-   *                                         `source` and `output` properties to define from where
-   *                                         to where the file is transpiled.
-   * @param {?Object}       [options=null]   The Babel configuration to use. If not defined, the
-   *                                         method will try to find a target configuration using
-   *                                         the path of the file.
-   * @param {boolean}       [writeFile=true] If `true`, it will write the transpile code,
-   *                                         otherwise, it will return it on the promise.
+   * @param {string|Object} filepath                  If used as a string, it's the path to the
+   *                                                  file to transpile; if used as an object, it
+   *                                                  should have `source` and `output` properties
+   *                                                  to define from where to where the file is
+   *                                                  transpiled.
+   * @param {string}        [buildType='development'] The build type for which the file is being
+   *                                                  transpiled for. If `options` is not
+   *                                                  specified, the method will try to load the
+   *                                                  target configuration based on the file path,
+   *                                                  and if the target has source maps enabled for
+   *                                                  the build type, it will tell Babel to
+   *                                                  create them.
+   * @param {?Object}       [options=null]            The Babel configuration to use. If not
+   *                                                  defined, the method will try to find a target
+   *                                                  configuration using the path of the file.
+   * @param {boolean}       [writeFile=true]          If `true`, it will write the transpile code,
+   *                                                  otherwise, it will return it on the promise.
    * @return {Promise<Object|string,Error>} If `writeFile` is true, the promise will resolve on
    *                                        an object with the keys `filepath` (the path where it
    *                                        was transpiled) and `code`; but if the parameter is
    *                                        `false`, the promise will resolve on a string with
    *                                        the path to the file.
    */
-  transpileFile(filepath, options = null, writeFile = true) {
+  transpileFile(filepath, buildType = 'development', options = null, writeFile = true) {
     let from = '';
     let originalTo = '';
     let to = '';
@@ -128,14 +149,14 @@ class BuildTranspiler {
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
     to = this._normalizeExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
-    const babelOptions = options || this.getTargetConfigurationForFile(from);
+    const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
     const firstStep = new Promise((resolve, reject) => {
-      babel.transformFile(from, babelOptions, (error, result) => {
+      babel.transformFile(from, babelOptions, (error, transpiled) => {
         if (error) {
           reject(error);
         } else {
-          resolve(result.code);
+          resolve(transpiled);
         }
       });
     });
@@ -144,8 +165,26 @@ class BuildTranspiler {
     // If the file should be written...
     if (writeFile) {
       result = firstStep
-      // ...write the file.
-      .then((code) => fs.writeFile(to, code))
+      .then((transpiled) => {
+        // Define the list of promises that need to be executed.
+        const nextSteps = [];
+        // Extract the code and the source map from the transpilation results.
+        const { code, map } = transpiled;
+        let newCode = code;
+        // If there's a map...
+        if (map) {
+          // ...parse and normalize it.
+          const sourceMap = this._normalizeSourceMap(to, map);
+          // ...update the code to include the link for the map.
+          newCode = `${code}\n${sourceMap.link}\n`;
+          // ...push the writing of the map onto the promises list.
+          nextSteps.push(fs.writeFile(sourceMap.filepath, sourceMap.code));
+        }
+        // Push the writing of the transpiled code on the promises list.
+        nextSteps.unshift(fs.writeFile(to, newCode));
+        // Process all the _"writing promises"_.
+        return Promise.all(nextSteps);
+      })
       // ...if the file wasn't a normal `.js` and the original still exists, delete it.
       .then(() => (to !== originalTo ? fs.pathExists(originalTo) : false))
       .then((exists) => (exists ? fs.remove(originalTo) : null))
@@ -154,28 +193,37 @@ class BuildTranspiler {
     } else {
       result = firstStep
       // Return the code and the path it should've been saved.
-      .then((code) => ({ filepath: to, code }));
+      .then((transpiled) => Object.assign({}, transpiled, { filepath: to }));
     }
 
     return result;
   }
   /**
    * Synchronous version of `transpileFile`.
-   * @param {string|Object} filepath         If used as a string, it's the path to the file to
-   *                                         transpile; if used as an object, it should have
-   *                                         `source` and `output` properties to define from where
-   *                                         to where the file is transpiled.
-   * @param {?Object}       [options=null]   The Babel configuration to use. If not defined, the
-   *                                         method will try to find a target configuration using
-   *                                         the path of the file.
-   * @param {boolean}       [writeFile=true] If `true`, it will write the transpile code,
-   *                                         otherwise, it will return it.
+   * @param {string|Object} filepath                  If used as a string, it's the path to the
+   *                                                  file to transpile; if used as an object, it
+   *                                                  should have `source` and `output` properties
+   *                                                  to define from where to where the file is
+   *                                                  transpiled.
+   * @param {string}        [buildType='development'] The build type for which the file is being
+   *                                                  transpiled for. If `options` is not
+   *                                                  specified, the method will try to load the
+   *                                                  target configuration based on the file path,
+   *                                                  and if the target has source maps enabled for
+   *                                                  the build type, it will tell Babel to
+   *                                                  create them.
+   * @param {?Object}       [options=null]            The Babel configuration to use. If not
+   *                                                  defined, the method will try to find a
+   *                                                  target configuration using the path of the
+   *                                                  file.
+   * @param {boolean}       [writeFile=true]          If `true`, it will write the transpile code,
+   *                                                  otherwise, it will return it.
    * @return {Object|string} If `writeFile` is true, it will return an object with the keys
    *                         `filepath` (the path where it was transpiled) and `code`; but if the
    *                         parameter is `false`, it will return a string with the path to the
    *                         file.
    */
-  transpileFileSync(filepath, options = null, writeFile = true) {
+  transpileFileSync(filepath, buildType = 'development', options = null, writeFile = true) {
     let from = '';
     let originalTo = '';
     let to = '';
@@ -193,15 +241,28 @@ class BuildTranspiler {
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
     to = this._normalizeExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
-    const babelOptions = options || this.getTargetConfigurationForFile(from);
+    const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
-    const { code } = babel.transformFileSync(from, babelOptions);
+    const transpiled = babel.transformFileSync(from, babelOptions);
     let result;
 
     // If the file should be written...
     if (writeFile) {
+      // Extract the code and the source map from the transpilation results
+      const { code, map } = transpiled;
+      let newCode = code;
+      // If there's a map...
+      if (map) {
+        // ...parse and normalize it.
+        const sourceMap = this._normalizeSourceMap(to, map);
+        // ...update the code to include the link for the map.
+        newCode = `${code}\n${sourceMap.link}\n`;
+        // ...write the source map.
+        fs.writeFileSync(sourceMap.filepath, sourceMap.code);
+      }
+
       // ...write the file.
-      fs.writeFileSync(to, code);
+      fs.writeFileSync(to, newCode);
       // ...if the file wasn't a normal `.js` and the original still exists, delete it.
       if (to !== originalTo && fs.pathExistsSync(originalTo)) {
         fs.removeSync(originalTo);
@@ -210,7 +271,7 @@ class BuildTranspiler {
       result = to;
     } else {
       // Set to return the code and the path it should've been saved.
-      result = { filepath: to, code };
+      result = Object.assign({}, transpiled, { filepath: to });
     }
 
     return result;
@@ -240,14 +301,19 @@ class BuildTranspiler {
    *                      configuration.
    * @return {Object}
    */
-  getTargetConfigurationForFile(file) {
+  getTargetConfigurationForFile(file, buildType = 'development') {
     /**
      * Find target using the received filepath. The method will throw an error if a target is not
      * found.
      */
     const target = this.targets.findTargetForFile(file);
     // Return the Babel configuration for the found target.
-    return this.babelConfiguration.getConfigForTarget(target);
+    const config = this.babelConfiguration.getConfigForTarget(target);
+    if (target.sourceMap[buildType]) {
+      config.sourceMaps = true;
+    }
+
+    return config;
   }
   /**
    * This is a helper method that checks if a file path for JS file uses a `.js` extension, and if
@@ -267,6 +333,31 @@ class BuildTranspiler {
     }
 
     return result;
+  }
+  /**
+   * This is a helper method that prepares all the source map information needed to link it on the
+   * transpiled file and write it on the file system.
+   * @param {string} filepath      The path to the file the map is for.
+   * @param {Object} mapProperties The map properties generated by Babel.
+   * @return {Object}
+   * @property {string} filepath The complete path to the source map.
+   * @property {string} filename The name of the source map.
+   * @property {string} link     The comment needed on the original source to link the source map.
+   * @property {string} code     The actual code of the source map.
+   * @access protected
+   * @ignore
+   */
+  _normalizeSourceMap(filepath, mapProperties) {
+    const mapPath = `${filepath}.map`;
+    const mapName = path.basename(mapPath);
+    const link = `//# sourceMappingURL=${mapName}`;
+    const code = JSON.stringify(Object.assign({}, mapProperties, { sources: [] }));
+    return {
+      filepath: mapPath,
+      filename: mapName,
+      link,
+      code,
+    };
   }
 }
 /**

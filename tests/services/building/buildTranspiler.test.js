@@ -82,6 +82,10 @@ describe('services/building:buildTranspiler', () => {
         build: 'build/directory',
       },
       includeTargets: [],
+      sourceMap: {
+        development: false,
+        production: true,
+      },
     };
     let sut = null;
     // When
@@ -167,6 +171,10 @@ describe('services/building:buildTranspiler', () => {
         build: 'other/build/directory',
       },
       includeTargets: [],
+      sourceMap: {
+        development: true,
+        production: true,
+      },
     };
     const targets = {
       getTarget: jest.fn(() => includedTarget),
@@ -179,6 +187,10 @@ describe('services/building:buildTranspiler', () => {
         build: 'build/directory',
       },
       includeTargets: [includedTarget.name],
+      sourceMap: {
+        development: true,
+        production: false,
+      },
     };
     let sut = null;
     // When
@@ -213,7 +225,7 @@ describe('services/building:buildTranspiler', () => {
       files.forEach((file) => {
         expect(babel.transformFile).toHaveBeenCalledWith(
           path.join(target.paths.build, file),
-          {},
+          { sourceMaps: true },
           expect.any(Function)
         );
         expect(fs.writeFile).toHaveBeenCalledWith(
@@ -222,7 +234,7 @@ describe('services/building:buildTranspiler', () => {
         );
         expect(babel.transformFile).toHaveBeenCalledWith(
           path.join(includedTarget.paths.build, file),
-          {},
+          { sourceMaps: true },
           expect.any(Function)
         );
         expect(fs.writeFile).toHaveBeenCalledWith(
@@ -258,6 +270,10 @@ describe('services/building:buildTranspiler', () => {
         build: 'build/directory',
       },
       includeTargets: [],
+      sourceMap: {
+        development: false,
+        production: true,
+      },
     };
     let sut = null;
     // When
@@ -301,6 +317,10 @@ describe('services/building:buildTranspiler', () => {
         build: 'other/build/directory',
       },
       includeTargets: [],
+      sourceMap: {
+        development: false,
+        production: true,
+      },
     };
     const targets = {
       getTarget: jest.fn(() => includedTarget),
@@ -313,6 +333,10 @@ describe('services/building:buildTranspiler', () => {
         build: 'build/directory',
       },
       includeTargets: [includedTarget.name],
+      sourceMap: {
+        development: false,
+        production: true,
+      },
     };
     let sut = null;
     // When
@@ -346,6 +370,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -376,6 +404,59 @@ describe('services/building:buildTranspiler', () => {
     });
   });
 
+  it('should transpile a file with a source map', () => {
+    // Given
+    const file = 'someFile.js';
+    const mapFile = `${file}.map`;
+    const mapLink = `//# sourceMappingURL=${mapFile}`;
+    const code = 'module.exports = something();';
+    const map = { version: 3, sources: [] };
+    babel.transformFile.mockImplementationOnce((from, options, fn) => {
+      fn(null, { code, map });
+    });
+    const babelConfiguration = {
+      getConfigForTarget: jest.fn(() => ({})),
+    };
+    const appLogger = 'appLogger';
+    const target = {
+      name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: true,
+      },
+    };
+    const targets = {
+      findTargetForFile: jest.fn(() => target),
+    };
+    let sut = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    return sut.transpileFile(file, 'production')
+    .then(() => {
+      // Then
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledTimes(1);
+      expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(target);
+      expect(babel.transformFile).toHaveBeenCalledTimes(1);
+      expect(babel.transformFile).toHaveBeenCalledWith(
+        file,
+        {
+          sourceMaps: true,
+        },
+        expect.any(Function)
+      );
+      expect(fs.writeFile).toHaveBeenCalledTimes(2);
+      expect(fs.writeFile).toHaveBeenCalledWith(file, `${code}\n${mapLink}\n`);
+      expect(fs.writeFile).toHaveBeenCalledWith(mapFile, JSON.stringify(map));
+    })
+    .catch((error) => {
+      throw error;
+    });
+  });
+
   it('should transpile a file to a different path', () => {
     // Given
     const code = 'module.exports = something();';
@@ -390,6 +471,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -436,6 +521,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -447,7 +536,7 @@ describe('services/building:buildTranspiler', () => {
       appLogger,
       targets
     );
-    return sut.transpileFile(file, {}, false)
+    return sut.transpileFile(file, 'development', {}, false)
     .then((result) => {
       // Then
       expect(result).toEqual({
@@ -480,6 +569,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -520,6 +613,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -541,6 +638,46 @@ describe('services/building:buildTranspiler', () => {
     expect(fs.writeFileSync).toHaveBeenCalledWith(file, code);
   });
 
+  it('should transpile a file with a source map (sync)', () => {
+    // Given
+    const file = 'someFile.js';
+    const mapFile = `${file}.map`;
+    const mapLink = `//# sourceMappingURL=${mapFile}`;
+    const code = 'module.exports = something();';
+    const map = { version: 3, sources: [] };
+    babel.transformFileSync.mockImplementationOnce(() => ({ code, map }));
+    const babelConfiguration = {
+      getConfigForTarget: jest.fn(() => ({})),
+    };
+    const appLogger = 'appLogger';
+    const target = {
+      name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: true,
+      },
+    };
+    const targets = {
+      findTargetForFile: jest.fn(() => target),
+    };
+    let sut = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    sut.transpileFileSync(file, 'production');
+    // Then
+    expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledTimes(1);
+    expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(target);
+    expect(babel.transformFileSync).toHaveBeenCalledTimes(1);
+    expect(babel.transformFileSync).toHaveBeenCalledWith(file, { sourceMaps: true });
+    expect(fs.writeFileSync).toHaveBeenCalledTimes(2);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(file, `${code}\n${mapLink}\n`);
+    expect(fs.writeFileSync).toHaveBeenCalledWith(mapFile, JSON.stringify(map));
+  });
+
   it('should transpile a JSX file (sync) and then remove the source', () => {
     // Given
     const code = 'module.exports = something();';
@@ -553,6 +690,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -590,6 +731,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -625,6 +770,10 @@ describe('services/building:buildTranspiler', () => {
     const appLogger = 'appLogger';
     const target = {
       name: 'some-target',
+      sourceMap: {
+        development: false,
+        production: false,
+      },
     };
     const targets = {
       findTargetForFile: jest.fn(() => target),
@@ -637,7 +786,7 @@ describe('services/building:buildTranspiler', () => {
       appLogger,
       targets
     );
-    result = sut.transpileFileSync(file, {}, false);
+    result = sut.transpileFileSync(file, 'development', {}, false);
     // Then
     expect(result).toEqual({
       filepath: file,
@@ -646,6 +795,42 @@ describe('services/building:buildTranspiler', () => {
     expect(babel.transformFileSync).toHaveBeenCalledTimes(1);
     expect(babel.transformFileSync).toHaveBeenCalledWith(file, {});
     expect(fs.writeFileSync).toHaveBeenCalledTimes(0);
+  });
+
+  it('should enable source maps on a Babel configuration for a target', () => {
+    // Given
+    const file = 'someFile.js';
+    const babelConfiguration = {
+      getConfigForTarget: jest.fn(() => ({})),
+    };
+    const appLogger = 'appLogger';
+    const target = {
+      name: 'some-target',
+      sourceMap: {
+        development: true,
+        production: false,
+      },
+    };
+    const targets = {
+      findTargetForFile: jest.fn(() => target),
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BuildTranspiler(
+      babelConfiguration,
+      appLogger,
+      targets
+    );
+    result = sut.getTargetConfigurationForFile(file);
+    // Then
+    expect(result).toEqual({
+      sourceMaps: true,
+    });
+    expect(targets.findTargetForFile).toHaveBeenCalledTimes(1);
+    expect(targets.findTargetForFile).toHaveBeenCalledWith(file);
+    expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledTimes(1);
+    expect(babelConfiguration.getConfigForTarget).toHaveBeenCalledWith(target);
   });
 
   it('should include a provider for the DIC', () => {

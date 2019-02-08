@@ -86,6 +86,10 @@ class ProjectConfiguration extends ConfigurationFile {
             },
             production: null,
           },
+          sourceMap: {
+            development: false,
+            production: true,
+          },
           inspect: {
             enabled: false,
             host: '0.0.0.0',

@@ -861,6 +861,10 @@ describe('services/targets:targetsFinder', () => {
       library: false,
       transpile: true,
       typeScript: true,
+      sourceMap: {
+        development: true,
+        production: true,
+      },
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);
@@ -915,6 +919,10 @@ describe('services/targets:targetsFinder', () => {
       library: false,
       typeScript: true,
       framework: 'react',
+      sourceMap: {
+        development: true,
+        production: true,
+      },
     }];
     // When
     sut = new TargetsFinder(packageInfo, pathUtils);

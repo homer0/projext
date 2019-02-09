@@ -221,6 +221,14 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetTemplateSourceMapSettings
+ * @property {boolean} [development=false]
+ * Whether or not to generate a source map on a development build.
+ * @property {boolean} [production=true]
+ * Whether or not to generate a source map on a production build.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -270,14 +278,6 @@
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Browser
  * ================================================================================================
- */
-
-/**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings
- * @property {boolean} [development=false]
- * Whether or not to generate a source map on a development build.
- * @property {boolean} [production=true]
- * Whether or not to generate a source map on a production build.
  */
 
 /**
@@ -427,6 +427,8 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} [sourceMap]
+ * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationNodeTargetInspectSettings} [inspect]
  * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} [css]
@@ -498,6 +500,8 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} sourceMap
+ * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationNodeTargetInspectSettings} inspect
  * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} css
@@ -574,7 +578,7 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} [sourceMap]
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]
  * In the case the target is an app, these are the options for the `html` file that will include
@@ -644,7 +648,7 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
- * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} sourceMap
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html
  * In the case the target is an app, these are the options for the `html` file that will include

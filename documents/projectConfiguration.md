@@ -101,6 +101,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -340,6 +341,11 @@ If you know how to use Babel and need stuff that is not covered by projext, you 
 
 Whether or not your target uses [flow](https://flow.org/). This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.
 
+#### `typeScript`
+> Default value: `false`
+
+Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.
+
 #### `library`
 > Default value: `false`
 
@@ -402,6 +408,7 @@ This is different from the main `copy` feature as this is specific to targets an
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -633,6 +640,11 @@ If you know how to use Babel and need stuff that is not covered by projext, you 
 > Default value: `false`
 
 Whether or not your target uses [flow](https://flow.org/). This will update the Babel configuration in order to add support for it.
+
+#### `typeScript`
+> Default value: `false`
+
+Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel configuration in order to add support for it.
 
 #### `library`
 > Default value: `false`

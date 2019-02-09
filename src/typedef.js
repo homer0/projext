@@ -451,6 +451,8 @@
  * The target transpilation options.
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
+ * @property {boolean} [typeScript=false]
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
  * configuration in order to add support and, in case it was disabled, enable transpilation.
  * @property {boolean} [library=false]
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
@@ -521,6 +523,9 @@
  * The target transpilation options.
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
+ * configuration in order to add support and, in case it was disabled, enable transpilation.
+ * @property {boolean} typeScript
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
  * configuration in order to add support and, in case it was disabled, enable transpilation.
  * @property {boolean} library
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
@@ -596,6 +601,9 @@
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
  * configuration in order to add support for it.
+ * @property {boolean} [typeScript=false]
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
+ * configuration in order to add support for it.
  * @property {boolean} [library=false]
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
  * @property {ProjectConfigurationBrowserTargetTemplateLibraryOptions} [libraryOptions]
@@ -662,6 +670,9 @@
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
+ * configuration in order to add support for it.
+ * @property {boolean} typeScript
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
  * configuration in order to add support for it.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.

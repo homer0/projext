@@ -119,6 +119,7 @@ class ProjectConfiguration extends ConfigurationFile {
             overwrites: {},
           },
           flow: false,
+          typeScript: false,
           library: false,
           libraryOptions: {
             libraryTarget: 'commonjs2',
@@ -186,6 +187,7 @@ class ProjectConfiguration extends ConfigurationFile {
             overwrites: {},
           },
           flow: false,
+          typeScript: false,
           hot: false,
           library: false,
           libraryOptions: {

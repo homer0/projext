@@ -91,6 +91,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   folder: '',
   entry: { ... },
   output: { ... },
+  sourceMap: { ... },
   inspect: { ... },
   css: { ... },
   includeModules: [],
@@ -100,6 +101,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -190,6 +192,18 @@ You can use the following placeholders:
 - `[hash]`: A random hash generated for cache busting.
 - `[name]`: The file original name (Not available for `css` and `js`).
 - `[ext]`: The file original extension (Not available for `css` and `js`).
+
+#### `sourceMap`
+> Default value:
+>
+> ```js
+> {
+>   development: false,
+>   production: true,
+> }
+> ```
+
+Whether or not to disable source map generation for each environment.
 
 #### `inspect`
 > Default value:
@@ -294,6 +308,7 @@ Using this flags, you can tell projext to always watch your files when building 
 >     classProperties: false,
 >     decorators: false,
 >     dynamicImports: true,
+>     objectRestSpread: false,
 >   },
 >   nodeVersion: 'current',
 >   overwrites: {},
@@ -309,6 +324,7 @@ This object can be used to enable/disable the Babel plugins projext includes:
 - `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
 - `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
 - `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
+- `objectRestSpread` (enabled): [`@babel/plugin-proposal-object-rest-spread`](https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread).
 
 If you need other plugins, they can be included on the `overwrites` option.
 
@@ -324,6 +340,11 @@ If you know how to use Babel and need stuff that is not covered by projext, you 
 > Default value: `false`
 
 Whether or not your target uses [flow](https://flow.org/). This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.
+
+#### `typeScript`
+> Default value: `false`
+
+Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.
 
 #### `library`
 > Default value: `false`
@@ -387,6 +408,7 @@ This is different from the main `copy` feature as this is specific to targets an
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -574,6 +596,7 @@ Using this flags, you can tell projext to always watch your files when building 
 >     classProperties: false,
 >     decorators: false,
 >     dynamicImports: true,
+>     objectRestSpread: false,
 >   },
 >   browserVersions: 2,
 >   mobileSupport: true,
@@ -591,6 +614,7 @@ This object can be used to enable/disable the Babel plugins projext includes:
 - `classProperties` (disabled): [`@babel/plugin-proposal-class-properties`](https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties).
 - `decorators` (disabled): [`@babel/plugin-proposal-decorators`](https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators).
 - `dynamicImports` (enabled): [`@babel/plugin-syntax-dynamic-import`](https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
+- `objectRestSpread` (enabled): [`@babel/plugin-proposal-object-rest-spread`](https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread).
 
 If you need other plugins, they can be included on the `overwrites` option.
 
@@ -616,6 +640,11 @@ If you know how to use Babel and need stuff that is not covered by projext, you 
 > Default value: `false`
 
 Whether or not your target uses [flow](https://flow.org/). This will update the Babel configuration in order to add support for it.
+
+#### `typeScript`
+> Default value: `false`
+
+Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel configuration in order to add support for it.
 
 #### `library`
 > Default value: `false`

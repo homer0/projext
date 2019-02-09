@@ -86,6 +86,10 @@ class ProjectConfiguration extends ConfigurationFile {
             },
             production: null,
           },
+          sourceMap: {
+            development: false,
+            production: true,
+          },
           inspect: {
             enabled: false,
             host: '0.0.0.0',
@@ -109,11 +113,13 @@ class ProjectConfiguration extends ConfigurationFile {
               classProperties: false,
               decorators: false,
               dynamicImports: true,
+              objectRestSpread: false,
             },
             nodeVersion: 'current',
             overwrites: {},
           },
           flow: false,
+          typeScript: false,
           library: false,
           libraryOptions: {
             libraryTarget: 'commonjs2',
@@ -173,6 +179,7 @@ class ProjectConfiguration extends ConfigurationFile {
               classProperties: false,
               decorators: false,
               dynamicImports: true,
+              objectRestSpread: false,
             },
             browserVersions: 2,
             mobileSupport: true,
@@ -180,6 +187,7 @@ class ProjectConfiguration extends ConfigurationFile {
             overwrites: {},
           },
           flow: false,
+          typeScript: false,
           hot: false,
           library: false,
           libraryOptions: {

@@ -96,6 +96,12 @@ describe('services/targets:targets', () => {
           type: 'browser',
           hasFolder: false,
         },
+        targetFive: {
+          folder: 'target-five',
+          createFolder: true,
+          transpile: false,
+          typeScript: true,
+        },
       },
       targetsTemplates: {
         node: {
@@ -202,6 +208,32 @@ describe('services/targets:targets', () => {
         is: {
           node: false,
           browser: true,
+        },
+        engine: 'webpack',
+      },
+      targetFive: {
+        defaultTargetName: 'node',
+        hasFolder: true,
+        folder: 'target-five',
+        createFolder: true,
+        transpile: true,
+        typeScript: true,
+        name: 'targetFive',
+        entry: {},
+        output: {},
+        originalOutput: {},
+        type: 'node',
+        paths: {
+          source: `${source}/target-five`,
+          build: `${build}/target-five`,
+        },
+        folders: {
+          source: `${source}/target-five`,
+          build: `${build}/target-five`,
+        },
+        is: {
+          node: true,
+          browser: false,
         },
         engine: 'webpack',
       },
@@ -474,6 +506,93 @@ describe('services/targets:targets', () => {
             browser: false,
           },
           engine: 'webpack',
+        },
+      },
+      /**
+       * Target with a TypeScript file.
+       */
+      {
+        config: {
+          name: 'targetSix',
+          entry: {
+            default: 'index.ts',
+          },
+        },
+        expected: {
+          name: 'targetSix',
+          type: 'node',
+          entry: {
+            development: 'index.ts',
+            production: 'index.ts',
+          },
+          output: {
+            development: {
+              js: '[target-name].js',
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
+            production: {
+              js: '[target-name].js',
+              fonts: 'statics/fonts/[name].[hash].[ext]',
+              css: 'statics/styles/[target-name].[hash].css',
+              images: 'statics/images/[name].[hash].[ext]',
+            },
+          },
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: true,
+            browser: false,
+          },
+          engine: 'webpack',
+          typeScript: true,
+          transpile: true,
+        },
+      },
+      /**
+       * Target with a TypeScript React file.
+       */
+      {
+        config: {
+          name: 'targetSeven',
+          entry: {
+            default: 'index.tsx',
+          },
+        },
+        expected: {
+          name: 'targetSeven',
+          type: 'node',
+          entry: {
+            development: 'index.tsx',
+            production: 'index.tsx',
+          },
+          output: {
+            development: {
+              js: '[target-name].js',
+              fonts: 'statics/fonts/[name].[ext]',
+              css: 'statics/styles/[target-name].css',
+              images: 'statics/images/[name].[ext]',
+            },
+            production: {
+              js: '[target-name].js',
+              fonts: 'statics/fonts/[name].[hash].[ext]',
+              css: 'statics/styles/[target-name].[hash].css',
+              images: 'statics/images/[name].[hash].[ext]',
+            },
+          },
+          paths: { source, build },
+          folders: { source, build },
+          hasFolder: false,
+          is: {
+            node: true,
+            browser: false,
+          },
+          engine: 'webpack',
+          typeScript: true,
+          transpile: true,
+          framework: 'react',
         },
       },
     ];

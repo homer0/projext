@@ -37,6 +37,10 @@ describe('services/cli:sh-build', () => {
     test.builder = {
       getTargetBuildCommand: jest.fn(() => test.buildCommand),
     };
+    test.tsDeclarationsCommand = 'declarations';
+    test.buildTypeScriptHelper = {
+      getDeclarationsCommand: jest.fn(() => test.tsDeclarationsCommand),
+    };
     test.cleanCommand = 'clean';
     test.cliCleanCommand = {
       generate: jest.fn(() => test.cleanCommand),
@@ -94,6 +98,7 @@ describe('services/cli:sh-build', () => {
     };
     test.sut = new CLISHBuildCommand(
       test.builder,
+      test.buildTypeScriptHelper,
       test.cliCleanCommand,
       test.cliCopyProjectFilesCommand,
       test.cliRevisionCommand,
@@ -134,6 +139,7 @@ describe('services/cli:sh-build', () => {
   it('should be instantiated with all its dependencies', () => {
     // Given
     const builder = 'builder';
+    const buildTypeScriptHelper = 'buildTypeScriptHelper';
     const cliCleanCommand = 'cliCleanCommand';
     const cliCopyProjectFilesCommand = 'cliCopyProjectFilesCommand';
     const cliRevisionCommand = 'cliRevisionCommand';
@@ -148,6 +154,7 @@ describe('services/cli:sh-build', () => {
     // When
     sut = new CLISHBuildCommand(
       builder,
+      buildTypeScriptHelper,
       cliCleanCommand,
       cliCopyProjectFilesCommand,
       cliRevisionCommand,
@@ -163,6 +170,7 @@ describe('services/cli:sh-build', () => {
     expect(sut).toBeInstanceOf(CLISHBuildCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.builder).toBe(builder);
+    expect(sut.buildTypeScriptHelper).toBe(buildTypeScriptHelper);
     expect(sut.cliCleanCommand).toBe(cliCleanCommand);
     expect(sut.cliCopyProjectFilesCommand).toBe(cliCopyProjectFilesCommand);
     expect(sut.cliRevisionCommand).toBe(cliRevisionCommand);
@@ -1239,6 +1247,58 @@ describe('services/cli:sh-build', () => {
     ].join(';'));
   });
 
+  it('should return the command to build a node target and generate TS declarations', () => {
+    // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = false;
+    const inspect = false;
+    const test = getTestForTheBuildCommand();
+    test.target.transpile = true;
+    test.target.typeScript = true;
+    // When
+    test.run(buildType, run, watch, inspect);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
+    expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.buildTypeScriptHelper.getDeclarationsCommand).toHaveBeenCalledTimes(1);
+    expect(test.buildTypeScriptHelper.getDeclarationsCommand).toHaveBeenCalledWith(test.target);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [
+        test.cleanCommand,
+        test.buildCommand,
+        test.copyCommand,
+        test.transpileCommand,
+        test.tsDeclarationsCommand,
+      ],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+        inspect,
+      },
+      {}
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.cleanCommand,
+      test.buildCommand,
+      test.copyCommand,
+      test.transpileCommand,
+      test.tsDeclarationsCommand,
+    ].join(';'));
+  });
+
   it('should return the command to build a node target and include unknown options', () => {
     // Given
     const buildType = 'development';
@@ -1304,6 +1364,7 @@ describe('services/cli:sh-build', () => {
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(CLISHBuildCommand);
     expect(sut.builder).toBe('builder');
+    expect(sut.buildTypeScriptHelper).toBe('buildTypeScriptHelper');
     expect(sut.cliCleanCommand).toBe('cliCleanCommand');
     expect(sut.cliCopyProjectFilesCommand).toBe('cliCopyProjectFilesCommand');
     expect(sut.cliRevisionCommand).toBe('cliRevisionCommand');

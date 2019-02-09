@@ -349,7 +349,7 @@ describe('services/targets:targetsFileRules', () => {
     );
     testRuleProperty(
       false,
-      `node_modules/${moduleToInclude}/other.tsx`,
+      `node_modules/${moduleToInclude}/other.aspx`,
       regexs.module,
       globs.module
     );

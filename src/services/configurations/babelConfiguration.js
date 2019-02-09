@@ -21,6 +21,17 @@ class BabelConfiguration {
       classProperties: '@babel/plugin-proposal-class-properties',
       decorators: '@babel/plugin-proposal-decorators',
       dynamicImports: '@babel/plugin-syntax-dynamic-import',
+      objectRestSpread: '@babel/plugin-proposal-object-rest-spread',
+    };
+    /**
+     * A dictionary with familiar names for Babel presets for type check.
+     * @type {Object}
+     * @access protected
+     * @ignore
+     */
+    this._typesPresets = {
+      flow: '@babel/preset-flow',
+      typeScript: '@babel/preset-typescript',
     };
   }
   /**
@@ -41,6 +52,8 @@ class BabelConfiguration {
         overwrites,
       },
       flow,
+      typeScript,
+      framework,
     } = target;
     // Define the configuration we are going to _'update'_.
     const config = Object.assign({}, overwrites || {});
@@ -83,14 +96,33 @@ class BabelConfiguration {
       }
     });
 
-    /**
-     * Check if the target uses flow, which forces the configuration to use the `flow` preset and
-     * the _'properties'_ plugin.
-     */
+    // Check if the target uses Flow or TypeScript.
     if (flow) {
-      presets.push(['@babel/preset-flow']);
-      if (!plugins.includes(this.plugins.classProperties)) {
+      // Check and, if needed, add the Flow preset and the class properties plugin.
+      if (!this._includesConfigurationItem(presets, this._typesPresets.flow)) {
+        presets.push([this._typesPresets.flow]);
+      }
+      if (!this._includesConfigurationItem(plugins, this.plugins.classProperties)) {
         plugins.push(this.plugins.classProperties);
+      }
+    } else if (typeScript) {
+      /**
+       * Check and, if needed, add the TypeScript preset and the class properties and
+       * object rest/spread plugins.
+       */
+      if (!this._includesConfigurationItem(presets, this._typesPresets.typeScript)) {
+        const tsOptions = {};
+        if (framework === 'react') {
+          tsOptions.isTSX = true;
+          tsOptions.allExtensions = true;
+        }
+        presets.push([this._typesPresets.typeScript, tsOptions]);
+      }
+      if (!this._includesConfigurationItem(plugins, this.plugins.classProperties)) {
+        plugins.push(this.plugins.classProperties);
+      }
+      if (!this._includesConfigurationItem(plugins, this.plugins.objectRestSpread)) {
+        plugins.push(this.plugins.objectRestSpread);
       }
     }
 
@@ -99,6 +131,26 @@ class BabelConfiguration {
     config.plugins = plugins;
     // Return a reduced configuration
     return this.events.reduce('babel-configuration', config, target);
+  }
+  /**
+   * Checks if a plugin/preset exists on a Babel configuration property list. The reason of the
+   * method is that, sometimes, the plugins or presets can be defined as array (first the name and
+   * then the options), so it also needs to check for those cases.
+   * @param {Array}  configurationList The list of presets or plugins where the function will look
+   *                                   for the item.
+   * @param {string} item              The name of the item the function needs to check for.
+   * @return {boolean}
+   * @access protected
+   * @ignore
+   */
+  _includesConfigurationItem(configurationList, item) {
+    return configurationList.length ?
+      configurationList.find((element) => (
+        Array.isArray(element) && element.length ?
+          element[0] === item :
+          element === item
+      )) :
+      false;
   }
 }
 /**

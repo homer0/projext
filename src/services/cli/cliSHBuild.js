@@ -287,6 +287,7 @@ class CLISHBuildCommand extends CLICommand {
     const commands = [
       this._getCleanCommandIfNeeded(params),
       this._getBuildCommandIfNeeded(params),
+      this._getTypeScriptDeclarationsCommandIfNeeded(params),
     ];
     // If the target won't be executed...
     if (!params.run && !params.watch) {
@@ -385,7 +386,8 @@ class CLISHBuildCommand extends CLICommand {
   }
   /**
    * Get the command to generate a TypeScript target type declarations, but only if the target
-   * uses TypeScript, won't run and doesn't need to be bundled.
+   * uses TypeScript, won't run and won't be watched: The idea is to generate the declarations only
+   * when you build the target and not during all the development process.
    * @param {CLIBuildCommandParams} params A dictionary with all the required information the
    *                                       service needs to run the command: The target
    *                                       information, the build type, whether or not the target
@@ -400,7 +402,7 @@ class CLISHBuildCommand extends CLICommand {
       params.target.typeScript &&
       params.build &&
       !params.run &&
-      !params.target.bundle
+      !params.watch
     ) {
       command = this.buildTypeScriptHelper.getDeclarationsCommand(params.target);
     }

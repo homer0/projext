@@ -87,6 +87,7 @@ class TargetsFinder {
       angular: /@angular(?:\/(?:\w+))?$/i,
       angularjs: /angular/i,
       react: /react(?:(?!(?:-dom\/server)))/i,
+      aurelia: /aurelia/i,
     };
     /**
      * A dictionary of known frameworks that can be used on Node, and regular expressions that

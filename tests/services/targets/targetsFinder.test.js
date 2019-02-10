@@ -1114,6 +1114,49 @@ describe('services/targets:targetsFinder', () => {
     expect(result).toEqual(expectedTargets);
   });
 
+  it('should find a browser target that uses Aurelia', () => {
+    // Given
+    const packageInfo = {
+      name: 'my-app',
+    };
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
+    // 1 - When checking if the source directory exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    // 2 - When checking if the default index exists.
+    fs.pathExistsSync.mockReturnValueOnce(true);
+    const indexFile = 'index.js';
+    const sourceDirectoryContents = ['..', '.', indexFile];
+    // 1 - When reading the source directory.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    // 2 - When parsing the target.
+    fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
+    const fileContents = 'import { PLATFORM } from \'aurelia-pal\';';
+    fs.readFileSync.mockReturnValueOnce(fileContents);
+    const directory = 'src';
+    let sut = null;
+    let result = null;
+    const expectedTargets = [{
+      name: packageInfo.name,
+      hasFolder: false,
+      createFolder: false,
+      entry: {
+        default: indexFile,
+        development: null,
+        production: null,
+      },
+      type: 'browser',
+      library: false,
+      framework: 'aurelia',
+    }];
+    // When
+    sut = new TargetsFinder(packageInfo, pathUtils);
+    result = sut.find(directory);
+    // Then
+    expect(result).toEqual(expectedTargets);
+  });
+
   it('should include a provider for the DIC', () => {
     // Given
     const container = {

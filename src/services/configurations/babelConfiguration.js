@@ -16,12 +16,30 @@ class BabelConfiguration {
     /**
      * A dictionary with familiar names for Babel plugins.
      * @type {Object}
+     * @access protected
+     * @ignore
      */
-    this.plugins = {
-      classProperties: '@babel/plugin-proposal-class-properties',
-      decorators: '@babel/plugin-proposal-decorators',
-      dynamicImports: '@babel/plugin-syntax-dynamic-import',
-      objectRestSpread: '@babel/plugin-proposal-object-rest-spread',
+    this._plugins = {
+      decorators: {
+        name: '@babel/plugin-proposal-decorators',
+        options: {
+          legacy: true,
+        },
+      },
+      classProperties: {
+        name: '@babel/plugin-proposal-class-properties',
+        options: {
+          loose: true,
+        },
+      },
+      dynamicImports: {
+        name: '@babel/plugin-syntax-dynamic-import',
+        options: {},
+      },
+      objectRestSpread: {
+        name: '@babel/plugin-proposal-object-rest-spread',
+        options: {},
+      },
     };
     /**
      * A dictionary with familiar names for Babel presets for type check.
@@ -88,10 +106,14 @@ class BabelConfiguration {
 
     // Check if the configuration should include any _'known plugin'_.
     Object.keys(features).forEach((feature) => {
-      if (features[feature] && this.plugins[feature]) {
-        const featurePlugin = this.plugins[feature];
-        if (!plugins.includes(featurePlugin)) {
-          plugins.push(featurePlugin);
+      if (features[feature] && this._plugins[feature]) {
+        const featurePlugin = this._plugins[feature];
+        if (!this._includesConfigurationItem(plugins, featurePlugin.name)) {
+          if (Object.keys(featurePlugin.options).length) {
+            plugins.push([featurePlugin.name, featurePlugin.options]);
+          } else {
+            plugins.push(featurePlugin.name);
+          }
         }
       }
     });
@@ -166,9 +188,10 @@ class BabelConfiguration {
 
     if (!this._includesConfigurationItem(
       currentConfiguration.plugins,
-      this.plugins.classProperties
+      this._plugins.classProperties.name
     )) {
-      newConfig.plugins.push(this.plugins.classProperties);
+      const { classProperties } = this._plugins;
+      newConfig.plugins.push([classProperties.name, classProperties.options]);
     }
 
     return newConfig;
@@ -210,19 +233,29 @@ class BabelConfiguration {
       newConfig.presets.push([this._typesPresets.typeScript, tsOptions]);
     }
 
+    const toAdd = [];
     if (!this._includesConfigurationItem(
       currentConfiguration.plugins,
-      this.plugins.classProperties
+      this._plugins.classProperties.name
     )) {
-      newConfig.plugins.push(this.plugins.classProperties);
+      toAdd.push('classProperties');
     }
 
     if (!this._includesConfigurationItem(
       currentConfiguration.plugins,
-      this.plugins.objectRestSpread
+      this._plugins.objectRestSpread.name
     )) {
-      newConfig.plugins.push(this.plugins.objectRestSpread);
+      toAdd.push('objectRestSpread');
     }
+
+    toAdd.forEach((feature) => {
+      const featurePlugin = this._plugins[feature];
+      if (Object.keys(featurePlugin.options).length) {
+        newConfig.plugins.push([featurePlugin.name, featurePlugin.options]);
+      } else {
+        newConfig.plugins.push(featurePlugin.name);
+      }
+    });
 
     return newConfig;
   }

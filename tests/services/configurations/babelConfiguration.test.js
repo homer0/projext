@@ -221,7 +221,9 @@ describe('services/configurations:babelConfiguration', () => {
       flow: false,
     };
     const expected = {
-      plugins: ['@babel/plugin-proposal-class-properties'],
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+      ],
       presets: [[
         '@babel/preset-env',
         {
@@ -263,7 +265,11 @@ describe('services/configurations:babelConfiguration', () => {
       flow: false,
     };
     const expected = {
-      plugins: ['@babel/plugin-proposal-decorators'],
+      plugins: [
+        ['@babel/plugin-proposal-decorators', {
+          legacy: true,
+        }],
+      ],
       presets: [[
         '@babel/preset-env',
         {
@@ -390,7 +396,7 @@ describe('services/configurations:babelConfiguration', () => {
       flow: true,
     };
     const expected = {
-      plugins: ['@babel/plugin-proposal-class-properties'],
+      plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
       presets: [
         ['@babel/preset-env', {
           targets: {
@@ -434,7 +440,7 @@ describe('services/configurations:babelConfiguration', () => {
       flow: true,
     };
     const expected = {
-      plugins: ['@babel/plugin-proposal-class-properties'],
+      plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
       presets: [
         ['@babel/preset-env', {
           targets: {
@@ -474,7 +480,7 @@ describe('services/configurations:babelConfiguration', () => {
       flow: true,
     };
     const expected = {
-      plugins: ['@babel/plugin-proposal-class-properties'],
+      plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
       presets: [
         ['@babel/preset-env', {
           targets: {
@@ -517,7 +523,7 @@ describe('services/configurations:babelConfiguration', () => {
     };
     const expected = {
       plugins: [
-        '@babel/plugin-proposal-class-properties',
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
         '@babel/plugin-proposal-object-rest-spread',
       ],
       presets: [
@@ -563,7 +569,7 @@ describe('services/configurations:babelConfiguration', () => {
     };
     const expected = {
       plugins: [
-        '@babel/plugin-proposal-class-properties',
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
         '@babel/plugin-proposal-object-rest-spread',
       ],
       presets: [
@@ -614,7 +620,7 @@ describe('services/configurations:babelConfiguration', () => {
     };
     const expected = {
       plugins: [
-        '@babel/plugin-proposal-class-properties',
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
         '@babel/plugin-proposal-object-rest-spread',
       ],
       presets: [
@@ -656,7 +662,7 @@ describe('services/configurations:babelConfiguration', () => {
     };
     const expected = {
       plugins: [
-        '@babel/plugin-proposal-class-properties',
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
         '@babel/plugin-proposal-object-rest-spread',
       ],
       presets: [

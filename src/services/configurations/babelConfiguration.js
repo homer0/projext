@@ -98,32 +98,13 @@ class BabelConfiguration {
 
     // Check if the target uses Flow or TypeScript.
     if (flow) {
-      // Check and, if needed, add the Flow preset and the class properties plugin.
-      if (!this._includesConfigurationItem(presets, this._typesPresets.flow)) {
-        presets.push([this._typesPresets.flow]);
-      }
-      if (!this._includesConfigurationItem(plugins, this.plugins.classProperties)) {
-        plugins.push(this.plugins.classProperties);
-      }
+      const flowConfig = this._getFlowConfiguration({ presets, plugins });
+      presets.push(...flowConfig.presets);
+      plugins.push(...flowConfig.plugins);
     } else if (typeScript) {
-      /**
-       * Check and, if needed, add the TypeScript preset and the class properties and
-       * object rest/spread plugins.
-       */
-      if (!this._includesConfigurationItem(presets, this._typesPresets.typeScript)) {
-        const tsOptions = {};
-        if (framework === 'react') {
-          tsOptions.isTSX = true;
-          tsOptions.allExtensions = true;
-        }
-        presets.push([this._typesPresets.typeScript, tsOptions]);
-      }
-      if (!this._includesConfigurationItem(plugins, this.plugins.classProperties)) {
-        plugins.push(this.plugins.classProperties);
-      }
-      if (!this._includesConfigurationItem(plugins, this.plugins.objectRestSpread)) {
-        plugins.push(this.plugins.objectRestSpread);
-      }
+      const tsConfig = this._getTypeScriptConfiguration({ presets, plugins }, framework);
+      presets.push(...tsConfig.presets);
+      plugins.push(...tsConfig.plugins);
     }
 
     // Set both presets and plugins back on the config.
@@ -151,6 +132,99 @@ class BabelConfiguration {
           element === item
       )) :
       false;
+  }
+  /**
+   * This method will generate a list of presets and plugins needed to support Flow on a
+   * given Babel configuration. To avoid modifying the reference of the current configuration or
+   * generating a new one for overwriting, the method will generate two new lists that can be
+   * pushed directly to the existing configuration.
+   * @example
+   * const flowConfig = this._getFlowConfiguration(currentConfig);
+   * currentConfig.presets.push(...flowConfig.presets);
+   * currentConfig.plugins.push(...flowConfig.plugins);
+   * @param {Object} currentConfiguration         The configuration to validate.
+   * @param {Array}  currentConfiguration.presets The current list of presets.
+   * @param {Array}  currentConfiguration.plugins The current list of plugins.
+   * @return {Object} And object with missing plugins and presets to achieve support for Flow.
+   * @property {Array} presets The list of missing presets needed to support Flow.
+   * @property {Array} plugins The list of missing presets needed to support Flow.
+   * @access protected
+   * @ignore
+   */
+  _getFlowConfiguration(currentConfiguration) {
+    const newConfig = {
+      presets: [],
+      plugins: [],
+    };
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.presets,
+      this._typesPresets.flow
+    )) {
+      newConfig.presets.push([this._typesPresets.flow]);
+    }
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.plugins,
+      this.plugins.classProperties
+    )) {
+      newConfig.plugins.push(this.plugins.classProperties);
+    }
+
+    return newConfig;
+  }
+  /**
+   * This method will generate a list of presets and plugins needed to support TypeScript on a
+   * given Babel configuration. To avoid modifying the reference of the current configuration or
+   * generating a new one for overwriting, the method will generate two new lists that can be
+   * pushed directly to the existing configuration.
+   * @example
+   * const tsConfig = this._getTypeScriptConfiguration(currentConfig, framework);
+   * currentConfig.presets.push(...tsConfig.presets);
+   * currentConfig.plugins.push(...tsConfig.plugins);
+   * @param {Object} currentConfiguration         The configuration to validate.
+   * @param {Array}  currentConfiguration.presets The current list of presets.
+   * @param {Array}  currentConfiguration.plugins The current list of plugins.
+   * @param {String} framework                    To check for React and enable TSX support.
+   * @return {Object} And object with missing plugins and presets to achieve support for TypeScript.
+   * @property {Array} presets The list of missing presets needed to support TypeScript.
+   * @property {Array} plugins The list of missing presets needed to support TypeScript.
+   * @access protected
+   * @ignore
+   */
+  _getTypeScriptConfiguration(currentConfiguration, framework) {
+    const newConfig = {
+      presets: [],
+      plugins: [],
+    };
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.presets,
+      this._typesPresets.typeScript
+    )) {
+      const tsOptions = {};
+      if (framework === 'react') {
+        tsOptions.isTSX = true;
+        tsOptions.allExtensions = true;
+      }
+      newConfig.presets.push([this._typesPresets.typeScript, tsOptions]);
+    }
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.plugins,
+      this.plugins.classProperties
+    )) {
+      newConfig.plugins.push(this.plugins.classProperties);
+    }
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.plugins,
+      this.plugins.objectRestSpread
+    )) {
+      newConfig.plugins.push(this.plugins.objectRestSpread);
+    }
+
+    return newConfig;
   }
 }
 /**

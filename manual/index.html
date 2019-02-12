@@ -46,6 +46,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-sourcemap--code-" data-ice="link">sourceMap</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-inspect--code-" data-ice="link">inspect</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
@@ -55,6 +56,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-watch--code-" data-ice="link">watch</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-typescript--code-" data-ice="link">typeScript</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
@@ -76,6 +78,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-watch--code-" data-ice="link">watch</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-typescript--code-" data-ice="link">typeScript</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
@@ -173,6 +176,14 @@
 <li data-ice="manualNav" class="indent-h2" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#using-a-configuration" data-ice="link">Using a configuration</a></li>
 </ul>
   </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/codeSplitting.html"><a href="manual/codeSplitting.html" data-ice="link">Code splitting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/codeSplitting.html"><a href="manual/codeSplitting.html#how-does-it-work-" data-ice="link">How does it work?</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/codeSplitting.html"><a href="manual/codeSplitting.html#how-to-use-it-with-projext" data-ice="link">How to use it with projext</a></li>
+</ul>
+  </div>
 </div>
 </nav>
 
@@ -234,6 +245,7 @@
   folder: &apos;&apos;,
   entry: { ... },
   output: { ... },
+  sourceMap: { ... },
   inspect: { ... },
   css: { ... },
   includeModules: [],
@@ -243,6 +255,7 @@
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -299,7 +312,14 @@
 <li><code>[hash]</code>: A random hash generated for cache busting.</li>
 <li><code>[name]</code>: The file original name (Not available for <code>css</code> and <code>js</code>).</li>
 <li><code>[ext]</code>: The file original extension (Not available for <code>css</code> and <code>js</code>).</li>
-</ul><h4><code>inspect</code></h4><blockquote>
+</ul><h4><code>sourceMap</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  development: false,
+  production: true,
+}</code>
+</code></pre>
+</blockquote><p>Whether or not to disable source map generation for each environment.</p><h4><code>inspect</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
   enabled: false,
@@ -335,14 +355,26 @@
 </blockquote><p>Using this flags, you can tell projext to always watch your files when building for an specific environment.</p><h4><code>babel</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
-  features: [],
+  features: {
+    classProperties: false,
+    decorators: false,
+    dynamicImports: true,
+    objectRestSpread: false,
+  },
   nodeVersion: &apos;current&apos;,
   overwrites: {},
 }</code>
 </code></pre>
-</blockquote><p>These options are used in the case the target needs to be bundled or transpile to configure <a href="https://babeljs.io">Babel</a>:</p><p><strong><code>babel.features</code></strong></p><p>projext includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.nodeVersion</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
+</blockquote><p>These options are used in the case the target needs to be bundled or transpile to configure <a href="https://babeljs.io">Babel</a>:</p><p><strong><code>babel.features</code></strong></p><p>This object can be used to enable/disable the Babel plugins projext includes:</p><ul>
+<li><code>classProperties</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties"><code>@babel/plugin-proposal-class-properties</code></a>.</li>
+<li><code>decorators</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators"><code>@babel/plugin-proposal-decorators</code></a>.</li>
+<li><code>dynamicImports</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import"><code>@babel/plugin-syntax-dynamic-import</code></a>.</li>
+<li><code>objectRestSpread</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread"><code>@babel/plugin-proposal-object-rest-spread</code></a>.</li>
+</ul><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.nodeVersion</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
-</blockquote><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p><h4><code>library</code></h4><blockquote>
+</blockquote><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p><h4><code>typeScript</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote><p>Whether or not your target uses <a href="https://www.typescriptlang.org/">TypeScript</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p><h4><code>library</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>If the project is bundled, this will tell the build engine that it needs to be builded as a library to be <code>require</code>d.</p><h4><code>libraryOptions</code></h4><blockquote>
 <p>Default value:</p>
@@ -378,6 +410,7 @@
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -472,18 +505,30 @@
 </blockquote><p>Using this flags, you can tell projext to always watch your files when building for an specific environment.</p><h4><code>babel</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
-  features: [],
+  features: {
+    classProperties: false,
+    decorators: false,
+    dynamicImports: true,
+    objectRestSpread: false,
+  },
   browserVersions: 2,
   mobileSupport: true,
   polyfill: true,
   overwrites: {},
 }</code>
 </code></pre>
-</blockquote><p>These options are used by the build engine to configure <a href="https://babeljs.io">Babel</a>:</p><p><strong><code>babel.features</code></strong></p><p>projext includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.browserVersions</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p><blockquote>
+</blockquote><p>These options are used by the build engine to configure <a href="https://babeljs.io">Babel</a>:</p><p><strong><code>babel.features</code></strong></p><p>This object can be used to enable/disable the Babel plugins projext includes:</p><ul>
+<li><code>classProperties</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties"><code>@babel/plugin-proposal-class-properties</code></a>.</li>
+<li><code>decorators</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators"><code>@babel/plugin-proposal-decorators</code></a>.</li>
+<li><code>dynamicImports</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import"><code>@babel/plugin-syntax-dynamic-import</code></a>.</li>
+<li><code>objectRestSpread</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread"><code>@babel/plugin-proposal-object-rest-spread</code></a>.</li>
+</ul><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.browserVersions</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p><blockquote>
 <p>Major browsers: Firefox, Chrome, Safari and Edge.</p>
 </blockquote><p><strong><code>babel.mobileSupport</code></strong></p><p>If <code>true</code>, the configuration will add to the list of major browsers <code>iOS</code> and <code>Android</code>.</p><p><strong><code>babel.polyfill</code></strong></p><p>Whether or not the configuration should include the <a href="https://yarnpkg.com/en/package/babel-polyfill"><code>babel-polyfill</code></a> package.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
-</blockquote><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support for it.</p><h4><code>library</code></h4><blockquote>
+</blockquote><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support for it.</p><h4><code>typeScript</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote><p>Whether or not your target uses <a href="https://www.typescriptlang.org/">TypeScript</a>. This will update the Babel configuration in order to add support for it.</p><h4><code>library</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>This will tell the build engine that it needs to be builded as a library to be <code>require</code>d.</p><h4><code>libraryOptions</code></h4><blockquote>
 <p>Default value:</p>
@@ -844,6 +889,59 @@ module.exports = (projext) =&gt; {
 </ul><p>Now, you should be able to use it by sending the environment variable before the projext command:</p><pre><code class="lang-bash"><code class="source-code prettyprint">CONFIG=debug [projext-command-to-build-a-target]</code>
 </code></pre><p>This will load <code>config/myapp/myapp.config.js</code> and then <code>config/myapp/myapp.debug.js</code>.</p></div>
         <a data-ice="link" href="manual/browserTargetConfiguration.html"></a>
+      </div>
+    </div>
+<div class="manual-card-wrap" data-ice="cards">
+      <div class="manual-card">
+        <div data-ice="card"><h1>Code splitting</h1><p>This feature allows you to split your bundles on smaller pieces and then load those pieces when you need them (basically, <em>&quot;lazy loading&quot;</em> parts of your bundle).</p><p>Let&apos;s say you are building an application with an admin panel, you could use code splitting for the route/module that handles the admin panel and only load it if the user goes to an <code>/admin</code> route. Doing something like this will make the initial load and the initialization of the app faster, providing a better experience for the user.</p><h2>How does it work?</h2><p>Instead of importing a file on the top of your file, you use <code>import</code> as a function and wait for a <code>Promise</code> with the module&apos;s content to be resolved.</p><p>Using the same example as above, here&apos;s some code to better understand it: You have a module that exports a function that will return a component for a given route:</p><pre><code class="lang-js"><code class="source-code prettyprint">import Home from &apos;./components/home&apos;;
+import Admin from &apos;./components/admin&apos;;
+
+const getComponentForRoute = (route) =&gt; {
+  switch(route) {
+  case &apos;/admin&apos;:
+    return Admin;
+  default:
+    return Home;
+  }
+};
+
+export default getComponentForRoute;</code>
+</code></pre><p>Easy enough, if the route is <code>/admin</code>, you return the admin panel component, which was imported at the top.</p><p>Let&apos;s switch it a little bit in order to import the admin panel only when the user goes to <code>/admin</code>, thus, splitting it on different bundle:</p><pre><code class="lang-js"><code class="source-code prettyprint">import Home from &apos;./components/home&apos;;
+
+const getComponentForRoute = (route) =&gt; {
+  switch(route) {
+  case &apos;/admin&apos;:
+    return import(&apos;./components/admin&apos;);
+  default:
+    return Promise.resolve(Home);
+  }
+};
+
+export default getComponentForRoute;</code>
+</code></pre><p>There are 3 changes here:</p><ol>
+<li>The <code>import</code> for the admin component is not longer on the top.</li>
+<li>The <code>case</code> for <code>/admin</code> now returns a call to the <code>import</code> function.</li>
+<li>The default <code>case</code> returns <code>Home</code> on an already resolved <code>Promise</code>.</li>
+</ol><p>First and second go together: By using the <code>import</code> function instead of doing the regular <code>import</code> declaration, we tell the bundle engine that we don&apos;t need that file right now, but that it will be required later, so the engine will create a smaller bundle with that code.</p><p>Third, why do we return <code>Home</code> on a <code>Promise</code>? Well, the <code>import</code> function returns a promise as the other bundle is loaded asynchronously, we should try to keep a consistent signature for the function, so the part of the app that implements it won&apos;t need to know whether the component was loaded from this bundle or a different one.</p><h2>How to use it with projext</h2><p>Adding code splitting to your targets is really simple, you just need to define a <code>jsChunks</code> (<em>&quot;chunks&quot;</em> are the smaller bundles with the code that will be lazy loaded) with a value of <code>true</code> on you target output settings:</p><pre><code class="lang-js"><code class="source-code prettyprint">...
+output: {
+  default: {
+    ...
+    jsChunks: true,
+  },
+  ...
+}</code>
+</code></pre><p>In the example above, you define it on the <code>default</code> so both <code>production</code> and <code>development</code> will inherit it.</p><p>This will tell the bundle engine to use code splitting and that the chunks should be on the same directory as the main bundle and that the name format will be <code>[original-bundle-name].[chunk-name].js</code>.</p><p>You can also set <code>jsChunks</code> as a string and send a path and name format for your chunks:</p><pre><code class="lang-js"><code class="source-code prettyprint">...
+output: {
+  default: {
+    ...
+    jsChunks: &apos;statics/js/[target-name].[hash].[name].js&apos;,
+  },
+  ...
+}</code>
+</code></pre><p>The special placeholder there is <code>[name]</code>, which will be replaced with the chunk name, decided by the bundle engine.</p><p>That&apos;s all, enable <code>jsChunks</code> and enjoy code splitting!</p><blockquote>
+<p>Currently, the webpack bundle engine will enable code splitting by default (you can even use the special <code>webpackChunkName</code> comment to set a name for it) but other engines still need the property in order to make it work. So, if you are using webpack as an engine, you can still enjoy zero configuration and take advantage of this feature.</p>
+</blockquote></div>
+        <a data-ice="link" href="manual/codeSplitting.html"></a>
       </div>
     </div>
 </div>

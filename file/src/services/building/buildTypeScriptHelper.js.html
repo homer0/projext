@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">src/services/common/prompt.js | projext</title>
+  <title data-ice="title">src/services/building/buildTypeScriptHelper.js | projext</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -215,156 +215,68 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/services/common/prompt.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const promptTool = require(&apos;prompt&apos;);
-const { provider } = require(&apos;jimple&apos;);
+<div class="content" data-ice="content"><h1 data-ice="title">src/services/building/buildTypeScriptHelper.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const { provider } = require(&apos;jimple&apos;);
 /**
- * This services works as an abstraction of the `prompt` package in order to add support for
- * Promises, fix some quirks regarding boolean options, customize the interface just once and,
- * finally, integrate it withe Jimple.
+ * This service works as a helper to generate TypeScript binary commands.
  */
-class Prompt {
+class BuildTypeScriptHelper {
   /**
    * Class constructor.
-   * @param {string} [messagesPrefix=&apos;&apos;] A prefix text that will be shown before each message.
-   */
-  constructor(messagesPrefix = &apos;&apos;) {
-    // Overwrite the default prefix.
-    promptTool.message = messagesPrefix;
-    /**
-     * Set a single space as a delimiter between the messages components (prefix, question and
-     * default value).
-     */
-    promptTool.delimiter = &apos; &apos;;
-    // Disable colors because `prompt` has a hardcoded gray on the texts.
-    promptTool.colors = false;
-  }
-  /**
-   * Invoke the `prompt` package and ask the user for input.
-   * @param {Object} schema The input data schema. For more information on how to build it, you
-   *                        should check the `prompt` package documentation, it&apos;s pretty complete.
-   *                        IMPORTANT: On the `prompt` documentation, this object would be the
-   *                        `properties` inside their `schema` object.
-   * @return {Promise&lt;Object,Error&gt;} If everything goes well, the resolved value is an object with
-   *                                 the values the user entered; and if the user cancels the input,
-   *                                 you&apos;ll get an error with the message `canceled`.
-   */
-  ask(schema) {
-    // Copy the schema into a new object in order to modify it.
-    const newSchema = Object.assign({}, schema);
-    // Loop all the properties.
-    Object.keys(newSchema).forEach((name) =&gt; {
-      const property = newSchema[name];
-      // If the property type is `boolean`, use the helper method to add the validation properties.
-      if (property.type === &apos;boolean&apos;) {
-        newSchema[name] = this._booleanHelper(property);
-      }
-    });
-    // Return a _&quot;promisified&quot;_ implementation of `prompt`.
-    return new Promise((resolve, reject) =&gt; {
-      promptTool.get({ properties: newSchema }, (error, result) =&gt; {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(result);
-        }
-      });
-    });
-  }
-  /**
-   * Access the history of the prompt.
-   * @param {string} property The name of the property you want to look on the history.
-   * @return {?Object} If the property is present, it will return an object with the name as
-   *                   `property` and its `value`, otherwise it will return `undefined`.
-   */
-  history(property) {
-    return promptTool.history(property);
-  }
-  /**
-   * Get a property value from the history.
-   * @param {string} property The name of the property.
-   * @return {?string} If the property is on the history, it will return its value, otherwise it
-   *                   will return `undefined`.
-   */
-  getValue(property) {
-    const saved = this.history(property);
-    let result;
-    if (saved &amp;&amp; typeof saved.value !== &apos;undefined&apos;) {
-      result = saved.value;
-    }
-
-    return result;
-  }
-  /**
-   * The default implementation of boolean properties is not very friendly and it only accepts
-   * `true`, `t`, `false` or `f`, which is not _&quot;human friendly&quot;_, so this method changes boolean
-   * properties into string properties and add validations for `yes`, `y`, `no` and `n`. It also
-   * _&quot;booleanizes&quot;_ the input so when the results are resolved, the value will be a real `boolean`.
-   * @param {Object} property The property to format.
-   * @return {Object} The updated property.
    * @ignore
-   * @access protected
    */
-  _booleanHelper(property) {
-    return Object.assign({}, property, {
-      type: &apos;string&apos;,
-      message: &apos;You can only answer with \&apos;yes\&apos; or \&apos;no\&apos;&apos;,
-      conform: (value) =&gt; [&apos;yes&apos;, &apos;y&apos;, &apos;no&apos;, &apos;n&apos;].includes(value.toLowerCase()),
-      before: (value) =&gt; [&apos;yes&apos;, &apos;y&apos;].includes(value.toLowerCase()),
-    });
+  constructor() {
+    /**
+     * The path of the TypeScript binary that will execute the commands.
+     * @type {string}
+     * @access protected
+     * @ignore
+     */
+    this._bin = &apos;tsc&apos;;
+  }
+  /**
+   * Gets the command that generates the TypeScript declaration file(s) for a target.
+   * @param {Target} target The target from which the method will take the input (source) and
+   *                        output (build) paths.
+   * @return {string}
+   */
+  getDeclarationsCommand(target) {
+    const {
+      paths: {
+        build,
+        source,
+      },
+    } = target;
+    return this._command(`--emitDeclarationOnly --outDir ${build} --rootDir ${source}`);
+  }
+  /**
+   * Helper method that just puts the Typescript binary path on front of a set of instructions.
+   * @param {string} instructions The instructions for the TypeScript binary.
+   * @return {string}
+   * @access protected
+   * @ignore
+   */
+  _command(instructions) {
+    return `${this._bin} ${instructions}`;
   }
 }
 /**
- * Generates a `Provider` with an already defined message prefix.
- * @example
- * // Generate the provider
- * const provider = promptWithOptions(&apos;my-prefix&apos;);
- * // Register it on the container
- * container.register(provider);
- * // Getting access to the service instance
- * const prompt = container.get(&apos;prompt&apos;);
- * @param {string} [messagesPrefix] A prefix to include in front of all the messages.
- * @return {Provider}
- */
-const promptWithOptions = (messagesPrefix) =&gt; provider((app) =&gt; {
-  app.set(&apos;prompt&apos;, () =&gt; new Prompt(messagesPrefix));
-});
-/**
  * The service provider that once registered on the app container will set an instance of
- * `Prompt` as the `prompt` service.
+ * `BuildTypeScriptHelper` as the `buildTypeScriptHelper` service.
  * @example
  * // Register it on the container
- * container.register(prompt);
+ * container.register(buildTypeScriptHelper);
  * // Getting access to the service instance
- * const prompt = container.get(&apos;prompt&apos;);
+ * const buildTypeScriptHelper = container.get(&apos;buildTypeScriptHelper&apos;);
  * @type {Provider}
  */
-const prompt = promptWithOptions();
-/**
- * The service provider that once registered on the app container will set an instance of
- * `Prompt` as the `appPrompt` service. The difference with the regular `prompt` is that this one
- * uses the `packageInfo` service in order to retrieve the name of the project and use it as
- * messages prefix.
- * @example
- * // Register it on the container
- * container.register(appPrompt);
- * // Getting access to the service instance
- * const appPrompt = container.get(&apos;appPrompt&apos;);
- * @type {Provider}
- */
-const appPrompt = provider((app) =&gt; {
-  app.set(&apos;appPrompt&apos;, () =&gt; {
-    const packageInfo = app.get(&apos;packageInfo&apos;);
-    const prefix = packageInfo.nameForCLI || packageInfo.name;
-    return new Prompt(prefix);
-  });
+const buildTypeScriptHelper = provider((app) =&gt; {
+  app.set(&apos;buildTypeScriptHelper&apos;, () =&gt; new BuildTypeScriptHelper());
 });
 
 module.exports = {
-  Prompt,
-  promptWithOptions,
-  prompt,
-  appPrompt,
+  BuildTypeScriptHelper,
+  buildTypeScriptHelper,
 };
 </code></pre>
 

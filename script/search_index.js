@@ -60,6 +60,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/building/buildtypescripthelper.js~buildtypescripthelper",
+    "class/src/services/building/buildTypeScriptHelper.js~BuildTypeScriptHelper.html",
+    "<span>BuildTypeScriptHelper</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTypeScriptHelper.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/building/buildversion.js~buildversion",
     "class/src/services/building/buildVersion.js~BuildVersion.html",
     "<span>BuildVersion</span> <span class=\"search-result-import-path\">projext/src/services/building/buildVersion.js</span>",
@@ -399,6 +405,12 @@ window.esdocSearchIndex = [
     "projext/src/services/building/buildtranspiler.js~buildtranspiler",
     "variable/index.html#static-variable-buildTranspiler",
     "<span>buildTranspiler</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTranspiler.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/building/buildtypescripthelper.js~buildtypescripthelper",
+    "variable/index.html#static-variable-buildTypeScriptHelper",
+    "<span>buildTypeScriptHelper</span> <span class=\"search-result-import-path\">projext/src/services/building/buildTypeScriptHelper.js</span>",
     "variable"
   ],
   [
@@ -1554,6 +1566,18 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/building/buildtypescripthelper.js",
+    "file/src/services/building/buildTypeScriptHelper.js.html",
+    "src/services/building/buildTypeScriptHelper.js",
+    "file"
+  ],
+  [
+    "src/services/building/buildtypescripthelper.js~buildtypescripthelper#getdeclarationscommand",
+    "class/src/services/building/buildTypeScriptHelper.js~BuildTypeScriptHelper.html#instance-method-getDeclarationsCommand",
+    "src/services/building/buildTypeScriptHelper.js~BuildTypeScriptHelper#getDeclarationsCommand",
+    "method"
+  ],
+  [
     "src/services/building/buildversion.js",
     "file/src/services/building/buildVersion.js.html",
     "src/services/building/buildVersion.js",
@@ -2007,6 +2031,12 @@ window.esdocSearchIndex = [
     "src/services/cli/clishbuild.js~clishbuildcommand#allowunknownoptions",
     "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-member-allowUnknownOptions",
     "src/services/cli/cliSHBuild.js~CLISHBuildCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishbuild.js~clishbuildcommand#buildtypescripthelper",
+    "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html#instance-member-buildTypeScriptHelper",
+    "src/services/cli/cliSHBuild.js~CLISHBuildCommand#buildTypeScriptHelper",
     "member"
   ],
   [
@@ -3222,12 +3252,6 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
-    "src/services/configurations/babelconfiguration.js~babelconfiguration#plugins",
-    "class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html#instance-member-plugins",
-    "src/services/configurations/babelConfiguration.js~BabelConfiguration#plugins",
-    "member"
-  ],
-  [
     "src/services/configurations/index.js",
     "file/src/services/configurations/index.js.html",
     "src/services/configurations/index.js",
@@ -3708,12 +3732,6 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
-    "src/typedef.js~projectconfigurationbrowsertargettemplatesourcemapsettings",
-    "typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateSourceMapSettings",
-    "src/typedef.js~ProjectConfigurationBrowserTargetTemplateSourceMapSettings",
-    "typedef"
-  ],
-  [
     "src/typedef.js~projectconfigurationcopyfeaturesettings",
     "typedef/index.html#static-typedef-ProjectConfigurationCopyFeatureSettings",
     "src/typedef.js~ProjectConfigurationCopyFeatureSettings",
@@ -3786,6 +3804,12 @@ window.esdocSearchIndex = [
     "typedef"
   ],
   [
+    "src/typedef.js~projectconfigurationtargettemplatebabelfeatures",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateBabelFeatures",
+    "src/typedef.js~ProjectConfigurationTargetTemplateBabelFeatures",
+    "typedef"
+  ],
+  [
     "src/typedef.js~projectconfigurationtargettemplatecopyitem",
     "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem",
     "src/typedef.js~ProjectConfigurationTargetTemplateCopyItem",
@@ -3807,6 +3831,12 @@ window.esdocSearchIndex = [
     "src/typedef.js~projectconfigurationtargettemplateoutputpaths",
     "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateOutputPaths",
     "src/typedef.js~ProjectConfigurationTargetTemplateOutputPaths",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~projectconfigurationtargettemplatesourcemapsettings",
+    "typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateSourceMapSettings",
+    "src/typedef.js~ProjectConfigurationTargetTemplateSourceMapSettings",
     "typedef"
   ],
   [

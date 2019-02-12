@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 581,
-  "actualCount": 581,
+  "expectCount": 595,
+  "actualCount": 595,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 23,
@@ -64,8 +64,13 @@
       "undocumentLines": []
     },
     "src/services/building/buildTranspiler.js": {
-      "expectCount": 11,
-      "actualCount": 11,
+      "expectCount": 13,
+      "actualCount": 13,
+      "undocumentLines": []
+    },
+    "src/services/building/buildTypeScriptHelper.js": {
+      "expectCount": 6,
+      "actualCount": 6,
       "undocumentLines": []
     },
     "src/services/building/buildVersion.js": {
@@ -124,8 +129,8 @@
       "undocumentLines": []
     },
     "src/services/cli/cliSHBuild.js": {
-      "expectCount": 29,
-      "actualCount": 29,
+      "expectCount": 31,
+      "actualCount": 31,
       "undocumentLines": []
     },
     "src/services/cli/cliSHCopy.js": {
@@ -244,8 +249,8 @@
       "undocumentLines": []
     },
     "src/services/configurations/babelConfiguration.js": {
-      "expectCount": 6,
-      "actualCount": 6,
+      "expectCount": 10,
+      "actualCount": 10,
       "undocumentLines": []
     },
     "src/services/configurations/projectConfiguration.js": {

@@ -187,43 +187,74 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="projext-browser-target-configuration">projext browser target configuration</h1><p>This feature allows you to have dynamic configurations on your browser targets.</p>
-<p>For <code>node</code> targets, having multiple configuration files is simple, as they can <code>require</code> files on runtime, but in the case of <code>browser</code> targets, you would probably want to select the configuration you want to use when you bundle the code and be able to include it inside.</p>
-<p>That&apos;s why, if enabled, projext creates an instance of <a href="https://homer0.github.io/wootils/class/wootils/node/appConfiguration.js~AppConfiguration.html">wootil&apos;s <code>AppConfiguration</code></a> that <code>browser</code> targets can use on the bundling process.</p>
-<h2 id="settings">Settings</h2><p>The settings for this feature are on the target own settings, under the <code>configuration</code> key:</p>
-<pre><code class="lang-js"><code class="source-code prettyprint">{
-  type: &apos;browser&apos;,
-  configuration: {
-    enabled: false,
-    default: null,
-    path: &apos;config/&apos;,
-    hasFolder: true,
-    defineOn: &apos;process.env.CONFIG&apos;,
-    environmentVariable: &apos;CONFIG&apos;,
-    loadFromEnvironment: true,
-    filenameFormat: &apos;[target-name].[configuration-name].config.js&apos;,
+<div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="code-splitting">Code splitting</h1><p>This feature allows you to split your bundles on smaller pieces and then load those pieces when you need them (basically, <em>&quot;lazy loading&quot;</em> parts of your bundle).</p>
+<p>Let&apos;s say you are building an application with an admin panel, you could use code splitting for the route/module that handles the admin panel and only load it if the user goes to an <code>/admin</code> route. Doing something like this will make the initial load and the initialization of the app faster, providing a better experience for the user.</p>
+<h2 id="how-does-it-work-">How does it work?</h2><p>Instead of importing a file on the top of your file, you use <code>import</code> as a function and wait for a <code>Promise</code> with the module&apos;s content to be resolved.</p>
+<p>Using the same example as above, here&apos;s some code to better understand it: You have a module that exports a function that will return a component for a given route:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">import Home from &apos;./components/home&apos;;
+import Admin from &apos;./components/admin&apos;;
+
+const getComponentForRoute = (route) =&gt; {
+  switch(route) {
+  case &apos;/admin&apos;:
+    return Admin;
+  default:
+    return Home;
+  }
+};
+
+export default getComponentForRoute;</code>
+</code></pre>
+<p>Easy enough, if the route is <code>/admin</code>, you return the admin panel component, which was imported at the top.</p>
+<p>Let&apos;s switch it a little bit in order to import the admin panel only when the user goes to <code>/admin</code>, thus, splitting it on different bundle:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">import Home from &apos;./components/home&apos;;
+
+const getComponentForRoute = (route) =&gt; {
+  switch(route) {
+  case &apos;/admin&apos;:
+    return import(&apos;./components/admin&apos;);
+  default:
+    return Promise.resolve(Home);
+  }
+};
+
+export default getComponentForRoute;</code>
+</code></pre>
+<p>There are 3 changes here:</p>
+<ol>
+<li>The <code>import</code> for the admin component is not longer on the top.</li>
+<li>The <code>case</code> for <code>/admin</code> now returns a call to the <code>import</code> function.</li>
+<li>The default <code>case</code> returns <code>Home</code> on an already resolved <code>Promise</code>.</li>
+</ol>
+<p>First and second go together: By using the <code>import</code> function instead of doing the regular <code>import</code> declaration, we tell the bundle engine that we don&apos;t need that file right now, but that it will be required later, so the engine will create a smaller bundle with that code.</p>
+<p>Third, why do we return <code>Home</code> on a <code>Promise</code>? Well, the <code>import</code> function returns a promise as the other bundle is loaded asynchronously, we should try to keep a consistent signature for the function, so the part of the app that implements it won&apos;t need to know whether the component was loaded from this bundle or a different one.</p>
+<h2 id="how-to-use-it-with-projext">How to use it with projext</h2><p>Adding code splitting to your targets is really simple, you just need to define a <code>jsChunks</code> (<em>&quot;chunks&quot;</em> are the smaller bundles with the code that will be lazy loaded) with a value of <code>true</code> on you target output settings:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">...
+output: {
+  default: {
+    ...
+    jsChunks: true,
   },
+  ...
 }</code>
 </code></pre>
-<h3 id="-code-enabled--code-"><code>enabled</code></h3><p>Whether or not the feature is enabled.</p>
-<h3 id="-code-default--code-"><code>default</code></h3><p>The default configuration. It will be the base all the other, <em>&quot;dynamic&quot;</em>, configuration will extend.</p>
-<p>If not specified, projext will try to load a configuration file called <code>[target-name].config.js</code>, inside the configuration path.</p>
-<h3 id="-code-path--code-"><code>path</code></h3><p>The path relative to the root directory where the configurations are located.</p>
-<h3 id="-code-hasfolder--code-"><code>hasFolder</code></h3><p>If <code>true</code>, projext will append a folder with the name of the target on the configurations path.</p>
-<h3 id="-code-defineon--code-"><code>defineOn</code></h3><p>The name of a variable that, when the target is builded, will be replaced with the configuration object.</p>
-<h3 id="-code-environmentvariable--code-"><code>environmentVariable</code></h3><p>The name of an environment variable where projext will check for a configuration name.</p>
-<h3 id="-code-loadfromevironment--code-"><code>loadFromEvironment</code></h3><p>Whether or not projext should check the environment variable. This is for cases in which loading the default configuration is enough for your project.</p>
-<h3 id="-code-filenameformat--code-"><code>filenameFormat</code></h3><p>The name format of the configuration files. <code>[configuration-name]</code> will be replaced with the value of the environment variable.</p>
-<h2 id="using-a-configuration">Using a configuration</h2><p>First, let&apos;s assume the following things:</p>
-<ul>
-<li>You set <code>enabled</code> to <code>true</code>.</li>
-<li>You left all the other default values.</li>
-<li>You target is named <code>myapp</code></li>
-</ul>
-<p>Now, you should be able to use it by sending the environment variable before the projext command:</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint">CONFIG=debug [projext-command-to-build-a-target]</code>
+<p>In the example above, you define it on the <code>default</code> so both <code>production</code> and <code>development</code> will inherit it.</p>
+<p>This will tell the bundle engine to use code splitting and that the chunks should be on the same directory as the main bundle and that the name format will be <code>[original-bundle-name].[chunk-name].js</code>.</p>
+<p>You can also set <code>jsChunks</code> as a string and send a path and name format for your chunks:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">...
+output: {
+  default: {
+    ...
+    jsChunks: &apos;statics/js/[target-name].[hash].[name].js&apos;,
+  },
+  ...
+}</code>
 </code></pre>
-<p>This will load <code>config/myapp/myapp.config.js</code> and then <code>config/myapp/myapp.debug.js</code>.</p>
+<p>The special placeholder there is <code>[name]</code>, which will be replaced with the chunk name, decided by the bundle engine.</p>
+<p>That&apos;s all, enable <code>jsChunks</code> and enjoy code splitting!</p>
+<blockquote>
+<p>Currently, the webpack bundle engine will enable code splitting by default (you can even use the special <code>webpackChunkName</code> comment to set a name for it) but other engines still need the property in order to make it work. So, if you are using webpack as an engine, you can still enjoy zero configuration and take advantage of this feature.</p>
+</blockquote>
 </div>
 </div>
 

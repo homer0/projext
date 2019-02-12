@@ -46,6 +46,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-folder--code-" data-ice="link">folder</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-entry--code-" data-ice="link">entry</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-output--code-" data-ice="link">output</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-sourcemap--code-" data-ice="link">sourceMap</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-inspect--code-" data-ice="link">inspect</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
@@ -55,6 +56,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-watch--code-" data-ice="link">watch</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-typescript--code-" data-ice="link">typeScript</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
@@ -76,6 +78,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-watch--code-" data-ice="link">watch</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-babel--code-" data-ice="link">babel</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-flow--code-" data-ice="link">flow</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-typescript--code-" data-ice="link">typeScript</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-library--code-" data-ice="link">library</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
@@ -173,6 +176,14 @@
 <li data-ice="manualNav" class="indent-h2" data-link="manual/browserTargetConfiguration.html"><a href="manual/browserTargetConfiguration.html#using-a-configuration" data-ice="link">Using a configuration</a></li>
 </ul>
   </div>
+<div data-ice="manual">
+    <ul class="manual-toc">
+      
+    <li data-ice="manualNav" class="indent-h1" data-link="manual/codeSplitting.html"><a href="manual/codeSplitting.html" data-ice="link">Code splitting</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/codeSplitting.html"><a href="manual/codeSplitting.html#how-does-it-work-" data-ice="link">How does it work?</a></li>
+<li data-ice="manualNav" class="indent-h2" data-link="manual/codeSplitting.html"><a href="manual/codeSplitting.html#how-to-use-it-with-projext" data-ice="link">How to use it with projext</a></li>
+</ul>
+  </div>
 </div>
 </nav>
 
@@ -240,6 +251,7 @@
   folder: &apos;&apos;,
   entry: { ... },
   output: { ... },
+  sourceMap: { ... },
   inspect: { ... },
   css: { ... },
   includeModules: [],
@@ -249,6 +261,7 @@
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -328,6 +341,15 @@
 <li><code>[name]</code>: The file original name (Not available for <code>css</code> and <code>js</code>).</li>
 <li><code>[ext]</code>: The file original extension (Not available for <code>css</code> and <code>js</code>).</li>
 </ul>
+<h4 id="-code-sourcemap--code-"><code>sourceMap</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  development: false,
+  production: true,
+}</code>
+</code></pre>
+</blockquote>
+<p>Whether or not to disable source map generation for each environment.</p>
 <h4 id="-code-inspect--code-"><code>inspect</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
@@ -396,7 +418,12 @@
 <h4 id="-code-babel--code-"><code>babel</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
-  features: [],
+  features: {
+    classProperties: false,
+    decorators: false,
+    dynamicImports: true,
+    objectRestSpread: false,
+  },
   nodeVersion: &apos;current&apos;,
   overwrites: {},
 }</code>
@@ -404,16 +431,26 @@
 </blockquote>
 <p>These options are used in the case the target needs to be bundled or transpile to configure <a href="https://babeljs.io">Babel</a>:</p>
 <p><strong><code>babel.features</code></strong></p>
-<p>projext includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p>
+<p>This object can be used to enable/disable the Babel plugins projext includes:</p>
+<ul>
+<li><code>classProperties</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties"><code>@babel/plugin-proposal-class-properties</code></a>.</li>
+<li><code>decorators</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators"><code>@babel/plugin-proposal-decorators</code></a>.</li>
+<li><code>dynamicImports</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import"><code>@babel/plugin-syntax-dynamic-import</code></a>.</li>
+<li><code>objectRestSpread</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread"><code>@babel/plugin-proposal-object-rest-spread</code></a>.</li>
+</ul>
 <p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p>
 <p><strong><code>babel.nodeVersion</code></strong></p>
-<p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p>
+<p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p>
 <p><strong><code>babel.overwrites</code></strong></p>
 <p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p>
 <h4 id="-code-flow--code-"><code>flow</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote>
 <p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p>
+<h4 id="-code-typescript--code-"><code>typeScript</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not your target uses <a href="https://www.typescriptlang.org/">TypeScript</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p>
 <h4 id="-code-library--code-"><code>library</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote>
@@ -463,6 +500,7 @@
   watch: { ... },
   babel: { ... },
   flow: false,
+  typeScript: false,
   library: false,
   libraryOptions: { ... },
   cleanBeforeBuild: true,
@@ -605,7 +643,12 @@
 <h4 id="-code-babel--code-"><code>babel</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
-  features: [],
+  features: {
+    classProperties: false,
+    decorators: false,
+    dynamicImports: true,
+    objectRestSpread: false,
+  },
   browserVersions: 2,
   mobileSupport: true,
   polyfill: true,
@@ -615,10 +658,16 @@
 </blockquote>
 <p>These options are used by the build engine to configure <a href="https://babeljs.io">Babel</a>:</p>
 <p><strong><code>babel.features</code></strong></p>
-<p>projext includes by default two Babel plugins: <a href="https://yarnpkg.com/en/package/babel-plugin-transform-class-properties"><code>transform-class-properties</code></a> and <a href="https://yarnpkg.com/en/package/babel-plugin-transform-decorators-legacy"><code>transform-decorators-legacy</code></a>. On this list you can use the values <code>properties</code> or <code>decorators</code> to include them.</p>
+<p>This object can be used to enable/disable the Babel plugins projext includes:</p>
+<ul>
+<li><code>classProperties</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-class-properties"><code>@babel/plugin-proposal-class-properties</code></a>.</li>
+<li><code>decorators</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators"><code>@babel/plugin-proposal-decorators</code></a>.</li>
+<li><code>dynamicImports</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import"><code>@babel/plugin-syntax-dynamic-import</code></a>.</li>
+<li><code>objectRestSpread</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread"><code>@babel/plugin-proposal-object-rest-spread</code></a>.</li>
+</ul>
 <p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p>
 <p><strong><code>babel.browserVersions</code></strong></p>
-<p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/babel-preset-env"><code>babel-preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p>
+<p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p>
 <blockquote>
 <p>Major browsers: Firefox, Chrome, Safari and Edge.</p>
 </blockquote>
@@ -632,6 +681,10 @@
 <p>Default value: <code>false</code></p>
 </blockquote>
 <p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support for it.</p>
+<h4 id="-code-typescript--code-"><code>typeScript</code></h4><blockquote>
+<p>Default value: <code>false</code></p>
+</blockquote>
+<p>Whether or not your target uses <a href="https://www.typescriptlang.org/">TypeScript</a>. This will update the Babel configuration in order to add support for it.</p>
 <h4 id="-code-library--code-"><code>library</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote>

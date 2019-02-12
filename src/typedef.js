@@ -205,6 +205,30 @@
  */
 
 /**
+ * @typedef {Object} ProjectConfigurationTargetTemplateBabelFeatures
+ * @property {boolean} [classProperties=false]
+ * This enables `@babel/plugin-proposal-class-properties` so the targets can use classes with
+ * properties.
+ * @property {boolean} [decorators=false]
+ * This enables `@babel/plugin-proposal-decorators` so the targets can use decorators (based on
+ * the current TC39 proposal).
+ * @property {boolean} [dynamicImports=true]
+ * This enables `@babel/plugin-syntax-dynamic-import` so the targets can do dynamic imports and
+ * code splitting.
+ * @property {boolean} [objectRestSpread=true]
+ * This enables `@babel/plugin-proposal-object-rest-spread` so the targets can use rest and spread
+ * with objects.
+ */
+
+/**
+ * @typedef {Object} ProjectConfigurationTargetTemplateSourceMapSettings
+ * @property {boolean} [development=false]
+ * Whether or not to generate a source map on a development build.
+ * @property {boolean} [production=true]
+ * Whether or not to generate a source map on a production build.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -212,10 +236,8 @@
 
 /**
  * @typedef {Object} ProjectConfigurationNodeTargetTemplateBabelSettings
- * @property {Array} [features=[]]
- * projext includes by default two Babel plugins: `transform-class-properties` and
- * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
- * to include them.
+ * @property {ProjectConfigurationTargetTemplateBabelFeatures} [features]
+ * This object can be used to enable/disable the Babel plugins projext includes.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {string} [nodeVersion='current']
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
@@ -259,14 +281,6 @@
  */
 
 /**
- * @typedef {Object} ProjectConfigurationBrowserTargetTemplateSourceMapSettings
- * @property {boolean} [development=false]
- * Whether or not to generate a source map on a development build.
- * @property {boolean} [production=true]
- * Whether or not to generate a source map on a production build.
- */
-
-/**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateHTMLSettings
  * @property {string} [default='index.html']
  * This setting can be used to set the same value of default `template` and `filename` at once. But
@@ -293,10 +307,8 @@
 
 /**
  * @typedef {Object} ProjectConfigurationBrowserTargetTemplateBabelSettings
- * @property {Array} [features=[]]
- * projext includes by default two Babel plugins: `transform-class-properties` and
- * `transform-decorators-legacy`. On this list you can use the values `properties` or `decorators`
- * to include them.
+ * @property {ProjectConfigurationTargetTemplateBabelFeatures} [features]
+ * This object can be used to enable/disable the Babel plugins projext includes.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {number} [browserVersions=2]
  * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
@@ -415,6 +427,8 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} [sourceMap]
+ * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationNodeTargetInspectSettings} [inspect]
  * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} [css]
@@ -439,7 +453,9 @@
  * The target transpilation options.
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
- * configuration in order to add support and, in case it was disabled, it will enable transpilation.
+ * @property {boolean} [typeScript=false]
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
+ * configuration in order to add support and, in case it was disabled, enable transpilation.
  * @property {boolean} [library=false]
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
@@ -484,6 +500,8 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} sourceMap
+ * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationNodeTargetInspectSettings} inspect
  * The target settings for the Node inspector.
  * @property {ProjectConfigurationNodeTargetTemplateCSSSettings} css
@@ -509,7 +527,10 @@
  * The target transpilation options.
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
- * configuration in order to add support and, in case it was disabled, it will enable transpilation.
+ * configuration in order to add support and, in case it was disabled, enable transpilation.
+ * @property {boolean} typeScript
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
+ * configuration in order to add support and, in case it was disabled, enable transpilation.
  * @property {boolean} library
  * If the project is bundled, this will tell the build engine that it needs to be builded as a
  * library to be `require`d.
@@ -557,7 +578,7 @@
  * The target entry files for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} [output]
  * The target output settings for each specific build type.
- * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} [sourceMap]
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} [sourceMap]
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} [html]
  * In the case the target is an app, these are the options for the `html` file that will include
@@ -583,6 +604,9 @@
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} [flow=false]
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
+ * configuration in order to add support for it.
+ * @property {boolean} [typeScript=false]
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
  * configuration in order to add support for it.
  * @property {boolean} [library=false]
  * This will tell the build engine that it needs to be builded as a library to be `require`d.
@@ -624,7 +648,7 @@
  * The target output settings for each specific build type.
  * @property {ProjectConfigurationTargetTemplateOutput} originalOutput
  * The target output settings for each specific build type, without the placeholders replaced.
- * @property {ProjectConfigurationBrowserTargetTemplateSourceMapSettings} sourceMap
+ * @property {ProjectConfigurationTargetTemplateSourceMapSettings} sourceMap
  * The target source map settings for each specific environment build.
  * @property {ProjectConfigurationBrowserTargetTemplateHTMLSettings} html
  * In the case the target is an app, these are the options for the `html` file that will include
@@ -650,6 +674,9 @@
  * These options are used by the build engine to configure [Babel](https://babeljs.io):
  * @property {boolean} flow
  * Whether or not your target uses [flow](https://flow.org/). This will update the Babel
+ * configuration in order to add support for it.
+ * @property {boolean} typeScript
+ * Whether or not your target uses [TypeScript](https://www.typescriptlang.org/). This will update the Babel
  * configuration in order to add support for it.
  * @property {boolean} library
  * This will tell the build engine that it needs to be builded as a library to be `require`d.

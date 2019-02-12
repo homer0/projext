@@ -34,7 +34,7 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         browserVersions,
-        features: [],
+        features: {},
         mobileSupport: true,
         overwrites: {},
         polyfill: true,
@@ -44,7 +44,7 @@ describe('services/configurations:babelConfiguration', () => {
     const expected = {
       plugins: [],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             browsers: [
@@ -83,7 +83,7 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         browserVersions,
-        features: [],
+        features: {},
         mobileSupport: false,
         overwrites: {},
       },
@@ -92,7 +92,7 @@ describe('services/configurations:babelConfiguration', () => {
     const expected = {
       plugins: [],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             browsers: [
@@ -129,7 +129,7 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         nodeVersion,
-        features: [],
+        features: {},
         overwrites: {},
       },
       flow: false,
@@ -137,7 +137,49 @@ describe('services/configurations:babelConfiguration', () => {
     const expected = {
       plugins: [],
       presets: [[
-        'env',
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create a Babel configuration and include the `dynamic imports` feature', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          dynamicImports: true,
+        },
+        overwrites: {},
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: ['@babel/plugin-syntax-dynamic-import'],
+      presets: [[
+        '@babel/preset-env',
         {
           targets: {
             node: nodeVersion,
@@ -169,15 +211,21 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         nodeVersion,
-        features: ['properties'],
+        features: {
+          dynamicImports: false,
+          classProperties: true,
+          unknownFeature: true,
+        },
         overwrites: {},
       },
       flow: false,
     };
     const expected = {
-      plugins: ['transform-class-properties'],
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+      ],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             node: nodeVersion,
@@ -209,15 +257,63 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         nodeVersion,
-        features: ['decorators'],
+        features: {
+          decorators: true,
+        },
         overwrites: {},
       },
       flow: false,
     };
     const expected = {
-      plugins: ['transform-decorators-legacy'],
+      plugins: [
+        ['@babel/plugin-proposal-decorators', {
+          legacy: true,
+        }],
+      ],
       presets: [[
-        'env',
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create a Babel configuration and include the `objectRestSpread` feature', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          objectRestSpread: true,
+        },
+        overwrites: {},
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: ['@babel/plugin-proposal-object-rest-spread'],
+      presets: [[
+        '@babel/preset-env',
         {
           targets: {
             node: nodeVersion,
@@ -243,9 +339,12 @@ describe('services/configurations:babelConfiguration', () => {
       reduce: jest.fn((name, config) => config),
     };
     const overwrites = {
-      plugins: ['transform-decorators-legacy', 'transform-class-properties'],
+      plugins: [
+        '@babel/plugin-proposal-decorators',
+        '@babel/plugin-proposal-class-properties',
+      ],
       presets: [[
-        'env',
+        '@babel/preset-env',
         {
           targets: {
             node: 'current',
@@ -259,7 +358,9 @@ describe('services/configurations:babelConfiguration', () => {
         browser: true,
       },
       babel: {
-        features: ['decorators'],
+        features: {
+          decorators: true,
+        },
         overwrites,
       },
       flow: false,
@@ -288,19 +389,65 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         nodeVersion,
-        features: ['properties'],
+        features: {
+          classProperties: true,
+        },
       },
       flow: true,
     };
     const expected = {
-      plugins: ['transform-class-properties'],
+      plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
       presets: [
-        ['env', {
+        ['@babel/preset-env', {
           targets: {
             node: nodeVersion,
           },
         }],
-        ['flow'],
+        ['@babel/preset-flow'],
+      ],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('shouldn\'t push the Flow preset twice', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          classProperties: true,
+        },
+        overwrites: {
+          presets: [['@babel/preset-flow']],
+        },
+      },
+      flow: true,
+    };
+    const expected = {
+      plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
+      presets: [
+        ['@babel/preset-env', {
+          targets: {
+            node: nodeVersion,
+          },
+        }],
+        ['@babel/preset-flow'],
       ],
     };
     let sut = null;
@@ -327,20 +474,204 @@ describe('services/configurations:babelConfiguration', () => {
       },
       babel: {
         nodeVersion,
-        features: [],
+        features: {},
         overwrites: {},
       },
       flow: true,
     };
     const expected = {
-      plugins: ['transform-class-properties'],
+      plugins: [['@babel/plugin-proposal-class-properties', { loose: true }]],
       presets: [
-        ['env', {
+        ['@babel/preset-env', {
           targets: {
             node: nodeVersion,
           },
         }],
-        ['flow'],
+        ['@babel/preset-flow'],
+      ],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should push the TypeScript preset if the `typeScript` option is enabled', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          classProperties: true,
+          objectRestSpread: true,
+        },
+      },
+      typeScript: true,
+    };
+    const expected = {
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        '@babel/plugin-proposal-object-rest-spread',
+      ],
+      presets: [
+        ['@babel/preset-env', {
+          targets: {
+            node: nodeVersion,
+          },
+        }],
+        ['@babel/preset-typescript', {}],
+      ],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should enable the JSX options for TypeScript and React', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          classProperties: true,
+          objectRestSpread: true,
+        },
+      },
+      typeScript: true,
+      framework: 'react',
+    };
+    const expected = {
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        '@babel/plugin-proposal-object-rest-spread',
+      ],
+      presets: [
+        ['@babel/preset-env', {
+          targets: {
+            node: nodeVersion,
+          },
+        }],
+        ['@babel/preset-typescript', {
+          isTSX: true,
+          allExtensions: true,
+        }],
+      ],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should push the TypeScript preset twice', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {
+          classProperties: true,
+          objectRestSpread: true,
+        },
+        overwrites: {
+          presets: [['@babel/preset-typescript']],
+        },
+      },
+      typeScript: true,
+    };
+    const expected = {
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        '@babel/plugin-proposal-object-rest-spread',
+      ],
+      presets: [
+        ['@babel/preset-env', {
+          targets: {
+            node: nodeVersion,
+          },
+        }],
+        ['@babel/preset-typescript'],
+      ],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should add the `properties` and `objectRestSpread` for TypeScript', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = 'current';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion,
+        features: {},
+      },
+      typeScript: true,
+    };
+    const expected = {
+      plugins: [
+        ['@babel/plugin-proposal-class-properties', { loose: true }],
+        '@babel/plugin-proposal-object-rest-spread',
+      ],
+      presets: [
+        ['@babel/preset-env', {
+          targets: {
+            node: nodeVersion,
+          },
+        }],
+        ['@babel/preset-typescript', {}],
       ],
     };
     let sut = null;

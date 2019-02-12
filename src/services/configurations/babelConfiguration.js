@@ -16,10 +16,40 @@ class BabelConfiguration {
     /**
      * A dictionary with familiar names for Babel plugins.
      * @type {Object}
+     * @access protected
+     * @ignore
      */
-    this.plugins = {
-      properties: 'transform-class-properties',
-      decorators: 'transform-decorators-legacy',
+    this._plugins = {
+      decorators: {
+        name: '@babel/plugin-proposal-decorators',
+        options: {
+          legacy: true,
+        },
+      },
+      classProperties: {
+        name: '@babel/plugin-proposal-class-properties',
+        options: {
+          loose: true,
+        },
+      },
+      dynamicImports: {
+        name: '@babel/plugin-syntax-dynamic-import',
+        options: {},
+      },
+      objectRestSpread: {
+        name: '@babel/plugin-proposal-object-rest-spread',
+        options: {},
+      },
+    };
+    /**
+     * A dictionary with familiar names for Babel presets for type check.
+     * @type {Object}
+     * @access protected
+     * @ignore
+     */
+    this._typesPresets = {
+      flow: '@babel/preset-flow',
+      typeScript: '@babel/preset-typescript',
     };
   }
   /**
@@ -40,6 +70,8 @@ class BabelConfiguration {
         overwrites,
       },
       flow,
+      typeScript,
+      framework,
     } = target;
     // Define the configuration we are going to _'update'_.
     const config = Object.assign({}, overwrites || {});
@@ -47,9 +79,11 @@ class BabelConfiguration {
     const presets = config.presets || [];
     // Define the list of plugins.
     const plugins = config.plugins || [];
+    // Define the name of `env` preset; to avoid having the string on multiple places.
+    const envPresetName = '@babel/preset-env';
     // Check whether or not the presets include the `env` preset.
     const hasEnv = presets
-    .find((preset) => (Array.isArray(preset) && preset[0] === 'env'));
+    .find((preset) => (Array.isArray(preset) && preset[0] === envPresetName));
 
     // If it doesn't have the `env` preset...
     if (!hasEnv) {
@@ -67,25 +101,32 @@ class BabelConfiguration {
         presetTargets.node = nodeVersion;
       }
       // Push the new `env` preset on top of the list.
-      presets.unshift(['env', { targets: presetTargets }]);
+      presets.unshift([envPresetName, { targets: presetTargets }]);
     }
+
     // Check if the configuration should include any _'known plugin'_.
-    features.forEach((feature) => {
-      const featurePlugin = this.plugins[feature];
-      if (!plugins.includes(featurePlugin)) {
-        plugins.push(featurePlugin);
+    Object.keys(features).forEach((feature) => {
+      if (features[feature] && this._plugins[feature]) {
+        const featurePlugin = this._plugins[feature];
+        if (!this._includesConfigurationItem(plugins, featurePlugin.name)) {
+          if (Object.keys(featurePlugin.options).length) {
+            plugins.push([featurePlugin.name, featurePlugin.options]);
+          } else {
+            plugins.push(featurePlugin.name);
+          }
+        }
       }
     });
 
-    /**
-     * Check if the target uses flow, which forces the configuration to use the `flow` preset and
-     * the _'properties'_ plugin.
-     */
+    // Check if the target uses Flow or TypeScript.
     if (flow) {
-      presets.push(['flow']);
-      if (!plugins.includes(this.plugins.properties)) {
-        plugins.push(this.plugins.properties);
-      }
+      const flowConfig = this._getFlowConfiguration({ presets, plugins });
+      presets.push(...flowConfig.presets);
+      plugins.push(...flowConfig.plugins);
+    } else if (typeScript) {
+      const tsConfig = this._getTypeScriptConfiguration({ presets, plugins }, framework);
+      presets.push(...tsConfig.presets);
+      plugins.push(...tsConfig.plugins);
     }
 
     // Set both presets and plugins back on the config.
@@ -93,6 +134,130 @@ class BabelConfiguration {
     config.plugins = plugins;
     // Return a reduced configuration
     return this.events.reduce('babel-configuration', config, target);
+  }
+  /**
+   * Checks if a plugin/preset exists on a Babel configuration property list. The reason of the
+   * method is that, sometimes, the plugins or presets can be defined as array (first the name and
+   * then the options), so it also needs to check for those cases.
+   * @param {Array}  configurationList The list of presets or plugins where the function will look
+   *                                   for the item.
+   * @param {string} item              The name of the item the function needs to check for.
+   * @return {boolean}
+   * @access protected
+   * @ignore
+   */
+  _includesConfigurationItem(configurationList, item) {
+    return configurationList.length ?
+      configurationList.find((element) => (
+        Array.isArray(element) && element.length ?
+          element[0] === item :
+          element === item
+      )) :
+      false;
+  }
+  /**
+   * This method will generate a list of presets and plugins needed to support Flow on a
+   * given Babel configuration. To avoid modifying the reference of the current configuration or
+   * generating a new one for overwriting, the method will generate two new lists that can be
+   * pushed directly to the existing configuration.
+   * @example
+   * const flowConfig = this._getFlowConfiguration(currentConfig);
+   * currentConfig.presets.push(...flowConfig.presets);
+   * currentConfig.plugins.push(...flowConfig.plugins);
+   * @param {Object} currentConfiguration         The configuration to validate.
+   * @param {Array}  currentConfiguration.presets The current list of presets.
+   * @param {Array}  currentConfiguration.plugins The current list of plugins.
+   * @return {Object} And object with missing plugins and presets to achieve support for Flow.
+   * @property {Array} presets The list of missing presets needed to support Flow.
+   * @property {Array} plugins The list of missing presets needed to support Flow.
+   * @access protected
+   * @ignore
+   */
+  _getFlowConfiguration(currentConfiguration) {
+    const newConfig = {
+      presets: [],
+      plugins: [],
+    };
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.presets,
+      this._typesPresets.flow
+    )) {
+      newConfig.presets.push([this._typesPresets.flow]);
+    }
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.plugins,
+      this._plugins.classProperties.name
+    )) {
+      const { classProperties } = this._plugins;
+      newConfig.plugins.push([classProperties.name, classProperties.options]);
+    }
+
+    return newConfig;
+  }
+  /**
+   * This method will generate a list of presets and plugins needed to support TypeScript on a
+   * given Babel configuration. To avoid modifying the reference of the current configuration or
+   * generating a new one for overwriting, the method will generate two new lists that can be
+   * pushed directly to the existing configuration.
+   * @example
+   * const tsConfig = this._getTypeScriptConfiguration(currentConfig, framework);
+   * currentConfig.presets.push(...tsConfig.presets);
+   * currentConfig.plugins.push(...tsConfig.plugins);
+   * @param {Object} currentConfiguration         The configuration to validate.
+   * @param {Array}  currentConfiguration.presets The current list of presets.
+   * @param {Array}  currentConfiguration.plugins The current list of plugins.
+   * @param {String} framework                    To check for React and enable TSX support.
+   * @return {Object} And object with missing plugins and presets to achieve support for TypeScript.
+   * @property {Array} presets The list of missing presets needed to support TypeScript.
+   * @property {Array} plugins The list of missing presets needed to support TypeScript.
+   * @access protected
+   * @ignore
+   */
+  _getTypeScriptConfiguration(currentConfiguration, framework) {
+    const newConfig = {
+      presets: [],
+      plugins: [],
+    };
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.presets,
+      this._typesPresets.typeScript
+    )) {
+      const tsOptions = {};
+      if (framework === 'react') {
+        tsOptions.isTSX = true;
+        tsOptions.allExtensions = true;
+      }
+      newConfig.presets.push([this._typesPresets.typeScript, tsOptions]);
+    }
+
+    const toAdd = [];
+    if (!this._includesConfigurationItem(
+      currentConfiguration.plugins,
+      this._plugins.classProperties.name
+    )) {
+      toAdd.push('classProperties');
+    }
+
+    if (!this._includesConfigurationItem(
+      currentConfiguration.plugins,
+      this._plugins.objectRestSpread.name
+    )) {
+      toAdd.push('objectRestSpread');
+    }
+
+    toAdd.forEach((feature) => {
+      const featurePlugin = this._plugins[feature];
+      if (Object.keys(featurePlugin.options).length) {
+        newConfig.plugins.push([featurePlugin.name, featurePlugin.options]);
+      } else {
+        newConfig.plugins.push(featurePlugin.name);
+      }
+    });
+
+    return newConfig;
   }
 }
 /**

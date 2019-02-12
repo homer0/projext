@@ -342,6 +342,7 @@ describe('services/building:buildCopier', () => {
       devDependencies: {
         [developmentDependency]: 'latest',
       },
+      _ignoredProperty: 'true',
     }));
     fs.readJson.mockImplementationOnce(() => Promise.resolve({
       dependencies: {

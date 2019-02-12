@@ -42,7 +42,9 @@ class TargetsFinder {
      * @access protected
      */
     this._extensions = {
-      js: /\.jsx?$/i,
+      js: /\.[jt]sx?$/i,
+      typeScript: /\.tsx?$/i,
+      typeScriptReact: /\.tsx$/i,
       asset: /\.(png|jpe?g|gif|s?css|html|svg|woff2?|ttf|eot)$/i,
     };
     /**
@@ -85,6 +87,7 @@ class TargetsFinder {
       angular: /@angular(?:\/(?:\w+))?$/i,
       angularjs: /angular/i,
       react: /react(?:(?!(?:-dom\/server)))/i,
+      aurelia: /aurelia/i,
     };
     /**
      * A dictionary of known frameworks that can be used on Node, and regular expressions that
@@ -102,7 +105,7 @@ class TargetsFinder {
      */
     this._browserExpressions = [
       /(?:^|\s|=)doc(?:ument?)\s*\.\s*(?:getElementBy(?:Id|ClassName)|querySelector(?:All)?)\s*\(/ig,
-      /(?:^|\s|=)(?:window|global)\s*\.(?:document?)/i,
+      /(?:^|\s|=)(?:window|global)\s*\.(?:document)?/i,
       /['|"]whatwg-fetch['|"]/i,
     ];
     /**
@@ -361,6 +364,17 @@ class TargetsFinder {
         },
       };
     }
+
+    if (entryPath.match(this._extensions.typeScript)) {
+      info.typeScript = true;
+      info.sourceMap = {
+        development: true,
+        production: true,
+      };
+      if (!framework && entryPath.match(this._extensions.typeScriptReact)) {
+        info.framework = 'react';
+      }
+    }
     // Return the result of the analysis.
     return info;
   }
@@ -433,10 +447,8 @@ class TargetsFinder {
           const [, extract] = match;
           // Normalize the extracted text.
           const normalized = extract.toLowerCase().trim();
-          // If it's not on the list, add it.
-          if (!items.includes(normalized)) {
-            items.push(normalized);
-          }
+          // Add it to the list.
+          items.push(normalized);
           // Continue the execution loop.
           match = regex.exec(contents);
         }

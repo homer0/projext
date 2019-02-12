@@ -6,6 +6,7 @@ const { buildNodeRunnerProcess } = require('./buildNodeRunnerProcess');
 const { buildNodeWatcher } = require('./buildNodeWatcher');
 const { buildNodeWatcherProcess } = require('./buildNodeWatcherProcess');
 const { buildTranspiler } = require('./buildTranspiler');
+const { buildTypeScriptHelper } = require('./buildTypeScriptHelper');
 const { buildVersion } = require('./buildVersion');
 const { builder } = require('./builder');
 
@@ -18,6 +19,7 @@ module.exports = {
   buildNodeWatcher,
   buildNodeWatcherProcess,
   buildTranspiler,
+  buildTypeScriptHelper,
   buildVersion,
   builder,
 };

@@ -1132,7 +1132,11 @@ describe('services/targets:targetsFinder', () => {
     fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
     // 2 - When parsing the target.
     fs.readdirSync.mockReturnValueOnce(sourceDirectoryContents);
-    const fileContents = 'import { PLATFORM } from \'aurelia-pal\';';
+    const fileContents = `
+      import { PLATFORM } from \'aurelia-pal\';
+
+      export const configure = () => {};
+    `.trim();
     fs.readFileSync.mockReturnValueOnce(fileContents);
     const directory = 'src';
     let sut = null;

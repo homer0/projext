@@ -90,6 +90,14 @@ class TargetsFinder {
       aurelia: /aurelia/i,
     };
     /**
+     * A list of known browser frameworks that need to export something on the entry point in order
+     * to work. This is list is used to prevent the service from thinking an app is a library.
+     * @type {Array}
+     * @ignore
+     * @access protected
+     */
+    this._browserFrameworksWithExports = ['aurelia'];
+    /**
      * A dictionary of known frameworks that can be used on Node, and regular expressions that
      * match their module name.
      * @type {Object}
@@ -284,8 +292,6 @@ class TargetsFinder {
     const importInfo = this._getFileImports(contents);
     // Get the information of all the export statements
     const exportInfo = this._getFileExports(contents);
-    // If the target is exporting something, then it's a library.
-    const library = exportInfo.items.length > 0;
 
     // Loop all the known browser frameworks.
     const framework = Object.keys(this._browserFrameworks)
@@ -294,6 +300,14 @@ class TargetsFinder {
       const regex = this._browserFrameworks[name];
       return !!importInfo.items.find((file) => file.match(regex));
     });
+
+    /**
+     * Check if the framework requires the use of `export` on the entry file; that why we can
+     * prevent the method to assume the target is a library.
+     */
+    const falseLibrary = !!(framework && this._browserFrameworksWithExports.includes(framework));
+    // If the target is exporting something, then it's a library.
+    const library = !falseLibrary && exportInfo.items.length > 0;
 
     /**
      * Try to determine if the target type is `browser` by either checking if a browser framework

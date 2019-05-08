@@ -110,8 +110,8 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           babel: {
             features: {
-              classProperties: false,
               decorators: false,
+              classProperties: false,
               dynamicImports: true,
               objectRestSpread: false,
             },
@@ -176,8 +176,8 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           babel: {
             features: {
-              classProperties: false,
               decorators: false,
+              classProperties: false,
               dynamicImports: true,
               objectRestSpread: false,
             },

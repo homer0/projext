@@ -84,6 +84,7 @@ class Utils {
    * @param {string} [pathDelimiter='/'] The delimiter that will separate the path components.
    * @return {*}
    * @throws {Error} If the path is invalid.
+   * @deprecated
    */
   static getPropertyWithPath(obj, objPath, pathDelimiter = '/') {
     const parts = objPath.split(pathDelimiter);
@@ -129,6 +130,7 @@ class Utils {
    *                                              remove it recursively until a non empty parent
    *                                              object is found.
    * @return {Object} A copy of the original object with the removed property/properties.
+   * @deprecated
    */
   static deletePropertyWithPath(obj, objPath, pathDelimiter = '/', cleanEmptyProperties = true) {
     const parts = objPath.split(pathDelimiter);
@@ -164,6 +166,7 @@ class Utils {
    * @param {*}      value               The value to set on the property.
    * @param {string} [pathDelimiter='/'] The delimiter that will separate the path components.
    * @return {Object} A copy of the original object with the added property/properties.
+   * @deprecated
    */
   static setPropertyWithPath(obj, objPath, value, pathDelimiter = '/') {
     const result = extend(true, {}, obj);

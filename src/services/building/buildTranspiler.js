@@ -130,6 +130,7 @@ class BuildTranspiler {
    *                                        was transpiled) and `code`; but if the parameter is
    *                                        `false`, the promise will resolve on a string with
    *                                        the path to the file.
+   * @todo inject `utils` on the next breaking release and remove `this.targets.utils`.
    */
   transpileFile(filepath, buildType = 'development', options = null, writeFile = true) {
     let from = '';
@@ -147,7 +148,7 @@ class BuildTranspiler {
       originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this._normalizeExtension(originalTo);
+    to = this.targets.utils.ensureExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
@@ -222,6 +223,7 @@ class BuildTranspiler {
    *                         `filepath` (the path where it was transpiled) and `code`; but if the
    *                         parameter is `false`, it will return a string with the path to the
    *                         file.
+   * @todo inject `utils` on the next breaking release and remove `this.targets.utils`.
    */
   transpileFileSync(filepath, buildType = 'development', options = null, writeFile = true) {
     let from = '';
@@ -239,7 +241,7 @@ class BuildTranspiler {
       originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this._normalizeExtension(originalTo);
+    to = this.targets.utils.ensureExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
@@ -343,25 +345,6 @@ class BuildTranspiler {
     }
 
     return config;
-  }
-  /**
-   * This is a helper method that checks if a file path for JS file uses a `.js` extension, and if
-   * it doesn't, it replaces the extension in order to normalize it for transpilation output.
-   * @param  {string} filepath The file path to check.
-   * @return {string}
-   * @access protected
-   * @ignore
-   */
-  _normalizeExtension(filepath) {
-    let result;
-    const parsed = path.parse(filepath);
-    if (parsed.ext.match(/\.js$/i)) {
-      result = filepath;
-    } else {
-      result = path.join(parsed.dir, `${parsed.name}.js`);
-    }
-
-    return result;
   }
   /**
    * This is a helper method that prepares all the source map information needed to link it on the

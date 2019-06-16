@@ -64,6 +64,7 @@ class BuildNodeRunner {
    * @throws {Error} If one of the included targets requires bundling.
    * @access protected
    * @ignore
+   * @todo inject `utils` on the next breaking release and remove `this.targets.utils`.
    */
   _runWithTranspilation(target, inspectOptions) {
     const { paths: { source, build }, includeTargets } = target;
@@ -96,7 +97,7 @@ class BuildNodeRunner {
     });
 
     this.buildNodeRunnerProcess.run(
-      executable,
+      this.targets.utils.ensureExtension(executable),
       watch,
       inspectOptions,
       transpilationPaths,

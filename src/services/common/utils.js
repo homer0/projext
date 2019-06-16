@@ -1,3 +1,4 @@
+const path = require('path');
 const extend = require('extend');
 const { provider } = require('jimple');
 /**
@@ -83,6 +84,7 @@ class Utils {
    * @param {string} [pathDelimiter='/'] The delimiter that will separate the path components.
    * @return {*}
    * @throws {Error} If the path is invalid.
+   * @deprecated
    */
   static getPropertyWithPath(obj, objPath, pathDelimiter = '/') {
     const parts = objPath.split(pathDelimiter);
@@ -128,6 +130,7 @@ class Utils {
    *                                              remove it recursively until a non empty parent
    *                                              object is found.
    * @return {Object} A copy of the original object with the removed property/properties.
+   * @deprecated
    */
   static deletePropertyWithPath(obj, objPath, pathDelimiter = '/', cleanEmptyProperties = true) {
     const parts = objPath.split(pathDelimiter);
@@ -163,6 +166,7 @@ class Utils {
    * @param {*}      value               The value to set on the property.
    * @param {string} [pathDelimiter='/'] The delimiter that will separate the path components.
    * @return {Object} A copy of the original object with the added property/properties.
+   * @deprecated
    */
   static setPropertyWithPath(obj, objPath, value, pathDelimiter = '/') {
     const result = extend(true, {}, obj);
@@ -187,6 +191,29 @@ class Utils {
     });
 
     currentElement[last] = value;
+    return result;
+  }
+  /**
+   * This a helper for when projext deals with non-JS files, like `.jsx` or `.ts`. Given a path for
+   * a file, the method will make sure that the extension used is the one specified (`js by
+   * default).
+   * @example
+   * console.log(Utils.ensureExtension('my/file/path.ts');
+   * // Will output `my/file/path.js`
+   *
+   * @param {string} filepath         The path for the file.
+   * @param {string} [extension='js'] The extension to validate.
+   * @return {string}
+   */
+  static ensureExtension(filepath, extension = 'js') {
+    let result;
+    const parsed = path.parse(filepath);
+    if (parsed.ext.toLowerCase().endsWith(`.${extension}`)) {
+      result = filepath;
+    } else {
+      result = path.join(parsed.dir, `${parsed.name}.${extension}`);
+    }
+
     return result;
   }
 }

@@ -335,7 +335,11 @@ describe('services/building:buildNodeRunner', () => {
           },
         },
       };
-      const targets = 'targets';
+      const targets = {
+        utils: {
+          ensureExtension: jest.fn((filepath) => filepath),
+        },
+      };
       const target = {
         bundle: false,
         transpile: true,
@@ -369,6 +373,10 @@ describe('services/building:buildNodeRunner', () => {
         }],
         []
       );
+      expect(targets.utils.ensureExtension).toHaveBeenCalledTimes(1);
+      expect(targets.utils.ensureExtension).toHaveBeenCalledWith(
+        `${target.paths.build}/${target.entry.development}`
+      );
     });
 
     it('should run a target and watch an included target that also requires transpilation', () => {
@@ -393,6 +401,9 @@ describe('services/building:buildNodeRunner', () => {
       };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
+        utils: {
+          ensureExtension: jest.fn((filepath) => filepath),
+        },
       };
       const target = {
         bundle: false,
@@ -436,6 +447,10 @@ describe('services/building:buildNodeRunner', () => {
         ],
         []
       );
+      expect(targets.utils.ensureExtension).toHaveBeenCalledTimes(1);
+      expect(targets.utils.ensureExtension).toHaveBeenCalledWith(
+        `${target.paths.build}/${target.entry.development}`
+      );
     });
 
     it('should run a target and watch an included target that doesn\'t requires transp.', () => {
@@ -460,6 +475,9 @@ describe('services/building:buildNodeRunner', () => {
       };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
+        utils: {
+          ensureExtension: jest.fn((filepath) => filepath),
+        },
       };
       const target = {
         bundle: false,
@@ -499,6 +517,10 @@ describe('services/building:buildNodeRunner', () => {
           from: includedTarget.paths.source,
           to: includedTarget.paths.build,
         }]
+      );
+      expect(targets.utils.ensureExtension).toHaveBeenCalledTimes(1);
+      expect(targets.utils.ensureExtension).toHaveBeenCalledWith(
+        `${target.paths.build}/${target.entry.development}`
       );
     });
 

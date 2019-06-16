@@ -1,3 +1,4 @@
+const path = require('path');
 const extend = require('extend');
 const { provider } = require('jimple');
 /**
@@ -187,6 +188,29 @@ class Utils {
     });
 
     currentElement[last] = value;
+    return result;
+  }
+  /**
+   * This a helper for when projext deals with non-JS files, like `.jsx` or `.ts`. Given a path for
+   * a file, the method will make sure that the extension used is the one specified (`js by
+   * default).
+   * @example
+   * console.log(Utils.ensureExtension('my/file/path.ts');
+   * // Will output `my/file/path.js`
+   *
+   * @param {string} filepath         The path for the file.
+   * @param {string} [extension='js'] The extension to validate.
+   * @return {string}
+   */
+  static ensureExtension(filepath, extension = 'js') {
+    let result;
+    const parsed = path.parse(filepath);
+    if (parsed.ext.toLowerCase().endsWith(`.${extension}`)) {
+      result = filepath;
+    } else {
+      result = path.join(parsed.dir, `${parsed.name}.${extension}`);
+    }
+
     return result;
   }
 }

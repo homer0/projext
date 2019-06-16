@@ -1,3 +1,4 @@
+const path = require('path');
 const JimpleMock = require('/tests/mocks/jimple.mock');
 
 jest.mock('jimple', () => JimpleMock);
@@ -552,6 +553,43 @@ describe('services/common:utils', () => {
         expect(() => Utils.setPropertyWithPath(obj, info.path, 'value'))
         .toThrow(info.expected);
       });
+    });
+  });
+
+  describe('ensureExtension', () => {
+    it('should ensure a file has a .js extension', () => {
+      // Given
+      const filename = 'myfile';
+      const extension = 'ts';
+      const filepath = `${filename}.${extension}`;
+      let result = null;
+      // When
+      result = Utils.ensureExtension(filepath);
+      // Then
+      expect(result).toBe(`${filename}.js`);
+    });
+
+    it('should ensure a file has a .jsx extension', () => {
+      // Given
+      const directory = path.join('my', 'path', 'to');
+      const filename = 'myfile';
+      const extension = 'ts';
+      const filepath = path.join(directory, `${filename}.${extension}`);
+      let result = null;
+      // When
+      result = Utils.ensureExtension(filepath, 'jsx');
+      // Then
+      expect(result).toBe(path.join(directory, `${filename}.jsx`));
+    });
+
+    it('shouldn\'t change the extension if its alrady .js', () => {
+      // Given
+      const filename = 'myfile.js';
+      let result = null;
+      // When
+      result = Utils.ensureExtension(filename);
+      // Then
+      expect(result).toBe(filename);
     });
   });
 

@@ -43,7 +43,8 @@
       "esdoc-standard-plugin": "^1.0.0",
       "esdoc-node": "^1.0.4",
       "leasot": "^7.5.0",
-      "coveralls": "^3.0.5"
+      "coveralls": "^3.0.5",
+      "husky": "^3.0.1"
     },
     "engine-strict": true,
     "engines": {
@@ -54,6 +55,12 @@
     "bin": {
       "projext": "./src/bin/projext",
       "projext-cli": "./src/bin/projext-cli"
+    },
+    "husky": {
+      "hooks": {
+        "pre-commit": "./utils/hooks/pre-commit",
+        "post-merge": "./utils/hooks/post-merge"
+      }
     },
     "scripts": {
       "hooks": "./utils/hooks/install",

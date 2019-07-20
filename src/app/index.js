@@ -15,6 +15,7 @@ const {
   babelHelper,
   cleaner,
   copier,
+  dotEnvUtils,
   events,
   plugins,
   appPrompt,
@@ -100,6 +101,7 @@ class Projext extends Jimple {
     this.register(babelHelper);
     this.register(cleaner);
     this.register(copier);
+    this.register(dotEnvUtils);
     this.register(events);
     this.register(plugins('projext-plugin-'));
     this.register(appPrompt);

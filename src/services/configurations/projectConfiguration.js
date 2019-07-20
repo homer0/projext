@@ -128,14 +128,14 @@ class ProjectConfiguration extends ConfigurationFile {
           copy: [],
           dotEnv: {
             enabled: true,
-            extend: true,
-            overwrite: false,
             files: [
               '.env.[target-name].[build-type]',
               '.env.[target-name]',
               '.env.[build-type]',
               '.env',
             ],
+            extend: true,
+            overwrite: false,
           },
         },
         browser: {
@@ -209,14 +209,14 @@ class ProjectConfiguration extends ConfigurationFile {
           copy: [],
           dotEnv: {
             enabled: true,
-            extend: true,
-            overwrite: false,
             files: [
               '.env.[target-name].[build-type]',
               '.env.[target-name]',
               '.env.[build-type]',
               '.env',
             ],
+            extend: true,
+            overwrite: false,
           },
           devServer: {
             port: 2509,

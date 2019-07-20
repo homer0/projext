@@ -1,6 +1,7 @@
 const { babelHelper } = require('./babelHelper');
 const { cleaner } = require('./cleaner');
 const { copier } = require('./copier');
+const { dotEnvUtils } = require('./dotEnvUtils');
 const { events } = require('./events');
 const { plugins } = require('./plugins');
 const { promptWithOptions, prompt, appPrompt } = require('./prompt');
@@ -13,6 +14,7 @@ module.exports = {
   babelHelper,
   cleaner,
   copier,
+  dotEnvUtils,
   events,
   plugins,
   promptWithOptions,

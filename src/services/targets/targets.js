@@ -151,6 +151,15 @@ class Targets {
         // Replace placeholders on the output settings
         newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
 
+        /**
+         * To avoid merge issues with arrays (they get merge "by index"), if the target already
+         * had a defined list of files for the dotEnv feature, overwrite whatever is on the
+         * template.
+         */
+        if (target.dotEnv && target.dotEnv.files && target.dotEnv.files.length) {
+          newTarget.dotEnv.files = target.dotEnv.files;
+        }
+
         // If the target has an `html` setting...
         if (newTarget.html) {
           // Check if there are missing settings that should be replaced with a fallback.

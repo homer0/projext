@@ -95,6 +95,11 @@ describe('services/targets:targets', () => {
         targetFour: {
           type: 'browser',
           hasFolder: false,
+          dotEnv: {
+            files: [
+              '.env.browser',
+            ],
+          },
         },
         targetFive: {
           folder: 'target-five',
@@ -108,10 +113,22 @@ describe('services/targets:targets', () => {
           defaultTargetName: 'node',
           hasFolder: true,
           engine: 'webpack',
+          dotEnv: {
+            enabled: true,
+            files: [
+              '.env',
+            ],
+          },
         },
         browser: {
           defaultTargetName: 'browser',
           engine: 'webpack',
+          dotEnv: {
+            enabled: true,
+            files: [
+              '.env',
+            ],
+          },
         },
       },
       paths: {
@@ -143,6 +160,12 @@ describe('services/targets:targets', () => {
           browser: false,
         },
         engine: 'webpack',
+        dotEnv: {
+          enabled: true,
+          files: [
+            '.env',
+          ],
+        },
       },
       targetTwo: {
         defaultTargetName: 'node',
@@ -168,6 +191,12 @@ describe('services/targets:targets', () => {
           browser: false,
         },
         engine: 'webpack',
+        dotEnv: {
+          enabled: true,
+          files: [
+            '.env',
+          ],
+        },
       },
       targetThree: {
         defaultTargetName: 'node',
@@ -194,6 +223,12 @@ describe('services/targets:targets', () => {
           browser: false,
         },
         engine: 'webpack',
+        dotEnv: {
+          enabled: true,
+          files: [
+            '.env',
+          ],
+        },
       },
       targetFour: {
         defaultTargetName: 'browser',
@@ -210,6 +245,12 @@ describe('services/targets:targets', () => {
           browser: true,
         },
         engine: 'webpack',
+        dotEnv: {
+          enabled: true,
+          files: [
+            '.env.browser',
+          ],
+        },
       },
       targetFive: {
         defaultTargetName: 'node',
@@ -236,6 +277,12 @@ describe('services/targets:targets', () => {
           browser: false,
         },
         engine: 'webpack',
+        dotEnv: {
+          enabled: true,
+          files: [
+            '.env',
+          ],
+        },
       },
     };
     const expectedTargetsNames = Object.keys(expectedTargets);

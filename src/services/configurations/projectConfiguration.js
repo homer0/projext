@@ -128,11 +128,13 @@ class ProjectConfiguration extends ConfigurationFile {
           copy: [],
           dotEnv: {
             enabled: true,
-            file: {
-              default: '.env',
-              development: null,
-              production: null,
-            },
+            extend: true,
+            files: [
+              '.env.[target-name].[build-type]',
+              '.env.[target-name]',
+              '.env.[build-type]',
+              '.env',
+            ],
           },
         },
         browser: {
@@ -206,11 +208,13 @@ class ProjectConfiguration extends ConfigurationFile {
           copy: [],
           dotEnv: {
             enabled: true,
-            file: {
-              default: '.env',
-              development: null,
-              production: null,
-            },
+            extend: true,
+            files: [
+              '.env.[target-name].[build-type]',
+              '.env.[target-name]',
+              '.env.[build-type]',
+              '.env',
+            ],
           },
           devServer: {
             port: 2509,

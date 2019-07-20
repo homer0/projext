@@ -28,6 +28,7 @@ describe('services/targets:targets', () => {
 
   it('should be instantiated with all its dependencies', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -45,6 +46,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -66,6 +68,7 @@ describe('services/targets:targets', () => {
 
   it('should load the project targets', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -290,6 +293,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -314,6 +318,7 @@ describe('services/targets:targets', () => {
     // Given
     const hash = '2509';
     Date.now = () => hash;
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -707,6 +712,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -736,6 +742,7 @@ describe('services/targets:targets', () => {
 
   it('should load the project targets and resolve the browser targets `html` setting', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -922,6 +929,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -944,6 +952,7 @@ describe('services/targets:targets', () => {
 
   it('should get a target by its name', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -999,6 +1008,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1014,6 +1024,7 @@ describe('services/targets:targets', () => {
 
   it('should get a target with the project\'s name as the default target', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1082,6 +1093,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1097,6 +1109,7 @@ describe('services/targets:targets', () => {
 
   it('should get the first target (by alphabetical order) as the default target', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1165,6 +1178,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1180,6 +1194,7 @@ describe('services/targets:targets', () => {
 
   it('should get a target with an specific type as the default target', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1250,6 +1265,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1265,6 +1281,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error while trying to get the default target without having targets', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1284,6 +1301,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1298,6 +1316,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error while trying to get the default target with an specific type', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1332,6 +1351,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1347,6 +1367,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error while trying to get the default target with an invalid type', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1366,6 +1387,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1381,6 +1403,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error while trying to load a target with an invalid type', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1407,6 +1430,7 @@ describe('services/targets:targets', () => {
     const utils = 'utils';
     // When/Then
     expect(() => new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1420,6 +1444,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error for a node target with bundling but no build engine', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1448,6 +1473,7 @@ describe('services/targets:targets', () => {
     const utils = 'utils';
     // When/Then
     expect(() => new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1461,6 +1487,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error for a browser target with no build engine', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1489,6 +1516,7 @@ describe('services/targets:targets', () => {
     const utils = 'utils';
     // When/Then
     expect(() => new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1502,6 +1530,7 @@ describe('services/targets:targets', () => {
 
   it('should validate that a target exists', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1538,6 +1567,7 @@ describe('services/targets:targets', () => {
     let invalidResult = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1555,6 +1585,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error when trying to get a target that doesn\'t exist', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1574,6 +1605,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1593,6 +1625,7 @@ describe('services/targets:targets', () => {
     const folder = 'target-three';
     const file = `some-path/${source}/${folder}/file.js`;
     const targetName = 'targetThree';
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((name, target) => target),
     };
@@ -1626,6 +1659,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1642,6 +1676,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error if it can\'t find a target by a filepath', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1659,6 +1694,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1674,6 +1710,7 @@ describe('services/targets:targets', () => {
 
   it('should throw an error when trying to generate a configuration for a Node target', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1696,6 +1733,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1711,6 +1749,7 @@ describe('services/targets:targets', () => {
 
   it('shouldn\'t generate any configuration if the feature flag is disabled', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1738,6 +1777,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1753,6 +1793,7 @@ describe('services/targets:targets', () => {
 
   it('should generate a browser target config by loading from an external file', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1791,6 +1832,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1822,6 +1864,7 @@ describe('services/targets:targets', () => {
 
   it('should look for a browser target default config inside a folder with its name', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1860,6 +1903,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1889,8 +1933,9 @@ describe('services/targets:targets', () => {
     expect(WootilsAppConfigurationMock.mocks.loadFromEnvironment).toHaveBeenCalledTimes(1);
   });
 
-  it('should receive the default browser target configuration as a option property', () => {
+  it('should receive the default browser target configuration as an option property', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1929,6 +1974,7 @@ describe('services/targets:targets', () => {
     let result = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1956,8 +2002,257 @@ describe('services/targets:targets', () => {
     expect(WootilsAppConfigurationMock.mocks.loadFromEnvironment).toHaveBeenCalledTimes(0);
   });
 
+  it('shouldn\'t inject any environment variables if the feature flag is disabled', () => {
+    // Given
+    const dotEnvUtils = {
+      load: jest.fn(),
+    };
+    const events = 'events';
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const target = {
+      name: 'my-target',
+      is: {
+        node: false,
+      },
+      dotEnv: {
+        enabled: false,
+      },
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      dotEnvUtils,
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.loadTargetDotEnvFile(target);
+    // Then
+    expect(result).toEqual({});
+    expect(dotEnvUtils.load).toHaveBeenCalledTimes(0);
+  });
+
+  it('shouldn\'t inject any environment variables if no files are loaded', () => {
+    // Given
+    const dotEnvUtils = {
+      load: jest.fn(() => ({
+        loaded: false,
+      })),
+      inject: jest.fn(),
+    };
+    const events = 'events';
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const dotEnvFile = '.env.[target-name].[build-type]';
+    const target = {
+      name: 'my-target',
+      is: {
+        node: false,
+      },
+      dotEnv: {
+        enabled: true,
+        extend: true,
+        files: [dotEnvFile],
+      },
+    };
+    const expectedDotEnvFile = `.env.${target.name}.development`;
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      dotEnvUtils,
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.loadTargetDotEnvFile(target);
+    // Then
+    expect(result).toEqual({});
+    expect(dotEnvUtils.load).toHaveBeenCalledTimes(1);
+    expect(dotEnvUtils.load).toHaveBeenCalledWith([expectedDotEnvFile], target.dotEnv.extend);
+    expect(dotEnvUtils.inject).toHaveBeenCalledTimes(0);
+  });
+
+  it('should reduce and inject environment variables for a target', () => {
+    // Given
+    const loadedVariables = {
+      ROSARIO: 'Charito',
+      PILAR: 'Pili',
+    };
+    const dotEnvUtils = {
+      load: jest.fn(() => ({
+        loaded: true,
+        variables: loadedVariables,
+      })),
+      inject: jest.fn(),
+    };
+    const events = {
+      reduce: jest.fn((name, variables) => variables),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const dotEnvFile = '.env.[target-name].[build-type]';
+    const target = {
+      name: 'my-target',
+      is: {
+        node: false,
+      },
+      dotEnv: {
+        enabled: true,
+        extend: true,
+        overwrite: true,
+        files: [dotEnvFile],
+      },
+    };
+    const buildType = 'production';
+    const expectedDotEnvFile = `.env.${target.name}.${buildType}`;
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      dotEnvUtils,
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.loadTargetDotEnvFile(target, buildType);
+    // Then
+    expect(result).toEqual(loadedVariables);
+    expect(dotEnvUtils.load).toHaveBeenCalledTimes(1);
+    expect(dotEnvUtils.load).toHaveBeenCalledWith([expectedDotEnvFile], target.dotEnv.extend);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(
+      'target-environment-variables',
+      loadedVariables,
+      target,
+      buildType
+    );
+    expect(dotEnvUtils.inject).toHaveBeenCalledTimes(1);
+    expect(dotEnvUtils.inject).toHaveBeenCalledWith(loadedVariables, target.dotEnv.overwrite);
+  });
+
+  it('should reduce but not inject environment variables for a target', () => {
+    // Given
+    const loadedVariables = {
+      ROSARIO: 'Charito',
+      PILAR: 'Pili',
+    };
+    const dotEnvUtils = {
+      load: jest.fn(() => ({
+        loaded: true,
+        variables: loadedVariables,
+      })),
+      inject: jest.fn(),
+    };
+    const events = {
+      reduce: jest.fn((name, variables) => variables),
+    };
+    const environmentUtils = 'environmentUtils';
+    const packageInfo = 'packageInfo';
+    const pathUtils = 'pathUtils';
+    const projectConfiguration = {
+      targets: {},
+      targetsTemplates: {},
+      paths: {
+        source: '',
+        build: '',
+      },
+    };
+    const rootRequire = 'rootRequire';
+    const utils = 'utils';
+    const dotEnvFile = '.env.[target-name].[build-type]';
+    const target = {
+      name: 'my-target',
+      is: {
+        node: false,
+      },
+      dotEnv: {
+        enabled: true,
+        extend: true,
+        overwrite: true,
+        files: [dotEnvFile],
+      },
+    };
+    const buildType = 'production';
+    const expectedDotEnvFile = `.env.${target.name}.${buildType}`;
+    let sut = null;
+    let result = null;
+    // When
+    sut = new Targets(
+      dotEnvUtils,
+      events,
+      environmentUtils,
+      packageInfo,
+      pathUtils,
+      projectConfiguration,
+      rootRequire,
+      utils
+    );
+    result = sut.loadTargetDotEnvFile(target, buildType, false);
+    // Then
+    expect(result).toEqual(loadedVariables);
+    expect(dotEnvUtils.load).toHaveBeenCalledTimes(1);
+    expect(dotEnvUtils.load).toHaveBeenCalledWith([expectedDotEnvFile], target.dotEnv.extend);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(
+      'target-environment-variables',
+      loadedVariables,
+      target,
+      buildType
+    );
+    expect(dotEnvUtils.inject).toHaveBeenCalledTimes(0);
+  });
+
   it('should throw an error when requesting the files to copy of a target without bundling', () => {
     // Given
+    const dotEnvUtils = 'dotEnvUtils';
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
@@ -1982,6 +2277,7 @@ describe('services/targets:targets', () => {
     let sut = null;
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -1998,6 +2294,7 @@ describe('services/targets:targets', () => {
   it('should throw an error when generating a list of files with one that doesn\'t exist', () => {
     // Given
     fs.pathExistsSync.mockImplementationOnce(() => false);
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((eventName, list) => list),
     };
@@ -2039,6 +2336,7 @@ describe('services/targets:targets', () => {
     const expectedErrorPath = expectedItem.from.replace('.', '\\.');
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -2063,6 +2361,7 @@ describe('services/targets:targets', () => {
     // Given
     fs.pathExistsSync.mockImplementationOnce(() => true);
     fs.pathExistsSync.mockImplementationOnce(() => true);
+    const dotEnvUtils = 'dotEnvUtils';
     const events = {
       reduce: jest.fn((eventName, list) => list),
     };
@@ -2116,6 +2415,7 @@ describe('services/targets:targets', () => {
     ];
     // When
     sut = new Targets(
+      dotEnvUtils,
       events,
       environmentUtils,
       packageInfo,
@@ -2167,6 +2467,7 @@ describe('services/targets:targets', () => {
     expect(serviceName).toBe('targets');
     expect(serviceFn).toBeFunction();
     expect(sut).toBeInstanceOf(Targets);
+    expect(sut.dotEnvUtils).toBe('dotEnvUtils');
     expect(sut.events).toBe('events');
     expect(sut.environmentUtils).toBe('environmentUtils');
     expect(sut.packageInfo).toBe('packageInfo');

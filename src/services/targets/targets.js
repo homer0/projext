@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs-extra');
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const { AppConfiguration } = require('wootils/node/appConfiguration');
 const { provider } = require('jimple');
 /**
@@ -117,7 +117,7 @@ class Targets {
          * Create the new target information by merging the template, the target information from
          * the configuration and the information defined by this method.
          */
-        const newTarget = extend(true, {}, template, target, {
+        const newTarget = ObjectUtils.merge(template, target, {
           name,
           type,
           paths: {
@@ -147,7 +147,7 @@ class Targets {
          * Keep the original output settings without the placeholders so internal services or
          * plugins can use them.
          */
-        newTarget.originalOutput = extend(true, {}, newTarget.output);
+        newTarget.originalOutput = ObjectUtils.copy(newTarget.output);
         // Replace placeholders on the output settings
         newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
 
@@ -460,7 +460,7 @@ class Targets {
         if (value === null) {
           newOutput[name] = Object.assign({}, defaultOutput);
         } else {
-          newOutput[name] = extend(true, {}, defaultOutput, value);
+          newOutput[name] = ObjectUtils.merge(defaultOutput, value);
           Object.keys(newOutput[name]).forEach((propName) => {
             if (!newOutput[name][propName] && defaultOutput[propName]) {
               newOutput[name][propName] = defaultOutput[propName];

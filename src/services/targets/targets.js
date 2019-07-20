@@ -184,10 +184,11 @@ class Targets {
           }
         }
 
-        // Check if the target should be transpiled (You can use types without transpilation).
+        // Check if the target should be transpiled (You can't use types without transpilation).
         if (!newTarget.transpile && (newTarget.flow || newTarget.typeScript)) {
           newTarget.transpile = true;
         }
+
         // Generate the target paths and folders.
         newTarget.folders.source = newTarget.hasFolder ?
           path.join(source, sourceFolderName) :

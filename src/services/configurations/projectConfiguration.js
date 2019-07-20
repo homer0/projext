@@ -126,6 +126,14 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           cleanBeforeBuild: true,
           copy: [],
+          dotEnv: {
+            enabled: true,
+            file: {
+              default: '.env',
+              development: null,
+              production: null,
+            },
+          },
         },
         browser: {
           type: 'browser',
@@ -196,6 +204,14 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           cleanBeforeBuild: true,
           copy: [],
+          dotEnv: {
+            enabled: true,
+            file: {
+              default: '.env',
+              development: null,
+              production: null,
+            },
+          },
           devServer: {
             port: 2509,
             open: true,

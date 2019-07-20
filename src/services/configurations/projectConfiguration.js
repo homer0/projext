@@ -129,6 +129,7 @@ class ProjectConfiguration extends ConfigurationFile {
           dotEnv: {
             enabled: true,
             extend: true,
+            overwrite: false,
             files: [
               '.env.[target-name].[build-type]',
               '.env.[target-name]',
@@ -209,6 +210,7 @@ class ProjectConfiguration extends ConfigurationFile {
           dotEnv: {
             enabled: true,
             extend: true,
+            overwrite: false,
             files: [
               '.env.[target-name].[build-type]',
               '.env.[target-name]',

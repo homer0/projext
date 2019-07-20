@@ -28,7 +28,8 @@
       "@babel/runtime": "7.5.5",
       "watchpack": "^1.6.0",
       "nodemon": "^1.19.1",
-      "prompt": "^1.0.0"
+      "prompt": "^1.0.0",
+      "dotenv": "^8.0.0"
     },
     "devDependencies": {
       "eslint": "^5.16.0",

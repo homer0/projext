@@ -1788,7 +1788,10 @@ describe('services/targets:targets', () => {
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
-    expect(result).toEqual({});
+    expect(result).toEqual({
+      configuration: {},
+      files: [],
+    });
   });
 
   it('should generate a browser target config by loading from an external file', () => {
@@ -1830,6 +1833,7 @@ describe('services/targets:targets', () => {
     };
     let sut = null;
     let result = null;
+    const expectedConfigFile = `${target.configuration.path}${target.name}.config.js`;
     // When
     sut = new Targets(
       dotEnvUtils,
@@ -1843,14 +1847,16 @@ describe('services/targets:targets', () => {
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
-    expect(result).toEqual(defaultConfig);
+    expect(result).toEqual({
+      configuration: defaultConfig,
+      files: [expectedConfigFile],
+    });
     expect(rootRequire).toHaveBeenCalledTimes(1);
-    expect(rootRequire)
-    .toHaveBeenCalledWith(`${target.configuration.path}${target.name}.config.js`);
+    expect(rootRequire).toHaveBeenCalledWith(expectedConfigFile);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledTimes(1);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledWith(
       environmentUtils,
-      rootRequire,
+      expect.any(Function),
       target.name,
       defaultConfig,
       {
@@ -1901,6 +1907,8 @@ describe('services/targets:targets', () => {
     };
     let sut = null;
     let result = null;
+    const expectedConfigDir = `${target.configuration.path}${target.name}/`;
+    const expectedConfigFile = `${expectedConfigDir}${target.name}.config.js`;
     // When
     sut = new Targets(
       dotEnvUtils,
@@ -1914,19 +1922,21 @@ describe('services/targets:targets', () => {
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
-    expect(result).toEqual(defaultConfig);
+    expect(result).toEqual({
+      configuration: defaultConfig,
+      files: [expectedConfigFile],
+    });
     expect(rootRequire).toHaveBeenCalledTimes(1);
-    expect(rootRequire)
-    .toHaveBeenCalledWith(`${target.configuration.path}${target.name}/${target.name}.config.js`);
+    expect(rootRequire).toHaveBeenCalledWith(expectedConfigFile);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledTimes(1);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledWith(
       environmentUtils,
-      rootRequire,
+      expect.any(Function),
       target.name,
       defaultConfig,
       {
         environmentVariable: target.configuration.environmentVariable,
-        path: `${target.configuration.path}${target.name}/`,
+        path: expectedConfigDir,
         filenameFormat: `${target.name}.[name].config.js`,
       }
     );
@@ -1985,12 +1995,15 @@ describe('services/targets:targets', () => {
     );
     result = sut.getBrowserTargetConfiguration(target);
     // Then
-    expect(result).toEqual(defaultConfig);
+    expect(result).toEqual({
+      configuration: defaultConfig,
+      files: [],
+    });
     expect(rootRequire).toHaveBeenCalledTimes(0);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledTimes(1);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledWith(
       environmentUtils,
-      rootRequire,
+      expect.any(Function),
       target.name,
       defaultConfig,
       {

@@ -846,7 +846,7 @@ ssl: {
 > ```js
 > {
 >   enabled: false,
->   hostname: null,
+>   host: null,
 >   https: null,
 > }
 > ```
@@ -854,7 +854,7 @@ ssl: {
 When the dev server is being proxied (using `nginx` for example), there are certain functionalities, like hot module replacement and live reload that need to be aware of this, so you need to use these options:
 
 - `enabled`: Whether the server is being proxied or not.
-- `hostname`: The hostname used. If `null`, it will use the same as `devServer.hostname`.
+- `host`: The hostname used. If `null`, it will use the same as `devServer.host`.
 - `https`: Whether or not the server is being proxied over `https`. This settings has a boolean value, but if you let it as `null` it will set its value based on `devServer.ssl`, if you added the certificates it will be `true`, otherwise `false`.
 
 **`devServer.historyApiFallback`**

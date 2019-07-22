@@ -180,6 +180,7 @@ describe('services/common:dotEnvUtils', () => {
       expect(dotenvExpand).toHaveBeenCalledTimes(1);
       expect(dotenvExpand).toHaveBeenCalledWith({
         parsed: fileContents,
+        ignoreProcessEnv: true,
       });
       expect(appLogger.success).toHaveBeenCalledTimes(1);
       expect(appLogger.success).toHaveBeenCalledWith(
@@ -247,6 +248,7 @@ describe('services/common:dotEnvUtils', () => {
       expect(dotenvExpand).toHaveBeenCalledTimes(1);
       expect(dotenvExpand).toHaveBeenCalledWith({
         parsed: expectedMerge,
+        ignoreProcessEnv: true,
       });
     });
 
@@ -298,6 +300,7 @@ describe('services/common:dotEnvUtils', () => {
       expect(dotenvExpand).toHaveBeenCalledTimes(1);
       expect(dotenvExpand).toHaveBeenCalledWith({
         parsed: firstFileContents,
+        ignoreProcessEnv: true,
       });
     });
   });

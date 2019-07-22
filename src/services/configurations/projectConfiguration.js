@@ -135,7 +135,6 @@ class ProjectConfiguration extends ConfigurationFile {
               '.env',
             ],
             extend: true,
-            overwrite: false,
           },
         },
         browser: {
@@ -216,7 +215,6 @@ class ProjectConfiguration extends ConfigurationFile {
               '.env',
             ],
             extend: true,
-            overwrite: false,
           },
           devServer: {
             port: 2509,

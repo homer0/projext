@@ -351,12 +351,14 @@ class Targets {
       /**
        * The idea of `files` and this small wrapper around `rootRequire` is for the method to be
        * able to identify all the external files that were involved on the configuration creation.
-       * Then the method can return the list so the build engine can also watch for those files
+       * Then the method can return the list, so the build engine can also watch for those files
        * and reload the target not only when the source changes, but when the config changes too.
        */
       const files = [];
       const rootRequireAndSave = (filepath) => {
         files.push(filepath);
+        // Delete the file cache entry so it can be rebuilt in case env vars were updated.
+        delete require.cache[filepath];
         return this.rootRequire(filepath);
       };
 

@@ -401,7 +401,6 @@ This is different from the main `copy` feature as this is specific to targets an
 >     '.env',
 >   ],
 >   extend: true,
->   overwrite: false,
 > }
 > ```
 
@@ -431,10 +430,6 @@ Take for example the following list of files:
 If `extend` is set to `true` and both files exist, projext will load `.env.[target-name]` as the first file and then merge the values from `.env.[target-name].[build-type]` on top of it.
 
 If `extend` is set to `false`, projext will use the first file it can find.
-
-**`dotEnv.overwrite`**
-
-When projext injects a target variables in the environment, having this setting in `false`, prevents it from overwriting already declared variables.
 
 ### `browser`
 
@@ -756,7 +751,6 @@ This is different from the main `copy` feature as this is specific to targets an
 >     '.env',
 >   ],
 >   extend: true,
->   overwrite: false,
 > }
 > ```
 
@@ -786,10 +780,6 @@ Take for example the following list of files:
 If `extend` is set to `true` and both files exist, projext will load `.env.[target-name]` as the first file and then merge the values from `.env.[target-name].[build-type]` on top of it.
 
 If `extend` is set to `false`, projext will use the first file it can find.
-
-**`dotEnv.overwrite`**
-
-When projext injects a target variables in the environment, having this setting in `false`, prevents it from overwriting already declared variables.
 
 #### `devServer`
 > Default value:

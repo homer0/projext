@@ -428,7 +428,7 @@ class Targets {
         );
 
         if (inject) {
-          this.dotEnvUtils.inject(result, target.dotEnv.overwrite);
+          this.dotEnvUtils.inject(result);
         }
       }
     }

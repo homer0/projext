@@ -1800,7 +1800,9 @@ describe('services/targets:targets', () => {
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       targets: {},
       targetsTemplates: {},
@@ -1851,6 +1853,8 @@ describe('services/targets:targets', () => {
       configuration: defaultConfig,
       files: [expectedConfigFile],
     });
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith(expectedConfigFile);
     expect(rootRequire).toHaveBeenCalledTimes(1);
     expect(rootRequire).toHaveBeenCalledWith(expectedConfigFile);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledTimes(1);
@@ -1874,7 +1878,9 @@ describe('services/targets:targets', () => {
     const events = 'events';
     const environmentUtils = 'environmentUtils';
     const packageInfo = 'packageInfo';
-    const pathUtils = 'pathUtils';
+    const pathUtils = {
+      join: jest.fn((rest) => rest),
+    };
     const projectConfiguration = {
       targets: {},
       targetsTemplates: {},
@@ -1926,6 +1932,8 @@ describe('services/targets:targets', () => {
       configuration: defaultConfig,
       files: [expectedConfigFile],
     });
+    expect(pathUtils.join).toHaveBeenCalledTimes(1);
+    expect(pathUtils.join).toHaveBeenCalledWith(expectedConfigFile);
     expect(rootRequire).toHaveBeenCalledTimes(1);
     expect(rootRequire).toHaveBeenCalledWith(expectedConfigFile);
     expect(WootilsAppConfigurationMock.mocks.constructor).toHaveBeenCalledTimes(1);

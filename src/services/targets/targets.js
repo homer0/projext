@@ -358,7 +358,7 @@ class Targets {
       const rootRequireAndSave = (filepath) => {
         files.push(filepath);
         // Delete the file cache entry so it can be rebuilt in case env vars were updated.
-        delete require.cache[filepath];
+        delete require.cache[this.pathUtils.join(filepath)];
         return this.rootRequire(filepath);
       };
 

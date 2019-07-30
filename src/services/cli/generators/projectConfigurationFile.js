@@ -209,7 +209,7 @@ class ProjectConfigurationFileGenerator extends CLISubCommand {
     return exclude
     .split(',')
     .reduce(
-      (obj, objPath) => (objPath ? this.utils.deletePropertyWithPath(obj, objPath) : obj),
+      (obj, objPath) => (objPath ? ObjectUtils.delete(obj, objPath, '/', true, true) : obj),
       ObjectUtils.copy(this.projectConfiguration)
     );
   }
@@ -226,8 +226,8 @@ class ProjectConfigurationFileGenerator extends CLISubCommand {
     .split(',')
     .reduce(
       (obj, objPath) => {
-        const value = this.utils.getPropertyWithPath(this.projectConfiguration, objPath);
-        return this.utils.setPropertyWithPath(obj, objPath, value);
+        const value = ObjectUtils.get(this.projectConfiguration, objPath, '/', true);
+        return ObjectUtils.set(obj, objPath, value, '/', true);
       },
       {}
     );

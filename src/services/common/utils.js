@@ -1,5 +1,5 @@
 const path = require('path');
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const { provider } = require('jimple');
 /**
  * A set of generic utilities that can be used in any context.
@@ -135,7 +135,7 @@ class Utils {
   static deletePropertyWithPath(obj, objPath, pathDelimiter = '/', cleanEmptyProperties = true) {
     const parts = objPath.split(pathDelimiter);
     const last = parts.pop();
-    let result = extend(true, {}, obj);
+    let result = ObjectUtils.copy(obj);
     if (parts.length) {
       const parentPath = parts.join(pathDelimiter);
       const parentObj = Utils.getPropertyWithPath(result, parentPath, pathDelimiter);
@@ -169,7 +169,7 @@ class Utils {
    * @deprecated
    */
   static setPropertyWithPath(obj, objPath, value, pathDelimiter = '/') {
-    const result = extend(true, {}, obj);
+    const result = ObjectUtils.copy(obj);
     const parts = objPath.split(pathDelimiter);
     const last = parts.pop();
     let currentElement = result;

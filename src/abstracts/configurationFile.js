@@ -1,5 +1,5 @@
 const fs = require('fs-extra');
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const path = require('path');
 /**
  * A helper class for creating configuration files that can be overwritten on
@@ -141,15 +141,15 @@ class ConfigurationFile {
       parentConfig = this.parentConfig.getConfig(...args);
     }
     // Define the current configuration using the parent one.
-    let currentConfig = extend(true, {}, parentConfig);
+    let currentConfig = ObjectUtils.copy(parentConfig);
     // Create a new set of arguments by adding the current configuration at the end.
     let currentArgs = [...args, currentConfig];
     // Update the current configuration by calling `createConfig` with the new arguments.
-    currentConfig = extend(true, {}, currentConfig, this.createConfig(...currentArgs));
+    currentConfig = ObjectUtils.merge(currentConfig, this.createConfig(...currentArgs));
     // Update the arguments with the "new current configuration".
     currentArgs = [...args, currentConfig];
     // Finally, call the method for the overwrite file and merge everything together.
-    this._config = extend(true, {}, currentConfig, this._fileConfig(...currentArgs));
+    this._config = ObjectUtils.merge(currentConfig, this._fileConfig(...currentArgs));
   }
   /**
    * Load the configuration from an overwrite file.

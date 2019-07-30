@@ -1,4 +1,4 @@
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const fs = require('fs-extra');
 const { provider } = require('jimple');
 const CLISubCommand = require('../../../abstracts/cliSubCommand');
@@ -210,7 +210,7 @@ class ProjectConfigurationFileGenerator extends CLISubCommand {
     .split(',')
     .reduce(
       (obj, objPath) => (objPath ? this.utils.deletePropertyWithPath(obj, objPath) : obj),
-      extend(true, {}, this.projectConfiguration)
+      ObjectUtils.copy(this.projectConfiguration)
     );
   }
   /**

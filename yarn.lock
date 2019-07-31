@@ -6784,10 +6784,10 @@ winston@2.1.x:
     pkginfo "0.3.x"
     stack-trace "0.0.x"
 
-wootils@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/wootils/-/wootils-2.5.0.tgz#597813ce496e4afe3a335f182002fd6581cbc674"
-  integrity sha512-lV8U2jXe2V73zpDvOEjqdLbvrym3USGh49oy2flVQAVREmLwotbLlMNX10IgIoICwJfs8+r2REo5uupN4safww==
+wootils@^2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/wootils/-/wootils-2.6.0.tgz#0a512e02a6c3ed4f66f3ac1e21277d5a9c580dfb"
+  integrity sha512-wHqkIfPO8+/1GYvwCtGVzT008OfjzXG4Q74asfT4nDWDOJjFSJQ6LrgyrRjfCsOeyIkk+NnRBCMTxIetnPJVZQ==
   dependencies:
     colors "^1.3.3"
     extend "^3.0.2"

@@ -113,7 +113,7 @@ class DotEnvUtils {
       {}
     );
 
-    return dotenvExpand({ parsed }).parsed;
+    return dotenvExpand({ parsed, ignoreProcessEnv: true }).parsed;
   }
   /**
    * Loads and parses a single environment file.

@@ -165,6 +165,8 @@ describe('services/building:buildNodeRunner', () => {
         includeTargets: [],
       };
       let sut = null;
+      let setupFn = null;
+      let setupFnResult = null;
       // When
       sut = new BuildNodeRunner(
         buildNodeRunnerProcess,
@@ -173,6 +175,8 @@ describe('services/building:buildNodeRunner', () => {
         utils
       );
       sut.runTarget(target);
+      [[,,,,,,, setupFn]] = buildNodeRunnerProcess.run.mock.calls;
+      setupFnResult = setupFn();
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
@@ -181,13 +185,15 @@ describe('services/building:buildNodeRunner', () => {
         target.inspect,
         [],
         [],
-        environmentVariables
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
+      expect(setupFnResult).toEqual(environmentVariables);
       expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
       expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
         target,
-        'development',
-        false
+        'development'
       );
     });
 
@@ -203,13 +209,7 @@ describe('services/building:buildNodeRunner', () => {
           },
         },
       };
-      const environmentVariables = {
-        ROSARIO: 'Charito!',
-        PILAR: 'Pili!',
-      };
-      const targets = {
-        loadTargetDotEnvFile: jest.fn(() => environmentVariables),
-      };
+      const targets = 'targets';
       const utils = 'utils';
       const target = {
         bundle: false,
@@ -244,13 +244,9 @@ describe('services/building:buildNodeRunner', () => {
         Object.assign({}, target.inspect, { enabled: true }),
         [],
         [],
-        environmentVariables
-      );
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
-        target,
-        'development',
-        false
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
     });
 
@@ -272,13 +268,8 @@ describe('services/building:buildNodeRunner', () => {
           source: 'included-target-source-path',
         },
       };
-      const environmentVariables = {
-        ROSARIO: 'Charito!',
-        PILAR: 'Pili!',
-      };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
-        loadTargetDotEnvFile: jest.fn(() => environmentVariables),
       };
       const utils = 'utils';
       const target = {
@@ -317,13 +308,9 @@ describe('services/building:buildNodeRunner', () => {
         target.inspect,
         [],
         [],
-        environmentVariables
-      );
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
-        target,
-        'development',
-        false
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
     });
 
@@ -463,6 +450,8 @@ describe('services/building:buildNodeRunner', () => {
         includeTargets: [],
       };
       let sut = null;
+      let setupFn = null;
+      let setupFnResult = null;
       // When
       sut = new BuildNodeRunner(
         buildNodeRunnerProcess,
@@ -471,6 +460,8 @@ describe('services/building:buildNodeRunner', () => {
         utils
       );
       sut.runTarget(target);
+      [[,,,,,,, setupFn]] = buildNodeRunnerProcess.run.mock.calls;
+      setupFnResult = setupFn();
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
@@ -482,13 +473,15 @@ describe('services/building:buildNodeRunner', () => {
           to: target.paths.build,
         }],
         [],
-        environmentVariables
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
+      expect(setupFnResult).toEqual(environmentVariables);
       expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
       expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
         target,
-        'development',
-        false
+        'development'
       );
       expect(utils.ensureExtension).toHaveBeenCalledTimes(1);
       expect(utils.ensureExtension).toHaveBeenCalledWith(
@@ -516,13 +509,8 @@ describe('services/building:buildNodeRunner', () => {
           build: 'included-target-build-path',
         },
       };
-      const environmentVariables = {
-        ROSARIO: 'Charito!',
-        PILAR: 'Pili!',
-      };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
-        loadTargetDotEnvFile: jest.fn(() => environmentVariables),
       };
       const utils = {
         ensureExtension: jest.fn((filepath) => filepath),
@@ -573,13 +561,9 @@ describe('services/building:buildNodeRunner', () => {
           },
         ],
         [],
-        environmentVariables
-      );
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
-        target,
-        'development',
-        false
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
       expect(utils.ensureExtension).toHaveBeenCalledTimes(1);
       expect(utils.ensureExtension).toHaveBeenCalledWith(
@@ -607,13 +591,8 @@ describe('services/building:buildNodeRunner', () => {
           build: 'included-target-build-path',
         },
       };
-      const environmentVariables = {
-        ROSARIO: 'Charito!',
-        PILAR: 'Pili!',
-      };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
-        loadTargetDotEnvFile: jest.fn(() => environmentVariables),
       };
       const utils = {
         ensureExtension: jest.fn((filepath) => filepath),
@@ -661,13 +640,9 @@ describe('services/building:buildNodeRunner', () => {
           from: includedTarget.paths.source,
           to: includedTarget.paths.build,
         }],
-        environmentVariables
-      );
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
-      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
-        target,
-        'development',
-        false
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
       expect(utils.ensureExtension).toHaveBeenCalledTimes(1);
       expect(utils.ensureExtension).toHaveBeenCalledWith(

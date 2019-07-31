@@ -108,7 +108,9 @@ class BuildNodeRunner {
       inspectOptions,
       transpilationPaths,
       copyPaths,
-      this.targets.loadTargetDotEnvFile(target, 'development', false)
+      {},
+      ['*.test.js'],
+      () => this.targets.loadTargetDotEnvFile(target, 'development')
     );
   }
   /**
@@ -147,7 +149,9 @@ class BuildNodeRunner {
       inspectOptions,
       [],
       [],
-      this.targets.loadTargetDotEnvFile(target, 'development', false)
+      {},
+      ['*.test.js'],
+      () => this.targets.loadTargetDotEnvFile(target, 'development')
     );
   }
 }

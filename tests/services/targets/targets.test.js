@@ -2156,7 +2156,6 @@ describe('services/targets:targets', () => {
       dotEnv: {
         enabled: true,
         extend: true,
-        overwrite: true,
         files: [dotEnvFile],
       },
     };
@@ -2188,7 +2187,7 @@ describe('services/targets:targets', () => {
       buildType
     );
     expect(dotEnvUtils.inject).toHaveBeenCalledTimes(1);
-    expect(dotEnvUtils.inject).toHaveBeenCalledWith(loadedVariables, target.dotEnv.overwrite);
+    expect(dotEnvUtils.inject).toHaveBeenCalledWith(loadedVariables);
   });
 
   it('should reduce but not inject environment variables for a target', () => {
@@ -2229,7 +2228,6 @@ describe('services/targets:targets', () => {
       dotEnv: {
         enabled: true,
         extend: true,
-        overwrite: true,
         files: [dotEnvFile],
       },
     };

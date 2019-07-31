@@ -1,9 +1,11 @@
 const path = require('path');
 const fs = require('fs-extra');
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const nodemon = require('nodemon');
+const nodemonBus = require('nodemon/lib/utils/bus');
 const { provider } = require('jimple');
 const NodeWatcher = require('../../abstracts/nodeWatcher');
+
 /**
  * This service implements `nodemon` and {@link NodeWatcher} in order to run Node apps while
  * watching, transpiling and copying files.
@@ -36,6 +38,7 @@ class BuildNodeRunnerProcess extends NodeWatcher {
      */
     this.running = false;
     /**
+     * The default values for the options that can be customized when calling `run`.
      * @property {string}                executable     The path to the file `nodemon` will
      *                                                  execute.
      * @property {NodeInspectorSettings} inspectOptions The settings for the Node inspector.
@@ -71,15 +74,15 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     /**
      * Whether or not the process logged the starting message.
      * @type {boolean}
-     * @ignore
      * @access protected
+     * @ignore
      */
     this._started = false;
     /**
      * Whether or not the process is currently being restarted.
      * @type {boolean}
-     * @ignore
      * @access protected
+     * @ignore
      */
     this._restaring = false;
     /**
@@ -112,29 +115,30 @@ class BuildNodeRunnerProcess extends NodeWatcher {
   }
   /**
    * Run a Node application.
-   * @param {string}                executable              The path to the file to execute.
-   * @param {Array}                 watch                   The list of directories to watch in
-   *                                                        order to restart the application.
-   * @param {NodeInspectorSettings} inspectOptions          The settings for the Node inspector.
-   * @param {Array}                 [transpilationPaths=[]] A list of dictionaries with `from` and
-   *                                                        `to` paths the service will use for
-   *                                                        transpilation when files change during
-   *                                                        the execution, in order to restart the
-   *                                                        application.
-   * @param {Array}                 [copyPaths=[]]          A list of dictionaries with `from` and
-   *                                                        `to` paths the service will use for
-   *                                                        copying files when they change during
-   *                                                        the execution, in order to restart the
-   *                                                        application.
-   * @param {Object}                [envVars={}]            A dictionary with extra environment
-   *                                                        variables to send to the execution
-   *                                                        process.
-   * @param {Array}                 [ignore=['.test.js']]   A list of file name patterns the
-   *                                                        service that will be ignored by the
-   *                                                        `nodemon` watcher.
+   * @param {string} executable
+   * The path to the file to execute.
+   * @param {Array} watch
+   * The list of directories to watch in order to restart the application.
+   * @param {NodeInspectorSettings} inspectOptions
+   * The settings for the Node inspector.
+   * @param {Array} [transpilationPaths=[]]
+   * A list of dictionaries with `from` and `to` paths the service will use for transpilation
+   * when files change during the execution, in order to restart the application.
+   * @param {Array} [copyPaths=[]]
+   * A list of dictionaries with `from` and `to` paths the service will use for copying files
+   * when they change during the execution, in order to restart the application.
+   * @param {Object} [envVars={}]
+   * A dictionary with extra environment variables to send to the execution process.
+   * @param {Array} [ignore=['.test.js']]
+   * A list of file name patterns the service that will be ignored by the `nodemon` watcher.
+   * @param {Function(instance:BuildNodeRunnerProcess)} [setupFn=()=>{}]
+   * A custom callback that will be executed before starting (and restaring) a Node application.
+   * It can be used to "modify the environment" before the application runs.
    * @return {Nodemon}
    * @throws {Error} if the process is already running.
    * @throws {Error} if the executable doesn't exist.
+   * @todo refactor the parameters into a single "options object".
+   * @todo watch the .env files.
    */
   run(
     executable,
@@ -143,7 +147,8 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     transpilationPaths = [],
     copyPaths = [],
     envVars = {},
-    ignore = ['*.test.js']
+    ignore = ['*.test.js'],
+    setupFn = () => {}
   ) {
     // Check that is not already running and that the executable exists.
     if (this.running) {
@@ -156,7 +161,7 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     // Turn on the flag that tells the service the process is running.
     this.running = true;
     // Merge the default options with the parameters.
-    this.options = extend(true, {}, this.defaultOptions, this.options, {
+    this.options = ObjectUtils.merge(this.defaultOptions, this.options, {
       executable,
       watch,
       inspectOptions,
@@ -183,10 +188,14 @@ class BuildNodeRunnerProcess extends NodeWatcher {
         copyPaths
       );
     }
+    // Run the callback that sets up the environment.
+    setupFn(this);
     // Get the command for `nodemon`.
     const command = this._getNodemonCommand();
     // Start `nodemon`.
     nodemon(command);
+    // Inject the function that sets up the environment.
+    this._injectSetupFnOnNodemon(setupFn);
     // Add the `nodemon` listeners.
     nodemon.on('start', this._onNodemonStart);
     nodemon.on('restart', this._onNodemonRestart);
@@ -390,6 +399,34 @@ class BuildNodeRunnerProcess extends NodeWatcher {
 
     // eslint-disable-next-line no-process-exit
     process.exit();
+  }
+  /**
+   * Disclaimer: This is a hack... there's no other way around it.
+   * The class needs for a function to be executed right before the Nodemon process spawns, but
+   * Nodemon uses its own listeners to setup that part and once `nodemon()` is called, it's too
+   * late to set anything, the internal listeners are already in place.
+   * After some debugging, I found that right after `nodemon()` is called, the last registered
+   * listener for the `restart` event is the one that actually does the restart; so, this method
+   * injects a listener right before that one in order for it to be called just before Nodemon
+   * does stops and starts the application.
+   * The function also checks if, by any chance, there's no other "hack function" already
+   * registered so it can replace it instead of adding one more.
+   * @param {Function(instance:BuildNodeRunnerProcess)} setupFn The function to call before
+   *                                                            starting the application.
+   * @access protected
+   * @ignore
+   */
+  _injectSetupFnOnNodemon(setupFn) {
+    const idKey = 'buildNodeRunnerProcessSetupFn';
+    const newFn = () => setupFn(this);
+    newFn[idKey] = true;
+    const { _events: { restart: events } } = nodemonBus;
+    const existingIndex = events.findIndex((fn) => fn[idKey] === true);
+    if (existingIndex > -1) {
+      events[existingIndex] = newFn;
+    } else {
+      events.splice(events.length - 1, 0, newFn);
+    }
   }
 }
 /**

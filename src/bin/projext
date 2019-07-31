@@ -61,7 +61,7 @@ else
       fi
       projextCLIStartTaskLog "Validating the command"
       eval "projext-cli sh-validate-$*"
-      projextCLICompleteTaskLog "Command validated"
+      projextCLISuccessLog "Command validated"
       # Capture the commands that need to run
       if [ "$showSHCommand" = true ]; then
         echo "> projext-cli sh-$*"

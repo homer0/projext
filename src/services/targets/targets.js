@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs-extra');
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const { AppConfiguration } = require('wootils/node/appConfiguration');
 const { provider } = require('jimple');
 /**
@@ -8,7 +8,9 @@ const { provider } = require('jimple');
  */
 class Targets {
   /**
-   * Class constructor.
+   * @param {DotEnvUtils}                  dotEnvUtils          To read files with environment
+   *                                                            variables for the targets and
+   *                                                            inject them.
    * @param {Events}                       events               Used to reduce a target information
    *                                                            after loading it.
    * @param {EnvironmentUtils}             environmentUtils     To send to the configuration
@@ -26,6 +28,7 @@ class Targets {
    *                                                            paths.
    */
   constructor(
+    dotEnvUtils,
     events,
     environmentUtils,
     packageInfo,
@@ -34,6 +37,11 @@ class Targets {
     rootRequire,
     utils
   ) {
+    /**
+     * A local reference for the `dotEnvUtils` service.
+     * @type {DotEnvUtils}
+     */
+    this.dotEnvUtils = dotEnvUtils;
     /**
      * A local reference for the `events` service.
      * @type {Events}
@@ -117,7 +125,7 @@ class Targets {
          * Create the new target information by merging the template, the target information from
          * the configuration and the information defined by this method.
          */
-        const newTarget = extend(true, {}, template, target, {
+        const newTarget = ObjectUtils.merge(template, target, {
           name,
           type,
           paths: {
@@ -147,9 +155,18 @@ class Targets {
          * Keep the original output settings without the placeholders so internal services or
          * plugins can use them.
          */
-        newTarget.originalOutput = extend(true, {}, newTarget.output);
+        newTarget.originalOutput = ObjectUtils.copy(newTarget.output);
         // Replace placeholders on the output settings
         newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
+
+        /**
+         * To avoid merge issues with arrays (they get merge "by index"), if the target already
+         * had a defined list of files for the dotEnv feature, overwrite whatever is on the
+         * template.
+         */
+        if (target.dotEnv && target.dotEnv.files && target.dotEnv.files.length) {
+          newTarget.dotEnv.files = target.dotEnv.files;
+        }
 
         // If the target has an `html` setting...
         if (newTarget.html) {
@@ -184,10 +201,11 @@ class Targets {
           }
         }
 
-        // Check if the target should be transpiled (You can use types without transpilation).
+        // Check if the target should be transpiled (You can't use types without transpilation).
         if (!newTarget.transpile && (newTarget.flow || newTarget.typeScript)) {
           newTarget.transpile = true;
         }
+
         // Generate the target paths and folders.
         newTarget.folders.source = newTarget.hasFolder ?
           path.join(source, sourceFolderName) :
@@ -287,7 +305,7 @@ class Targets {
     return targets[targetName];
   }
   /**
-   * Get a _'App Configuration'_ for a browser target. This is a utility projext provides for
+   * Gets a _'App Configuration'_ for a browser target. This is a utility projext provides for
    * browser targets as they can't load configuration files dynamically, so on the building process,
    * projext uses this service to load the configuration and then injects it on the target bundle.
    * @param {Target} target The target information.
@@ -361,11 +379,48 @@ class Targets {
     return result;
   }
   /**
+   * Loads the environment file(s) for a target and, if specified, inject their variables.
+   * This method uses the `target-environment-variables` reducer event, which receives the
+   * dictionary with the variables for the target, the target information and the build type; it
+   * expects an updated dictionary of variables in return.
+   * @param {Target}  target                    The target information.
+   * @param {string}  [buildType='development'] The type of bundle projext is generating or the
+   *                                            environment a Node target is being executed for.
+   * @param {boolean} [inject=true]             Whether or not to inject the variables after
+   *                                            loading them.
+   * @return {Object} A dictionary with the target variables that were injected in the environment.
+   */
+  loadTargetDotEnvFile(target, buildType = 'development', inject = true) {
+    let result;
+    if (target.dotEnv.enabled && target.dotEnv.files.length) {
+      const files = target.dotEnv.files.map((file) => (
+        file
+        .replace(/\[target-name\]/ig, target.name)
+        .replace(/\[build-type\]/ig, buildType)
+      ));
+      const parsed = this.dotEnvUtils.load(files, target.dotEnv.extend);
+      if (parsed.loaded) {
+        result = this.events.reduce(
+          'target-environment-variables',
+          parsed.variables,
+          target,
+          buildType
+        );
+
+        if (inject) {
+          this.dotEnvUtils.inject(result, target.dotEnv.overwrite);
+        }
+      }
+    }
+
+    return result || {};
+  }
+  /**
    * Gets a list with the information for the files the target needs to copy during the
    * bundling process.
    * This method uses the `target-copy-files` reducer event, which receives the list of files to
    * copy, the target information and the build type; it expects an updated list on return.
-   * The reducer event can be used on inject a {@link TargetExtraFileTransform} function.
+   * The reducer event can be used to inject a {@link TargetExtraFileTransform} function.
    * @param {Target} target                    The target information.
    * @param {string} [buildType='development'] The type of bundle projext is generating.
    * @return {Array} A list of {@link TargetExtraFile}s.
@@ -450,7 +505,7 @@ class Targets {
         if (value === null) {
           newOutput[name] = Object.assign({}, defaultOutput);
         } else {
-          newOutput[name] = extend(true, {}, defaultOutput, value);
+          newOutput[name] = ObjectUtils.merge(defaultOutput, value);
           Object.keys(newOutput[name]).forEach((propName) => {
             if (!newOutput[name][propName] && defaultOutput[propName]) {
               newOutput[name][propName] = defaultOutput[propName];
@@ -543,6 +598,7 @@ class Targets {
  */
 const targets = provider((app) => {
   app.set('targets', () => new Targets(
+    app.get('dotEnvUtils'),
     app.get('events'),
     app.get('environmentUtils'),
     app.get('packageInfo'),

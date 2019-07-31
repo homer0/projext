@@ -7,7 +7,7 @@
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "wootils": "^2.4.1",
+      "wootils": "^2.5.0",
       "jimple": "^1.5.0",
       "fs-extra": "^8.1.0",
       "extend": "^3.0.2",
@@ -28,7 +28,9 @@
       "@babel/runtime": "7.5.5",
       "watchpack": "^1.6.0",
       "nodemon": "^1.19.1",
-      "prompt": "^1.0.0"
+      "prompt": "^1.0.0",
+      "dotenv": "^8.0.0",
+      "dotenv-expand": "^5.1.0"
     },
     "devDependencies": {
       "eslint": "^5.16.0",

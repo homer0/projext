@@ -126,6 +126,17 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           cleanBeforeBuild: true,
           copy: [],
+          dotEnv: {
+            enabled: true,
+            files: [
+              '.env.[target-name].[build-type]',
+              '.env.[target-name]',
+              '.env.[build-type]',
+              '.env',
+            ],
+            extend: true,
+            overwrite: false,
+          },
         },
         browser: {
           type: 'browser',
@@ -196,6 +207,17 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           cleanBeforeBuild: true,
           copy: [],
+          dotEnv: {
+            enabled: true,
+            files: [
+              '.env.[target-name].[build-type]',
+              '.env.[target-name]',
+              '.env.[build-type]',
+              '.env',
+            ],
+            extend: true,
+            overwrite: false,
+          },
           devServer: {
             port: 2509,
             open: true,

@@ -1,6 +1,6 @@
 const fs = require('fs-extra');
 const path = require('path');
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const { provider } = require('jimple');
 /**
  * This is used to find targets information on an specific directory. It not only reads the
@@ -262,7 +262,7 @@ class TargetsFinder {
       // If the file exists...
       if (fs.pathExistsSync(entryPath)) {
         // Merge the target structure created by this method with the results of the analysis.
-        target = extend(true, {}, target, this._parseTargetEntry(entryPath));
+        target = ObjectUtils.merge(target, this._parseTargetEntry(entryPath));
       }
     }
     /**

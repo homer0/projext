@@ -1,4 +1,4 @@
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 /**
  * Helper service used by {@link TargetsFileRules} in order to create dynamic file rules for
  * multiple purposes.
@@ -90,9 +90,7 @@ class TargetFileRule {
    * @param {Target} target The target information.
    */
   addTarget(target) {
-    const changes = extend(
-      true,
-      {},
+    const changes = ObjectUtils.copy(
       this._getSettingsForTargetRule(target, this._hasTarget, this._rule)
     );
 
@@ -121,7 +119,7 @@ class TargetFileRule {
    * @ignore
    */
   _mergeRule(base, changes) {
-    const newRule = extend(true, {}, base);
+    const newRule = ObjectUtils.copy(base);
     Object.keys(changes).forEach((property) => {
       const value = changes[property];
       const propertyType = typeof value;

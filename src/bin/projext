@@ -53,13 +53,13 @@ else
   # If the task is a shell task that needs commands...
   if [ "$isSHTask" = true ] && [ "$disableSHTasks" = false ]; then
       # ... let the user know the CLI started working
-      projextCLISuccessLog "CLI started"
+      projextCLIInfoLog "> $*"
       # execute a validation command to avoid any error being thrown on the
       # command that returns the list.
-      projextCLIStartTaskLog "Validating the command"
       if [ "$showSHCommand" = true ]; then
         echo "> projext-cli sh-validate-$*"
       fi
+      projextCLIStartTaskLog "Validating the command"
       eval "projext-cli sh-validate-$*"
       projextCLICompleteTaskLog "Command validated"
       # Capture the commands that need to run

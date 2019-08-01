@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -218,7 +220,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/targets/targets.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
 const fs = require(&apos;fs-extra&apos;);
-const extend = require(&apos;extend&apos;);
+const ObjectUtils = require(&apos;wootils/shared/objectUtils&apos;);
 const { AppConfiguration } = require(&apos;wootils/node/appConfiguration&apos;);
 const { provider } = require(&apos;jimple&apos;);
 /**
@@ -226,7 +228,9 @@ const { provider } = require(&apos;jimple&apos;);
  */
 class Targets {
   /**
-   * Class constructor.
+   * @param {DotEnvUtils}                  dotEnvUtils          To read files with environment
+   *                                                            variables for the targets and
+   *                                                            inject them.
    * @param {Events}                       events               Used to reduce a target information
    *                                                            after loading it.
    * @param {EnvironmentUtils}             environmentUtils     To send to the configuration
@@ -244,6 +248,7 @@ class Targets {
    *                                                            paths.
    */
   constructor(
+    dotEnvUtils,
     events,
     environmentUtils,
     packageInfo,
@@ -252,6 +257,11 @@ class Targets {
     rootRequire,
     utils
   ) {
+    /**
+     * A local reference for the `dotEnvUtils` service.
+     * @type {DotEnvUtils}
+     */
+    this.dotEnvUtils = dotEnvUtils;
     /**
      * A local reference for the `events` service.
      * @type {Events}
@@ -335,7 +345,7 @@ class Targets {
          * Create the new target information by merging the template, the target information from
          * the configuration and the information defined by this method.
          */
-        const newTarget = extend(true, {}, template, target, {
+        const newTarget = ObjectUtils.merge(template, target, {
           name,
           type,
           paths: {
@@ -365,9 +375,18 @@ class Targets {
          * Keep the original output settings without the placeholders so internal services or
          * plugins can use them.
          */
-        newTarget.originalOutput = extend(true, {}, newTarget.output);
+        newTarget.originalOutput = ObjectUtils.copy(newTarget.output);
         // Replace placeholders on the output settings
         newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
+
+        /**
+         * To avoid merge issues with arrays (they get merge &quot;by index&quot;), if the target already
+         * had a defined list of files for the dotEnv feature, overwrite whatever is on the
+         * template.
+         */
+        if (target.dotEnv &amp;&amp; target.dotEnv.files &amp;&amp; target.dotEnv.files.length) {
+          newTarget.dotEnv.files = target.dotEnv.files;
+        }
 
         // If the target has an `html` setting...
         if (newTarget.html) {
@@ -402,10 +421,11 @@ class Targets {
           }
         }
 
-        // Check if the target should be transpiled (You can use types without transpilation).
+        // Check if the target should be transpiled (You can&apos;t use types without transpilation).
         if (!newTarget.transpile &amp;&amp; (newTarget.flow || newTarget.typeScript)) {
           newTarget.transpile = true;
         }
+
         // Generate the target paths and folders.
         newTarget.folders.source = newTarget.hasFolder ?
           path.join(source, sourceFolderName) :
@@ -505,11 +525,14 @@ class Targets {
     return targets[targetName];
   }
   /**
-   * Get a _&apos;App Configuration&apos;_ for a browser target. This is a utility projext provides for
+   * Gets an _&apos;App Configuration&apos;_ for a browser target. This is a utility projext provides for
    * browser targets as they can&apos;t load configuration files dynamically, so on the building process,
    * projext uses this service to load the configuration and then injects it on the target bundle.
    * @param {Target} target The target information.
-   * @return {Object} The target _&apos;App Configuration&apos;_.
+   * @return {Object}
+   * @property {Object} configuration The target _&apos;App Configuration&apos;_.
+   * @property {Array}  files         The list of files loaded in order to create the
+   *                                  configuration.
    * @throws {Error} If the given target is not a browser target.
    */
   getBrowserTargetConfiguration(target) {
@@ -529,7 +552,10 @@ class Targets {
         filenameFormat,
       },
     } = target;
-    let result = {};
+    const result = {
+      configuration: {},
+      files: [],
+    };
     // If the configuration feature is enabled...
     if (enabled) {
       // Define the path where the configuration files are located.
@@ -542,6 +568,20 @@ class Targets {
       .replace(/\[target-name\]/ig, name)
       .replace(/\[configuration-name\]/ig, &apos;[name]&apos;);
 
+      /**
+       * The idea of `files` and this small wrapper around `rootRequire` is for the method to be
+       * able to identify all the external files that were involved on the configuration creation.
+       * Then the method can return the list, so the build engine can also watch for those files
+       * and reload the target not only when the source changes, but when the config changes too.
+       */
+      const files = [];
+      const rootRequireAndSave = (filepath) =&gt; {
+        files.push(filepath);
+        // Delete the file cache entry so it can be rebuilt in case env vars were updated.
+        delete require.cache[this.pathUtils.join(filepath)];
+        return this.rootRequire(filepath);
+      };
+
       let defaultConfig = {};
       // If the feature options include a default configuration...
       if (defaultConfiguration) {
@@ -550,15 +590,16 @@ class Targets {
       } else {
         // ...otherwise, load it from a configuration file.
         const defaultConfigPath = `${configsPath}${name}.config.js`;
-        defaultConfig = this.rootRequire(defaultConfigPath);
+        defaultConfig = rootRequireAndSave(defaultConfigPath);
       }
+
       /**
        * Create a new instance of `AppConfiguration` in order to handle the environment and the
        * merging of the configurations.
        */
       const appConfiguration = new AppConfiguration(
         this.environmentUtils,
-        this.rootRequire,
+        rootRequireAndSave,
         name,
         defaultConfig,
         {
@@ -573,17 +614,55 @@ class Targets {
         appConfiguration.loadFromEnvironment();
       }
       // Finally, set to return the configuration generated by the service.
-      result = appConfiguration.getConfig();
+      result.configuration = appConfiguration.getConfig();
+      result.files = files;
     }
 
     return result;
+  }
+  /**
+   * Loads the environment file(s) for a target and, if specified, inject their variables.
+   * This method uses the `target-environment-variables` reducer event, which receives the
+   * dictionary with the variables for the target, the target information and the build type; it
+   * expects an updated dictionary of variables in return.
+   * @param {Target}  target                    The target information.
+   * @param {string}  [buildType=&apos;development&apos;] The type of bundle projext is generating or the
+   *                                            environment a Node target is being executed for.
+   * @param {boolean} [inject=true]             Whether or not to inject the variables after
+   *                                            loading them.
+   * @return {Object} A dictionary with the target variables that were injected in the environment.
+   */
+  loadTargetDotEnvFile(target, buildType = &apos;development&apos;, inject = true) {
+    let result;
+    if (target.dotEnv.enabled &amp;&amp; target.dotEnv.files.length) {
+      const files = target.dotEnv.files.map((file) =&gt; (
+        file
+        .replace(/\[target-name\]/ig, target.name)
+        .replace(/\[build-type\]/ig, buildType)
+      ));
+      const parsed = this.dotEnvUtils.load(files, target.dotEnv.extend);
+      if (parsed.loaded) {
+        result = this.events.reduce(
+          &apos;target-environment-variables&apos;,
+          parsed.variables,
+          target,
+          buildType
+        );
+
+        if (inject) {
+          this.dotEnvUtils.inject(result);
+        }
+      }
+    }
+
+    return result || {};
   }
   /**
    * Gets a list with the information for the files the target needs to copy during the
    * bundling process.
    * This method uses the `target-copy-files` reducer event, which receives the list of files to
    * copy, the target information and the build type; it expects an updated list on return.
-   * The reducer event can be used on inject a {@link TargetExtraFileTransform} function.
+   * The reducer event can be used to inject a {@link TargetExtraFileTransform} function.
    * @param {Target} target                    The target information.
    * @param {string} [buildType=&apos;development&apos;] The type of bundle projext is generating.
    * @return {Array} A list of {@link TargetExtraFile}s.
@@ -668,7 +747,7 @@ class Targets {
         if (value === null) {
           newOutput[name] = Object.assign({}, defaultOutput);
         } else {
-          newOutput[name] = extend(true, {}, defaultOutput, value);
+          newOutput[name] = ObjectUtils.merge(defaultOutput, value);
           Object.keys(newOutput[name]).forEach((propName) =&gt; {
             if (!newOutput[name][propName] &amp;&amp; defaultOutput[propName]) {
               newOutput[name][propName] = defaultOutput[propName];
@@ -761,6 +840,7 @@ class Targets {
  */
 const targets = provider((app) =&gt; {
   app.set(&apos;targets&apos;, () =&gt; new Targets(
+    app.get(&apos;dotEnvUtils&apos;),
     app.get(&apos;events&apos;),
     app.get(&apos;environmentUtils&apos;),
     app.get(&apos;packageInfo&apos;),

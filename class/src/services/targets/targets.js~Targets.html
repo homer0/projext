@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -275,14 +277,13 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(events: <span><a href="class/src/services/common/events.js~Events.html">Events</a></span>, environmentUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span>, packageInfo: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, pathUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>, rootRequire: <span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(dotEnvUtils: <span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span>, events: <span><a href="class/src/services/common/events.js~Events.html">Events</a></span>, environmentUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span>, packageInfo: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, pathUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>, rootRequire: <span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
         </p>
       </div>
       <div>
         
         
-        <div data-ice="description"><p>Class constructor.</p>
-</div>
+        
       </div>
     </td>
     <td>
@@ -318,6 +319,35 @@
         
         
         <div data-ice="description"><p>The default type a target will be if it doesn&apos;t have a <code>type</code> property.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-member-dotEnvUtils">dotEnvUtils</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>A local reference for the <code>dotEnvUtils</code> service.</p>
 </div>
       </div>
     </td>
@@ -643,7 +673,7 @@
       <div>
         
         
-        <div data-ice="description"><p>Get a <em>&apos;App Configuration&apos;</em> for a browser target.</p>
+        <div data-ice="description"><p>Gets an <em>&apos;App Configuration&apos;</em> for a browser target.</p>
 </div>
       </div>
     </td>
@@ -785,6 +815,35 @@ bundling process.</p>
           
           
           
+          <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-method-loadTargetDotEnvFile">loadTargetDotEnvFile</a></span></span><span class="code" data-ice="signature">(target: <span><a href="typedef/index.html#static-typedef-Target">Target</a></span>, buildType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inject: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Loads the environment file(s) for a target and, if specified, inject their variables.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="class/src/services/targets/targets.js~Targets.html#instance-method-loadTargets">loadTargets</a></span></span><span class="code" data-ice="signature">()</span>
         </p>
       </div>
@@ -847,19 +906,18 @@ bundling process.</p>
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(events: <span><a href="class/src/services/common/events.js~Events.html">Events</a></span>, environmentUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span>, packageInfo: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, pathUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>, rootRequire: <span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(dotEnvUtils: <span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span>, events: <span><a href="class/src/services/common/events.js~Events.html">Events</a></span>, environmentUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span>, packageInfo: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, pathUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>, rootRequire: <span><a href="https://homer0.github.io/wootils/function/index.html#static-function-rootRequire">RootRequire</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber30">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Class constructor.</p>
-</div>
+  
 
   
 
@@ -872,6 +930,15 @@ bundling process.</p>
     <tbody>
     
     <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dotEnvUtils</td>
+      <td data-ice="type" class="code"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>To read files with environment
+                                                           variables for the targets and
+                                                           inject them.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">events</td>
       <td data-ice="type" class="code"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></td>
       <td data-ice="appendix"></td>
@@ -965,7 +1032,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber86">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber94">source</a></span></span>
     </span>
   </h3>
 
@@ -973,6 +1040,50 @@ bundling process.</p>
   
   
   <div data-ice="description"><p>The default type a target will be if it doesn&apos;t have a <code>type</code> property.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-dotEnvUtils">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">dotEnvUtils</span><span class="code" data-ice="signature">: <span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber44">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>A local reference for the <code>dotEnvUtils</code> service.</p>
 </div>
 
   
@@ -1009,7 +1120,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber46">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
@@ -1053,7 +1164,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber41">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber49">source</a></span></span>
     </span>
   </h3>
 
@@ -1097,7 +1208,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber51">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber59">source</a></span></span>
     </span>
   </h3>
 
@@ -1141,7 +1252,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber56">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber64">source</a></span></span>
     </span>
   </h3>
 
@@ -1185,7 +1296,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber61">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber69">source</a></span></span>
     </span>
   </h3>
 
@@ -1229,7 +1340,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber66">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber74">source</a></span></span>
     </span>
   </h3>
 
@@ -1273,7 +1384,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber76">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber84">source</a></span></span>
     </span>
   </h3>
 
@@ -1317,7 +1428,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber81">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber89">source</a></span></span>
     </span>
   </h3>
 
@@ -1361,7 +1472,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber71">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber79">source</a></span></span>
     </span>
   </h3>
 
@@ -1408,7 +1519,7 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber278">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber296">source</a></span></span>
     </span>
   </h3>
 
@@ -1493,14 +1604,14 @@ bundling process.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber297">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber318">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  <div data-ice="description"><p>Get a <em>&apos;App Configuration&apos;</em> for a browser target. This is a utility projext provides for
+  <div data-ice="description"><p>Gets an <em>&apos;App Configuration&apos;</em> for a browser target. This is a utility projext provides for
 browser targets as they can&apos;t load configuration files dynamically, so on the building process,
 projext uses this service to load the configuration and then injects it on the target bundle.</p>
 </div>
@@ -1533,12 +1644,36 @@ projext uses this service to load the configuration and then injects it on the t
       <tbody>
         <tr>
           <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
-          <td class="return-desc" data-ice="returnDescription"><p>The target <em>&apos;App Configuration&apos;</em>.</p>
-</td>
+          
         </tr>
       </tbody>
     </table>
-    <div data-ice="returnProperties">
+    <div data-ice="returnProperties"><div data-ice="properties">
+  <h4 data-ice="title">Return Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">configuration</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The target <em>&apos;App Configuration&apos;</em>.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">files</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The list of files loaded in order to create the
+                                 configuration.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
 </div>
   </div>
 
@@ -1581,7 +1716,7 @@ projext uses this service to load the configuration and then injects it on the t
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber243">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber261">source</a></span></span>
     </span>
   </h3>
 
@@ -1679,7 +1814,7 @@ order.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber376">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber453">source</a></span></span>
     </span>
   </h3>
 
@@ -1690,7 +1825,7 @@ order.</p>
 bundling process.
 This method uses the <code>target-copy-files</code> reducer event, which receives the list of files to
 copy, the target information and the build type; it expects an updated list on return.
-The reducer event can be used on inject a <span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span> function.</p>
+The reducer event can be used to inject a <span><a href="typedef/index.html#static-typedef-TargetExtraFileTransform">TargetExtraFileTransform</a></span> function.</p>
 </div>
 
   
@@ -1783,7 +1918,7 @@ The reducer event can be used on inject a <span><a href="typedef/index.html#stat
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber225">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber243">source</a></span></span>
     </span>
   </h3>
 
@@ -1868,7 +2003,7 @@ The reducer event can be used on inject a <span><a href="typedef/index.html#stat
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber208">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber226">source</a></span></span>
     </span>
   </h3>
 
@@ -1913,6 +2048,101 @@ The reducer event can be used on inject a <span><a href="typedef/index.html#stat
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-loadTargetDotEnvFile">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">loadTargetDotEnvFile</span><span class="code" data-ice="signature">(target: <span><a href="typedef/index.html#static-typedef-Target">Target</a></span>, buildType: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, inject: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber415">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Loads the environment file(s) for a target and, if specified, inject their variables.
+This method uses the <code>target-environment-variables</code> reducer event, which receives the
+dictionary with the variables for the target, the target information and the build type; it
+expects an updated dictionary of variables in return.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">target</td>
+      <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-Target">Target</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The target information.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">buildType</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: &apos;development&apos;</li></ul></td>
+      <td data-ice="description"><p>The type of bundle projext is generating or the
+                                           environment a Node target is being executed for.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">inject</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Whether or not to inject the variables after
+                                           loading them.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          <td class="return-desc" data-ice="returnDescription"><p>A dictionary with the target variables that were injected in the environment.</p>
+</td>
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties">
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="instance-method-loadTargets">
     <span class="access" data-ice="access">public</span>
     
@@ -1924,7 +2154,7 @@ The reducer event can be used on inject a <span><a href="typedef/index.html#stat
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber95">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber103">source</a></span></span>
     </span>
   </h3>
 
@@ -1982,7 +2212,7 @@ expects an object with a target information on return.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber216">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber234">source</a></span></span>
     </span>
   </h3>
 

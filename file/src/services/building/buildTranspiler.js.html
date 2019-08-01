@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -231,11 +233,13 @@ class BuildTranspiler {
    * @param {Logger}             appLogger          To print information messages after transpiling
    *                                                files.
    * @param {Targets}            targets            To access targets information.
+   * @param {Utils}              utils              To normalize file extensions.
    */
   constructor(
     babelConfiguration,
     appLogger,
-    targets
+    targets,
+    utils
   ) {
     /**
      * A local reference for the `babelConfiguration` service.
@@ -252,6 +256,11 @@ class BuildTranspiler {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
   }
   /**
    * Transpile a target files for a given build type. This requires the target files to have been
@@ -365,7 +374,7 @@ class BuildTranspiler {
       originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this._normalizeExtension(originalTo);
+    to = this.utils.ensureExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
@@ -457,7 +466,7 @@ class BuildTranspiler {
       originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this._normalizeExtension(originalTo);
+    to = this.utils.ensureExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
@@ -563,25 +572,6 @@ class BuildTranspiler {
     return config;
   }
   /**
-   * This is a helper method that checks if a file path for JS file uses a `.js` extension, and if
-   * it doesn&apos;t, it replaces the extension in order to normalize it for transpilation output.
-   * @param  {string} filepath The file path to check.
-   * @return {string}
-   * @access protected
-   * @ignore
-   */
-  _normalizeExtension(filepath) {
-    let result;
-    const parsed = path.parse(filepath);
-    if (parsed.ext.match(/\.js$/i)) {
-      result = filepath;
-    } else {
-      result = path.join(parsed.dir, `${parsed.name}.js`);
-    }
-
-    return result;
-  }
-  /**
    * This is a helper method that prepares all the source map information needed to link it on the
    * transpiled file and write it on the file system.
    * @param {string} filepath      The path to the file the map is for.
@@ -621,7 +611,8 @@ const buildTranspiler = provider((app) =&gt; {
   app.set(&apos;buildTranspiler&apos;, () =&gt; new BuildTranspiler(
     app.get(&apos;babelConfiguration&apos;),
     app.get(&apos;appLogger&apos;),
-    app.get(&apos;targets&apos;)
+    app.get(&apos;targets&apos;),
+    app.get(&apos;utils&apos;)
   ));
 });
 

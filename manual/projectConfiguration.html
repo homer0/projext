@@ -61,6 +61,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copy--code-" data-ice="link">copy</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-dotenv--code-" data-ice="link">dotEnv</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-browser--code-" data-ice="link">browser</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-engine--code-" data-ice="link">engine</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-hasfolder--code-" data-ice="link">hasFolder</a></li>
@@ -83,6 +84,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-libraryoptions--code-" data-ice="link">libraryOptions</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-cleanbeforebuild--code-" data-ice="link">cleanBeforeBuild</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-copy--code-" data-ice="link">copy</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-dotenv--code-" data-ice="link">dotEnv</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-devserver--code-" data-ice="link">devServer</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-configuration--code-" data-ice="link">configuration</a></li>
 <li data-ice="manualNav" class="indent-h2" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-targets--code-" data-ice="link">targets</a></li>
@@ -266,6 +268,7 @@
   libraryOptions: { ... },
   cleanBeforeBuild: true,
   copy: [],
+  dotEnv: { ... },
 }</code>
 </code></pre>
 <h4 id="-code-bundle--code-"><code>bundle</code></h4><blockquote>
@@ -429,7 +432,7 @@
 }</code>
 </code></pre>
 </blockquote>
-<p>These options are used in the case the target needs to be bundled or transpile to configure <a href="https://babeljs.io">Babel</a>:</p>
+<p>These options are used in the case the target needs to be bundled or transpiled, to configure <a href="https://babeljs.io">Babel</a>:</p>
 <p><strong><code>babel.features</code></strong></p>
 <p>This object can be used to enable/disable the Babel plugins projext includes:</p>
 <ul>
@@ -482,6 +485,35 @@
 }</code>
 </code></pre>
 <p>This is different from the main <code>copy</code> feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a <code>manifest.json</code> for your PWA while you can use the main <code>copy</code> feature for the <code>package.json</code> or an <code>.nvmrc</code>, things you need for distribution.</p>
+<h4 id="-code-dotenv--code-"><code>dotEnv</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: true,
+  files: [
+    &apos;.env.[target-name].[build-type]&apos;,
+    &apos;.env.[target-name]&apos;,
+    &apos;.env.[build-type]&apos;,
+    &apos;.env&apos;,
+  ],
+  extend: true,
+}</code>
+</code></pre>
+</blockquote>
+<p>These options are used by both projext and the build engine in order to load environment variables from an &quot;environment file&quot;. The variables are parsed with <a href="https://yarnpkg.com/en/package/dotenv"><code>dotenv</code></a> and expanded with <a href="https://yarnpkg.com/en/package/dotenv-expand"><code>dotenv-expand</code></a>.</p>
+<p><strong><code>dotEnv.enabled</code></strong></p>
+<p>Whether or not the feature is enabled.</p>
+<p><strong><code>dotEnv.files</code></strong></p>
+<p>The list of files projext will try to find in order to load the variables. Based on the value of <code>extend</code>, the way projext will process them may change.</p>
+<p><strong><code>dotEnv.extend</code></strong></p>
+<p>Whether or not projext should merge all the variables from all the files it can find.</p>
+<p>Take for example the following list of files:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">[
+  &apos;.env.[target-name].[build-type],
+  &apos;.env.[target-name]&apos;,
+]</code>
+</code></pre>
+<p>If <code>extend</code> is set to <code>true</code> and both files exist, projext will load <code>.env.[target-name]</code> as the first file and then merge the values from <code>.env.[target-name].[build-type]</code> on top of it.</p>
+<p>If <code>extend</code> is set to <code>false</code>, projext will use the first file it can find.</p>
 <h3 id="-code-browser--code-"><code>browser</code></h3><pre><code class="lang-js"><code class="source-code prettyprint">{
   type: &apos;browser&apos;,
   engine: null,
@@ -505,6 +537,7 @@
   libraryOptions: { ... },
   cleanBeforeBuild: true,
   copy: [],
+  dotEnv: { ... },
   devServer: { ... },
   configuration: { ... },
 }</code>
@@ -719,6 +752,35 @@
 }</code>
 </code></pre>
 <p>This is different from the main <code>copy</code> feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a <code>manifest.json</code> for your PWA while you can use the main <code>copy</code> feature for the <code>package.json</code> or an <code>.nvmrc</code>, things you need for distribution.</p>
+<h4 id="-code-dotenv--code-"><code>dotEnv</code></h4><blockquote>
+<p>Default value:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">{
+  enabled: true,
+  files: [
+    &apos;.env.[target-name].[build-type]&apos;,
+    &apos;.env.[target-name]&apos;,
+    &apos;.env.[build-type]&apos;,
+    &apos;.env&apos;,
+  ],
+  extend: true,
+}</code>
+</code></pre>
+</blockquote>
+<p>These options are used by both projext and the build engine in order to load environment variables from an &quot;environment file&quot;. The variables are parsed with <a href="https://yarnpkg.com/en/package/dotenv"><code>dotenv</code></a> and expanded with <a href="https://yarnpkg.com/en/package/dotenv-expand"><code>dotenv-expand</code></a>.</p>
+<p><strong><code>dotEnv.enabled</code></strong></p>
+<p>Whether or not the feature is enabled.</p>
+<p><strong><code>dotEnv.files</code></strong></p>
+<p>The list of files projext will try to find in order to load the variables. Based on the value of <code>extend</code>, the way projext will process them may change.</p>
+<p><strong><code>dotEnv.extend</code></strong></p>
+<p>Whether or not projext should merge all the variables from all the files it can find.</p>
+<p>Take for example the following list of files:</p>
+<pre><code class="lang-js"><code class="source-code prettyprint">[
+  &apos;.env.[target-name].[build-type],
+  &apos;.env.[target-name]&apos;,
+]</code>
+</code></pre>
+<p>If <code>extend</code> is set to <code>true</code> and both files exist, projext will load <code>.env.[target-name]</code> as the first file and then merge the values from <code>.env.[target-name].[build-type]</code> on top of it.</p>
+<p>If <code>extend</code> is set to <code>false</code>, projext will use the first file it can find.</p>
 <h4 id="-code-devserver--code-"><code>devServer</code></h4><blockquote>
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
@@ -758,7 +820,7 @@
 <p>Default value:</p>
 <pre><code class="lang-js"><code class="source-code prettyprint">{
   enabled: false,
-  hostname: null,
+  host: null,
   https: null,
 }</code>
 </code></pre>
@@ -766,7 +828,7 @@
 <p>When the dev server is being proxied (using <code>nginx</code> for example), there are certain functionalities, like hot module replacement and live reload that need to be aware of this, so you need to use these options:</p>
 <ul>
 <li><code>enabled</code>: Whether the server is being proxied or not.</li>
-<li><code>hostname</code>: The hostname used. If <code>null</code>, it will use the same as <code>devServer.hostname</code>.</li>
+<li><code>host</code>: The hostname used. If <code>null</code>, it will use the same as <code>devServer.host</code>.</li>
 <li><code>https</code>: Whether or not the server is being proxied over <code>https</code>. This settings has a boolean value, but if you let it as <code>null</code> it will set its value based on <code>devServer.ssl</code>, if you added the certificates it will be <code>true</code>, otherwise <code>false</code>.</li>
 </ul>
 <p><strong><code>devServer.historyApiFallback</code></strong></p>

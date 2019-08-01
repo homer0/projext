@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 595,
-  "actualCount": 595,
+  "expectCount": 607,
+  "actualCount": 607,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 23,
@@ -44,13 +44,13 @@
       "undocumentLines": []
     },
     "src/services/building/buildNodeRunner.js": {
-      "expectCount": 8,
-      "actualCount": 8,
+      "expectCount": 9,
+      "actualCount": 9,
       "undocumentLines": []
     },
     "src/services/building/buildNodeRunnerProcess.js": {
-      "expectCount": 21,
-      "actualCount": 21,
+      "expectCount": 22,
+      "actualCount": 22,
       "undocumentLines": []
     },
     "src/services/building/buildNodeWatcher.js": {
@@ -109,8 +109,8 @@
       "undocumentLines": []
     },
     "src/services/cli/cliInfo.js": {
-      "expectCount": 9,
-      "actualCount": 9,
+      "expectCount": 8,
+      "actualCount": 8,
       "undocumentLines": []
     },
     "src/services/cli/cliInspect.js": {
@@ -218,6 +218,11 @@
       "actualCount": 7,
       "undocumentLines": []
     },
+    "src/services/common/dotEnvUtils.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
     "src/services/common/events.js": {
       "expectCount": 2,
       "actualCount": 2,
@@ -239,8 +244,8 @@
       "undocumentLines": []
     },
     "src/services/common/utils.js": {
-      "expectCount": 7,
-      "actualCount": 7,
+      "expectCount": 5,
+      "actualCount": 5,
       "undocumentLines": []
     },
     "src/services/common/versionUtils.js": {
@@ -264,8 +269,8 @@
       "undocumentLines": []
     },
     "src/services/targets/targets.js": {
-      "expectCount": 26,
-      "actualCount": 26,
+      "expectCount": 28,
+      "actualCount": 28,
       "undocumentLines": []
     },
     "src/services/targets/targetsFileRules/targetFileRule.js": {
@@ -279,8 +284,8 @@
       "undocumentLines": []
     },
     "src/services/targets/targetsFinder.js": {
-      "expectCount": 19,
-      "actualCount": 19,
+      "expectCount": 20,
+      "actualCount": 20,
       "undocumentLines": []
     },
     "src/services/targets/targetsHTML.js": {

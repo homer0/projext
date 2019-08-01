@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -1374,6 +1376,36 @@
           
           
           
+          <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>DotEnvUtils</code> as the <code>dotEnvUtils</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
           <span class="code" data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
         </p>
       </div>
@@ -2099,11 +2131,11 @@ const buildEngines = container.get(&apos;buildEngines&apos;);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunner.js.html#lineNumber153">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunner.js.html#lineNumber168">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildNodeRunner} from &apos;<span><a href="file/src/services/building/buildNodeRunner.js.html#lineNumber153">projext/src/services/building/buildNodeRunner.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildNodeRunner} from &apos;<span><a href="file/src/services/building/buildNodeRunner.js.html#lineNumber168">projext/src/services/building/buildNodeRunner.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
@@ -2154,11 +2186,11 @@ const buildNodeRunner = container.get(&apos;buildNodeRunner&apos;);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber405">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber442">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildNodeRunnerProcess} from &apos;<span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber405">projext/src/services/building/buildNodeRunnerProcess.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildNodeRunnerProcess} from &apos;<span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber442">projext/src/services/building/buildNodeRunnerProcess.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
@@ -2319,11 +2351,11 @@ const buildNodeWatcherProcess = container.get(&apos;buildNodeWatcherProcess&apos
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber402">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber390">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildTranspiler} from &apos;<span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber402">projext/src/services/building/buildTranspiler.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {buildTranspiler} from &apos;<span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber390">projext/src/services/building/buildTranspiler.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
@@ -2869,11 +2901,11 @@ const cliGenerateCommand = container.get(&apos;cliGenerateCommand&apos;);</code>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber82">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber76">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliInfoCommand} from &apos;<span><a href="file/src/services/cli/cliInfo.js.html#lineNumber82">projext/src/services/cli/cliInfo.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {cliInfoCommand} from &apos;<span><a href="file/src/services/cli/cliInfo.js.html#lineNumber76">projext/src/services/cli/cliInfo.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
@@ -3848,6 +3880,61 @@ const copier = container.get(&apos;copier&apos;);</code></pre>
   
 </div>
 <div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="static-variable-dotEnvUtils">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">dotEnvUtils</span><span class="code" data-ice="signature">: <span><a href="typedef/index.html#static-typedef-Provider">Provider</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber150">source</a></span></span>
+    </span>
+  </h3>
+
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {dotEnvUtils} from &apos;<span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber150">projext/src/services/common/dotEnvUtils.js</a></span>&apos;</code></pre></div>
+  
+  
+  <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
+<code>DotEnvUtils</code> as the <code>dotEnvUtils</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  <div data-ice="example">
+    <h4>Example:</h4>
+    
+  <div class="example-doc" data-ice="exampleDoc">
+      
+      <pre class="prettyprint source-code"><code data-ice="exampleCode">// Register it on the container
+container.register(dotEnvUtils);
+// Getting access to the service instance
+const dotEnvUtils = container.get(&apos;dotEnvUtils&apos;);</code></pre>
+    </div>
+</div>
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
   <h3 data-ice="anchor" id="static-variable-events">
     <span class="access" data-ice="access">public</span>
     
@@ -3914,11 +4001,11 @@ const events = container.get(&apos;events&apos;);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/configurations/projectConfiguration.js.html#lineNumber373">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/configurations/projectConfiguration.js.html#lineNumber393">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {projectConfiguration} from &apos;<span><a href="file/src/services/configurations/projectConfiguration.js.html#lineNumber373">projext/src/services/configurations/projectConfiguration.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {projectConfiguration} from &apos;<span><a href="file/src/services/configurations/projectConfiguration.js.html#lineNumber393">projext/src/services/configurations/projectConfiguration.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
@@ -4191,11 +4278,11 @@ const targetHTMLGenerator = container.get(&apos;targetHTMLGenerator&apos;);</cod
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber544">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targets.js.html#lineNumber621">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {targets} from &apos;<span><a href="file/src/services/targets/targets.js.html#lineNumber544">projext/src/services/targets/targets.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {targets} from &apos;<span><a href="file/src/services/targets/targets.js.html#lineNumber621">projext/src/services/targets/targets.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set an instance of
@@ -4301,11 +4388,11 @@ const targetsFileRules = container.get(&apos;targetsFileRules&apos;);</code></pr
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/targets/targetsFinder.js.html#lineNumber478">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/targets/targetsFinder.js.html#lineNumber492">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {targetsFinder} from &apos;<span><a href="file/src/services/targets/targetsFinder.js.html#lineNumber478">projext/src/services/targets/targetsFinder.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {targetsFinder} from &apos;<span><a href="file/src/services/targets/targetsFinder.js.html#lineNumber492">projext/src/services/targets/targetsFinder.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will create an instance of
@@ -4466,11 +4553,11 @@ const tempFiles = container.get(&apos;tempFiles&apos;);</code></pre>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/common/utils.js.html#lineNumber203">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/common/utils.js.html#lineNumber100">source</a></span></span>
     </span>
   </h3>
 
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {utils} from &apos;<span><a href="file/src/services/common/utils.js.html#lineNumber203">projext/src/services/common/utils.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {utils} from &apos;<span><a href="file/src/services/common/utils.js.html#lineNumber100">projext/src/services/common/utils.js</a></span>&apos;</code></pre></div>
   
   
   <div data-ice="description"><p>The service provider that once registered on the app container will set a reference of

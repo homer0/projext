@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -232,8 +234,10 @@ class BuildNodeRunner {
    *                                                              templates.
    * @param {Targets}                      targets                To get the information of the
    *                                                              included targets.
+   * @param {Utils}                        utils                  To normalize executable
+   *                                                              extensions.
    */
-  constructor(buildNodeRunnerProcess, projectConfiguration, targets) {
+  constructor(buildNodeRunnerProcess, projectConfiguration, targets, utils) {
     /**
      * A local reference for the `buildNodeRunnerProcess` service.
      * @type {BuildNodeRunnerProcess}
@@ -244,6 +248,11 @@ class BuildNodeRunner {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
     // Check the project settings and enable the `nodemon` legacy watch mode.
     if (projectConfiguration.others.nodemon.legacyWatch) {
       this.buildNodeRunnerProcess.enableLegacyWatch();
@@ -314,11 +323,14 @@ class BuildNodeRunner {
     });
 
     this.buildNodeRunnerProcess.run(
-      executable,
+      this.utils.ensureExtension(executable),
       watch,
       inspectOptions,
       transpilationPaths,
-      copyPaths
+      copyPaths,
+      {},
+      [&apos;*.test.js&apos;],
+      () =&gt; this.targets.loadTargetDotEnvFile(target, &apos;development&apos;)
     );
   }
   /**
@@ -354,7 +366,12 @@ class BuildNodeRunner {
     this.buildNodeRunnerProcess.run(
       executable,
       watch,
-      inspectOptions
+      inspectOptions,
+      [],
+      [],
+      {},
+      [&apos;*.test.js&apos;],
+      () =&gt; this.targets.loadTargetDotEnvFile(target, &apos;development&apos;)
     );
   }
 }
@@ -372,7 +389,8 @@ const buildNodeRunner = provider((app) =&gt; {
   app.set(&apos;buildNodeRunner&apos;, () =&gt; new BuildNodeRunner(
     app.get(&apos;buildNodeRunnerProcess&apos;),
     app.get(&apos;projectConfiguration&apos;).getConfig(),
-    app.get(&apos;targets&apos;)
+    app.get(&apos;targets&apos;),
+    app.get(&apos;utils&apos;)
   ));
 });
 

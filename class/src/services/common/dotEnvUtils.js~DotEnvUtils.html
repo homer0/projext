@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <base data-ice="baseUrl" href="../../../../">
-  <title data-ice="title">src/services/building/buildCopier.js | projext</title>
+  <title data-ice="title">DotEnvUtils | projext</title>
   <link type="text/css" rel="stylesheet" href="css/style.css">
   <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
   <script src="script/prettify/prettify.js"></script>
@@ -217,319 +217,420 @@
 </div>
 </nav>
 
-<div class="content" data-ice="content"><h1 data-ice="title">src/services/building/buildCopier.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&apos;fs-extra&apos;);
-const path = require(&apos;path&apos;);
-const { provider } = require(&apos;jimple&apos;);
-/**
- * Copies the project files and/or the files of a target that doesn&apos;t require bundling.
- */
-class BuildCopier {
-  /**
-   * Class constructor.
-   * @param {Copier.copy}                  copier               The function that copies files and
-   *                                                            directories.
-   * @param {Logger}                       appLogger            Used to inform the user when files
-   *                                                            are being copied.
-   * @param {Events}                       events               To trigger events reducer that may
-   *                                                            alter the items being copied.
-   * @param {PathUtils}                    pathUtils            Necessary to build the paths.
-   * @param {ProjectConfigurationSettings} projectConfiguration To read the project information and
-   *                                                            get paths.
-   * @param {Targets}                      targets              To get the information of targets
-   *                                                            from `includeTargets` and copy their
-   *                                                            files too.
-   */
-  constructor(copier, appLogger, events, pathUtils, projectConfiguration, targets) {
-    /**
-     * A local reference for the `copier` service function.
-     * @type {Copier.copy}
-     */
-    this.copier = copier;
-    /**
-     * A local reference for the `appLogger` service.
-     * @type {Logger}
-     */
-    this.appLogger = appLogger;
-    /**
-     * A local reference for the `events` service.
-     * @type {Events}
-     */
-    this.events = events;
-    /**
-     * A local reference for the `pathUtils` service.
-     * @type {PathUtils}
-     */
-    this.pathUtils = pathUtils;
-    /**
-     * All the project settings.
-     * @type {ProjectConfigurationSettings}
-     */
-    this.projectConfiguration = projectConfiguration;
-    /**
-     * A local reference for the `targets` service.
-     * @type {Targets}
-     */
-    this.targets = targets;
-  }
-  /**
-   * If `copy.enabled` is `true` on the project configuration, this method will copy the list of
-   * items on the configuration `copy.items` key.
-   * This method emits the event reducer `project-files-to-copy` with the list of items to copy and
-   * expects an `Array` on return.
-   * @return {Promise&lt;undefined,Error&gt;}
-   */
-  copyFiles() {
-    let result;
-    const {
-      copy,
-      version: {
-        revision,
-      },
-      paths: {
-        build,
-        privateModules,
-      },
-    } = this.projectConfiguration;
-    // If the feature is enabled...
-    if (copy.enabled) {
-      // ..prepare a list of the items
-      let items = [];
-      // Prepare a list of Node modules that may be copied.
-      const copiedModules = {};
-      // If there are items to copy on the project configuration...
-      if (Array.isArray(copy.items)) {
-        // ...loop the items.
-        copy.items.forEach((item) =&gt; {
-          // If the item is a Node module...
-          if (typeof item === &apos;string&apos; &amp;&amp; item.startsWith(&apos;node_modules&apos;)) {
-            // ...generate a new path for the module inside a private folder.
-            const newModulePath = item.replace(/^(node_modules\/)/, `${privateModules}/`);
-            // Save the name of the module linked to the new path.
-            copiedModules[item.split(&apos;/&apos;).pop()] = newModulePath;
-            // Push the module and its new path to the list of items to copy.
-            items.push({
-              [item]: newModulePath,
-            });
-          } else {
-            // ...otherwise, just push it to the list of items to copy.
-            items.push(item);
-          }
-        });
+<div class="content" data-ice="content"><div class="header-notice">
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {DotEnvUtils} from &apos;<span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber17">projext/src/services/common/dotEnvUtils.js</a></span>&apos;</code></pre></div>
+  <span data-ice="access">public</span>
+  <span data-ice="kind">class</span>
+  
+  
+  
+  <span data-ice="source">| <span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber17">source</a></span></span>
+</div>
 
-        // if the revision functionality is enabled and the file exists...
-        if (
-          revision.enabled &amp;&amp;
-          revision.copy &amp;&amp;
-          fs.pathExistsSync(this.pathUtils.join(revision.filename))
-        ) {
-          // ...add it to the items to copy.
-          items.push(revision.filename);
-        }
-        // Reduce the list of items to copy and give the chance to any plugin to add new ones.
-        items = this.events.reduce(&apos;project-files-to-copy&apos;, items);
-        // If there are still items to copy...
-        if (items.length) {
-          // ...grab a reference to the path of the project.
-          const thispath = this.pathUtils.path;
-          // Copy all the items on the project path onto the distribution directory.
-          result = this.copier(
-            thispath,
-            this.pathUtils.join(build),
-            items
-          )
-          .then((results) =&gt; {
-            this.appLogger.success(&apos;The following items have been successfully copied:&apos;);
-            // Remove the absolute path and the first `/`
-            const prefix = thispath.length + 1;
-            // Log a message for each item informing it was copied.
-            results.forEach((item) =&gt; {
-              const from = item.from.substr(prefix);
-              const to = item.to.substr(prefix);
-              this.appLogger.info(`${from} -&gt; ${to}`);
-            });
-            /**
-             * If there any Node module was copied, call the method that updates the copied
-             * `package.json` of the project and modules in order to use relative paths instead of
-             * versions of the npm/yarn registry.
-             */
-            return Object.keys(copiedModules).length ?
-              this.addPrivateModules(this.pathUtils.join(build, &apos;package.json&apos;), copiedModules) :
-              {};
-          })
-          .catch((error) =&gt; {
-            this.appLogger.error(&apos;There was an error while copying the files&apos;);
-            return Promise.reject(error);
-          });
-        } else {
-          result = Promise.resolve();
-        }
-      } else {
-        result = Promise.reject(new Error(&apos;The \&apos;copy.items\&apos; setting is not an array&apos;));
-      }
-    } else {
-      result = Promise.resolve();
-    }
+<div class="self-detail detail">
+  <h1 data-ice="name">DotEnvUtils</h1>
 
-    return result;
-  }
-  /**
-   * After the project files are copied, this module updates the copied package.json with local
-   * references for any given module name.
-   * @param {string}  packagePath             The path to the main `package.json`.
-   * @param {Object}  modules                 A dictionary with the name of modules as keys and
-   *                                          local paths as values.
-   * @param {boolean} [updateModulesToo=true] If `true`, it will also update the `package.json` of
-   *                                          each of the modules with references each others local
-   *                                          paths.
-   * @return Promise&lt;undefined,Error&gt;
-   */
-  addPrivateModules(packagePath, modules, updateModulesToo = true) {
-    // Read the main `package.json`
-    return fs.readJson(packagePath)
-    .then((packageContents) =&gt; {
-      // Create a new reference to avoid linting issues.
-      const newPackage = Object.assign({}, packageContents);
-      // Loop the different types of dependencies...
-      [&apos;dependencies&apos;, &apos;devDependencies&apos;]
-      .forEach((type) =&gt; {
-        // Loop the dictionary of modules...
-        Object.keys(modules).forEach((dependencyName) =&gt; {
-          // If the module is present...
-          if (newPackage[type] &amp;&amp; newPackage[type][dependencyName]) {
-            // ...change the version to the local path.
-            newPackage[type][dependencyName] = `./${modules[dependencyName]}`;
-          }
-        });
-      });
-      // Remove any &quot;private property&quot; npm adds on the `package.json`
-      Object.keys(newPackage).forEach((property) =&gt; {
-        if (property.startsWith(&apos;_&apos;)) {
-          delete newPackage[property];
-        }
-      });
-      // Write the updated file.
-      return fs.writeJson(packagePath, newPackage);
-    })
-    .then(() =&gt; {
-      let result = {};
-      // If it needs to also update the methods between each other...
-      if (updateModulesToo) {
-        // Get the location of the private folder where modules are copied.
-        const { paths: { privateModules } } = this.projectConfiguration;
-        // Generate a path to it.
-        const directory = path.join(path.dirname(packagePath), privateModules);
-        const packages = [];
-        const modulesWithPathToRoot = {};
-        // Loop all the modules...
-        Object.keys(modules).forEach((dependencyName) =&gt; {
-          // Get its private path.
-          const privatePath = modules[dependencyName];
-          /**
-           * Updates it by adding 2 levels up from its location so they will be relative to where
-           * the `package.json` is: one to `node_modules`, and a second one to the &quot;root&quot;
-           */
-          modulesWithPathToRoot[dependencyName] = `../../${privatePath}`;
-          /**
-           * Push the module `package.json` path to the list of `package.json`s that will be
-           * updated.
-           */
-          packages.push(path.join(directory, dependencyName, &apos;package.json&apos;));
-        });
-        /**
-         * Loop all the `package.json`s and call this same method to update their references, but
-         * with the flag to update modules disabled as it&apos;s already doing it.
-         */
-        result = Promise.all(packages.map((modulePackage) =&gt; this.addPrivateModules(
-          modulePackage,
-          modulesWithPathToRoot,
-          false
-        )));
-      }
+  
 
-      return result;
-    });
-  }
-  /**
-   * Copy the files of an specific target.
-   * @param {Target} target The target information.
-   * @return {Promise&lt;undefined,Error&gt;}
-   */
-  copyTargetFiles(target) {
-    // Define the variable to return.
-    let result;
-    // Get the information of all the targets on the `includeTargets` list.
-    const includedTargets = target.includeTargets.map((name) =&gt; this.targets.getTarget(name));
-    // Try to find one that requires bundling.
-    const bundledTarget = includedTargets.find((info) =&gt; info.bundle);
-    if (bundledTarget) {
-      // If there&apos;s one that requires bundling, set to return a rejected promise.
-      const errorMessage = `The target ${bundledTarget.name} requires bundling so it can&apos;t be ` +
-        `included by ${target.name}`;
-      result = Promise.reject(new Error(errorMessage));
-    } else {
-      /**
-       * If there are no included targets or none that requires bundling, continue...
-       * Make sure the build directory exists.
-       */
-      result = fs.ensureDir(target.paths.build)
-      // Get all the items on the source directory.
-      .then(() =&gt; fs.readdir(target.paths.source))
-      // Copy everything.
-      .then((items) =&gt; this.copier(
-        target.paths.source,
-        target.paths.build,
-        items
-      ))
-      .then(() =&gt; {
-        this.appLogger.success(
-          `The files for &apos;${target.name}&apos; have been successfully copied (${target.paths.build})`
-        );
-        let nextStep;
-        // If there are targets to include...
-        if (includedTargets.length) {
-          // ...chain their promises.
-          nextStep = Promise.all(includedTargets.map((info) =&gt; this.copyTargetFiles(info)));
-        }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-        return nextStep;
-      })
-      .catch((error) =&gt; {
-        this.appLogger.error(`The files for &apos;${target.name}&apos; couldn&apos;t be copied`);
-        return Promise.reject(error);
-      });
-    }
+  
+  
+  <div class="description" data-ice="description"><p>A utility class/service to work with .env files for environment variables.</p>
+</div>
+  
 
-    return result;
-  }
-}
-/**
- * The service provider that once registered on the app container will set an instance of
- * `BuildCopier` as the `buildCopier` service.
- * @example
- * // Register it on the container
- * container.register(buildCopier);
- * // Getting access to the service instance
- * const buildCopier = container.get(&apos;buildCopier&apos;);
- * @type {Provider}
- */
-const buildCopier = provider((app) =&gt; {
-  app.set(&apos;buildCopier&apos;, () =&gt; new BuildCopier(
-    app.get(&apos;copier&apos;),
-    app.get(&apos;appLogger&apos;),
-    app.get(&apos;events&apos;),
-    app.get(&apos;pathUtils&apos;),
-    app.get(&apos;projectConfiguration&apos;).getConfig(),
-    app.get(&apos;targets&apos;)
-  ));
-});
+  
 
-module.exports = {
-  BuildCopier,
-  buildCopier,
-};
-</code></pre>
+  
 
+  
+
+  
+</div>
+
+
+
+<div data-ice="constructorSummary"><h2>Constructor Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Constructor</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(environmentUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span>, appLogger: <span>AppLogger</span>, pathUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+<div data-ice="methodSummary"><h2>Method Summary</h2><table class="summary" data-ice="summary">
+  <thead><tr><td data-ice="title" colspan="3">Public Methods</td></tr></thead>
+  <tbody>
+  
+  <tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html#instance-method-inject">inject</a></span></span><span class="code" data-ice="signature">(variables: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, overwrite: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Given a dictionary of variables, this method will inject all of them on the environment.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html#instance-method-load">load</a></span></span><span class="code" data-ice="signature">(files: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, extend: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>Given a list of <code>.env</code> files (relative to the project root directory), this method will
+validate if they exist, load them, merge them (if <code>extend</code> is <code>true</code>) and return an object
+with all the variable declarations it found.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+</tbody>
+</table>
+</div>
+
+
+
+
+
+<div data-ice="constructorDetails"><h2 data-ice="title">Public Constructors</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-constructor-constructor">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(environmentUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span>, appLogger: <span>AppLogger</span>, pathUtils: <span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber24">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">environmentUtils</td>
+      <td data-ice="type" class="code"><span><a href="https://homer0.github.io/wootils/class/wootils/node/environmentUtils.js~EnvironmentUtils.html">EnvironmentUtils</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>To set variables in the environment.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">appLogger</td>
+      <td data-ice="type" class="code"><span>AppLogger</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>To log information messages when files are loaded
+                                           or when there&apos;s a problem loading them.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">pathUtils</td>
+      <td data-ice="type" class="code"><span><a href="https://homer0.github.io/wootils/class/wootils/node/pathUtils.js~PathUtils.html">PathUtils</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>To get paths relative to the project root.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
+
+<div data-ice="methodDetails"><h2 data-ice="title">Public Methods</h2>
+
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-inject">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">inject</span><span class="code" data-ice="signature">(variables: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, overwrite: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>)</span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber91">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Given a dictionary of variables, this method will inject all of them on the environment.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">variables</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A dictionary with the variables to inject.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">overwrite</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>If <code>true</code>, and a variable is already declared, it will
+                                  overwrite it, otherwise, it will skip it.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-method-load">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">load</span><span class="code" data-ice="signature">(files: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, extend: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/common/dotEnvUtils.js.html#lineNumber62">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>Given a list of <code>.env</code> files (relative to the project root directory), this method will
+validate if they exist, load them, merge them (if <code>extend</code> is <code>true</code>) and return an object
+with all the variable declarations it found.</p>
+</div>
+
+  
+
+  <div data-ice="properties"><div data-ice="properties">
+  <h4 data-ice="title">Params:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">files</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>The list of file names relative to the project root directory.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">extend</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"><ul><li>optional</li>
+<li>default: true</li></ul></td>
+      <td data-ice="description"><p>Whether or not the variables found on the files should be
+                               merged on a single object. If this is <code>true</code>, it will reverse
+                               the list of files and merge all the variables in top of
+                               each other (to ensure that the final overwrite is from the
+                               file that was first on the list). If this is <code>false</code>, even
+                               if multiple files were found, it will only use the first one.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+
+  <div class="return-params" data-ice="returnParams">
+    <h4>Return:</h4>
+    <table>
+      <tbody>
+        <tr>
+          <td class="return-type code" data-ice="returnType"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+          
+        </tr>
+      </tbody>
+    </table>
+    <div data-ice="returnProperties"><div data-ice="properties">
+  <h4 data-ice="title">Return Properties:</h4>
+  <table class="params">
+    <thead>
+    <tr><td>Name</td><td>Type</td><td>Attribute</td><td>Description</td></tr>
+    </thead>
+    <tbody>
+    
+    <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">loaded</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">boolean</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>Whether or not variables were loaded.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">variables</td>
+      <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>A dictionary with all the loaded variables.</p>
+</td>
+    </tr>
+</tbody>
+  </table>
+</div>
+</div>
+  </div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+</div>
 </div>
 
 <footer class="footer">

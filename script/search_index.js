@@ -240,6 +240,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/common/dotenvutils.js~dotenvutils",
+    "class/src/services/common/dotEnvUtils.js~DotEnvUtils.html",
+    "<span>DotEnvUtils</span> <span class=\"search-result-import-path\">projext/src/services/common/dotEnvUtils.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/common/events.js~events",
     "class/src/services/common/events.js~Events.html",
     "<span>Events</span> <span class=\"search-result-import-path\">projext/src/services/common/events.js</span>",
@@ -573,6 +579,12 @@ window.esdocSearchIndex = [
     "projext/src/services/common/copier.js~copier",
     "variable/index.html#static-variable-copier",
     "<span>copier</span> <span class=\"search-result-import-path\">projext/src/services/common/copier.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/common/dotenvutils.js~dotenvutils",
+    "variable/index.html#static-variable-dotEnvUtils",
+    "<span>dotEnvUtils</span> <span class=\"search-result-import-path\">projext/src/services/common/dotEnvUtils.js</span>",
     "variable"
   ],
   [
@@ -1398,6 +1410,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/building/buildnoderunner.js~buildnoderunner#utils",
+    "class/src/services/building/buildNodeRunner.js~BuildNodeRunner.html#instance-member-utils",
+    "src/services/building/buildNodeRunner.js~BuildNodeRunner#utils",
+    "member"
+  ],
+  [
     "src/services/building/buildnoderunnerprocess.js",
     "file/src/services/building/buildNodeRunnerProcess.js.html",
     "src/services/building/buildNodeRunnerProcess.js",
@@ -1564,6 +1582,12 @@ window.esdocSearchIndex = [
     "class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-method-transpileTargetFiles",
     "src/services/building/buildTranspiler.js~BuildTranspiler#transpileTargetFiles",
     "method"
+  ],
+  [
+    "src/services/building/buildtranspiler.js~buildtranspiler#utils",
+    "class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-member-utils",
+    "src/services/building/buildTranspiler.js~BuildTranspiler#utils",
+    "member"
   ],
   [
     "src/services/building/buildtypescripthelper.js",
@@ -1929,12 +1953,6 @@ window.esdocSearchIndex = [
     "src/services/cli/cliinfo.js~cliinfocommand#projectconfiguration",
     "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-projectConfiguration",
     "src/services/cli/cliInfo.js~CLIInfoCommand#projectConfiguration",
-    "member"
-  ],
-  [
-    "src/services/cli/cliinfo.js~cliinfocommand#utils",
-    "class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-utils",
-    "src/services/cli/cliInfo.js~CLIInfoCommand#utils",
     "member"
   ],
   [
@@ -2946,6 +2964,30 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/common/dotenvutils.js",
+    "file/src/services/common/dotEnvUtils.js.html",
+    "src/services/common/dotEnvUtils.js",
+    "file"
+  ],
+  [
+    "src/services/common/dotenvutils.js~dotenvutils#constructor",
+    "class/src/services/common/dotEnvUtils.js~DotEnvUtils.html#instance-constructor-constructor",
+    "src/services/common/dotEnvUtils.js~DotEnvUtils#constructor",
+    "method"
+  ],
+  [
+    "src/services/common/dotenvutils.js~dotenvutils#inject",
+    "class/src/services/common/dotEnvUtils.js~DotEnvUtils.html#instance-method-inject",
+    "src/services/common/dotEnvUtils.js~DotEnvUtils#inject",
+    "method"
+  ],
+  [
+    "src/services/common/dotenvutils.js~dotenvutils#load",
+    "class/src/services/common/dotEnvUtils.js~DotEnvUtils.html#instance-method-load",
+    "src/services/common/dotEnvUtils.js~DotEnvUtils#load",
+    "method"
+  ],
+  [
     "src/services/common/events.js",
     "file/src/services/common/events.js.html",
     "src/services/common/events.js",
@@ -3138,15 +3180,9 @@ window.esdocSearchIndex = [
     "file"
   ],
   [
-    "src/services/common/utils.js~utils.deletepropertywithpath",
-    "class/src/services/common/utils.js~Utils.html#static-method-deletePropertyWithPath",
-    "src/services/common/utils.js~Utils.deletePropertyWithPath",
-    "method"
-  ],
-  [
-    "src/services/common/utils.js~utils.getpropertywithpath",
-    "class/src/services/common/utils.js~Utils.html#static-method-getPropertyWithPath",
-    "src/services/common/utils.js~Utils.getPropertyWithPath",
+    "src/services/common/utils.js~utils.ensureextension",
+    "class/src/services/common/utils.js~Utils.html#static-method-ensureExtension",
+    "src/services/common/utils.js~Utils.ensureExtension",
     "method"
   ],
   [
@@ -3159,12 +3195,6 @@ window.esdocSearchIndex = [
     "src/services/common/utils.js~utils.replaceplaceholders",
     "class/src/services/common/utils.js~Utils.html#static-method-replacePlaceholders",
     "src/services/common/utils.js~Utils.replacePlaceholders",
-    "method"
-  ],
-  [
-    "src/services/common/utils.js~utils.setpropertywithpath",
-    "class/src/services/common/utils.js~Utils.html#static-method-setPropertyWithPath",
-    "src/services/common/utils.js~Utils.setPropertyWithPath",
     "method"
   ],
   [
@@ -3330,6 +3360,12 @@ window.esdocSearchIndex = [
     "member"
   ],
   [
+    "src/services/targets/targets.js~targets#dotenvutils",
+    "class/src/services/targets/targets.js~Targets.html#instance-member-dotEnvUtils",
+    "src/services/targets/targets.js~Targets#dotEnvUtils",
+    "member"
+  ],
+  [
     "src/services/targets/targets.js~targets#environmentutils",
     "class/src/services/targets/targets.js~Targets.html#instance-member-environmentUtils",
     "src/services/targets/targets.js~Targets#environmentUtils",
@@ -3375,6 +3411,12 @@ window.esdocSearchIndex = [
     "src/services/targets/targets.js~targets#gettargets",
     "class/src/services/targets/targets.js~Targets.html#instance-method-getTargets",
     "src/services/targets/targets.js~Targets#getTargets",
+    "method"
+  ],
+  [
+    "src/services/targets/targets.js~targets#loadtargetdotenvfile",
+    "class/src/services/targets/targets.js~Targets.html#instance-method-loadTargetDotEnvFile",
+    "src/services/targets/targets.js~Targets#loadTargetDotEnvFile",
     "method"
   ],
   [

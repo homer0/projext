@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -275,7 +277,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(babelConfiguration: <span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span>, appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, targets: <span><a href="class/src/services/targets/targets.js~Targets.html">Targets</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(babelConfiguration: <span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span>, appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, targets: <span><a href="class/src/services/targets/targets.js~Targets.html">Targets</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
         </p>
       </div>
       <div>
@@ -376,6 +378,35 @@
         
         
         <div data-ice="description"><p>A local reference for the <code>targets</code> service.</p>
+</div>
+      </div>
+    </td>
+    <td>
+      
+      
+    </td>
+  </tr>
+<tr data-ice="target">
+    <td>
+      <span class="access" data-ice="access">public</span>
+      
+      
+      
+      <span class="override" data-ice="override"></span>
+    </td>
+    <td>
+      <div>
+        <p>
+          
+          
+          
+          <span class="code" data-ice="name"><span><a href="class/src/services/building/buildTranspiler.js~BuildTranspiler.html#instance-member-utils">utils</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span></span>
+        </p>
+      </div>
+      <div>
+        
+        
+        <div data-ice="description"><p>A local reference for the <code>utils</code> service.</p>
 </div>
       </div>
     </td>
@@ -554,11 +585,11 @@
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(babelConfiguration: <span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span>, appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, targets: <span><a href="class/src/services/targets/targets.js~Targets.html">Targets</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(babelConfiguration: <span><a href="class/src/services/configurations/babelConfiguration.js~BabelConfiguration.html">BabelConfiguration</a></span>, appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, targets: <span><a href="class/src/services/targets/targets.js~Targets.html">Targets</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber18">source</a></span></span>
     </span>
   </h3>
 
@@ -600,6 +631,13 @@
       <td data-ice="description"><p>To access targets information.</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">utils</td>
+      <td data-ice="type" class="code"><span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>To normalize file extensions.</p>
+</td>
+    </tr>
 </tbody>
   </table>
 </div>
@@ -637,7 +675,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber31">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber33">source</a></span></span>
     </span>
   </h3>
 
@@ -681,7 +719,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber26">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber28">source</a></span></span>
     </span>
   </h3>
 
@@ -725,7 +763,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber36">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber38">source</a></span></span>
     </span>
   </h3>
 
@@ -733,6 +771,50 @@
   
   
   <div data-ice="description"><p>A local reference for the <code>targets</code> service.</p>
+</div>
+
+  
+
+  <div data-ice="properties">
+</div>
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+</div>
+<div class="detail" data-ice="detail">
+  <h3 data-ice="anchor" id="instance-member-utils">
+    <span class="access" data-ice="access">public</span>
+    
+    
+    
+    
+    
+    <span class="code" data-ice="name">utils</span><span class="code" data-ice="signature">: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span></span>
+    <span class="right-info">
+      
+      
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber43">source</a></span></span>
+    </span>
+  </h3>
+
+  
+  
+  
+  <div data-ice="description"><p>A local reference for the <code>utils</code> service.</p>
 </div>
 
   
@@ -772,7 +854,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber287">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber294">source</a></span></span>
     </span>
   </h3>
 
@@ -856,7 +938,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber333">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber340">source</a></span></span>
     </span>
   </h3>
 
@@ -942,7 +1024,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber134">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber141">source</a></span></span>
     </span>
   </h3>
 
@@ -1058,7 +1140,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber226">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber233">source</a></span></span>
     </span>
   </h3>
 
@@ -1174,7 +1256,7 @@
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber48">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildTranspiler.js.html#lineNumber55">source</a></span></span>
     </span>
   </h3>
 

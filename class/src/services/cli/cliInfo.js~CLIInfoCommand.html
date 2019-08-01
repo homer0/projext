@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -216,13 +218,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {CLIInfoCommand} from &apos;<span><a href="file/src/services/cli/cliInfo.js.html#lineNumber8">projext/src/services/cli/cliInfo.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {CLIInfoCommand} from &apos;<span><a href="file/src/services/cli/cliInfo.js.html#lineNumber9">projext/src/services/cli/cliInfo.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/services/cli/cliInfo.js.html#lineNumber8">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/services/cli/cliInfo.js.html#lineNumber9">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -275,7 +277,7 @@
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
+          <span class="code" data-ice="name"><span><a href="class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-constructor-constructor">constructor</a></span></span><span class="code" data-ice="signature">(appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>)</span>
         </p>
       </div>
       <div>
@@ -405,35 +407,6 @@
         
         
         <div data-ice="description"><p>All the project settings.</p>
-</div>
-      </div>
-    </td>
-    <td>
-      
-      
-    </td>
-  </tr>
-<tr data-ice="target">
-    <td>
-      <span class="access" data-ice="access">public</span>
-      
-      
-      
-      <span class="override" data-ice="override"></span>
-    </td>
-    <td>
-      <div>
-        <p>
-          
-          
-          
-          <span class="code" data-ice="name"><span><a href="class/src/services/cli/cliInfo.js~CLIInfoCommand.html#instance-member-utils">utils</a></span></span><span class="code" data-ice="signature">: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span></span>
-        </p>
-      </div>
-      <div>
-        
-        
-        <div data-ice="description"><p>A local reference for the <code>utils</code> service.</p>
 </div>
       </div>
     </td>
@@ -968,11 +941,11 @@ commands.</p>
     
     
     
-    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>, utils: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span>)</span>
+    <span class="code" data-ice="name">constructor</span><span class="code" data-ice="signature">(appLogger: <span><a href="https://homer0.github.io/wootils/class/wootils/node/logger.js~Logger.html">Logger</a></span>, projectConfiguration: <span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span>)</span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber17">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber16">source</a></span></span>
     </span>
   </h3>
 
@@ -1005,14 +978,6 @@ commands.</p>
       <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationSettings">ProjectConfigurationSettings</a></span></td>
       <td data-ice="appendix"></td>
       <td data-ice="description"><p>To read the configuration.</p>
-</td>
-    </tr>
-<tr data-ice="property" data-depth="0">
-      <td data-ice="name" class="code" data-depth="0">utils</td>
-      <td data-ice="type" class="code"><span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span></td>
-      <td data-ice="appendix"></td>
-      <td data-ice="description"><p>To navigate the configuration using
-                                                           paths.</p>
 </td>
     </tr>
 </tbody>
@@ -1052,7 +1017,7 @@ commands.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber23">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber22">source</a></span></span>
     </span>
   </h3>
 
@@ -1096,7 +1061,7 @@ commands.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber38">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber32">source</a></span></span>
     </span>
   </h3>
 
@@ -1140,7 +1105,7 @@ commands.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber43">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber37">source</a></span></span>
     </span>
   </h3>
 
@@ -1184,7 +1149,7 @@ commands.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber28">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber27">source</a></span></span>
     </span>
   </h3>
 
@@ -1192,50 +1157,6 @@ commands.</p>
   
   
   <div data-ice="description"><p>All the project settings.</p>
-</div>
-
-  
-
-  <div data-ice="properties">
-</div>
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-
-  
-  
-</div>
-<div class="detail" data-ice="detail">
-  <h3 data-ice="anchor" id="instance-member-utils">
-    <span class="access" data-ice="access">public</span>
-    
-    
-    
-    
-    
-    <span class="code" data-ice="name">utils</span><span class="code" data-ice="signature">: <span><a href="class/src/services/common/utils.js~Utils.html">Utils</a></span></span>
-    <span class="right-info">
-      
-      
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber33">source</a></span></span>
-    </span>
-  </h3>
-
-  
-  
-  
-  <div data-ice="description"><p>A local reference for the <code>utils</code> service.</p>
 </div>
 
   
@@ -1275,7 +1196,7 @@ commands.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber50">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/cli/cliInfo.js.html#lineNumber44">source</a></span></span>
     </span>
   </h3>
 

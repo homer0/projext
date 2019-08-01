@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -1995,6 +1997,14 @@ directory root; or a list of <span><a href="typedef/index.html#static-typedef-Pr
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dotEnv</td>
+      <td data-ice="type" class="code"><span>ProjectConfigurationTargetTemplateDotEnvSettings</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>These options are used by both projext and the build engine in order to load &quot;environment
+files&quot;.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
       <td data-ice="name" class="code" data-depth="0">devServer</td>
       <td data-ice="type" class="code"><span><a href="typedef/index.html#static-typedef-ProjectConfigurationBrowserTargetTemplateDevServerSettings">ProjectConfigurationBrowserTargetTemplateDevServerSettings</a></span></td>
       <td data-ice="appendix"></td>
@@ -2654,6 +2664,14 @@ folder.</p>
 folder.</p>
 </td>
     </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dotEnv</td>
+      <td data-ice="type" class="code"><span>ProjectConfigurationTargetTemplateDotEnvSettings</span></td>
+      <td data-ice="appendix"></td>
+      <td data-ice="description"><p>These options are used by both projext and the build engine in order to load &quot;environment
+files&quot;.</p>
+</td>
+    </tr>
 </tbody>
   </table>
 </div>
@@ -2881,6 +2899,14 @@ making a new build.</p>
       <td data-ice="description"><p>A list of files to copy during the bundling process. It can be a list of file paths relative to
 the target source directory, in which case they&apos;ll be copied to the target distribution
 directory root; or a list of <span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span>.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dotEnv</td>
+      <td data-ice="type" class="code"><span>ProjectConfigurationTargetTemplateDotEnvSettings</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>These options are used by both projext and the build engine in order to load &quot;environment
+files&quot;.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -4099,6 +4125,14 @@ making a new build.</p>
       <td data-ice="description"><p>A list of files to copy during the bundling process. It can be a list of file paths relative to
 the target source directory, in which case they&apos;ll be copied to the target distribution
 directory root; or a list of <span><a href="typedef/index.html#static-typedef-ProjectConfigurationTargetTemplateCopyItem">ProjectConfigurationTargetTemplateCopyItem</a></span>.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">dotEnv</td>
+      <td data-ice="type" class="code"><span>ProjectConfigurationTargetTemplateDotEnvSettings</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>These options are used by both projext and the build engine in order to load &quot;environment
+files&quot;.</p>
 </td>
     </tr>
 </tbody>

@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -218,10 +220,12 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/building/buildNodeRunnerProcess.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
 const fs = require(&apos;fs-extra&apos;);
-const extend = require(&apos;extend&apos;);
+const ObjectUtils = require(&apos;wootils/shared/objectUtils&apos;);
 const nodemon = require(&apos;nodemon&apos;);
+const nodemonBus = require(&apos;nodemon/lib/utils/bus&apos;);
 const { provider } = require(&apos;jimple&apos;);
 const NodeWatcher = require(&apos;../../abstracts/nodeWatcher&apos;);
+
 /**
  * This service implements `nodemon` and {@link NodeWatcher} in order to run Node apps while
  * watching, transpiling and copying files.
@@ -254,6 +258,7 @@ class BuildNodeRunnerProcess extends NodeWatcher {
      */
     this.running = false;
     /**
+     * The default values for the options that can be customized when calling `run`.
      * @property {string}                executable     The path to the file `nodemon` will
      *                                                  execute.
      * @property {NodeInspectorSettings} inspectOptions The settings for the Node inspector.
@@ -289,15 +294,15 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     /**
      * Whether or not the process logged the starting message.
      * @type {boolean}
-     * @ignore
      * @access protected
+     * @ignore
      */
     this._started = false;
     /**
      * Whether or not the process is currently being restarted.
      * @type {boolean}
-     * @ignore
      * @access protected
+     * @ignore
      */
     this._restaring = false;
     /**
@@ -330,29 +335,30 @@ class BuildNodeRunnerProcess extends NodeWatcher {
   }
   /**
    * Run a Node application.
-   * @param {string}                executable              The path to the file to execute.
-   * @param {Array}                 watch                   The list of directories to watch in
-   *                                                        order to restart the application.
-   * @param {NodeInspectorSettings} inspectOptions          The settings for the Node inspector.
-   * @param {Array}                 [transpilationPaths=[]] A list of dictionaries with `from` and
-   *                                                        `to` paths the service will use for
-   *                                                        transpilation when files change during
-   *                                                        the execution, in order to restart the
-   *                                                        application.
-   * @param {Array}                 [copyPaths=[]]          A list of dictionaries with `from` and
-   *                                                        `to` paths the service will use for
-   *                                                        copying files when they change during
-   *                                                        the execution, in order to restart the
-   *                                                        application.
-   * @param {Object}                [envVars={}]            A dictionary with extra environment
-   *                                                        variables to send to the execution
-   *                                                        process.
-   * @param {Array}                 [ignore=[&apos;.test.js&apos;]]   A list of file name patterns the
-   *                                                        service that will be ignored by the
-   *                                                        `nodemon` watcher.
+   * @param {string} executable
+   * The path to the file to execute.
+   * @param {Array} watch
+   * The list of directories to watch in order to restart the application.
+   * @param {NodeInspectorSettings} inspectOptions
+   * The settings for the Node inspector.
+   * @param {Array} [transpilationPaths=[]]
+   * A list of dictionaries with `from` and `to` paths the service will use for transpilation
+   * when files change during the execution, in order to restart the application.
+   * @param {Array} [copyPaths=[]]
+   * A list of dictionaries with `from` and `to` paths the service will use for copying files
+   * when they change during the execution, in order to restart the application.
+   * @param {Object} [envVars={}]
+   * A dictionary with extra environment variables to send to the execution process.
+   * @param {Array} [ignore=[&apos;.test.js&apos;]]
+   * A list of file name patterns the service that will be ignored by the `nodemon` watcher.
+   * @param {Function(instance:BuildNodeRunnerProcess)} [setupFn=()=&gt;{}]
+   * A custom callback that will be executed before starting (and restaring) a Node application.
+   * It can be used to &quot;modify the environment&quot; before the application runs.
    * @return {Nodemon}
    * @throws {Error} if the process is already running.
    * @throws {Error} if the executable doesn&apos;t exist.
+   * @todo refactor the parameters into a single &quot;options object&quot;.
+   * @todo watch the .env files.
    */
   run(
     executable,
@@ -361,7 +367,8 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     transpilationPaths = [],
     copyPaths = [],
     envVars = {},
-    ignore = [&apos;*.test.js&apos;]
+    ignore = [&apos;*.test.js&apos;],
+    setupFn = () =&gt; {}
   ) {
     // Check that is not already running and that the executable exists.
     if (this.running) {
@@ -374,7 +381,7 @@ class BuildNodeRunnerProcess extends NodeWatcher {
     // Turn on the flag that tells the service the process is running.
     this.running = true;
     // Merge the default options with the parameters.
-    this.options = extend(true, {}, this.defaultOptions, this.options, {
+    this.options = ObjectUtils.merge(this.defaultOptions, this.options, {
       executable,
       watch,
       inspectOptions,
@@ -401,10 +408,14 @@ class BuildNodeRunnerProcess extends NodeWatcher {
         copyPaths
       );
     }
+    // Run the callback that sets up the environment.
+    setupFn(this);
     // Get the command for `nodemon`.
     const command = this._getNodemonCommand();
     // Start `nodemon`.
     nodemon(command);
+    // Inject the function that sets up the environment.
+    this._injectSetupFnOnNodemon(setupFn);
     // Add the `nodemon` listeners.
     nodemon.on(&apos;start&apos;, this._onNodemonStart);
     nodemon.on(&apos;restart&apos;, this._onNodemonRestart);
@@ -608,6 +619,34 @@ class BuildNodeRunnerProcess extends NodeWatcher {
 
     // eslint-disable-next-line no-process-exit
     process.exit();
+  }
+  /**
+   * Disclaimer: This is a hack... there&apos;s no other way around it.
+   * The class needs for a function to be executed right before the Nodemon process spawns, but
+   * Nodemon uses its own listeners to setup that part and once `nodemon()` is called, it&apos;s too
+   * late to set anything, the internal listeners are already in place.
+   * After some debugging, I found that right after `nodemon()` is called, the last registered
+   * listener for the `restart` event is the one that actually does the restart; so, this method
+   * injects a listener right before that one in order for it to be called just before Nodemon
+   * does stops and starts the application.
+   * The function also checks if, by any chance, there&apos;s no other &quot;hack function&quot; already
+   * registered so it can replace it instead of adding one more.
+   * @param {Function(instance:BuildNodeRunnerProcess)} setupFn The function to call before
+   *                                                            starting the application.
+   * @access protected
+   * @ignore
+   */
+  _injectSetupFnOnNodemon(setupFn) {
+    const idKey = &apos;buildNodeRunnerProcessSetupFn&apos;;
+    const newFn = () =&gt; setupFn(this);
+    newFn[idKey] = true;
+    const { _events: { restart: events } } = nodemonBus;
+    const existingIndex = events.findIndex((fn) =&gt; fn[idKey] === true);
+    if (existingIndex &gt; -1) {
+      events[existingIndex] = newFn;
+    } else {
+      events.splice(events.length - 1, 0, newFn);
+    }
   }
 }
 /**

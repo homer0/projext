@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -216,7 +218,7 @@
 </nav>
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/common/utils.js</h1>
-<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const extend = require(&apos;extend&apos;);
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const path = require(&apos;path&apos;);
 const { provider } = require(&apos;jimple&apos;);
 /**
  * A set of generic utilities that can be used in any context.
@@ -282,129 +284,26 @@ class Utils {
     return result;
   }
   /**
-   * Returns the value of an object property using a path.
+   * This a helper for when projext deals with non-JS files, like `.jsx` or `.ts`. Given a path for
+   * a file, the method will make sure that the extension used is the one specified (`js by
+   * default).
    * @example
-   * const obj = {
-   *   propOne: {
-   *     propOneSub: &apos;Charito!&apos;,
-   *   },
-   *   propTwo: &apos;!!!&apos;,
-   * };
-   * console.log(Utils.getPropertyWithPath(
-   *   obj,
-   *   &apos;propOne/propOneSub&apos;
-   * ));
-   * // Will output `Charito!`
+   * console.log(Utils.ensureExtension(&apos;my/file/path.ts&apos;);
+   * // Will output `my/file/path.js`
    *
-   * @param {Object} obj                 The object from where the property will be read.
-   * @param {string} objPath             The path to the property.
-   * @param {string} [pathDelimiter=&apos;/&apos;] The delimiter that will separate the path components.
-   * @return {*}
-   * @throws {Error} If the path is invalid.
+   * @param {string} filepath         The path for the file.
+   * @param {string} [extension=&apos;js&apos;] The extension to validate.
+   * @return {string}
    */
-  static getPropertyWithPath(obj, objPath, pathDelimiter = &apos;/&apos;) {
-    const parts = objPath.split(pathDelimiter);
-    const first = parts.shift();
-    let currentElement = obj[first];
-    if (typeof currentElement === &apos;undefined&apos;) {
-      throw new Error(`There&apos;s nothing on &apos;${objPath}&apos;`);
-    } else if (parts.length) {
-      let currentPath = first;
-      parts.forEach((currentPart) =&gt; {
-        currentPath += `/${currentPart}`;
-        currentElement = currentElement[currentPart];
-        if (typeof currentElement === &apos;undefined&apos;) {
-          throw new Error(`There&apos;s nothing on &apos;${currentPath}&apos;`);
-        }
-      });
-    }
-
-    return currentElement;
-  }
-  /**
-   * Deletes a property of an object using a path.
-   * @example
-   * const obj = {
-   *   propOne: {
-   *     propOneSub: &apos;Charito!&apos;,
-   *   },
-   *   propTwo: &apos;!!!&apos;,
-   * };
-   * console.log(Utils.deletePropertyWithPath(
-   *   obj,
-   *   &apos;propOne/propOneSub&apos;
-   * ));
-   * // Will output `{ propTwo: &apos;!!!&apos; }`
-   *
-   * @param {Object}  obj                         The object from where the property will be
-   *                                              removed.
-   * @param {string}  objPath                     The path to the property.
-   * @param {String}  [pathDelimiter=&apos;/&apos;]         The delimiter that will separate the path
-   *                                              components.
-   * @param {Boolean} [cleanEmptyProperties=true] If this flag is `true` and after removing the
-   *                                              property the parent object is empty, it will
-   *                                              remove it recursively until a non empty parent
-   *                                              object is found.
-   * @return {Object} A copy of the original object with the removed property/properties.
-   */
-  static deletePropertyWithPath(obj, objPath, pathDelimiter = &apos;/&apos;, cleanEmptyProperties = true) {
-    const parts = objPath.split(pathDelimiter);
-    const last = parts.pop();
-    let result = extend(true, {}, obj);
-    if (parts.length) {
-      const parentPath = parts.join(pathDelimiter);
-      const parentObj = Utils.getPropertyWithPath(result, parentPath, pathDelimiter);
-      delete parentObj[last];
-      if (cleanEmptyProperties &amp;&amp; !Object.keys(parentObj).length) {
-        result = Utils.deletePropertyWithPath(
-          result,
-          parentPath,
-          pathDelimiter,
-          cleanEmptyProperties
-        );
-      }
+  static ensureExtension(filepath, extension = &apos;js&apos;) {
+    let result;
+    const parsed = path.parse(filepath);
+    if (parsed.ext.toLowerCase().endsWith(`.${extension}`)) {
+      result = filepath;
     } else {
-      delete result[last];
+      result = path.join(parsed.dir, `${parsed.name}.${extension}`);
     }
 
-    return result;
-  }
-  /**
-   * Sets a property on an object using a path. If the path doesn&apos;t exist, it will be created.
-   * @example
-   * const obj = {};
-   * console.log(Utils.setPropertyWithPath(obj, &apos;some/prop/path&apos;, &apos;some-value&apos;));
-   * // Will output `{ some: { prop: { path: &apos;some-value&apos; } } }`
-   *
-   * @param {Object} obj                 The object where the property will be set.
-   * @param {string} objPath             The path for the property.
-   * @param {*}      value               The value to set on the property.
-   * @param {string} [pathDelimiter=&apos;/&apos;] The delimiter that will separate the path components.
-   * @return {Object} A copy of the original object with the added property/properties.
-   */
-  static setPropertyWithPath(obj, objPath, value, pathDelimiter = &apos;/&apos;) {
-    const result = extend(true, {}, obj);
-    const parts = objPath.split(pathDelimiter);
-    const last = parts.pop();
-    let currentElement = result;
-    let currentPath = &apos;&apos;;
-    parts.forEach((part) =&gt; {
-      currentPath += `/${part}`;
-      const element = currentElement[part];
-      const elementType = typeof element;
-      if (elementType === &apos;undefined&apos;) {
-        currentElement[part] = {};
-        currentElement = currentElement[part];
-      } else if (elementType === &apos;object&apos; &amp;&amp; !Array.isArray(element)) {
-        currentElement = currentElement[part];
-      } else {
-        const type = elementType === &apos;object&apos; ? &apos;array&apos; : elementType;
-        const errorPath = currentPath.substr(1);
-        throw new Error(`There&apos;s already an element of type &apos;${type}&apos; on &apos;${errorPath}&apos;`);
-      }
-    });
-
-    currentElement[last] = value;
     return result;
   }
 }

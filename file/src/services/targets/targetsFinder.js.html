@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -218,7 +220,7 @@
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/targets/targetsFinder.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&apos;fs-extra&apos;);
 const path = require(&apos;path&apos;);
-const extend = require(&apos;extend&apos;);
+const ObjectUtils = require(&apos;wootils/shared/objectUtils&apos;);
 const { provider } = require(&apos;jimple&apos;);
 /**
  * This is used to find targets information on an specific directory. It not only reads the
@@ -307,6 +309,14 @@ class TargetsFinder {
       react: /react(?:(?!(?:-dom\/server)))/i,
       aurelia: /aurelia/i,
     };
+    /**
+     * A list of known browser frameworks that need to export something on the entry point in order
+     * to work. This is list is used to prevent the service from thinking an app is a library.
+     * @type {Array}
+     * @ignore
+     * @access protected
+     */
+    this._browserFrameworksWithExports = [&apos;aurelia&apos;];
     /**
      * A dictionary of known frameworks that can be used on Node, and regular expressions that
      * match their module name.
@@ -472,7 +482,7 @@ class TargetsFinder {
       // If the file exists...
       if (fs.pathExistsSync(entryPath)) {
         // Merge the target structure created by this method with the results of the analysis.
-        target = extend(true, {}, target, this._parseTargetEntry(entryPath));
+        target = ObjectUtils.merge(target, this._parseTargetEntry(entryPath));
       }
     }
     /**
@@ -502,8 +512,6 @@ class TargetsFinder {
     const importInfo = this._getFileImports(contents);
     // Get the information of all the export statements
     const exportInfo = this._getFileExports(contents);
-    // If the target is exporting something, then it&apos;s a library.
-    const library = exportInfo.items.length &gt; 0;
 
     // Loop all the known browser frameworks.
     const framework = Object.keys(this._browserFrameworks)
@@ -512,6 +520,14 @@ class TargetsFinder {
       const regex = this._browserFrameworks[name];
       return !!importInfo.items.find((file) =&gt; file.match(regex));
     });
+
+    /**
+     * Check if the framework requires the use of `export` on the entry file; that why we can
+     * prevent the method to assume the target is a library.
+     */
+    const falseLibrary = !!(framework &amp;&amp; this._browserFrameworksWithExports.includes(framework));
+    // If the target is exporting something, then it&apos;s a library.
+    const library = !falseLibrary &amp;&amp; exportInfo.items.length &gt; 0;
 
     /**
      * Try to determine if the target type is `browser` by either checking if a browser framework

@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -217,7 +219,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/abstracts/configurationFile.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const fs = require(&apos;fs-extra&apos;);
-const extend = require(&apos;extend&apos;);
+const ObjectUtils = require(&apos;wootils/shared/objectUtils&apos;);
 const path = require(&apos;path&apos;);
 /**
  * A helper class for creating configuration files that can be overwritten on
@@ -359,15 +361,15 @@ class ConfigurationFile {
       parentConfig = this.parentConfig.getConfig(...args);
     }
     // Define the current configuration using the parent one.
-    let currentConfig = extend(true, {}, parentConfig);
+    let currentConfig = ObjectUtils.copy(parentConfig);
     // Create a new set of arguments by adding the current configuration at the end.
     let currentArgs = [...args, currentConfig];
     // Update the current configuration by calling `createConfig` with the new arguments.
-    currentConfig = extend(true, {}, currentConfig, this.createConfig(...currentArgs));
+    currentConfig = ObjectUtils.merge(currentConfig, this.createConfig(...currentArgs));
     // Update the arguments with the &quot;new current configuration&quot;.
     currentArgs = [...args, currentConfig];
     // Finally, call the method for the overwrite file and merge everything together.
-    this._config = extend(true, {}, currentConfig, this._fileConfig(...currentArgs));
+    this._config = ObjectUtils.merge(currentConfig, this._fileConfig(...currentArgs));
   }
   /**
    * Load the configuration from an overwrite file.

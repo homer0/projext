@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -447,6 +449,32 @@
  */
 
 /**
+ * @typdef {Object} ProjectConfigurationTargetTemplateDotEnvSettings
+ * @property {boolean} [enabled=true]
+ * Whether or not the feature is enabled.
+ * @property {Array} [files]
+ * The list of files projext will try to find in order to load the variables. Based on the value
+ * of `extend`, the way projext will process them may change.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[build-type]`: The type of bundle/build projext is creating (`development` or `production`).
+ *
+ * The default value is, for both `node` and `browser` targets:
+ *
+ * ```
+ * [
+ *   &apos;.env.[target-name].[build-type]&apos;,
+ *   &apos;.env.[target-name]&apos;,
+ *   &apos;.env.[build-type]&apos;,
+ *   &apos;.env&apos;,
+ * ]
+ * ```
+ * @property {boolean} [extend=true]
+ * Whether or not projext should merge all the variables from all the files it can find.
+ */
+
+/**
  * ================================================================================================
  * Project configuration &gt; Targets templates &gt; Sub properties &gt; Node
  * ================================================================================================
@@ -687,6 +715,9 @@
  * A list of files to copy during the bundling process. It can be a list of file paths relative to
  * the target source directory, in which case they&apos;ll be copied to the target distribution
  * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} [dotEnv]
+ * These options are used by both projext and the build engine in order to load &quot;environment
+ * files&quot;.
  */
 
 /**
@@ -770,6 +801,9 @@
  * @property {TargetFolders} folders
  * The target relative paths to both the source directory folder and the distribution directory
  * folder.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} dotEnv
+ * These options are used by both projext and the build engine in order to load &quot;environment
+ * files&quot;.
  */
 
 /**
@@ -838,6 +872,9 @@
  * A list of files to copy during the bundling process. It can be a list of file paths relative to
  * the target source directory, in which case they&apos;ll be copied to the target distribution
  * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} [dotEnv]
+ * These options are used by both projext and the build engine in order to load &quot;environment
+ * files&quot;.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} [devServer]
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.
@@ -908,6 +945,9 @@
  * A list of files to copy during the bundling process. It can be a list of file paths relative to
  * the target source directory, in which case they&apos;ll be copied to the target distribution
  * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} dotEnv
+ * These options are used by both projext and the build engine in order to load &quot;environment
+ * files&quot;.
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} devServer
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.

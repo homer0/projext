@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -216,13 +218,13 @@
 </nav>
 
 <div class="content" data-ice="content"><div class="header-notice">
-  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {BuildNodeRunnerProcess} from &apos;<span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber12">projext/src/services/building/buildNodeRunnerProcess.js</a></span>&apos;</code></pre></div>
+  <div data-ice="importPath" class="import-path"><pre class="prettyprint"><code data-ice="importPathCode">import {BuildNodeRunnerProcess} from &apos;<span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber14">projext/src/services/building/buildNodeRunnerProcess.js</a></span>&apos;</code></pre></div>
   <span data-ice="access">public</span>
   <span data-ice="kind">class</span>
   
   
   
-  <span data-ice="source">| <span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber12">source</a></span></span>
+  <span data-ice="source">| <span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber14">source</a></span></span>
 </div>
 
 <div class="self-detail detail">
@@ -375,7 +377,8 @@ watching, transpiling and copying files.</p>
       <div>
         
         
-        
+        <div data-ice="description"><p>The default values for the options that can be customized when calling <code>run</code>.</p>
+</div>
       </div>
     </td>
     <td>
@@ -492,7 +495,7 @@ will be merged.</p>
           
           
           
-          <span class="code" data-ice="name"><span><a href="class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html#instance-method-run">run</a></span></span><span class="code" data-ice="signature">(executable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, watch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, inspectOptions: <span><a href="typedef/index.html#static-typedef-NodeInspectorSettings">NodeInspectorSettings</a></span>, transpilationPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, copyPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, envVars: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, ignore: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>): <span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span>
+          <span class="code" data-ice="name"><span><a href="class/src/services/building/buildNodeRunnerProcess.js~BuildNodeRunnerProcess.html#instance-method-run">run</a></span></span><span class="code" data-ice="signature">(executable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, watch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, inspectOptions: <span><a href="typedef/index.html#static-typedef-NodeInspectorSettings">NodeInspectorSettings</a></span>, transpilationPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, copyPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, envVars: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, ignore: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, setupFn: <span>Function(instance:BuildNodeRunnerProcess)</span>): <span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span>
         </p>
       </div>
       <div>
@@ -680,7 +683,7 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber19">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber21">source</a></span></span>
     </span>
   </h3>
 
@@ -758,7 +761,7 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber27">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber29">source</a></span></span>
     </span>
   </h3>
 
@@ -802,7 +805,7 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber32">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber34">source</a></span></span>
     </span>
   </h3>
 
@@ -846,14 +849,15 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber51">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber54">source</a></span></span>
     </span>
   </h3>
 
   
   
   
-  
+  <div data-ice="description"><p>The default values for the options that can be customized when calling <code>run</code>.</p>
+</div>
 
   
 
@@ -946,7 +950,7 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber70">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber73">source</a></span></span>
     </span>
   </h3>
 
@@ -991,7 +995,7 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber37">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber39">source</a></span></span>
     </span>
   </h3>
 
@@ -1038,7 +1042,7 @@ will be merged.</p>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber110">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber113">source</a></span></span>
     </span>
   </h3>
 
@@ -1078,11 +1082,11 @@ will be merged.</p>
     
     
     
-    <span class="code" data-ice="name">run</span><span class="code" data-ice="signature">(executable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, watch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, inspectOptions: <span><a href="typedef/index.html#static-typedef-NodeInspectorSettings">NodeInspectorSettings</a></span>, transpilationPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, copyPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, envVars: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, ignore: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>): <span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span>
+    <span class="code" data-ice="name">run</span><span class="code" data-ice="signature">(executable: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, watch: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, inspectOptions: <span><a href="typedef/index.html#static-typedef-NodeInspectorSettings">NodeInspectorSettings</a></span>, transpilationPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, copyPaths: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, envVars: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>, ignore: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span>, setupFn: <span>Function(instance:BuildNodeRunnerProcess)</span>): <span><a href="https://github.com/remy/nodemon/blob/master/doc/requireable.md">Nodemon</a></span></span>
     <span class="right-info">
       
       
-      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber139">source</a></span></span>
+      <span data-ice="source"><span><a href="file/src/services/building/buildNodeRunnerProcess.js.html#lineNumber143">source</a></span></span>
     </span>
   </h3>
 
@@ -1113,8 +1117,7 @@ will be merged.</p>
       <td data-ice="name" class="code" data-depth="0">watch</td>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"></td>
-      <td data-ice="description"><p>The list of directories to watch in
-                                                       order to restart the application.</p>
+      <td data-ice="description"><p>The list of directories to watch in order to restart the application.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -1129,11 +1132,8 @@ will be merged.</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: []</li></ul></td>
-      <td data-ice="description"><p>A list of dictionaries with <code>from</code> and
-                                                       <code>to</code> paths the service will use for
-                                                       transpilation when files change during
-                                                       the execution, in order to restart the
-                                                       application.</p>
+      <td data-ice="description"><p>A list of dictionaries with <code>from</code> and <code>to</code> paths the service will use for transpilation
+when files change during the execution, in order to restart the application.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -1141,11 +1141,8 @@ will be merged.</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: []</li></ul></td>
-      <td data-ice="description"><p>A list of dictionaries with <code>from</code> and
-                                                       <code>to</code> paths the service will use for
-                                                       copying files when they change during
-                                                       the execution, in order to restart the
-                                                       application.</p>
+      <td data-ice="description"><p>A list of dictionaries with <code>from</code> and <code>to</code> paths the service will use for copying files
+when they change during the execution, in order to restart the application.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -1153,9 +1150,7 @@ will be merged.</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: {}</li></ul></td>
-      <td data-ice="description"><p>A dictionary with extra environment
-                                                       variables to send to the execution
-                                                       process.</p>
+      <td data-ice="description"><p>A dictionary with extra environment variables to send to the execution process.</p>
 </td>
     </tr>
 <tr data-ice="property" data-depth="0">
@@ -1163,9 +1158,15 @@ will be merged.</p>
       <td data-ice="type" class="code"><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></span></td>
       <td data-ice="appendix"><ul><li>optional</li>
 <li>default: [&apos;.test.js&apos;]</li></ul></td>
-      <td data-ice="description"><p>A list of file name patterns the
-                                                       service that will be ignored by the
-                                                       <code>nodemon</code> watcher.</p>
+      <td data-ice="description"><p>A list of file name patterns the service that will be ignored by the <code>nodemon</code> watcher.</p>
+</td>
+    </tr>
+<tr data-ice="property" data-depth="0">
+      <td data-ice="name" class="code" data-depth="0">setupFn</td>
+      <td data-ice="type" class="code"><span>Function(instance:BuildNodeRunnerProcess)</span></td>
+      <td data-ice="appendix"><ul><li>optional</li></ul></td>
+      <td data-ice="description"><p>A custom callback that will be executed before starting (and restaring) a Node application.
+It can be used to &quot;modify the environment&quot; before the application runs.</p>
 </td>
     </tr>
 </tbody>
@@ -1217,7 +1218,8 @@ will be merged.</p>
   
 
   
-  
+  <div data-ice="todo"><h4>TODO:</h4><ul><li><span>refactor the parameters into a single &quot;options object&quot;.</span></li>
+<li><span>watch the .env files.</span></li></ul></div>
 </div>
 </div>
 </div>

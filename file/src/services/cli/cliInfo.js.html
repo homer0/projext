@@ -177,6 +177,7 @@
 <li data-ice="doc"><a data-ice="dirPath" class="nav-dir-path" href="identifiers.html#services-common">services/common</a><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/babelHelper.js~BabelHelper.html">BabelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/cleaner.js~Cleaner.html">Cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/copier.js~Copier.html">Copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/dotEnvUtils.js~DotEnvUtils.html">DotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/events.js~Events.html">Events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/plugins.js~Plugins.html">Plugins</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/services/common/prompt.js~Prompt.html">Prompt</a></span></span></li>
@@ -189,6 +190,7 @@
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-babelHelper">babelHelper</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-cleaner">cleaner</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-copier">copier</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-dotEnvUtils">dotEnvUtils</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-events">events</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-appPrompt">appPrompt</a></span></span></li>
 <li data-ice="doc"><span data-ice="kind" class="kind-variable">V</span><span data-ice="name"><span><a href="variable/index.html#static-variable-prompt">prompt</a></span></span></li>
@@ -217,6 +219,7 @@
 
 <div class="content" data-ice="content"><h1 data-ice="title">src/services/cli/cliInfo.js</h1>
 <pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">const util = require(&apos;util&apos;);
+const ObjectUtils = require(&apos;wootils/shared/objectUtils&apos;);
 const { provider } = require(&apos;jimple&apos;);
 const CLICommand = require(&apos;../../abstracts/cliCommand&apos;);
 /**
@@ -229,10 +232,8 @@ class CLIInfoCommand extends CLICommand {
    * @param {Logger}                       appLogger            To log the configuration on the
    *                                                            console.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the configuration.
-   * @param {Utils}                        utils                To navigate the configuration using
-   *                                                            paths.
    */
-  constructor(appLogger, projectConfiguration, utils) {
+  constructor(appLogger, projectConfiguration) {
     super();
     /**
      * A local reference for the `appLogger` service.
@@ -244,11 +245,6 @@ class CLIInfoCommand extends CLICommand {
      * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
-    /**
-     * A local reference for the `utils` service.
-     * @type {Utils}
-     */
-    this.utils = utils;
     /**
      * The instruction needed to trigger the command.
      * @type {string}
@@ -272,7 +268,7 @@ class CLIInfoCommand extends CLICommand {
     if (path) {
       // ...use the `utils` service to get the settings on that path.
       title = `Showing &apos;${path}&apos;`;
-      settings = this.utils.getPropertyWithPath(this.projectConfiguration, path);
+      settings = ObjectUtils.get(this.projectConfiguration, path, &apos;/&apos;, true);
     } else {
       // ...otherwise, show everything.
       title = &apos;Showing all the project settings&apos;;
@@ -300,8 +296,7 @@ class CLIInfoCommand extends CLICommand {
 const cliInfoCommand = provider((app) =&gt; {
   app.set(&apos;cliInfoCommand&apos;, () =&gt; new CLIInfoCommand(
     app.get(&apos;appLogger&apos;),
-    app.get(&apos;projectConfiguration&apos;).getConfig(),
-    app.get(&apos;utils&apos;)
+    app.get(&apos;projectConfiguration&apos;).getConfig()
   ));
 });
 

@@ -84,10 +84,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     let sut = null;
     const expectedConfiguration = 'module.exports = ' +
@@ -142,20 +138,9 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-        {},
-        'targets',
-        projectConfiguration.targets
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -195,12 +180,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targetsTemplates.browser),
-      setPropertyWithPath: jest.fn(() => ({
-        targetsTemplates: {
-          browser: projectConfiguration.targetsTemplates.browser,
-        },
-      })),
     };
     const options = {
       include: 'targetsTemplates/browser',
@@ -255,23 +234,9 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(
-        projectConfiguration,
-        options.include
-      );
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-        {},
-        options.include,
-        projectConfiguration.targetsTemplates.browser
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -292,37 +257,44 @@ describe('services/cli/generators:config', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const projectConfiguration = {};
-    const utils = {
-      humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn((obj, objPath) => objPath),
-      setPropertyWithPath: jest.fn((obj, objPath) => {
-        const newObj = Object.assign({}, obj);
-        if (!newObj.paths) {
-          newObj.paths = [];
-        }
-        newObj.paths.push(objPath);
-        return newObj;
-      }),
-    };
     const paths = [
       'some-property',
       'some/other/path',
       'and/another',
     ];
+    const projectConfiguration = {
+      'some-property': 'some-property-value',
+      some: {
+        other: {
+          path: 'some-other-path-value',
+        },
+      },
+      and: {
+        another: 'and-another-value',
+      },
+      extraProperty: true,
+    };
+    const utils = {
+      humanReadableList: jest.fn((list) => list.join(', ')),
+    };
     const options = {
       include: paths.join(','),
     };
     let sut = null;
-    const expectedPathsObjects = paths
-    .map((pathInfo) => `    '${pathInfo}',\n`)
-    .join('');
-    const expectedConfiguration = 'module.exports = ' +
-      '{\n' +
-      '  paths: [\n' +
-      `${expectedPathsObjects}` +
-      '  ],\n' +
-      '};\n';
+    let lines = null;
+    const expectedLines = [
+      'module.exports = {',
+      `'some-property': '${projectConfiguration['some-property']}',`,
+      'some: {',
+      'other: {',
+      `path: '${projectConfiguration.some.other.path}',`,
+      '},',
+      '},',
+      'and: {',
+      `another: '${projectConfiguration.and.another}',`,
+      '},',
+      '};',
+    ];
     // When
     sut = new ProjectConfigurationFileGenerator(
       appLogger,
@@ -333,7 +305,12 @@ describe('services/cli/generators:config', () => {
     );
     return sut.handle(options)
     .then(() => {
+      lines = fs.writeFile.mock.calls[0][1]
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => !!line);
       // Then
+      expect(lines).toEqual(expectedLines);
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
       expect(utils.humanReadableList).toHaveBeenCalledWith([
         'projext.config.js',
@@ -362,25 +339,9 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(paths.length);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(paths.length);
-      paths.forEach((pathInfo) => {
-        expect(utils.getPropertyWithPath).toHaveBeenCalledWith(
-          projectConfiguration,
-          pathInfo
-        );
-        expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-          expect.any(Object),
-          pathInfo,
-          pathInfo
-        );
-      });
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
-      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expect.any(String));
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -485,9 +446,6 @@ describe('services/cli/generators:config', () => {
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -531,11 +489,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      deletePropertyWithPath: jest.fn((obj) => {
-        const newObj = Object.assign({}, obj);
-        delete newObj[options.exclude];
-        return newObj;
-      }),
     };
     let sut = null;
     const expectedConfiguration = 'module.exports = ' +
@@ -590,17 +543,9 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.deletePropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.deletePropertyWithPath).toHaveBeenCalledWith(
-        projectConfiguration,
-        options.exclude
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -621,17 +566,20 @@ describe('services/cli/generators:config', () => {
     const pathUtils = {
       join: jest.fn((rest) => rest),
     };
-    const projectConfiguration = {};
+    const projectConfiguration = {
+      'some-property': 'some-property-value',
+      some: {
+        other: {
+          path: 'some-other-path-value',
+        },
+      },
+      and: {
+        another: 'and-another-value',
+      },
+      extraProperty: true,
+    };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      deletePropertyWithPath: jest.fn((obj, objPath) => {
-        const newObj = Object.assign({}, obj);
-        if (!newObj.paths) {
-          newObj.paths = [];
-        }
-        newObj.paths.push(objPath);
-        return newObj;
-      }),
     };
     const paths = [
       'some-property',
@@ -643,15 +591,12 @@ describe('services/cli/generators:config', () => {
       exclude: paths.join(','),
     };
     let sut = null;
-    const expectedPathsObjects = paths
-    .map((pathInfo) => `    '${pathInfo}',\n`)
-    .join('');
-    const expectedConfiguration = 'module.exports = ' +
-      '{\n' +
-      '  paths: [\n' +
-      `${expectedPathsObjects}` +
-      '  ],\n' +
-      '};\n';
+    let lines = null;
+    const expectedLines = [
+      'module.exports = {',
+      'extraProperty: true,',
+      '};',
+    ];
     // When
     sut = new ProjectConfigurationFileGenerator(
       appLogger,
@@ -662,7 +607,12 @@ describe('services/cli/generators:config', () => {
     );
     return sut.handle(options)
     .then(() => {
+      lines = fs.writeFile.mock.calls[0][1]
+      .split('\n')
+      .map((line) => line.trim())
+      .filter((line) => !!line);
       // Then
+      expect(lines).toEqual(expectedLines);
       expect(utils.humanReadableList).toHaveBeenCalledTimes(1);
       expect(utils.humanReadableList).toHaveBeenCalledWith([
         'projext.config.js',
@@ -691,20 +641,9 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.deletePropertyWithPath).toHaveBeenCalledTimes(paths.length);
-      expect(utils.deletePropertyWithPath).toHaveBeenCalledTimes(paths.length);
-      paths.forEach((pathInfo) => {
-        expect(utils.deletePropertyWithPath).toHaveBeenCalledWith(
-          expect.any(Object),
-          pathInfo
-        );
-      });
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
-      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
+      expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expect.any(String));
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -743,10 +682,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     let sut = null;
     const expectedConfiguration = 'module.exports = ' +
@@ -801,20 +736,9 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-        {},
-        'targets',
-        projectConfiguration.targets
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(1);
       expect(fs.writeFile).toHaveBeenCalledWith(input.filename, expectedConfiguration);
       expect(appLogger.success).toHaveBeenCalledTimes(1);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -853,10 +777,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     let sut = null;
     // When
@@ -898,19 +818,8 @@ describe('services/cli/generators:config', () => {
       expect(pathUtils.join).toHaveBeenCalledWith(input.filename);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(1);
       expect(fs.pathExistsSync).toHaveBeenCalledWith(input.filename);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-        {},
-        'targets',
-        projectConfiguration.targets
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
       expect(appLogger.success).toHaveBeenCalledTimes(0);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -946,10 +855,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     let sut = null;
     // When
@@ -989,19 +894,8 @@ describe('services/cli/generators:config', () => {
       });
       expect(pathUtils.join).toHaveBeenCalledTimes(0);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-        {},
-        'targets',
-        projectConfiguration.targets
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
       expect(appLogger.success).toHaveBeenCalledTimes(0);
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -1038,10 +932,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     let sut = null;
     // When
@@ -1085,14 +975,6 @@ describe('services/cli/generators:config', () => {
       });
       expect(pathUtils.join).toHaveBeenCalledTimes(0);
       expect(fs.pathExistsSync).toHaveBeenCalledTimes(0);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, 'targets');
-      expect(utils.setPropertyWithPath).toHaveBeenCalledTimes(1);
-      expect(utils.setPropertyWithPath).toHaveBeenCalledWith(
-        {},
-        'targets',
-        projectConfiguration.targets
-      );
       expect(fs.writeFile).toHaveBeenCalledTimes(0);
       expect(appLogger.success).toHaveBeenCalledTimes(0);
       expect(appLogger.error).toHaveBeenCalledTimes(1);
@@ -1120,12 +1002,8 @@ describe('services/cli/generators:config', () => {
       join: jest.fn((rest) => rest),
     };
     const projectConfiguration = {};
-    const error = new Error('Something went wrong');
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => {
-        throw error;
-      }),
     };
     const options = {
       include: 'targetsTemplates/browser',
@@ -1145,7 +1023,8 @@ describe('services/cli/generators:config', () => {
     })
     .catch((result) => {
       // Then
-      expect(result).toBe(error);
+      expect(result).toBeInstanceOf(Error);
+      expect(result.message).toBe(`There's nothing on '${options.include}'`);
       expect(utils.humanReadableList).toHaveBeenCalledTimes(0);
       expect(appPrompt.ask).toHaveBeenCalledTimes(0);
       expect(pathUtils.join).toHaveBeenCalledTimes(0);
@@ -1177,10 +1056,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     const validationCases = {
       'projext.config.js': true,
@@ -1207,9 +1082,6 @@ describe('services/cli/generators:config', () => {
       Object.keys(validationCases).forEach((file) => {
         expect(fileValidation(file)).toBe(validationCases[file]);
       });
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -1235,10 +1107,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     const validationCases = [
       'proJEXT.confIG.js',
@@ -1262,9 +1130,6 @@ describe('services/cli/generators:config', () => {
       validationCases.forEach((file) => {
         expect(fileFormatter(file)).toBe(file.toLowerCase());
       });
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 
@@ -1296,10 +1161,6 @@ describe('services/cli/generators:config', () => {
     };
     const utils = {
       humanReadableList: jest.fn((list) => list.join(', ')),
-      getPropertyWithPath: jest.fn(() => projectConfiguration.targets),
-      setPropertyWithPath: jest.fn(() => ({
-        targets: projectConfiguration.targets,
-      })),
     };
     let sut = null;
     let overwriteValidation = null;
@@ -1324,9 +1185,6 @@ describe('services/cli/generators:config', () => {
       expectedPathChecks.forEach((check) => {
         expect(fs.pathExistsSync).toHaveBeenCalledWith(check);
       });
-    })
-    .catch(() => {
-      expect(true).toBeFalse();
     });
   });
 

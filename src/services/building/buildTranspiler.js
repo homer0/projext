@@ -13,11 +13,13 @@ class BuildTranspiler {
    * @param {Logger}             appLogger          To print information messages after transpiling
    *                                                files.
    * @param {Targets}            targets            To access targets information.
+   * @param {Utils}              utils              To normalize file extensions.
    */
   constructor(
     babelConfiguration,
     appLogger,
-    targets
+    targets,
+    utils
   ) {
     /**
      * A local reference for the `babelConfiguration` service.
@@ -34,6 +36,11 @@ class BuildTranspiler {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
   }
   /**
    * Transpile a target files for a given build type. This requires the target files to have been
@@ -130,7 +137,6 @@ class BuildTranspiler {
    *                                        was transpiled) and `code`; but if the parameter is
    *                                        `false`, the promise will resolve on a string with
    *                                        the path to the file.
-   * @todo inject `utils` on the next breaking release and remove `this.targets.utils`.
    */
   transpileFile(filepath, buildType = 'development', options = null, writeFile = true) {
     let from = '';
@@ -148,7 +154,7 @@ class BuildTranspiler {
       originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this.targets.utils.ensureExtension(originalTo);
+    to = this.utils.ensureExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
@@ -223,7 +229,6 @@ class BuildTranspiler {
    *                         `filepath` (the path where it was transpiled) and `code`; but if the
    *                         parameter is `false`, it will return a string with the path to the
    *                         file.
-   * @todo inject `utils` on the next breaking release and remove `this.targets.utils`.
    */
   transpileFileSync(filepath, buildType = 'development', options = null, writeFile = true) {
     let from = '';
@@ -241,7 +246,7 @@ class BuildTranspiler {
       originalTo = filepath.output;
     }
     // Normalize custom JS extensions (jsx, ts or tsx) to `.js`
-    to = this.targets.utils.ensureExtension(originalTo);
+    to = this.utils.ensureExtension(originalTo);
     // If no options were defined, try to get them from a target, using the path of the file.
     const babelOptions = options || this.getTargetConfigurationForFile(from, buildType);
     // First, transform the file with Babel.
@@ -386,7 +391,8 @@ const buildTranspiler = provider((app) => {
   app.set('buildTranspiler', () => new BuildTranspiler(
     app.get('babelConfiguration'),
     app.get('appLogger'),
-    app.get('targets')
+    app.get('targets'),
+    app.get('utils')
   ));
 });
 

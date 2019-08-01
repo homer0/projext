@@ -229,6 +229,32 @@
  */
 
 /**
+ * @typdef {Object} ProjectConfigurationTargetTemplateDotEnvSettings
+ * @property {boolean} [enabled=true]
+ * Whether or not the feature is enabled.
+ * @property {Array} [files]
+ * The list of files projext will try to find in order to load the variables. Based on the value
+ * of `extend`, the way projext will process them may change.
+ *
+ * The available placeholders are:
+ * - `[target-name]`: The name of the target.
+ * - `[build-type]`: The type of bundle/build projext is creating (`development` or `production`).
+ *
+ * The default value is, for both `node` and `browser` targets:
+ *
+ * ```
+ * [
+ *   '.env.[target-name].[build-type]',
+ *   '.env.[target-name]',
+ *   '.env.[build-type]',
+ *   '.env',
+ * ]
+ * ```
+ * @property {boolean} [extend=true]
+ * Whether or not projext should merge all the variables from all the files it can find.
+ */
+
+/**
  * ================================================================================================
  * Project configuration > Targets templates > Sub properties > Node
  * ================================================================================================
@@ -469,6 +495,9 @@
  * A list of files to copy during the bundling process. It can be a list of file paths relative to
  * the target source directory, in which case they'll be copied to the target distribution
  * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} [dotEnv]
+ * These options are used by both projext and the build engine in order to load "environment
+ * files".
  */
 
 /**
@@ -552,6 +581,9 @@
  * @property {TargetFolders} folders
  * The target relative paths to both the source directory folder and the distribution directory
  * folder.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} dotEnv
+ * These options are used by both projext and the build engine in order to load "environment
+ * files".
  */
 
 /**
@@ -620,6 +652,9 @@
  * A list of files to copy during the bundling process. It can be a list of file paths relative to
  * the target source directory, in which case they'll be copied to the target distribution
  * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} [dotEnv]
+ * These options are used by both projext and the build engine in order to load "environment
+ * files".
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} [devServer]
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.
@@ -690,6 +725,9 @@
  * A list of files to copy during the bundling process. It can be a list of file paths relative to
  * the target source directory, in which case they'll be copied to the target distribution
  * directory root; or a list of {@link ProjectConfigurationTargetTemplateCopyItem}.
+ * @property {ProjectConfigurationTargetTemplateDotEnvSettings} dotEnv
+ * These options are used by both projext and the build engine in order to load "environment
+ * files".
  * @property {ProjectConfigurationBrowserTargetTemplateDevServerSettings} devServer
  * These are the options for the `http` server projext will use when running the target on a
  * development environment.

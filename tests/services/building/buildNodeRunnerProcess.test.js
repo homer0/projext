@@ -10,11 +10,27 @@ jest.mock('nodemon', () => {
   mockedNodemon.on = jest.fn();
   return mockedNodemon;
 });
+jest.mock('nodemon/lib/utils/bus', () => {
+  const mod = {
+    _events: {},
+    mockReset() {
+      // eslint-disable-next-line no-underscore-dangle
+      mod._events = { restart: [] };
+    },
+    events() {
+      // eslint-disable-next-line no-underscore-dangle
+      return mod._events;
+    },
+  };
+  mod.mockReset();
+  return mod;
+});
 jest.unmock('/src/services/building/buildNodeRunnerProcess');
 
 require('jasmine-expect');
 const fs = require('fs-extra');
 const nodemon = require('nodemon');
+const nodemonBus = require('nodemon/lib/utils/bus');
 const {
   BuildNodeRunnerProcess,
   buildNodeRunnerProcess,
@@ -25,6 +41,7 @@ const originalExit = process.exit;
 describe('services/building:buildNodeRunnerProcess', () => {
   beforeEach(() => {
     NodeWatcherMock.reset();
+    nodemonBus.mockReset();
     nodemon.mockReset();
     nodemon.on.mockReset();
     fs.pathExistsSync.mockReset();
@@ -78,6 +95,9 @@ describe('services/building:buildNodeRunnerProcess', () => {
       enabled: false,
     };
     let sut = null;
+    let busListeners = null;
+    let busListener = null;
+    let busListenerResult = null;
     const expectedCommand = [
       'node nodemon',
       executable,
@@ -88,6 +108,9 @@ describe('services/building:buildNodeRunnerProcess', () => {
     // When
     sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
     sut.run(executable, watch, inspectOptions);
+    busListeners = nodemonBus.events().restart;
+    [busListener] = busListeners;
+    busListenerResult = busListener();
     // Then
     expect(nodemon).toHaveBeenCalledTimes(1);
     expect(nodemon).toHaveBeenCalledWith(expectedCommand);
@@ -96,6 +119,9 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(busListeners).toEqual([expect.any(Function)]);
+    expect(busListener.buildNodeRunnerProcessSetupFn).toBeTrue();
+    expect(busListenerResult).toBeUndefined();
   });
 
   it('should run a process and enable the inspector', () => {
@@ -139,6 +165,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(nodemonBus.events().restart).toEqual([expect.any(Function)]);
   });
 
   it('should run a process and enable ndb', () => {
@@ -182,6 +209,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(nodemonBus.events().restart).toEqual([expect.any(Function)]);
   });
 
   it('should run a process and use nodemon legacy watch', () => {
@@ -222,6 +250,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(nodemonBus.events().restart).toEqual([expect.any(Function)]);
   });
 
   it('should run a process with custom environment variables', () => {
@@ -269,6 +298,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(nodemonBus.events().restart).toEqual([expect.any(Function)]);
   });
 
   it('should run a process that requires transpilation', () => {
@@ -318,6 +348,7 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(nodemonBus.events().restart).toEqual([expect.any(Function)]);
   });
 
   it('should run a process that requires transpilation and copying files', () => {
@@ -375,6 +406,138 @@ describe('services/building:buildNodeRunnerProcess', () => {
     expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
     expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(nodemonBus.events().restart).toEqual([expect.any(Function)]);
+  });
+
+  it('should run a process with a custom function to setup the environment', () => {
+    // Given
+    const appLogger = 'appLogger';
+    const buildTranspiler = 'buildTranspiler';
+    const projectConfiguration = {
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const executable = 'file.js';
+    const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
+    const setupMessage = 'setup ready!';
+    const setupFn = jest.fn(() => setupMessage);
+    let sut = null;
+    let busListeners = null;
+    let busListener = null;
+    let busListenerResult = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
+    // When
+    sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
+    sut.run(
+      executable,
+      watch,
+      inspectOptions,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      setupFn
+    );
+    busListeners = nodemonBus.events().restart;
+    [busListener] = busListeners;
+    busListenerResult = busListener();
+    // Then
+    expect(nodemon).toHaveBeenCalledTimes(1);
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
+    expect(nodemon.on).toHaveBeenCalledTimes(4);
+    expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(busListeners).toEqual([expect.any(Function)]);
+    expect(busListener.buildNodeRunnerProcessSetupFn).toBeTrue();
+    expect(busListenerResult).toBe(setupMessage);
+    expect(setupFn).toHaveBeenCalledTimes(['on-setup', 'from-the-test'].length);
+    expect(setupFn).toHaveBeenCalledWith(sut);
+  });
+
+  it('should run a process and replace an old setup function', () => {
+    // Given
+    const firstFakeListener = {
+      name: 'first-fake-listener',
+      buildNodeRunnerProcessSetupFn: true,
+    };
+    const secondFakeListener = {
+      name: 'second-fake-listener',
+    };
+    nodemonBus.events().restart.push(...[
+      firstFakeListener,
+      secondFakeListener,
+    ]);
+    const appLogger = 'appLogger';
+    const buildTranspiler = 'buildTranspiler';
+    const projectConfiguration = {
+      others: {
+        watch: {
+          poll: true,
+        },
+      },
+    };
+    fs.pathExistsSync.mockImplementationOnce(() => true);
+    const executable = 'file.js';
+    const watch = ['watch-folder'];
+    const inspectOptions = {
+      enabled: false,
+    };
+    const setupMessage = 'setup ready!';
+    const setupFn = jest.fn(() => setupMessage);
+    let sut = null;
+    let busListeners = null;
+    let busListener = null;
+    let busListenerResult = null;
+    const expectedCommand = [
+      'node nodemon',
+      executable,
+      ...watch.map((watchPath) => `--watch ${watchPath}`),
+      ...['*.test.js'].map((ignorePath) => `--ignore ${ignorePath}`),
+    ]
+    .join(' ');
+    // When
+    sut = new BuildNodeRunnerProcess(appLogger, buildTranspiler, projectConfiguration);
+    sut.run(
+      executable,
+      watch,
+      inspectOptions,
+      undefined,
+      undefined,
+      undefined,
+      undefined,
+      setupFn
+    );
+    busListeners = nodemonBus.events().restart;
+    [busListener] = busListeners;
+    busListenerResult = busListener();
+    // Then
+    expect(nodemon).toHaveBeenCalledTimes(1);
+    expect(nodemon).toHaveBeenCalledWith(expectedCommand);
+    expect(nodemon.on).toHaveBeenCalledTimes(4);
+    expect(nodemon.on).toHaveBeenCalledWith('start', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('restart', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('crash', expect.any(Function));
+    expect(nodemon.on).toHaveBeenCalledWith('quit', expect.any(Function));
+    expect(busListeners).toEqual([expect.any(Function), secondFakeListener]);
+    expect(busListener.buildNodeRunnerProcessSetupFn).toBeTrue();
+    expect(busListenerResult).toBe(setupMessage);
+    expect(setupFn).toHaveBeenCalledTimes(['on-setup', 'from-the-test'].length);
+    expect(setupFn).toHaveBeenCalledWith(sut);
   });
 
   it('should throw an error if `run` is called more than once', () => {

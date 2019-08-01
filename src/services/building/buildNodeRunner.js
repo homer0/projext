@@ -14,8 +14,10 @@ class BuildNodeRunner {
    *                                                              templates.
    * @param {Targets}                      targets                To get the information of the
    *                                                              included targets.
+   * @param {Utils}                        utils                  To normalize executable
+   *                                                              extensions.
    */
-  constructor(buildNodeRunnerProcess, projectConfiguration, targets) {
+  constructor(buildNodeRunnerProcess, projectConfiguration, targets, utils) {
     /**
      * A local reference for the `buildNodeRunnerProcess` service.
      * @type {BuildNodeRunnerProcess}
@@ -26,6 +28,11 @@ class BuildNodeRunner {
      * @type {Targets}
      */
     this.targets = targets;
+    /**
+     * A local reference for the `utils` service.
+     * @type {Utils}
+     */
+    this.utils = utils;
     // Check the project settings and enable the `nodemon` legacy watch mode.
     if (projectConfiguration.others.nodemon.legacyWatch) {
       this.buildNodeRunnerProcess.enableLegacyWatch();
@@ -64,7 +71,6 @@ class BuildNodeRunner {
    * @throws {Error} If one of the included targets requires bundling.
    * @access protected
    * @ignore
-   * @todo inject `utils` on the next breaking release and remove `this.targets.utils`.
    */
   _runWithTranspilation(target, inspectOptions) {
     const { paths: { source, build }, includeTargets } = target;
@@ -97,11 +103,14 @@ class BuildNodeRunner {
     });
 
     this.buildNodeRunnerProcess.run(
-      this.targets.utils.ensureExtension(executable),
+      this.utils.ensureExtension(executable),
       watch,
       inspectOptions,
       transpilationPaths,
-      copyPaths
+      copyPaths,
+      {},
+      ['*.test.js'],
+      () => this.targets.loadTargetDotEnvFile(target, 'development')
     );
   }
   /**
@@ -137,7 +146,12 @@ class BuildNodeRunner {
     this.buildNodeRunnerProcess.run(
       executable,
       watch,
-      inspectOptions
+      inspectOptions,
+      [],
+      [],
+      {},
+      ['*.test.js'],
+      () => this.targets.loadTargetDotEnvFile(target, 'development')
     );
   }
 }
@@ -155,7 +169,8 @@ const buildNodeRunner = provider((app) => {
   app.set('buildNodeRunner', () => new BuildNodeRunner(
     app.get('buildNodeRunnerProcess'),
     app.get('projectConfiguration').getConfig(),
-    app.get('targets')
+    app.get('targets'),
+    app.get('utils')
   ));
 });
 

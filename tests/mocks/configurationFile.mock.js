@@ -1,4 +1,4 @@
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 
 const mocks = {
   constructor: jest.fn(),
@@ -36,7 +36,7 @@ class ConfigurationFileMock {
   }
 
   _loadConfig(...args) {
-    this._config = extend(true, {}, this.createConfig(...args), overwrites);
+    this._config = ObjectUtils.merge(this.createConfig(...args), overwrites);
   }
 }
 

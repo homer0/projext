@@ -23,16 +23,14 @@ describe('services/cli:info', () => {
     // Given
     const appLogger = 'appLogger';
     const projectConfiguration = 'projectConfiguration';
-    const utils = 'utils';
     let sut = null;
     // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration, utils);
+    sut = new CLIInfoCommand(appLogger, projectConfiguration);
     // Then
     expect(sut).toBeInstanceOf(CLIInfoCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.appLogger).toBe(appLogger);
     expect(sut.projectConfiguration).toBe(projectConfiguration);
-    expect(sut.utils).toBe(utils);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
   });
@@ -47,10 +45,9 @@ describe('services/cli:info', () => {
     const projectConfiguration = {
       hello: 'charito!',
     };
-    const utils = 'utils';
     let sut = null;
     // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration, utils);
+    sut = new CLIInfoCommand(appLogger, projectConfiguration);
     sut.handle();
     // Then
     expect(appLogger.success).toHaveBeenCalledTimes(1);
@@ -77,16 +74,11 @@ describe('services/cli:info', () => {
     const projectConfiguration = {
       [settingName]: 'charito!',
     };
-    const utils = {
-      getPropertyWithPath: jest.fn(() => projectConfiguration[settingName]),
-    };
     let sut = null;
     // When
-    sut = new CLIInfoCommand(appLogger, projectConfiguration, utils);
+    sut = new CLIInfoCommand(appLogger, projectConfiguration);
     sut.handle(settingName);
     // Then
-    expect(utils.getPropertyWithPath).toHaveBeenCalledTimes(1);
-    expect(utils.getPropertyWithPath).toHaveBeenCalledWith(projectConfiguration, settingName);
     expect(appLogger.success).toHaveBeenCalledTimes(1);
     expect(appLogger.success).toHaveBeenCalledWith(
       expect.stringMatching(new RegExp(`showing '${settingName}'`, 'i'))
@@ -125,6 +117,5 @@ describe('services/cli:info', () => {
     expect(sut).toBeInstanceOf(CLIInfoCommand);
     expect(sut.appLogger).toBe('appLogger');
     expect(sut.projectConfiguration).toBe('projectConfiguration');
-    expect(sut.utils).toBe('utils');
   });
 });

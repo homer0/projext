@@ -106,6 +106,7 @@ Since there are a lot of settings for the templates, will divide them by type an
   libraryOptions: { ... },
   cleanBeforeBuild: true,
   copy: [],
+  dotEnv: { ... },
 }
 ```
 
@@ -315,7 +316,7 @@ Using this flags, you can tell projext to always watch your files when building 
 > }
 > ```
 
-These options are used in the case the target needs to be bundled or transpile to configure [Babel](https://babeljs.io):
+These options are used in the case the target needs to be bundled or transpiled, to configure [Babel](https://babeljs.io):
 
 **`babel.features`**
 
@@ -387,6 +388,49 @@ A list of files to be copied during the bundling process. It can be a list of fi
 
 This is different from the main `copy` feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a `manifest.json` for your PWA while you can use the main `copy` feature for the `package.json` or an `.nvmrc`, things you need for distribution.
 
+#### `dotEnv`
+> Default value:
+>
+> ```js
+> {
+>   enabled: true,
+>   files: [
+>     '.env.[target-name].[build-type]',
+>     '.env.[target-name]',
+>     '.env.[build-type]',
+>     '.env',
+>   ],
+>   extend: true,
+> }
+> ```
+
+These options are used by both projext and the build engine in order to load environment variables from an "environment file". The variables are parsed with [`dotenv`](https://yarnpkg.com/en/package/dotenv) and expanded with [`dotenv-expand`](https://yarnpkg.com/en/package/dotenv-expand).
+
+**`dotEnv.enabled`**
+
+Whether or not the feature is enabled.
+
+**`dotEnv.files`**
+
+The list of files projext will try to find in order to load the variables. Based on the value of `extend`, the way projext will process them may change.
+
+**`dotEnv.extend`**
+
+Whether or not projext should merge all the variables from all the files it can find.
+
+Take for example the following list of files:
+
+```js
+[
+  '.env.[target-name].[build-type],
+  '.env.[target-name]',
+]
+```
+
+If `extend` is set to `true` and both files exist, projext will load `.env.[target-name]` as the first file and then merge the values from `.env.[target-name].[build-type]` on top of it.
+
+If `extend` is set to `false`, projext will use the first file it can find.
+
 ### `browser`
 
 ```js
@@ -413,6 +457,7 @@ This is different from the main `copy` feature as this is specific to targets an
   libraryOptions: { ... },
   cleanBeforeBuild: true,
   copy: [],
+  dotEnv: { ... },
   devServer: { ... },
   configuration: { ... },
 }
@@ -693,6 +738,49 @@ A list of files to be copied during the bundling process. It can be a list of fi
 
 This is different from the main `copy` feature as this is specific to targets and you may require it for your app to work. For example: You may use this setting to copy a `manifest.json` for your PWA while you can use the main `copy` feature for the `package.json` or an `.nvmrc`, things you need for distribution.
 
+#### `dotEnv`
+> Default value:
+>
+> ```js
+> {
+>   enabled: true,
+>   files: [
+>     '.env.[target-name].[build-type]',
+>     '.env.[target-name]',
+>     '.env.[build-type]',
+>     '.env',
+>   ],
+>   extend: true,
+> }
+> ```
+
+These options are used by both projext and the build engine in order to load environment variables from an "environment file". The variables are parsed with [`dotenv`](https://yarnpkg.com/en/package/dotenv) and expanded with [`dotenv-expand`](https://yarnpkg.com/en/package/dotenv-expand).
+
+**`dotEnv.enabled`**
+
+Whether or not the feature is enabled.
+
+**`dotEnv.files`**
+
+The list of files projext will try to find in order to load the variables. Based on the value of `extend`, the way projext will process them may change.
+
+**`dotEnv.extend`**
+
+Whether or not projext should merge all the variables from all the files it can find.
+
+Take for example the following list of files:
+
+```js
+[
+  '.env.[target-name].[build-type],
+  '.env.[target-name]',
+]
+```
+
+If `extend` is set to `true` and both files exist, projext will load `.env.[target-name]` as the first file and then merge the values from `.env.[target-name].[build-type]` on top of it.
+
+If `extend` is set to `false`, projext will use the first file it can find.
+
 #### `devServer`
 > Default value:
 >
@@ -748,7 +836,7 @@ ssl: {
 > ```js
 > {
 >   enabled: false,
->   hostname: null,
+>   host: null,
 >   https: null,
 > }
 > ```
@@ -756,7 +844,7 @@ ssl: {
 When the dev server is being proxied (using `nginx` for example), there are certain functionalities, like hot module replacement and live reload that need to be aware of this, so you need to use these options:
 
 - `enabled`: Whether the server is being proxied or not.
-- `hostname`: The hostname used. If `null`, it will use the same as `devServer.hostname`.
+- `host`: The hostname used. If `null`, it will use the same as `devServer.host`.
 - `https`: Whether or not the server is being proxied over `https`. This settings has a boolean value, but if you let it as `null` it will set its value based on `devServer.ssl`, if you added the certificates it will be `true`, otherwise `false`.
 
 **`devServer.historyApiFallback`**

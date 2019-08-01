@@ -1,4 +1,4 @@
-const extend = require('extend');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const fs = require('fs-extra');
 const { provider } = require('jimple');
 const ConfigurationFile = require('../../abstracts/configurationFile');
@@ -126,6 +126,16 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           cleanBeforeBuild: true,
           copy: [],
+          dotEnv: {
+            enabled: true,
+            files: [
+              '.env.[target-name].[build-type]',
+              '.env.[target-name]',
+              '.env.[build-type]',
+              '.env',
+            ],
+            extend: true,
+          },
         },
         browser: {
           type: 'browser',
@@ -196,6 +206,16 @@ class ProjectConfiguration extends ConfigurationFile {
           },
           cleanBeforeBuild: true,
           copy: [],
+          dotEnv: {
+            enabled: true,
+            files: [
+              '.env.[target-name].[build-type]',
+              '.env.[target-name]',
+              '.env.[build-type]',
+              '.env',
+            ],
+            extend: true,
+          },
           devServer: {
             port: 2509,
             open: true,
@@ -280,7 +300,7 @@ class ProjectConfiguration extends ConfigurationFile {
   _loadConfig(...args) {
     super._loadConfig(...args);
     if (this._config.others.findTargets.enabled) {
-      const originalTargets = extend(true, {}, this._config.targets);
+      const originalTargets = ObjectUtils.copy(this._config.targets);
       const originalTargetsNames = Object.keys(originalTargets);
       const foundTargets = this._findTargets();
       const foundTargetsNames = Object.keys(foundTargets);
@@ -301,7 +321,7 @@ class ProjectConfiguration extends ConfigurationFile {
           delete foundTargets[foundTargetName];
         }
       }
-      this._config.targets = extend(true, {}, foundTargets, originalTargets);
+      this._config.targets = ObjectUtils.merge(foundTargets, originalTargets);
     }
     // If custom plugins are enabled...
     if (this._config.plugins.enabled) {

@@ -21,13 +21,20 @@ describe('services/building:buildNodeRunner', () => {
       },
     };
     const targets = 'targets';
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+    sut = new BuildNodeRunner(
+      buildNodeRunnerProcess,
+      projectConfiguration,
+      targets,
+      utils
+    );
     // Then
     expect(sut).toBeInstanceOf(BuildNodeRunner);
     expect(sut.buildNodeRunnerProcess).toBe(buildNodeRunnerProcess);
     expect(sut.targets).toBe(targets);
+    expect(sut.utils).toBe(utils);
   });
 
   it('should be instantiated and enable nodemon legacy watch mode', () => {
@@ -43,13 +50,20 @@ describe('services/building:buildNodeRunner', () => {
       },
     };
     const targets = 'targets';
+    const utils = 'utils';
     let sut = null;
     // When
-    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+    sut = new BuildNodeRunner(
+      buildNodeRunnerProcess,
+      projectConfiguration,
+      targets,
+      utils
+    );
     // Then
     expect(sut).toBeInstanceOf(BuildNodeRunner);
     expect(sut.buildNodeRunnerProcess).toEqual(buildNodeRunnerProcess);
     expect(sut.targets).toBe(targets);
+    expect(sut.utils).toBe(utils);
     expect(buildNodeRunnerProcess.enableLegacyWatch).toHaveBeenCalledTimes(1);
   });
 
@@ -64,6 +78,7 @@ describe('services/building:buildNodeRunner', () => {
       },
     };
     const targets = 'targets';
+    const utils = 'utils';
     const target = {
       is: {
         browser: true,
@@ -72,7 +87,12 @@ describe('services/building:buildNodeRunner', () => {
     };
     let sut = null;
     // When
-    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+    sut = new BuildNodeRunner(
+      buildNodeRunnerProcess,
+      projectConfiguration,
+      targets,
+      utils
+    );
     // Then
     expect(() => sut.runTarget(target)).toThrow(/is a browser target/i);
   });
@@ -88,6 +108,7 @@ describe('services/building:buildNodeRunner', () => {
       },
     };
     const targets = 'targets';
+    const utils = 'utils';
     const target = {
       is: {
         browser: false,
@@ -96,7 +117,12 @@ describe('services/building:buildNodeRunner', () => {
     };
     let sut = null;
     // When
-    sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+    sut = new BuildNodeRunner(
+      buildNodeRunnerProcess,
+      projectConfiguration,
+      targets,
+      utils
+    );
     // Then
     expect(() => sut.runTarget(target)).toThrow(/needs to be bundled/i);
   });
@@ -114,7 +140,14 @@ describe('services/building:buildNodeRunner', () => {
           },
         },
       };
-      const targets = 'targets';
+      const environmentVariables = {
+        ROSARIO: 'Charito!',
+        PILAR: 'Pili!',
+      };
+      const targets = {
+        loadTargetDotEnvFile: jest.fn(() => environmentVariables),
+      };
+      const utils = 'utils';
       const target = {
         bundle: false,
         transpile: false,
@@ -132,15 +165,35 @@ describe('services/building:buildNodeRunner', () => {
         includeTargets: [],
       };
       let sut = null;
+      let setupFn = null;
+      let setupFnResult = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       sut.runTarget(target);
+      [[,,,,,,, setupFn]] = buildNodeRunnerProcess.run.mock.calls;
+      setupFnResult = setupFn();
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.source}/${target.entry.development}`,
         [target.paths.source],
-        target.inspect
+        target.inspect,
+        [],
+        [],
+        {},
+        ['*.test.js'],
+        expect.any(Function)
+      );
+      expect(setupFnResult).toEqual(environmentVariables);
+      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
+      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
+        target,
+        'development'
       );
     });
 
@@ -157,6 +210,7 @@ describe('services/building:buildNodeRunner', () => {
         },
       };
       const targets = 'targets';
+      const utils = 'utils';
       const target = {
         bundle: false,
         transpile: false,
@@ -175,14 +229,24 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       sut.runTarget(target, true);
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
         `${target.paths.source}/${target.entry.development}`,
         [target.paths.source],
-        Object.assign({}, target.inspect, { enabled: true })
+        Object.assign({}, target.inspect, { enabled: true }),
+        [],
+        [],
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
     });
 
@@ -207,6 +271,7 @@ describe('services/building:buildNodeRunner', () => {
       const targets = {
         getTarget: jest.fn(() => includedTarget),
       };
+      const utils = 'utils';
       const target = {
         bundle: false,
         transpile: false,
@@ -225,7 +290,12 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       sut.runTarget(target);
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
@@ -235,7 +305,12 @@ describe('services/building:buildNodeRunner', () => {
           target.paths.source,
           includedTarget.paths.source,
         ],
-        target.inspect
+        target.inspect,
+        [],
+        [],
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
     });
 
@@ -258,6 +333,7 @@ describe('services/building:buildNodeRunner', () => {
       const targets = {
         getTarget: jest.fn(() => includedTarget),
       };
+      const utils = 'utils';
       const target = {
         bundle: false,
         transpile: false,
@@ -276,7 +352,12 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When/Then
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       expect(() => sut.runTarget(target)).toThrow(/requires bundling/i);
     });
 
@@ -299,6 +380,7 @@ describe('services/building:buildNodeRunner', () => {
       const targets = {
         getTarget: jest.fn(() => includedTarget),
       };
+      const utils = 'utils';
       const target = {
         bundle: false,
         transpile: false,
@@ -317,7 +399,12 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When/Then
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       expect(() => sut.runTarget(target)).toThrow(/requires transpilation/i);
     });
   });
@@ -335,10 +422,15 @@ describe('services/building:buildNodeRunner', () => {
           },
         },
       };
+      const environmentVariables = {
+        ROSARIO: 'Charito!',
+        PILAR: 'Pili!',
+      };
       const targets = {
-        utils: {
-          ensureExtension: jest.fn((filepath) => filepath),
-        },
+        loadTargetDotEnvFile: jest.fn(() => environmentVariables),
+      };
+      const utils = {
+        ensureExtension: jest.fn((filepath) => filepath),
       };
       const target = {
         bundle: false,
@@ -358,9 +450,18 @@ describe('services/building:buildNodeRunner', () => {
         includeTargets: [],
       };
       let sut = null;
+      let setupFn = null;
+      let setupFnResult = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       sut.runTarget(target);
+      [[,,,,,,, setupFn]] = buildNodeRunnerProcess.run.mock.calls;
+      setupFnResult = setupFn();
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledWith(
@@ -371,10 +472,19 @@ describe('services/building:buildNodeRunner', () => {
           from: target.paths.source,
           to: target.paths.build,
         }],
-        []
+        [],
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
-      expect(targets.utils.ensureExtension).toHaveBeenCalledTimes(1);
-      expect(targets.utils.ensureExtension).toHaveBeenCalledWith(
+      expect(setupFnResult).toEqual(environmentVariables);
+      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledTimes(1);
+      expect(targets.loadTargetDotEnvFile).toHaveBeenCalledWith(
+        target,
+        'development'
+      );
+      expect(utils.ensureExtension).toHaveBeenCalledTimes(1);
+      expect(utils.ensureExtension).toHaveBeenCalledWith(
         `${target.paths.build}/${target.entry.development}`
       );
     });
@@ -401,9 +511,9 @@ describe('services/building:buildNodeRunner', () => {
       };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
-        utils: {
-          ensureExtension: jest.fn((filepath) => filepath),
-        },
+      };
+      const utils = {
+        ensureExtension: jest.fn((filepath) => filepath),
       };
       const target = {
         bundle: false,
@@ -424,7 +534,12 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       sut.runTarget(target);
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
@@ -445,10 +560,13 @@ describe('services/building:buildNodeRunner', () => {
             to: includedTarget.paths.build,
           },
         ],
-        []
+        [],
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
-      expect(targets.utils.ensureExtension).toHaveBeenCalledTimes(1);
-      expect(targets.utils.ensureExtension).toHaveBeenCalledWith(
+      expect(utils.ensureExtension).toHaveBeenCalledTimes(1);
+      expect(utils.ensureExtension).toHaveBeenCalledWith(
         `${target.paths.build}/${target.entry.development}`
       );
     });
@@ -475,9 +593,9 @@ describe('services/building:buildNodeRunner', () => {
       };
       const targets = {
         getTarget: jest.fn(() => includedTarget),
-        utils: {
-          ensureExtension: jest.fn((filepath) => filepath),
-        },
+      };
+      const utils = {
+        ensureExtension: jest.fn((filepath) => filepath),
       };
       const target = {
         bundle: false,
@@ -498,7 +616,12 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       sut.runTarget(target);
       // Then
       expect(buildNodeRunnerProcess.run).toHaveBeenCalledTimes(1);
@@ -516,10 +639,13 @@ describe('services/building:buildNodeRunner', () => {
         [{
           from: includedTarget.paths.source,
           to: includedTarget.paths.build,
-        }]
+        }],
+        {},
+        ['*.test.js'],
+        expect.any(Function)
       );
-      expect(targets.utils.ensureExtension).toHaveBeenCalledTimes(1);
-      expect(targets.utils.ensureExtension).toHaveBeenCalledWith(
+      expect(utils.ensureExtension).toHaveBeenCalledTimes(1);
+      expect(utils.ensureExtension).toHaveBeenCalledWith(
         `${target.paths.build}/${target.entry.development}`
       );
     });
@@ -543,6 +669,7 @@ describe('services/building:buildNodeRunner', () => {
       const targets = {
         getTarget: jest.fn(() => includedTarget),
       };
+      const utils = 'utils';
       const target = {
         bundle: false,
         transpile: true,
@@ -562,7 +689,12 @@ describe('services/building:buildNodeRunner', () => {
       };
       let sut = null;
       // When/Then
-      sut = new BuildNodeRunner(buildNodeRunnerProcess, projectConfiguration, targets);
+      sut = new BuildNodeRunner(
+        buildNodeRunnerProcess,
+        projectConfiguration,
+        targets,
+        utils
+      );
       expect(() => sut.runTarget(target)).toThrow(/requires bundling/i);
     });
   });
@@ -599,5 +731,6 @@ describe('services/building:buildNodeRunner', () => {
     expect(sut).toBeInstanceOf(BuildNodeRunner);
     expect(sut.buildNodeRunnerProcess).toBe('buildNodeRunnerProcess');
     expect(sut.targets).toBe('targets');
+    expect(sut.utils).toBe('utils');
   });
 });

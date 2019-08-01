@@ -1,4 +1,5 @@
 const util = require('util');
+const ObjectUtils = require('wootils/shared/objectUtils');
 const { provider } = require('jimple');
 const CLICommand = require('../../abstracts/cliCommand');
 /**
@@ -11,10 +12,8 @@ class CLIInfoCommand extends CLICommand {
    * @param {Logger}                       appLogger            To log the configuration on the
    *                                                            console.
    * @param {ProjectConfigurationSettings} projectConfiguration To read the configuration.
-   * @param {Utils}                        utils                To navigate the configuration using
-   *                                                            paths.
    */
-  constructor(appLogger, projectConfiguration, utils) {
+  constructor(appLogger, projectConfiguration) {
     super();
     /**
      * A local reference for the `appLogger` service.
@@ -26,11 +25,6 @@ class CLIInfoCommand extends CLICommand {
      * @type {ProjectConfigurationSettings}
      */
     this.projectConfiguration = projectConfiguration;
-    /**
-     * A local reference for the `utils` service.
-     * @type {Utils}
-     */
-    this.utils = utils;
     /**
      * The instruction needed to trigger the command.
      * @type {string}
@@ -54,7 +48,7 @@ class CLIInfoCommand extends CLICommand {
     if (path) {
       // ...use the `utils` service to get the settings on that path.
       title = `Showing '${path}'`;
-      settings = this.utils.getPropertyWithPath(this.projectConfiguration, path);
+      settings = ObjectUtils.get(this.projectConfiguration, path, '/', true);
     } else {
       // ...otherwise, show everything.
       title = 'Showing all the project settings';
@@ -82,8 +76,7 @@ class CLIInfoCommand extends CLICommand {
 const cliInfoCommand = provider((app) => {
   app.set('cliInfoCommand', () => new CLIInfoCommand(
     app.get('appLogger'),
-    app.get('projectConfiguration').getConfig(),
-    app.get('utils')
+    app.get('projectConfiguration').getConfig()
   ));
 });
 

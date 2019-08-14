@@ -7,14 +7,14 @@
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",
     "dependencies": {
-      "wootils": "^2.6.0",
+      "wootils": "^2.6.3",
       "jimple": "^1.5.0",
       "fs-extra": "^8.1.0",
       "extend": "^3.0.2",
       "del": "^5.0.0",
       "shelljs": "0.8.3",
       "glob": "^7.1.4",
-      "commander": "^2.20.0",
+      "commander": "^3.0.0",
       "@babel/core": "7.5.5",
       "@babel/cli": "7.5.5",
       "@babel/plugin-proposal-class-properties": "7.5.5",
@@ -45,8 +45,8 @@
       "esdoc-standard-plugin": "^1.0.0",
       "esdoc-node": "^1.0.4",
       "leasot": "^8.0.0",
-      "coveralls": "^3.0.5",
-      "husky": "^3.0.2"
+      "coveralls": "^3.0.6",
+      "husky": "^3.0.3"
     },
     "engine-strict": true,
     "engines": {

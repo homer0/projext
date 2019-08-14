@@ -242,7 +242,8 @@ class ProjectConfigurationFileGenerator extends CLISubCommand {
    */
   _writeSettings(filepath, settings) {
     // Convert the configuration into a string with proper indentation.
-    const json = JSON.stringify(settings, undefined, 2)
+    const jsonIndentation = 2;
+    const json = JSON.stringify(settings, undefined, jsonIndentation)
     // Escape single quotes.
     .replace(/'/g, '\\\'')
     // Replace double quotes with single quotes.

@@ -153,6 +153,12 @@ class CLISHBuildCommand extends CLICommand {
       'Enables the Node inspector. It only works when running Node targets',
       false
     );
+    this.addOption(
+      'analyze',
+      '-a, --analyze',
+      'Enables the bundle analyzer. It only works with targets with bundling',
+      false
+    );
     /**
      * Hide the command from the help interface.
      * @type {boolean}
@@ -169,12 +175,13 @@ class CLISHBuildCommand extends CLICommand {
    * This method emits the event reducer `build-target-commands-list` with the list of commands,
    * the target information, the type of build and whether or not the target should be executed;
    * and it expects a list of commands on return.
-   * @param {?string} name           The name of the target.
-   * @param {Command} command        The executed command (sent by `commander`).
-   * @param {Object}  options        The command options.
-   * @param {string}  options.type   The type of build.
-   * @param {boolean} options.run    Whether or not the target also needs to be executed.
-   * @param {boolean} options.watch  Whether or not the target files will be watched.
+   * @param {?string} name             The name of the target.
+   * @param {Command} command          The executed command (sent by `commander`).
+   * @param {Object}  options          The command options.
+   * @param {string}  options.type     The type of build.
+   * @param {boolean} options.run      Whether or not the target also needs to be executed.
+   * @param {boolean} options.watch    Whether or not the target files will be watched.
+   * @param {boolean} options.inspect  Whether or not the target will be inspected.
    * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
    */
   handle(name, command, options, unknownOptions) {
@@ -185,10 +192,13 @@ class CLISHBuildCommand extends CLICommand {
       this.targets.getTarget(name) :
       // Get the default target or throw an error if the project doesn't have targets.
       this.targets.getDefaultTarget();
+
+    // Check if there's a reason to analyze the target bundle.
+    const analyze = options.analyze && (target.is.browser || target.bundle);
     // Check if there's a reason for the target to be executed.
-    const run = type === 'development' && (target.runOnDevelopment || options.run);
+    const run = !analyze && type === 'development' && (target.runOnDevelopment || options.run);
     // Check if there's a reason for the Node inspector to be enabled.
-    const inspect = target.is.node && run && (target.inspect.enabled || options.inspect);
+    const inspect = run && target.is.node && (target.inspect.enabled || options.inspect);
     // Check if the target files should be watched.
     const watch = !run && (target.watch[type] || options.watch);
     /**
@@ -211,6 +221,7 @@ class CLISHBuildCommand extends CLICommand {
       build,
       watch,
       inspect,
+      analyze,
     };
 
     // Based on the target type, get the list of commands.
@@ -337,7 +348,8 @@ class CLISHBuildCommand extends CLICommand {
       params.type,
       params.run,
       params.watch,
-      params.inspect
+      params.inspect,
+      params.analyze
     );
   }
   /**

@@ -128,7 +128,6 @@ class DotEnvUtils {
     try {
       const contents = fs.readFileSync(fileInfo.path);
       result = dotenv.parse(contents);
-      this._appLogger.success(`Environment file successfully loaded: ${fileInfo.name}`);
     } catch (error) {
       this._appLogger.error(`Error: The environment file couldn't be read: ${fileInfo.name}`);
       throw error;

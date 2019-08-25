@@ -99,8 +99,10 @@ class TargetsHTML {
     ].join('\n');
     // Reduce the HTML code.
     const html = this.events.reduce('target-default-html', htmlTpl, target);
+    // Normalize the target name to avoid issues with packages with scope.
+    const filename = target.name.replace(/\//g, '-');
     // Write the file on the temp directory.
-    return this.tempFiles.writeSync(`${target.name}.index.html`, html);
+    return this.tempFiles.writeSync(`${filename}.index.html`, html);
   }
 }
 /**

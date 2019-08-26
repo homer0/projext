@@ -3,15 +3,15 @@ const CLICommandMock = require('/tests/mocks/cliCommand.mock');
 
 jest.mock('jimple', () => JimpleMock);
 jest.mock('/src/abstracts/cliCommand', () => CLICommandMock);
-jest.unmock('/src/services/cli/cliBuild');
+jest.unmock('/src/services/cli/cliAnalyze');
 
 require('jasmine-expect');
 const {
-  CLIBuildCommand,
-  cliBuildCommand,
-} = require('/src/services/cli/cliBuild');
+  CLIAnalyzeCommand,
+  cliAnalyzeCommand,
+} = require('/src/services/cli/cliAnalyze');
 
-describe('services/cli:build', () => {
+describe('services/cli:analyze', () => {
   beforeEach(() => {
     CLICommandMock.reset();
   });
@@ -20,42 +20,18 @@ describe('services/cli:build', () => {
     // Given
     let sut = null;
     // When
-    sut = new CLIBuildCommand();
+    sut = new CLIAnalyzeCommand();
     // Then
-    expect(sut).toBeInstanceOf(CLIBuildCommand);
+    expect(sut).toBeInstanceOf(CLIAnalyzeCommand);
     expect(sut.constructorMock).toHaveBeenCalledTimes(1);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.addOption).toHaveBeenCalledTimes(5);
+    expect(sut.addOption).toHaveBeenCalledTimes(1);
     expect(sut.addOption).toHaveBeenCalledWith(
       'type',
       '-t, --type [type]',
       expect.any(String),
       'development'
-    );
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'run',
-      '-r, --run',
-      expect.any(String),
-      false
-    );
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'watch',
-      '-w, --watch',
-      expect.any(String),
-      false
-    );
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'inspect',
-      '-i, --inspect',
-      expect.any(String),
-      false
-    );
-    expect(sut.addOption).toHaveBeenCalledWith(
-      'analyze',
-      '-a, --analyze',
-      expect.any(String),
-      false
     );
     expect(sut.allowUnknownOptions).toBeTrue();
   });
@@ -69,12 +45,12 @@ describe('services/cli:build', () => {
     let serviceName = null;
     let serviceFn = null;
     // When
-    cliBuildCommand(container);
+    cliAnalyzeCommand(container);
     [[serviceName, serviceFn]] = container.set.mock.calls;
     sut = serviceFn();
     // Then
-    expect(serviceName).toBe('cliBuildCommand');
+    expect(serviceName).toBe('cliAnalyzeCommand');
     expect(serviceFn).toBeFunction();
-    expect(sut).toBeInstanceOf(CLIBuildCommand);
+    expect(sut).toBeInstanceOf(CLIAnalyzeCommand);
   });
 });

@@ -11,7 +11,7 @@ You can run this commands with either [yarn](https://yarnpkg.com), [npx](https:/
 It builds a target and moves it bundle to the distribution directory.
 
 ```bash
-projext build [target] [--type [type]] [--watch] [--run] [--inspect]
+projext build [target] [--type [type]] [--watch] [--run] [--inspect] [--analyze]
 ```
 
 - **target:** The name of the target you intend to build. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
@@ -19,6 +19,7 @@ projext build [target] [--type [type]] [--watch] [--run] [--inspect]
 - **watch:** Watch the target files and update the build. If the target type is Node and it doesn't require bundling nor transpiling, it won't do anything.
 - **run:** Run the target after the build is completed. It only works when the build type is `development`.
 - **inspect:** Enable the Node inspector. It only works with the `run` flag and if the target type is `node`.
+- **analyze:** Enable the bundle analyzer of the build engine. It only works on browser targets o Node targets with `bundle` set to `true`.
 
 ### Watching a target
 
@@ -53,6 +54,18 @@ projext inspect [target]
 - **target:** The name of the target you intend to build, run and inspect. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
 
 > This is basically an alias of `projext build` that uses the `--run` and `--inspect` flags by default.
+
+### Analyzing a target bundle
+
+This is for bundled targets, it tells the build engine to use the analyzer and show the stats for the generated bundle.
+
+```bash
+projext analyze [target] [--type [type]]
+```
+- **target:** The name of the target you intend to analyze. If no target is specified, projext will try to use the default target (the one with the project's name or the first on an alphabetical list).
+- **type:** Which build type: `development` (default) or `production`.
+
+> This is basically an alias of `projext build` that uses the `--analyze` flag by default.
 
 ### Cleaning previous builds
 

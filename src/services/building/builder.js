@@ -62,14 +62,17 @@ class Builder {
    *                                       the build recreated when they changed.
    * @param {boolean} [forceInspect=false] Whether or not the Node inspector should be enabled.
    *                                       Only valid for Node targets.
+   * @param {boolean} [forceAnalyze=false] Whether or not the target bundle should be analyzed.
    * @return {string}
+   * @todo These parameters should be an object.
    */
   getTargetBuildCommand(
     target,
     buildType,
     forceRun = false,
     forceWatch = false,
-    forceInspect = false
+    forceInspect = false,
+    forceAnalyze = false
   ) {
     let command = '';
     if (target.bundle !== false) {
@@ -79,7 +82,8 @@ class Builder {
         buildType,
         forceRun,
         forceWatch,
-        forceInspect
+        forceInspect,
+        forceAnalyze
       );
     }
 

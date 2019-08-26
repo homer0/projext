@@ -115,6 +115,7 @@ describe('services/cli:sh-build', () => {
       run,
       watch,
       inspect,
+      analyze,
       name = test.targetName,
       unknownOptions = {}
     ) => test.sut.handle(
@@ -125,6 +126,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       unknownOptions
     );
@@ -183,7 +185,7 @@ describe('services/cli:sh-build', () => {
     expect(sut.targets).toBe(targets);
     expect(sut.command).not.toBeEmptyString();
     expect(sut.description).not.toBeEmptyString();
-    expect(sut.addOption).toHaveBeenCalledTimes(4);
+    expect(sut.addOption).toHaveBeenCalledTimes(5);
     expect(sut.addOption).toHaveBeenCalledWith(
       'type',
       '-t, --type [type]',
@@ -208,6 +210,12 @@ describe('services/cli:sh-build', () => {
       expect.any(String),
       false
     );
+    expect(sut.addOption).toHaveBeenCalledWith(
+      'analyze',
+      '-a, --analyze',
+      expect.any(String),
+      false
+    );
     expect(sut.hidden).toBeTrue();
     expect(sut.allowUnknownOptions).toBeTrue();
   });
@@ -218,9 +226,10 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, run, watch, inspect, null);
+    test.run(buildType, run, watch, inspect, analyze, null);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(0);
     expect(test.targets.getDefaultTarget).toHaveBeenCalledTimes(1);
@@ -241,6 +250,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -256,9 +266,10 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -279,6 +290,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -294,10 +306,11 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.bundle = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -318,6 +331,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -334,10 +348,11 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -363,6 +378,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -381,10 +397,11 @@ describe('services/cli:sh-build', () => {
     const run = true;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.runOnDevelopment = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -405,6 +422,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -421,11 +439,12 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.bundle = true;
     test.target.runOnDevelopment = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -446,6 +465,7 @@ describe('services/cli:sh-build', () => {
         run: true,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -462,11 +482,12 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.target.runOnDevelopment = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -493,6 +514,7 @@ describe('services/cli:sh-build', () => {
         run: true,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -512,10 +534,11 @@ describe('services/cli:sh-build', () => {
     const run = true;
     const watch = false;
     const inspect = true;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.runOnDevelopment = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -536,6 +559,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -552,15 +576,15 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = true;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
     expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(0);
-    // expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(1);
     expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
     expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
@@ -575,11 +599,54 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
     expect(test.sut.output).toHaveBeenCalledTimes(1);
     expect(test.sut.output).toHaveBeenCalledWith([
+      test.buildCommand,
+    ].join(';'));
+  });
+
+  it('should return the command to build and analyze a node target', () => {
+    // Given
+    const buildType = 'development';
+    const run = false;
+    const watch = true;
+    const inspect = false;
+    const analyze = true;
+    const test = getTestForTheBuildCommand();
+    test.target.bundle = true;
+    // When
+    test.run(buildType, run, watch, inspect, analyze);
+    // Then
+    expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
+    expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
+    expect(test.cliCleanCommand.generate).toHaveBeenCalledTimes(1);
+    expect(test.cliSHCopyCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHNodeRunCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliSHTranspileCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliRevisionCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.cliCopyProjectFilesCommand.generate).toHaveBeenCalledTimes(0);
+    expect(test.events.reduce).toHaveBeenCalledTimes(1);
+    expect(test.events.reduce).toHaveBeenCalledWith(
+      'build-target-commands-list',
+      [test.cleanCommand, test.buildCommand],
+      {
+        target: test.target,
+        type: buildType,
+        build: true,
+        run,
+        watch,
+        inspect,
+        analyze,
+      },
+      {}
+    );
+    expect(test.sut.output).toHaveBeenCalledTimes(1);
+    expect(test.sut.output).toHaveBeenCalledWith([
+      test.cleanCommand,
       test.buildCommand,
     ].join(';'));
   });
@@ -590,11 +657,12 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.bundle = true;
     test.target.watch.development = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -615,6 +683,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch: true,
         inspect,
+        analyze,
       },
       {}
     );
@@ -631,11 +700,12 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.target.watch.production = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -662,6 +732,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch: true,
         inspect,
+        analyze,
       },
       {}
     );
@@ -681,10 +752,11 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.is.node = false;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -705,6 +777,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -721,11 +794,12 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.is.node = false;
     test.target.runOnDevelopment = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -746,6 +820,7 @@ describe('services/cli:sh-build', () => {
         run: true,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -762,11 +837,12 @@ describe('services/cli:sh-build', () => {
     const run = true;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.is.node = false;
     test.target.runOnDevelopment = false;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -787,6 +863,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -803,11 +880,12 @@ describe('services/cli:sh-build', () => {
     const run = true;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.target.runOnDevelopment = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -833,6 +911,7 @@ describe('services/cli:sh-build', () => {
         run: false,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -851,11 +930,12 @@ describe('services/cli:sh-build', () => {
     const run = true;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -882,6 +962,7 @@ describe('services/cli:sh-build', () => {
         run: false,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -901,12 +982,13 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.onlyOnProduction = false;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -933,6 +1015,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -952,12 +1035,13 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.targets.push(test.targetName);
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -984,6 +1068,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1003,12 +1088,13 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.enabled = true;
     test.projectConfiguration.version.revision.createRevisionOnBuild.targets.push('random-target');
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1034,6 +1120,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1052,11 +1139,12 @@ describe('services/cli:sh-build', () => {
     const run = true;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1083,6 +1171,7 @@ describe('services/cli:sh-build', () => {
         run: false,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1102,12 +1191,13 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     test.projectConfiguration.copy.copyOnBuild.onlyOnProduction = false;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1134,6 +1224,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1153,12 +1244,13 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     test.projectConfiguration.copy.copyOnBuild.targets.push(test.targetName);
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1185,6 +1277,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1204,12 +1297,13 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.projectConfiguration.copy.copyOnBuild.enabled = true;
     test.projectConfiguration.copy.copyOnBuild.targets.push('random-target');
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1235,6 +1329,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1253,11 +1348,12 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const test = getTestForTheBuildCommand();
     test.target.transpile = true;
     test.target.typeScript = true;
     // When
-    test.run(buildType, run, watch, inspect);
+    test.run(buildType, run, watch, inspect, analyze);
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1286,6 +1382,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       {}
     );
@@ -1305,12 +1402,21 @@ describe('services/cli:sh-build', () => {
     const run = false;
     const watch = false;
     const inspect = false;
+    const analyze = false;
     const unknownOptions = {
       name: 'Rosario',
     };
     const test = getTestForTheBuildCommand();
     // When
-    test.run(buildType, run, watch, inspect, test.targetName, unknownOptions);
+    test.run(
+      buildType,
+      run,
+      watch,
+      inspect,
+      analyze,
+      test.targetName,
+      unknownOptions
+    );
     // Then
     expect(test.targets.getTarget).toHaveBeenCalledTimes(1);
     expect(test.targets.getTarget).toHaveBeenCalledWith(test.targetName);
@@ -1331,6 +1437,7 @@ describe('services/cli:sh-build', () => {
         run,
         watch,
         inspect,
+        analyze,
       },
       unknownOptions
     );

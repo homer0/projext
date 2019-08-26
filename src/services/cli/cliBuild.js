@@ -47,6 +47,12 @@ class CLIBuildCommand extends CLICommand {
       'Enables the Node inspector. It only works with Node targets',
       false
     );
+    this.addOption(
+      'analyze',
+      '-a, --analyze',
+      'Enables the bundle analyzer. It only works with targets with bundling',
+      false
+    );
     /**
      * Enable unknown options so other services can customize the build command.
      * @type {boolean}

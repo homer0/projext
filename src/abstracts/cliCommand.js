@@ -268,7 +268,7 @@ class CLICommand {
    * @abstract
    */
   handle() {
-    throw new Error('This method must to be overwritten');
+    throw new Error('This method must be overwritten');
   }
   /**
    * A simple wrapper for a `console.log`. Outputs a variable to the CLI interface.

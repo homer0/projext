@@ -40,6 +40,7 @@ const {
 
 const {
   cli,
+  cliAnalyzeCommand,
   cliBuildCommand,
   cliCleanCommand,
   cliCopyProjectFilesCommand,
@@ -48,6 +49,7 @@ const {
   cliInspectCommand,
   cliRevisionCommand,
   cliRunCommand,
+  cliSHAnalyzeCommand,
   cliSHBuildCommand,
   cliSHCopyCommand,
   cliSHInspectCommand,
@@ -55,6 +57,7 @@ const {
   cliSHNodeWatchCommand,
   cliSHRunCommand,
   cliSHTranspileCommand,
+  cliSHValidateAnalyzeCommand,
   cliSHValidateBuildCommand,
   cliSHValidateInspectCommand,
   cliSHValidateRunCommand,
@@ -122,6 +125,7 @@ class Projext extends Jimple {
     this.register(builder);
 
     this.register(cli);
+    this.register(cliAnalyzeCommand);
     this.register(cliBuildCommand);
     this.register(cliCleanCommand);
     this.register(cliCopyProjectFilesCommand);
@@ -130,6 +134,7 @@ class Projext extends Jimple {
     this.register(cliInspectCommand);
     this.register(cliRevisionCommand);
     this.register(cliRunCommand);
+    this.register(cliSHAnalyzeCommand);
     this.register(cliSHBuildCommand);
     this.register(cliSHCopyCommand);
     this.register(cliSHInspectCommand);
@@ -137,6 +142,7 @@ class Projext extends Jimple {
     this.register(cliSHNodeWatchCommand);
     this.register(cliSHRunCommand);
     this.register(cliSHTranspileCommand);
+    this.register(cliSHValidateAnalyzeCommand);
     this.register(cliSHValidateBuildCommand);
     this.register(cliSHValidateInspectCommand);
     this.register(cliSHValidateRunCommand);
@@ -171,6 +177,7 @@ class Projext extends Jimple {
     ]);
     // Start the CLI with the available commands.
     this.get('cli').start([
+      this.get('cliAnalyzeCommand'),
       this.get('cliBuildCommand'),
       this.get('cliRunCommand'),
       this.get('cliCleanCommand'),
@@ -179,6 +186,7 @@ class Projext extends Jimple {
       this.get('cliInfoCommand'),
       this.get('cliInspectCommand'),
       this.get('cliRevisionCommand'),
+      this.get('cliSHAnalyzeCommand'),
       this.get('cliSHBuildCommand'),
       this.get('cliSHCopyCommand'),
       this.get('cliSHInspectCommand'),
@@ -186,6 +194,7 @@ class Projext extends Jimple {
       this.get('cliSHNodeWatchCommand'),
       this.get('cliSHRunCommand'),
       this.get('cliSHTranspileCommand'),
+      this.get('cliSHValidateAnalyzeCommand'),
       this.get('cliSHValidateBuildCommand'),
       this.get('cliSHValidateInspectCommand'),
       this.get('cliSHValidateRunCommand'),

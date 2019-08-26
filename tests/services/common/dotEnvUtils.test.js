@@ -115,7 +115,6 @@ describe('services/common:dotEnvUtils', () => {
       });
       const environmentUtils = 'environmentUtils';
       const appLogger = {
-        success: jest.fn(),
         error: jest.fn(),
       };
       const pathUtils = {
@@ -138,7 +137,6 @@ describe('services/common:dotEnvUtils', () => {
       expect(fs.readFileSync).toHaveBeenCalledWith(file);
       expect(dotenv.parse).toHaveBeenCalledTimes(0);
       expect(dotenvExpand).toHaveBeenCalledTimes(0);
-      expect(appLogger.success).toHaveBeenCalledTimes(0);
     });
 
     it('should load the variables from an .env file', () => {
@@ -152,9 +150,7 @@ describe('services/common:dotEnvUtils', () => {
       dotenv.parse.mockImplementationOnce((variables) => variables);
       dotenvExpand.mockImplementationOnce((config) => config);
       const environmentUtils = 'environmentUtils';
-      const appLogger = {
-        success: jest.fn(),
-      };
+      const appLogger = 'appLogger';
       const pathUtils = {
         join: jest.fn((filepath) => filepath),
       };
@@ -182,10 +178,6 @@ describe('services/common:dotEnvUtils', () => {
         parsed: fileContents,
         ignoreProcessEnv: true,
       });
-      expect(appLogger.success).toHaveBeenCalledTimes(1);
-      expect(appLogger.success).toHaveBeenCalledWith(
-        `Environment file successfully loaded: ${file}`
-      );
     });
 
     it('should load and merge the variables from multiple .env files', () => {
@@ -208,9 +200,7 @@ describe('services/common:dotEnvUtils', () => {
       dotenv.parse.mockImplementationOnce((variables) => variables);
       dotenvExpand.mockImplementationOnce((config) => config);
       const environmentUtils = 'environmentUtils';
-      const appLogger = {
-        success: jest.fn(),
-      };
+      const appLogger = 'appLogger';
       const pathUtils = {
         join: jest.fn((filepath) => filepath),
       };
@@ -238,13 +228,6 @@ describe('services/common:dotEnvUtils', () => {
       expect(dotenv.parse).toHaveBeenCalledTimes(files.length);
       expect(dotenv.parse).toHaveBeenCalledWith(firstFileContents);
       expect(dotenv.parse).toHaveBeenCalledWith(secondFileContents);
-      expect(appLogger.success).toHaveBeenCalledTimes(files.length);
-      expect(appLogger.success).toHaveBeenCalledWith(
-        `Environment file successfully loaded: ${firstFile}`
-      );
-      expect(appLogger.success).toHaveBeenCalledWith(
-        `Environment file successfully loaded: ${secondFile}`
-      );
       expect(dotenvExpand).toHaveBeenCalledTimes(1);
       expect(dotenvExpand).toHaveBeenCalledWith({
         parsed: expectedMerge,
@@ -266,9 +249,7 @@ describe('services/common:dotEnvUtils', () => {
       dotenv.parse.mockImplementationOnce((variables) => variables);
       dotenvExpand.mockImplementationOnce((config) => config);
       const environmentUtils = 'environmentUtils';
-      const appLogger = {
-        success: jest.fn(),
-      };
+      const appLogger = 'appLogger';
       const pathUtils = {
         join: jest.fn((filepath) => filepath),
       };
@@ -293,10 +274,6 @@ describe('services/common:dotEnvUtils', () => {
       expect(fs.readFileSync).toHaveBeenCalledWith(firstFile);
       expect(dotenv.parse).toHaveBeenCalledTimes(1);
       expect(dotenv.parse).toHaveBeenCalledWith(firstFileContents);
-      expect(appLogger.success).toHaveBeenCalledTimes(1);
-      expect(appLogger.success).toHaveBeenCalledWith(
-        `Environment file successfully loaded: ${firstFile}`
-      );
       expect(dotenvExpand).toHaveBeenCalledTimes(1);
       expect(dotenvExpand).toHaveBeenCalledWith({
         parsed: firstFileContents,

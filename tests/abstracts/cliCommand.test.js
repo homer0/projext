@@ -572,7 +572,7 @@ describe('abstracts:CLICommand', () => {
     let sut = null;
     // When/Then
     sut = new Sut();
-    expect(() => sut.handle()).toThrow(/This method must to be overwritten/i);
+    expect(() => sut.handle()).toThrow(/This method must be overwritten/i);
   });
 
   it('should handle a command an send all the options to the `handle` method', () => {

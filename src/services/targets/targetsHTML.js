@@ -47,13 +47,16 @@ class TargetsHTML {
    * Given a target, this method will validate if the target has an HTML template file and return
    * its absolute path; if the file doesn't exists, it will generate a new one, save it on the
    * temp directory and return its path.
-   * @param {Target}  target        The target information.
-   * @param {boolean} [force=false] Optional. If this is `true`, the file will be created anyways.
+   * @param {Target}  target                   The target information.
+   * @param {boolean} [force=false]            Optional. If this is `true`, the file will be
+   *                                           created anyways.
+   * @param {string}  [buildType='production'] Optional. If the HTML is for an specific type of
+   *                                           build. This may be useful for plugins.
    * @return {string}
    */
-  getFilepath(target, force = false) {
+  getFilepath(target, force = false, buildType = 'production') {
     const validation = this.validate(target);
-    return validation.exists && !force ? validation.path : this._generateHTML(target);
+    return validation.exists && !force ? validation.path : this._generateHTML(target, buildType);
   }
   /**
    * This method generates a default HTML file template for a target, saves it on the temp
@@ -63,13 +66,14 @@ class TargetsHTML {
    *  information and it expects another {@link TargetDefaultHTMLSettings} in return.
    * - `target-default-html`: It receives the HTML code for the file, the target information and
    *  it expects a new HTML code in return.
-   * @param {Target} target The target information.
+   * @param {Target} target    The target information.
+   * @param {string} buildType The type of build for which the HTML is for.
    * @return {string}
    * @throws {Error} If the file couldn't be saved on the temp directory.
    * @ignore
    * @access protected
    */
-  _generateHTML(target) {
+  _generateHTML(target, buildType) {
     // Reduce the settings for the template.
     const info = this.events.reduce(
       'target-default-html-settings',
@@ -78,7 +82,8 @@ class TargetsHTML {
         bodyAttributes: '',
         bodyContents: '<div id="app"></div>',
       },
-      target
+      target,
+      buildType
     );
     // Normalize the body attributes to avoid unnecessary spaces on the tag.
     const bodyAttrs = info.bodyAttributes ? ` ${info.bodyAttributes}` : '';
@@ -99,8 +104,10 @@ class TargetsHTML {
     ].join('\n');
     // Reduce the HTML code.
     const html = this.events.reduce('target-default-html', htmlTpl, target);
+    // Normalize the target name to avoid issues with packages with scope.
+    const filename = target.name.replace(/\//g, '-');
     // Write the file on the temp directory.
-    return this.tempFiles.writeSync(`${target.name}.index.html`, html);
+    return this.tempFiles.writeSync(`${filename}.index.html`, html);
   }
 }
 /**

@@ -446,6 +446,7 @@ If `extend` is set to `false`, projext will use the first file it can find.
   html: { ... },
   css: { ... },
   includeModules: [],
+  excludeModules: [],
   includeTargets: [],
   uglifyOnProduction: true,
   runOnDevelopment: false,
@@ -598,6 +599,11 @@ This setting can be used to specify a list of node modules you want to process o
 For example, let's say you are using a library that exports a native `Class` that you are `extend`ing, but you are transpiling for a browser that doesn't support native `Class`es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.
 
 > At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.
+
+#### `excludeModules`
+> Default value: `[]`
+
+This setting can be used to specify a list of modules that should never be bundled.
 
 #### `includeTargets`
 > Default value: `[]`

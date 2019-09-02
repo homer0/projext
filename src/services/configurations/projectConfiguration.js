@@ -177,6 +177,7 @@ class ProjectConfiguration extends ConfigurationFile {
             inject: false,
           },
           includeModules: [],
+          excludeModules: [],
           includeTargets: [],
           uglifyOnProduction: true,
           runOnDevelopment: false,

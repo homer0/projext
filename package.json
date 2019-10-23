@@ -1,8 +1,8 @@
 {
     "name": "projext",
     "description": "Bundle and run your javascript project without configuring an specific module bundler.",
-    "homepage": "https://homer0.github.io/projext/",
-    "version": "7.1.1",
+    "homepage": "https://projextjs.com",
+    "version": "7.2.0",
     "repository": "homer0/projext",
     "author": "Leonardo Apiwan (@homer0) <me@homer0.com>",
     "license": "MIT",

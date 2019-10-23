@@ -288,13 +288,15 @@ class TargetsFinder {
   _parseTargetEntry(entryPath) {
     // Get the contents of the file.
     const contents = fs.readFileSync(entryPath, 'utf-8');
+    // Try to find information from the `@projext` comment.
+    const comments = this._findSettingsComment(contents);
     // Get the information of all the import statements.
     const importInfo = this._getFileImports(contents);
     // Get the information of all the export statements
     const exportInfo = this._getFileExports(contents);
 
     // Loop all the known browser frameworks.
-    const framework = Object.keys(this._browserFrameworks)
+    const framework = comments.framework || Object.keys(this._browserFrameworks)
     // Try to find an import statement that matches the browser framework regular expression.
     .find((name) => {
       const regex = this._browserFrameworks[name];
@@ -307,17 +309,17 @@ class TargetsFinder {
      */
     const falseLibrary = !!(framework && this._browserFrameworksWithExports.includes(framework));
     // If the target is exporting something, then it's a library.
-    const library = !falseLibrary && exportInfo.items.length > 0;
+    const library = comments.library || (!falseLibrary && exportInfo.items.length > 0);
 
     /**
      * Try to determine if the target type is `browser` by either checking if a browser framework
      * was found or by trying to find a known browser code.
      */
-    let isBrowser = !!(
+    let isBrowser = comments.type === 'browser' || !!(
       framework || this._browserExpressions.find((regex) => contents.match(regex))
     );
     /**
-     * Try to find a framework that can also be used on the Node, which will mean that if
+     * Try to find a framework that can also be used on Node, which will mean that if
      * `isBrowser` is `true`, is a false positive.
      */
     const nodeFramework = Object.keys(this._nodeFrameworks)
@@ -388,9 +390,63 @@ class TargetsFinder {
       if (!framework && entryPath.match(this._extensions.typeScriptReact)) {
         info.framework = 'react';
       }
+    } else if (comments.flow) {
+      info.flow = true;
+      if (info.type === 'node' && (!info.transpile && !info.bundle)) {
+        info.transpile = true;
+      }
     }
     // Return the result of the analysis.
     return info;
+  }
+  /**
+   * This method tries to find and parse settings on a "@projext comment" inside a target entry
+   * file.
+   * @param {String} contents The contents of the target entry file.
+   * @return {Object}
+   * @access protected
+   * @ignore
+   */
+  _findSettingsComment(contents) {
+    let result;
+    const match = /\/\*\*\n\s*\*\s*@projext\n([\s\S]*?)\n\s*\*\//.exec(contents);
+    if (match) {
+      const [, lines] = match;
+      result = lines
+      .split('\n')
+      .map((line) => {
+        let newLine;
+        const lineMatch = /\s*\*\s*(\w+)\s*:\s*(.*?)$/.exec(line);
+        if (lineMatch) {
+          const [, name, value] = lineMatch;
+          newLine = { name, value };
+        } else {
+          newLine = null;
+        }
+
+        return newLine;
+      })
+      .filter((line) => line !== null)
+      .reduce(
+        (acc, line) => {
+          let useValue;
+          if (['true', 'false'].includes(line.value)) {
+            useValue = line.value === 'true';
+          } else {
+            useValue = line.value;
+          }
+
+          return Object.assign({}, acc, {
+            [line.name]: useValue,
+          });
+        },
+        {}
+      );
+    } else {
+      result = {};
+    }
+
+    return result;
   }
   /**
    * Get the information of all the export statements from a given code.

@@ -114,7 +114,7 @@ This is aimed to those who use bundlers everyday to build web sites, libraries a
 |--------------|-------------------------------------------------------------------------------|
 | Package      | projext                                                                       |
 | Description  | Bundle your Javascript projects without having to learn how to use a bundler. |
-| Node Version | >= v8.0.0                                                                    |
+| Node Version | >= v10.0.0                                                                    |
 
 ## Usage
 

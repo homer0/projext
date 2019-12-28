@@ -1,8 +1,5 @@
 {
   "root": true,
   "plugins": ["homer0"],
-  "extends": ["plugin:homer0/node"],
-  "rules": {
-    "complexity": "off"
-  }
+  "extends": ["plugin:homer0/node"]
 }

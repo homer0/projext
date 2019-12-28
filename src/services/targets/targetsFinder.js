@@ -294,70 +294,31 @@ class TargetsFinder {
     const importInfo = this._getFileImports(contents);
     // Get the information of all the export statements
     const exportInfo = this._getFileExports(contents);
-
-    // Loop all the known browser frameworks.
-    const framework = comments.framework || Object.keys(this._browserFrameworks)
-    // Try to find an import statement that matches the browser framework regular expression.
-    .find((name) => {
-      const regex = this._browserFrameworks[name];
-      return !!importInfo.items.find((file) => file.match(regex));
-    });
-
-    /**
-     * Check if the framework requires the use of `export` on the entry file; that why we can
-     * prevent the method to assume the target is a library.
-     */
-    const falseLibrary = !!(framework && this._browserFrameworksWithExports.includes(framework));
-    // If the target is exporting something, then it's a library.
-    const library = comments.library || (!falseLibrary && exportInfo.items.length > 0);
-
+    // Try to find a browser framework
+    const framework = this._findBrowserFramework(comments, importInfo);
+    // Detect whether the target is a library or not.
+    const library = this._isLibrary(comments, exportInfo, framework);
+    // Try to find a framework that can also be used on Node.
+    const nodeFramework = this._findNodeFramework(importInfo);
     /**
      * Try to determine if the target type is `browser` by either checking if a browser framework
      * was found or by trying to find a known browser code.
      */
-    let isBrowser = comments.type === 'browser' || !!(
-      framework || this._browserExpressions.find((regex) => contents.match(regex))
-    );
-    /**
-     * Try to find a framework that can also be used on Node, which will mean that if
-     * `isBrowser` is `true`, is a false positive.
-     */
-    const nodeFramework = Object.keys(this._nodeFrameworks)
-    .find((name) => {
-      const regex = this._nodeFrameworks[name];
-      return !!importInfo.items.find((file) => file.match(regex));
-    });
-    /**
-     * If the target was marked as `browser`, but it uses a version of the framework that also runs
-     * on Node, using SSR maybe, fix the false positive.
-     */
-    if (isBrowser && nodeFramework) {
-      isBrowser = false;
-    }
-
+    const isBrowser = !nodeFramework && this._isABrowserTarget(comments, contents, framework);
     // Define the basic properties of the return object.
-    const info = {
+    let info = {
       type: isBrowser ? 'browser' : 'node',
       library,
     };
-
     // If a browser framework was found...
     if (framework) {
       // ...set it as the framework property.
       info.framework = framework;
     } else if (!isBrowser) {
-      /**
-       * ...otherwise, it means that the target type can be `node`, so validate if the target needs
-       * bundling or transpilation.
-       *
-       * Loop all the import statements and check if the file is importing an asset file type (
-       * images, fonts, stylesheets, etc.).
-       */
-      const importingAssets = importInfo.items.find((file) => file.match(this._extensions.asset));
-      // If the file is importing an asset, turn the `bundle` flag to `true`.
-      if (importingAssets) {
+      // .. so the target is for Node; check if it needs bundling or transpilation.
+      if (this._needsBundling(importInfo)) {
         info.bundle = true;
-      } else if (importInfo.from.includes('next') || exportInfo.from.includes('next')) {
+      } else if (this._needsTranspilation(importInfo, exportInfo)) {
         /**
          * If the target is using `import` or `export` but is not importing assets, then turn
          * the `transpile` flag to true.
@@ -380,24 +341,191 @@ class TargetsFinder {
         },
       };
     }
-
+    // If the target uses TypeScript or Flow, add the necessary settings for it.
     if (entryPath.match(this._extensions.typeScript)) {
-      info.typeScript = true;
-      info.sourceMap = {
-        development: true,
-        production: true,
-      };
-      if (!framework && entryPath.match(this._extensions.typeScriptReact)) {
-        info.framework = 'react';
-      }
+      info = Object.assign({}, info, this._getTypescriptSettings(
+        !isBrowser,
+        info.bundle,
+        entryPath,
+        framework
+      ));
     } else if (comments.flow) {
-      info.flow = true;
-      if (info.type === 'node' && (!info.transpile && !info.bundle)) {
-        info.transpile = true;
-      }
+      info = Object.assign({}, info, this._getFlowSettings(!isBrowser, info.bundle));
     }
     // Return the result of the analysis.
     return info;
+  }
+  /**
+   * Tries to find a browser framework from an entry file comments or by its import statements.
+   * @param {Object}                          comments          The dictionary of comments
+   *                                                            extracted from the file.
+   * @param {TargetsFinderExtractInformation} importInformation The information of the file import
+   *                                                            statements.
+   * @return {?String}
+   * @access protected
+   * @ignore
+   */
+  _findBrowserFramework(comments, importInformation) {
+    // Loop all the known browser frameworks.
+    const result = comments.framework || Object.keys(this._browserFrameworks)
+    // Try to find an import statement that matches the browser framework regular expression.
+    .find((name) => {
+      const regex = this._browserFrameworks[name];
+      return !!importInformation.items.find((file) => file.match(regex));
+    });
+
+    return result || null;
+  }
+  /**
+   * Tries to find a Node framework from an entry file import statements.
+   * @param {TargetsFinderExtractInformation} importInformation The information of the file import
+   *                                                            statements.
+   * @return {?String}
+   * @access protected
+   * @ignore
+   */
+  _findNodeFramework(importInformation) {
+    const result = Object.keys(this._nodeFrameworks)
+    .find((name) => {
+      const regex = this._nodeFrameworks[name];
+      return !!importInformation.items.find((file) => file.match(regex));
+    });
+
+    return result || null;
+  }
+  /**
+   * Checks if a target should be a library or not based on its entry file comments, export
+   * statements information and/or the framework it uses.
+   * @param {Object}                          comments          The dictionary of comments
+   *                                                            extracted from the file.
+   * @param {TargetsFinderExtractInformation} exportInformation The information of the file export
+   *                                                            statements.
+   * @param {?String}                         framework         The name of a framework the target
+   *                                                            uses.
+   * @return {Boolean}
+   * @access protected
+   * @ignore
+   */
+  _isLibrary(comments, exportInformation, framework) {
+    // If the comment says it's a library, then it's a library.
+    return comments.library || (
+      /**
+       * If there's no comment, check if the framework doesn't require exports (like Aurelia),
+       * and that there are actual export statements.
+       */
+      (framework === null || !this._browserFrameworksWithExports.includes(framework)) &&
+      exportInformation.items.length > 0
+    );
+  }
+  /**
+   * Checks if a target type is `browser` based on its entry file comments, contents and/or
+   * the framework it uses.
+   *
+   * @param {Object}  comments  The dictionary of comments extracted from the file.
+   * @param {String}  contents  The contents of the file.
+   * @param {?String} framework The name of a framework the target uses.
+   * @return {Boolean}
+   * @access protected
+   * @ignore
+   */
+  _isABrowserTarget(comments, contents, framework) {
+    // If the comment says it's for browser, then it's for browser.
+    return comments.type === 'browser' || (
+      /**
+       * If there's no comment, check if the target doesn't use a known browser framework or if
+       * its content have code that can be recognized as browser-only code.
+       */
+      framework !== null ||
+      this._browserExpressions.find((expression) => contents.match(expression))
+    );
+  }
+  /**
+   * Checks if a Node target needs bundling by trying to find an import statement for an asset
+   * (like an image file).
+   * @param {TargetsFinderExtractInformation} importInformation The information of the file import
+   *                                                            statements.
+   * @return {Boolean}
+   * @access protected
+   * @ignore
+   */
+  _needsBundling(importInformation) {
+    return importInformation.items.find((file) => file.match(this._extensions.asset));
+  }
+  /**
+   * Checks if a Node target needs transpilation by trying to find import or export statements
+   * that use ESModules.
+   * @param {TargetsFinderExtractInformation} importInformation The information of the file import
+   *                                                            statements.
+   * @param {TargetsFinderExtractInformation} exportInformation The information of the file export
+   *                                                            statements.
+   * @return {Boolean}
+   * @access protected
+   * @ignore
+   */
+  _needsTranspilation(importInformation, exportInformation) {
+    return importInformation.from.includes('next') || exportInformation.from.includes('next');
+  }
+  /**
+   * Gets the necessary settings for a target to use TypeScript.
+   * @param {Boolean} isANodeTarget Whether or not the target is for Node.
+   * @param {Boolean} needsBundling Whether or not the target needs bundling.
+   * @param {String}  entryPath     The path of the target entry file.
+   * @param {?String} framework     The name of a framework the target uses.
+   * @return {Object}
+   * @property {Boolean} [typeScript=true]
+   * The flag that indicates the target uses TypeScript.
+   * @property {ProjectConfigurationTargetTemplateSourceMapSettings} [sourceMap]
+   * The settings for source maps all set to `true` as they are needed for the types.
+   * @property {?String} [framework]
+   * If the method detects a `.tsx` extension, it will add this property with `react` as value.
+   * @property {?Boolean} [transpile=true]
+   * If the target is for Node and doesn't need bundling, then it needs at least transpilation in
+   * order to use TypeScript.
+   * @access protected
+   * @ignore
+   */
+  _getTypescriptSettings(isANodeTarget, needsBundling, entryPath, framework) {
+    const settings = {
+      typeScript: true,
+      sourceMap: {
+        development: true,
+        production: true,
+      },
+    };
+
+    if (isANodeTarget && !needsBundling) {
+      settings.transpile = true;
+    }
+
+    if (framework === null && entryPath.match(this._extensions.typeScriptReact)) {
+      settings.framework = 'react';
+    }
+
+    return settings;
+  }
+  /**
+   * Gets the necessary settings for a target to use Flow.
+   * @param {Boolean} isANodeTarget Whether or not the target is for Node.
+   * @param {Boolean} needsBundling Whether or not the target needs bundling.
+   * @return {Object}
+   * @property {Boolean} [flow=true]
+   * The flag that indicates the target uses TypeScript.
+   * @property {?Boolean} [transpile=true]
+   * If the target is for Node and doesn't need bundling, then it needs at least transpilation in
+   * order to use TypeScript.
+   * @access protected
+   * @ignore
+   */
+  _getFlowSettings(isANodeTarget, needsBundling) {
+    const settings = {
+      flow: true,
+    };
+
+    if (isANodeTarget && !needsBundling) {
+      settings.transpile = true;
+    }
+
+    return settings;
   }
   /**
    * This method tries to find and parse settings on a "@projext comment" inside a target entry
@@ -451,10 +579,7 @@ class TargetsFinder {
   /**
    * Get the information of all the export statements from a given code.
    * @param  {string} contents The code from where to extract the statements.
-   * @return {Object}
-   * @property {Array} from  The names of the lists that matched the statements. This can be used
-   *                         to identify the type of statement syntax the code uses.
-   * @property {Array} items The matched statements.
+   * @return {TargetsFinderExtractInformation}
    * @ignore
    * @access protected
    */
@@ -464,10 +589,7 @@ class TargetsFinder {
   /**
    * Get the information of all the import statements from a given code.
    * @param  {string} contents The code from where to extract the statements.
-   * @return {Object}
-   * @property {Array} from  The names of the lists that matched the statements. This can be used
-   *                         to identify the type of statement syntax the code uses.
-   * @property {Array} items The matched statements.
+   * @return {TargetsFinderExtractInformation}
    * @ignore
    * @access protected
    */
@@ -489,9 +611,7 @@ class TargetsFinder {
    *
    * @param {string} contents              The source code to parse.
    * @param {Object} expressionsDictionary A dictionary of regular expressions lists.
-   * @return {Object}
-   * @property {Array} from  The keys of the lists that found results.
-   * @property {Array} items The matched results from the expressions.
+   * @return {TargetsFinderExtractInformation}
    * @throws {Error} if a regular expression doesn't have a capturing group.
    * @ignore
    * @access protected

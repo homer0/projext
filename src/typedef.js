@@ -266,8 +266,11 @@
  * This object can be used to enable/disable the Babel plugins projext includes.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {string} [nodeVersion='current']
- * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
+ * When building the Babel configuration, projext uses the `@babel/preset-env` to just include the
  * necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
+ * @property {Object} [env={}]
+ * Custom settings that projext will use as base when generating the ones for the
+ * `@babel/preset-env`.
  * @property {Object} [overwrites={}]
  * If you know how to use Babel and need stuff that is not covered by projext, you can use this
  * setting to overwrite/add any value you may need.
@@ -337,17 +340,21 @@
  * This object can be used to enable/disable the Babel plugins projext includes.
  * If you need other plugins, they can be included on the `overwrites` option.
  * @property {number} [browserVersions=2]
- * When building the Babel configuration, projext uses the `babel-preset-env` to just include the
+ * When building the Babel configuration, projext uses the `@babel/preset-env` to just include the
  * necessary stuff. This setting tells how many old versions of the major browsers the target needs
  * transpilation for.
  * Major browsers: Firefox, Chrome, Safari and Edge.
  * @property {boolean} [mobileSupport=true]
  * If `true`, the configuration will add to the list of major browsers `iOS` and `Android`.
  * @property {boolean} [polyfill=true]
- * Whether or not the configuration should include the `babel-polyfill` package.
+ * Whether or not the configuration for the `@babel/preset-env` should include the settings for
+ * for `useBuiltIns` and `corejs`.
  * @property {Object} [overwrites={}]
  * If you know how to use Babel and need stuff that is not covered by projext, you can use this
  * setting to overwrite/add any value you may need.
+ * @property {Object} [env={}]
+ * Custom settings that projext will use as base when generating the ones for the
+ * `@babel/preset-env`.
  */
 
 /**

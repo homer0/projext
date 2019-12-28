@@ -175,14 +175,11 @@ class CLISHBuildCommand extends CLICommand {
    * This method emits the event reducer `build-target-commands-list` with the list of commands,
    * the target information, the type of build and whether or not the target should be executed;
    * and it expects a list of commands on return.
-   * @param {?string} name             The name of the target.
-   * @param {Command} command          The executed command (sent by `commander`).
-   * @param {Object}  options          The command options.
-   * @param {string}  options.type     The type of build.
-   * @param {boolean} options.run      Whether or not the target also needs to be executed.
-   * @param {boolean} options.watch    Whether or not the target files will be watched.
-   * @param {boolean} options.inspect  Whether or not the target will be inspected.
-   * @param {Object}  unknownOptions A dictionary of extra options that command may have received.
+   * @param {?string}                name           The name of the target.
+   * @param {Command}                command        The executed command (sent by `commander`).
+   * @param {CLIBuildCommandOptions} options        The command options.
+   * @param {Object}                 unknownOptions A dictionary of extra options that command may
+   *                                                have received.
    */
   handle(name, command, options, unknownOptions) {
     const { type } = options;
@@ -193,25 +190,20 @@ class CLISHBuildCommand extends CLICommand {
       // Get the default target or throw an error if the project doesn't have targets.
       this.targets.getDefaultTarget();
 
-    // Check if there's a reason to analyze the target bundle.
-    const analyze = options.analyze && (target.is.browser || target.bundle);
-    // Check if there's a reason for the target to be executed.
-    const run = !analyze && type === 'development' && (target.runOnDevelopment || options.run);
-    // Check if there's a reason for the Node inspector to be enabled.
-    const inspect = run && target.is.node && (target.inspect.enabled || options.inspect);
-    // Check if the target files should be watched.
-    const watch = !run && (target.watch[type] || options.watch);
+    const {
+      development,
+      analyze,
+      run,
+      inspect,
+      watch,
+    } = this._normalizeOptions(options, target);
     /**
      * Check whether or not a build will be created. This is always `true` for browser targets, but
      * it can be `false` for Node targets if bundling and transpiling is disabled.
      */
     let build = true;
     if (target.is.node) {
-      build = (
-        type === 'production' ||
-        target.bundle ||
-        target.transpile
-      );
+      build = !development || target.bundle || target.transpile;
     }
     // Define the parameters object to send to the other methods.
     const params = {
@@ -239,6 +231,35 @@ class CLISHBuildCommand extends CLICommand {
     .join(';');
     // Outputs all the commands
     this.output(output);
+  }
+  /**
+   * Normalizes the options received by the command in order to resolve "impossible combinations",
+   * like trying to analyze a target that is not for bundling or trying to inspect a browser
+   * target.
+   * @param {CLIBuildCommandOptions} options The command options.
+   * @param {Target}                 target  The target information.
+   * @return {CLIBuildCommandNormalizedOptions}
+   * @access protected
+   * @ignore
+   */
+  _normalizeOptions(options, target) {
+    const development = options.type === 'development';
+    // Check if there's a reason to analyze the target bundle.
+    const analyze = options.analyze && (target.is.browser || target.bundle);
+    // Check if there's a reason for the target to be executed.
+    const run = !analyze && development && (target.runOnDevelopment || options.run);
+    // Check if there's a reason for the Node inspector to be enabled.
+    const inspect = run && target.is.node && (target.inspect.enabled || options.inspect);
+    // Check if the target files should be watched.
+    const watch = !run && (target.watch[options.type] || options.watch);
+
+    return {
+      development,
+      analyze,
+      run,
+      inspect,
+      watch,
+    };
   }
   /**
    * Get the build (and run) commands for a Node target.

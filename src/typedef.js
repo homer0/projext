@@ -1035,6 +1035,22 @@
  */
 
 /**
+ * @typedef {Object} CLIBuildCommandOptions
+ * @property {string}  type    The intended build type: `development` or `production`.
+ * @property {boolean} run     Whether or not the target needs to be executed.
+ * @property {boolean} watch   Whether or not the target files will be watched.
+ * @property {boolean} inspect Whether or not to enable the Node inspector.
+ */
+
+/**
+ * @typedef {Object} CLIBuildCommandNormalizedOptions
+ * @property {boolean} development Whether or not the intended build type is `development`.
+ * @property {boolean} run         Whether or not the target needs to be executed.
+ * @property {boolean} watch       Whether or not the target files will be watched.
+ * @property {boolean} inspect     Whether or not to enable the Node inspector.
+ */
+
+/**
  * @typedef {Object} CLIBuildCommandParams
  * @property {Target}  target  The target information.
  * @property {string}  type    The intended build type: `development` or `production`.

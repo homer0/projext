@@ -98,125 +98,111 @@ class Targets {
    * Loads and build the target information.
    * This method emits the reducer event `target-load` with the information of a loaded target and
    * expects an object with a target information on return.
-   * @throws {Error} If a target has a type but it doesn't match `this.typesValidationRegex`.
+   * @throws {Error} If a target has a type but it doesn't match a supported type
+   *                 (`node` or `browser`).
+   * @throws {Error} If a target requires bundling but there's no build engine installed.
    */
   loadTargets() {
     const {
       targets,
-      targetsTemplates,
       paths: { source, build },
+      targetsTemplates,
     } = this.projectConfiguration;
     // Loop all the targets on the project configuration...
     Object.keys(targets).forEach((name) => {
       const target = targets[name];
-      // Validates the type.
-      if (target.type && !this.typesValidationRegex.test(target.type)) {
-        throw new Error(`Target ${name} has an invalid type: ${target.type}`);
-      } else {
-        // Define the target folders.
-        const sourceFolderName = target.folder || name;
-        const buildFolderName = target.createFolder ? sourceFolderName : '';
-        // Define the target type.
-        const type = target.type || this.defaultType;
-        const isNode = type === 'node';
-        // Get the type template.
-        const template = targetsTemplates[type];
-        /**
-         * Create the new target information by merging the template, the target information from
-         * the configuration and the information defined by this method.
-         */
-        const newTarget = ObjectUtils.merge(template, target, {
-          name,
-          type,
-          paths: {
-            source: '',
-            build: '',
-          },
-          folders: {
-            source: '',
-            build: '',
-          },
-          is: {
-            node: isNode,
-            browser: !isNode,
-          },
-        });
-        // Validate if the target requires bundling and the `engine` setting is invalid.
-        if (!newTarget.engine && (newTarget.is.browser || newTarget.bundle)) {
-          const error = `The target '${newTarget.name}' requires bundling, but there's ` +
-            'no build engine plugin installed';
-          throw new Error(error);
-        }
-        // Check if there are missing entries and fill them with the default value.
-        newTarget.entry = this._normalizeTargetEntry(newTarget.entry);
-        // Check if there are missing entries and merge them with the default value.
-        newTarget.output = this._normalizeTargetOutput(newTarget.output);
-        /**
-         * Keep the original output settings without the placeholders so internal services or
-         * plugins can use them.
-         */
-        newTarget.originalOutput = ObjectUtils.copy(newTarget.output);
-        // Replace placeholders on the output settings
-        newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
+      // Normalize the information from the target definition.
+      const info = this._normalizeTargetDefinition(name, target);
+      // Get the type template.
+      const template = targetsTemplates[info.type];
+      /**
+       * Create the new target information by merging the template, the target information from
+       * the configuration and the information defined by this method.
+       */
+      const newTarget = ObjectUtils.merge(template, target, {
+        name,
+        type: info.type,
+        paths: {
+          source: '',
+          build: '',
+        },
+        folders: {
+          source: '',
+          build: '',
+        },
+        is: info.is,
+      });
+      // Validate if the target requires bundling and the `engine` setting is invalid.
+      this._validateTargetEngine(newTarget);
+      // Check if there are missing entries and fill them with the default value.
+      newTarget.entry = this._normalizeTargetEntry(newTarget.entry);
+      // Check if there are missing entries and merge them with the default value.
+      newTarget.output = this._normalizeTargetOutput(newTarget.output);
+      /**
+       * Keep the original output settings without the placeholders so internal services or
+       * plugins can use them.
+       */
+      newTarget.originalOutput = ObjectUtils.copy(newTarget.output);
+      // Replace placeholders on the output settings
+      newTarget.output = this._replaceTargetOutputPlaceholders(newTarget);
 
-        /**
-         * To avoid merge issues with arrays (they get merge "by index"), if the target already
-         * had a defined list of files for the dotEnv feature, overwrite whatever is on the
-         * template.
-         */
-        if (target.dotEnv && target.dotEnv.files && target.dotEnv.files.length) {
-          newTarget.dotEnv.files = target.dotEnv.files;
-        }
-
-        // If the target has an `html` setting...
-        if (newTarget.html) {
-          // Check if there are missing settings that should be replaced with a fallback.
-          newTarget.html = this._normalizeTargetHTML(newTarget.html);
-        }
-        /**
-         * If the target doesn't have the `typeScript` option enabled but one of the entry files
-         * extension is `.ts`, turn on the option; and if the extension is `.tsx`, set the
-         * framework to React.
-         */
-        if (!newTarget.typeScript) {
-          const hasATSFile = Object.keys(newTarget.entry).some((entryEnv) => {
-            let found = false;
-            const entryFile = newTarget.entry[entryEnv];
-            if (entryFile) {
-              found = entryFile.match(/\.tsx?$/i);
-              if (
-                found &&
-                entryFile.match(/\.tsx$/i) &&
-                typeof newTarget.framework === 'undefined'
-              ) {
-                newTarget.framework = 'react';
-              }
-            }
-
-            return found;
-          });
-
-          if (hasATSFile) {
-            newTarget.typeScript = true;
-          }
-        }
-
-        // Check if the target should be transpiled (You can't use types without transpilation).
-        if (!newTarget.transpile && (newTarget.flow || newTarget.typeScript)) {
-          newTarget.transpile = true;
-        }
-
-        // Generate the target paths and folders.
-        newTarget.folders.source = newTarget.hasFolder ?
-          path.join(source, sourceFolderName) :
-          source;
-        newTarget.paths.source = this.pathUtils.join(newTarget.folders.source);
-
-        newTarget.folders.build = path.join(build, buildFolderName);
-        newTarget.paths.build = this.pathUtils.join(newTarget.folders.build);
-        // Reduce the target information and save it on the service dictionary.
-        this.targets[name] = this.events.reduce('target-load', newTarget);
+      /**
+       * To avoid merge issues with arrays (they get merge "by index"), if the target already
+       * had a defined list of files for the dotEnv feature, overwrite whatever is on the
+       * template.
+       */
+      if (target.dotEnv && target.dotEnv.files && target.dotEnv.files.length) {
+        newTarget.dotEnv.files = target.dotEnv.files;
       }
+
+      // If the target has an `html` setting...
+      if (newTarget.html) {
+        // Check if there are missing settings that should be replaced with a fallback.
+        newTarget.html = this._normalizeTargetHTML(newTarget.html);
+      }
+      /**
+       * If the target doesn't have the `typeScript` option enabled but one of the entry files
+       * extension is `.ts`, turn on the option; and if the extension is `.tsx`, set the
+       * framework to React.
+       */
+      if (!newTarget.typeScript) {
+        const hasATSFile = Object.keys(newTarget.entry).some((entryEnv) => {
+          let found = false;
+          const entryFile = newTarget.entry[entryEnv];
+          if (entryFile) {
+            found = entryFile.match(/\.tsx?$/i);
+            if (
+              found &&
+              entryFile.match(/\.tsx$/i) &&
+              typeof newTarget.framework === 'undefined'
+            ) {
+              newTarget.framework = 'react';
+            }
+          }
+
+          return found;
+        });
+
+        if (hasATSFile) {
+          newTarget.typeScript = true;
+        }
+      }
+
+      // Check if the target should be transpiled (You can't use types without transpilation).
+      if (!newTarget.transpile && (newTarget.flow || newTarget.typeScript)) {
+        newTarget.transpile = true;
+      }
+
+      // Generate the target paths and folders.
+      newTarget.folders.source = newTarget.hasFolder ?
+        path.join(source, info.sourceFolderName) :
+        source;
+      newTarget.paths.source = this.pathUtils.join(newTarget.folders.source);
+
+      newTarget.folders.build = path.join(build, info.buildFolderName);
+      newTarget.paths.build = this.pathUtils.join(newTarget.folders.build);
+      // Reduce the target information and save it on the service dictionary.
+      this.targets[name] = this.events.reduce('target-load', newTarget);
     });
   }
   /**
@@ -494,6 +480,74 @@ class Targets {
     }
 
     return newList;
+  }
+  /**
+   * Validates a type specified on a target definition.
+   * @param {String} name       The name of the target. To generate the error message if needed.
+   * @param {Object} definition The definition of the target on the project configuration. This
+   *                            is like an incomplete {@link Target}.
+   * @throws {Error} If a target has a type but it doesn't match
+   *                 {@link Targets#typesValidationRegex}.
+   * @access protected
+   * @ignore
+   */
+  _validateTargetDefinitionType(name, definition) {
+    if (definition.type && !this.typesValidationRegex.test(definition.type)) {
+      throw new Error(`Target ${name} has an invalid type: ${definition.type}`);
+    }
+  }
+  /**
+   * Normalizes the information of a target definition in order for the service to create an
+   * actual {@link Target} from it.
+   * @param {String} name       The name of the target. To generate the error message if needed.
+   * @param {Object} definition The definition of the target on the project configuration. This
+   *                            is like an incomplete {@link Target}.
+   * @return {Object} Basic information generated from the definition.
+   * @property {String}          sourceFolderName The name of the folder where the target source
+   *                                              is located.
+   * @property {String}          buildFolderName  The name of the folder (inside the distribution
+   *                                              directory) where the target will be built.
+   * @property {String}          type             The target type (`node` or `browser`).
+   * @property {TargetTypeCheck} is               To check whether the target type is `node` or
+   *                                              `browser`.
+   * @access protected
+   * @ignore
+   */
+  _normalizeTargetDefinition(name, definition) {
+    this._validateTargetDefinitionType(name, definition);
+    // Define the target folders.
+    const sourceFolderName = definition.folder || name;
+    const buildFolderName = definition.createFolder ? sourceFolderName : '';
+    // Define the target type.
+    const type = definition.type || this.defaultType;
+    const isNode = type === 'node';
+    return {
+      sourceFolderName,
+      buildFolderName,
+      type,
+      is: {
+        node: isNode,
+        browser: !isNode,
+      },
+    };
+  }
+  /**
+   * Validates if a target requires bundling but there's no build engine installed. The targets'
+   * `engine` setting comes from the {@link ProjectConfiguration} templates, which are updated
+   * by projext when it detects a build engine installed; so if the setting is empty, it means
+   * that projext didn't find anything.
+   * @param {Target} target The target information.
+   * @throws {Error} If the target requires bundling but there's no build engine installed.
+   * @access protected
+   * @ignore
+   */
+  _validateTargetEngine(target) {
+    if (!target.engine && (target.is.browser || target.bundle)) {
+      throw new Error(
+        `The target '${target.name}' requires bundling, but there's ` +
+        'no build engine plugin installed'
+      );
+    }
   }
   /**
    * Checks if there are missing entries that need to be replaced with the default fallback, and in

@@ -87,55 +87,36 @@ class CLISHValidateBuildCommand extends CLICommand {
   }
   /**
    * Handle the execution of the command and validate all the arguments.
-   * @param {?string} name            The name of the target.
-   * @param {Command} command         The executed command (sent by `commander`).
-   * @param {Object}  options         The command options.
-   * @param {string}  options.type    The type of build.
-   * @param {string}  options.run     Whether or not the target should be executed.
-   * @param {boolean} options.watch   Whether or not the target files will be watched.
-   * @param {boolean} options.inspect Whether or not to enable the Node inspector.
+   * @param {?string}                name     The name of the target.
+   * @param {Command}                command  The executed command (sent by `commander`).
+   * @param {CLIBuildCommandOptions} options  The command options.
    * @throws {Error} If the `inspect` option is used for a browser target.
    */
   handle(name, command, options) {
-    const { type } = options;
     const target = name ?
       // If the target doesn't exist, this will throw an error.
       this.targets.getTarget(name) :
       // Get the default target or throw an error if the project doesn't have targets.
       this.targets.getDefaultTarget();
 
-    const development = type === 'development';
-    const run = development && (target.runOnDevelopment || options.run);
-    const watch = !run && (target.watch[type] || options.watch);
-    const inspect = run && options.inspect;
+    const useOptions = this._normalizeOptions(options, target);
 
     if (target.is.node) {
-      if (
-        development &&
-        !run &&
-        !watch &&
-        !target.bundle &&
-        !target.transpile
-      ) {
+      const nodeValidations = this._getNodeTargetValidations(target, useOptions);
+      if (nodeValidations.invalidBuild) {
         this.appLogger.warning(
           `The target '${target.name}' doesn't need bundling nor transpilation, ` +
           'so there\'s no need to build it'
         );
-      } else if (
-        development &&
-        !run &&
-        watch &&
-        !target.bundle &&
-        !target.transpile
-      ) {
+      } else if (nodeValidations.invalidWatch) {
         this.appLogger.warning(
           `The target '${target.name}' doesn't need bundling nor transpilation, ` +
           'so there\'s no need to watch it'
         );
       }
-    } else if (inspect) {
+    } else if (useOptions.inspect) {
       throw new Error(`'${target.name}' is not a Node target, so it can't be inspected`);
-    } else if (!(target.library && type === 'production')) {
+    } else if (!(target.library && !useOptions.development)) {
       this.tempFiles.ensureDirectorySync();
       const htmlStatus = this.targetsHTML.validate(target);
       if (!htmlStatus.exists) {
@@ -146,6 +127,57 @@ class CLISHValidateBuildCommand extends CLICommand {
         );
       }
     }
+  }
+  /**
+   * Normalizes the options received by the command in order to resolve "impossible combinations",
+   * like trying to analyze a target that is not for bundling or trying to inspect a browser
+   * target.
+   * @param {CLIBuildCommandOptions} options The command options.
+   * @param {Target}                 target  The target information.
+   * @return {CLIBuildCommandNormalizedOptions}
+   * @access protected
+   * @ignore
+   */
+  _normalizeOptions(options, target) {
+    const development = options.type === 'development';
+    const run = development && (target.runOnDevelopment || options.run);
+    const watch = !run && (target.watch[options.type] || options.watch);
+    const inspect = run && options.inspect;
+    return {
+      development,
+      run,
+      watch,
+      inspect,
+    };
+  }
+  /**
+   * Get validations for an specific Node target based on the options the command recevied (and
+   * normalized).
+   * @param {Target}                           target  The target information.
+   * @param {CLIBuildCommandNormalizedOptions} options The command (normalized) options.
+   * @return {Object} A dictionary of "validation flags".
+   * @property {Boolean} invalidBuild Whether or not there's no reason for building the target.
+   * @property {Boolean} invalidWatch Whether or not there's no reason for watching the target.
+   * @access protected
+   * @ignore
+   */
+  _getNodeTargetValidations(target, options) {
+    const invalidBuild = options.development &&
+      !options.run &&
+      !options.watch &&
+      !target.bundle &&
+      !target.transpile;
+    const invalidWatch = !invalidBuild &&
+      options.development &&
+      !options.run &&
+      options.watch &&
+      !target.bundle &&
+      !target.transpile;
+
+    return {
+      invalidBuild,
+      invalidWatch,
+    };
   }
 }
 /**

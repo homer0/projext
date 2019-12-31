@@ -37,7 +37,6 @@ describe('services/configurations:babelConfiguration', () => {
         features: {},
         mobileSupport: true,
         overwrites: {},
-        polyfill: true,
       },
       flow: false,
     };
@@ -56,6 +55,217 @@ describe('services/configurations:babelConfiguration', () => {
               `last ${browserVersions} android versions`,
             ],
           },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should include custom settings for the env preset', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const browserVersions = 2;
+    const env = {
+      corejs: 4,
+      modules: false,
+      useBuiltIns: 'entry',
+    };
+    const target = {
+      is: {
+        browser: true,
+      },
+      babel: {
+        browserVersions,
+        features: {},
+        mobileSupport: true,
+        overwrites: {},
+        env,
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        Object.assign(
+          {
+            targets: {
+              browsers: [
+                `last ${browserVersions} chrome versions`,
+                `last ${browserVersions} safari versions`,
+                `last ${browserVersions} edge versions`,
+                `last ${browserVersions} firefox versions`,
+                `last ${browserVersions} ios versions`,
+                `last ${browserVersions} android versions`,
+              ],
+            },
+          },
+          env
+        ),
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create a Babel configuration for a browser target with polyfills', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const browserVersions = 2;
+    const target = {
+      is: {
+        browser: true,
+      },
+      babel: {
+        browserVersions,
+        features: {},
+        mobileSupport: true,
+        overwrites: {},
+        polyfill: true,
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        {
+          corejs: 3,
+          useBuiltIns: 'usage',
+          targets: {
+            browsers: [
+              `last ${browserVersions} chrome versions`,
+              `last ${browserVersions} safari versions`,
+              `last ${browserVersions} edge versions`,
+              `last ${browserVersions} firefox versions`,
+              `last ${browserVersions} ios versions`,
+              `last ${browserVersions} android versions`,
+            ],
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('shouldn\'t overwrite browsers settings for the env preset', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const baseBrowsers = [
+      'last 11 edge versions',
+      'last 12 ios versions',
+    ];
+    const browserVersions = 2;
+    const target = {
+      is: {
+        browser: true,
+      },
+      babel: {
+        browserVersions,
+        features: {},
+        mobileSupport: true,
+        overwrites: {},
+        polyfill: true,
+        env: {
+          targets: {
+            browsers: baseBrowsers,
+          },
+        },
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        {
+          corejs: 3,
+          useBuiltIns: 'usage',
+          targets: {
+            browsers: [
+              ...baseBrowsers,
+              `last ${browserVersions} chrome versions`,
+              `last ${browserVersions} safari versions`,
+              `last ${browserVersions} firefox versions`,
+              `last ${browserVersions} android versions`,
+            ],
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('should create browser settings for the env preset if the setting is not an array', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const browserVersions = 2;
+    const target = {
+      is: {
+        browser: true,
+      },
+      babel: {
+        browserVersions,
+        features: {},
+        mobileSupport: true,
+        overwrites: {},
+        env: {
+          targets: {
+            browsers: false,
+          },
+        },
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        {
+          targets: {},
         },
       ]],
     };
@@ -131,6 +341,51 @@ describe('services/configurations:babelConfiguration', () => {
         nodeVersion,
         features: {},
         overwrites: {},
+      },
+      flow: false,
+    };
+    const expected = {
+      plugins: [],
+      presets: [[
+        '@babel/preset-env',
+        {
+          targets: {
+            node: nodeVersion,
+          },
+        },
+      ]],
+    };
+    let sut = null;
+    let result = null;
+    // When
+    sut = new BabelConfiguration(events);
+    result = sut.getConfigForTarget(target);
+    // Then
+    expect(result).toEqual(expected);
+    expect(events.reduce).toHaveBeenCalledTimes(1);
+    expect(events.reduce).toHaveBeenCalledWith(eventName, expected, target);
+  });
+
+  it('shouldn\'t overwrite a node target env version if it\'s already defined', () => {
+    // Given
+    const eventName = 'babel-configuration';
+    const events = {
+      reduce: jest.fn((name, config) => config),
+    };
+    const nodeVersion = '2509';
+    const target = {
+      is: {
+        browser: false,
+      },
+      babel: {
+        nodeVersion: 'current',
+        features: {},
+        overwrites: {},
+        env: {
+          targets: {
+            node: nodeVersion,
+          },
+        },
       },
       flow: false,
     };

@@ -312,6 +312,7 @@ Using this flags, you can tell projext to always watch your files when building 
 >     objectRestSpread: false,
 >   },
 >   nodeVersion: 'current',
+>   env: {},
 >   overwrites: {},
 > }
 > ```
@@ -332,6 +333,10 @@ If you need other plugins, they can be included on the `overwrites` option.
 **`babel.nodeVersion`**
 
 When building the Babel configuration, projext uses the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env) to just include the necessary stuff. This setting tells the preset the version of Node it should _"complete"_.
+
+**`babel.env`**
+
+Custom settings that projext will use as base when generating the ones for the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env).
 
 **`babel.overwrites`**
 
@@ -652,6 +657,7 @@ Using this flags, you can tell projext to always watch your files when building 
 >   browserVersions: 2,
 >   mobileSupport: true,
 >   polyfill: true,
+>   env: {},
 >   overwrites: {},
 > }
 > ```
@@ -681,7 +687,13 @@ If `true`, the configuration will add to the list of major browsers `iOS` and `A
 
 **`babel.polyfill`**
 
-Whether or not the configuration should include the [`babel-polyfill`](https://yarnpkg.com/en/package/babel-polyfill) package.
+Whether or not the configuration for the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env) should include the settings for [`useBuiltIns` and `corejs`](https://babeljs.io/docs/en/babel-preset-env#usebuiltins).
+
+Something that should be noted is that if `babel.polyfill` is set to `true`, projext will set `useBuiltIns` to `usage`; if you want to change it to `entry`, you have to change it using `babel.env` (explained below) and manually import [`core-js/stable`](https://yarnpkg.com/en/package/core-js) and [`regenerator-runtime/runtime`](https://yarnpkg.com/en/package/regenerator-runtime). If you do it, you can use the same _semver range_ projext uses so `npm`/`yarn` can resolve them to the ones installed by projext.
+
+**`babel.env`**
+
+Custom settings that projext will use as base when generating the ones for the [`@babel/preset-env`](https://yarnpkg.com/en/package/@babel/preset-env).
 
 **`babel.overwrites`**
 

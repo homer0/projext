@@ -84,6 +84,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/clianalyze.js~clianalyzecommand",
+    "class/src/services/cli/cliAnalyze.js~CLIAnalyzeCommand.html",
+    "<span>CLIAnalyzeCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliAnalyze.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/clibuild.js~clibuildcommand",
     "class/src/services/cli/cliBuild.js~CLIBuildCommand.html",
     "<span>CLIBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliBuild.js</span>",
@@ -138,6 +144,12 @@ window.esdocSearchIndex = [
     "class"
   ],
   [
+    "projext/src/services/cli/clishanalyze.js~clishanalyzecommand",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html",
+    "<span>CLISHAnalyzeCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHAnalyze.js</span>",
+    "class"
+  ],
+  [
     "projext/src/services/cli/clishbuild.js~clishbuildcommand",
     "class/src/services/cli/cliSHBuild.js~CLISHBuildCommand.html",
     "<span>CLISHBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHBuild.js</span>",
@@ -177,6 +189,12 @@ window.esdocSearchIndex = [
     "projext/src/services/cli/clishtranspile.js~clishtranspilecommand",
     "class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html",
     "<span>CLISHTranspileCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHTranspile.js</span>",
+    "class"
+  ],
+  [
+    "projext/src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html",
+    "<span>CLISHValidateAnalyzeCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateAnalyze.js</span>",
     "class"
   ],
   [
@@ -444,6 +462,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/cli/clianalyze.js~clianalyzecommand",
+    "variable/index.html#static-variable-cliAnalyzeCommand",
+    "<span>cliAnalyzeCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliAnalyze.js</span>",
+    "variable"
+  ],
+  [
     "projext/src/services/cli/clibuild.js~clibuildcommand",
     "variable/index.html#static-variable-cliBuildCommand",
     "<span>cliBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliBuild.js</span>",
@@ -492,6 +516,12 @@ window.esdocSearchIndex = [
     "variable"
   ],
   [
+    "projext/src/services/cli/clishanalyze.js~clishanalyzecommand",
+    "variable/index.html#static-variable-cliSHAnalyzeCommand",
+    "<span>cliSHAnalyzeCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHAnalyze.js</span>",
+    "variable"
+  ],
+  [
     "projext/src/services/cli/clishbuild.js~clishbuildcommand",
     "variable/index.html#static-variable-cliSHBuildCommand",
     "<span>cliSHBuildCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHBuild.js</span>",
@@ -531,6 +561,12 @@ window.esdocSearchIndex = [
     "projext/src/services/cli/clishtranspile.js~clishtranspilecommand",
     "variable/index.html#static-variable-cliSHTranspileCommand",
     "<span>cliSHTranspileCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHTranspile.js</span>",
+    "variable"
+  ],
+  [
+    "projext/src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand",
+    "variable/index.html#static-variable-cliSHValidateAnalyzeCommand",
+    "<span>cliSHValidateAnalyzeCommand</span> <span class=\"search-result-import-path\">projext/src/services/cli/cliSHValidateAnalyze.js</span>",
     "variable"
   ],
   [
@@ -1752,6 +1788,30 @@ window.esdocSearchIndex = [
     "method"
   ],
   [
+    "src/services/cli/clianalyze.js",
+    "file/src/services/cli/cliAnalyze.js.html",
+    "src/services/cli/cliAnalyze.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clianalyze.js~clianalyzecommand#allowunknownoptions",
+    "class/src/services/cli/cliAnalyze.js~CLIAnalyzeCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliAnalyze.js~CLIAnalyzeCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clianalyze.js~clianalyzecommand#command",
+    "class/src/services/cli/cliAnalyze.js~CLIAnalyzeCommand.html#instance-member-command",
+    "src/services/cli/cliAnalyze.js~CLIAnalyzeCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clianalyze.js~clianalyzecommand#description",
+    "class/src/services/cli/cliAnalyze.js~CLIAnalyzeCommand.html#instance-member-description",
+    "src/services/cli/cliAnalyze.js~CLIAnalyzeCommand#description",
+    "member"
+  ],
+  [
     "src/services/cli/clibuild.js",
     "file/src/services/cli/cliBuild.js.html",
     "src/services/cli/cliBuild.js",
@@ -2037,6 +2097,60 @@ window.esdocSearchIndex = [
     "src/services/cli/clirun.js~cliruncommand#description",
     "class/src/services/cli/cliRun.js~CLIRunCommand.html#instance-member-description",
     "src/services/cli/cliRun.js~CLIRunCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishanalyze.js",
+    "file/src/services/cli/cliSHAnalyze.js.html",
+    "src/services/cli/cliSHAnalyze.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#allowunknownoptions",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#clibuildcommand",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-member-cliBuildCommand",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#cliBuildCommand",
+    "member"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#command",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-member-command",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#constructor",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#description",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-member-description",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#handle",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-method-handle",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#hidden",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishanalyze.js~clishanalyzecommand#targets",
+    "class/src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand.html#instance-member-targets",
+    "src/services/cli/cliSHAnalyze.js~CLISHAnalyzeCommand#targets",
     "member"
   ],
   [
@@ -2451,6 +2565,54 @@ window.esdocSearchIndex = [
     "src/services/cli/clishtranspile.js~clishtranspilecommand#hidden",
     "class/src/services/cli/cliSHTranspile.js~CLISHTranspileCommand.html#instance-member-hidden",
     "src/services/cli/cliSHTranspile.js~CLISHTranspileCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js",
+    "file/src/services/cli/cliSHValidateAnalyze.js.html",
+    "src/services/cli/cliSHValidateAnalyze.js",
+    "file"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#allowunknownoptions",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-member-allowUnknownOptions",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#allowUnknownOptions",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#command",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-member-command",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#command",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#constructor",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-constructor-constructor",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#constructor",
+    "method"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#description",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-member-description",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#description",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#handle",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-method-handle",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#handle",
+    "method"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#hidden",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-member-hidden",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#hidden",
+    "member"
+  ],
+  [
+    "src/services/cli/clishvalidateanalyze.js~clishvalidateanalyzecommand#targets",
+    "class/src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand.html#instance-member-targets",
+    "src/services/cli/cliSHValidateAnalyze.js~CLISHValidateAnalyzeCommand#targets",
     "member"
   ],
   [
@@ -3651,6 +3813,18 @@ window.esdocSearchIndex = [
     "src/typedef.js~buildenginegetcommand",
     "typedef/index.html#static-typedef-BuildEngineGetCommand",
     "src/typedef.js~BuildEngineGetCommand",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~clibuildcommandnormalizedoptions",
+    "typedef/index.html#static-typedef-CLIBuildCommandNormalizedOptions",
+    "src/typedef.js~CLIBuildCommandNormalizedOptions",
+    "typedef"
+  ],
+  [
+    "src/typedef.js~clibuildcommandoptions",
+    "typedef/index.html#static-typedef-CLIBuildCommandOptions",
+    "src/typedef.js~CLIBuildCommandOptions",
     "typedef"
   ],
   [

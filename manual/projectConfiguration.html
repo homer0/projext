@@ -73,6 +73,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-excludemodules--code-" data-ice="link">excludeModules</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includetargets--code-" data-ice="link">includeTargets</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-uglifyonproduction--code-" data-ice="link">uglifyOnProduction</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
@@ -124,6 +125,7 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#watching-a-target" data-ice="link">Watching a target</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#running-a-target" data-ice="link">Running a target</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#inspecting-a-node-target" data-ice="link">Inspecting a Node target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#analyzing-a-target-bundle" data-ice="link">Analyzing a target bundle</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#cleaning-previous-builds" data-ice="link">Cleaning previous builds</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#copy-the-project-files" data-ice="link">Copy the project files</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#create-the-revision-file" data-ice="link">Create the revision file</a></li>
@@ -428,6 +430,7 @@
     objectRestSpread: false,
   },
   nodeVersion: &apos;current&apos;,
+  env: {},
   overwrites: {},
 }</code>
 </code></pre>
@@ -444,6 +447,8 @@
 <p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p>
 <p><strong><code>babel.nodeVersion</code></strong></p>
 <p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p>
+<p><strong><code>babel.env</code></strong></p>
+<p>Custom settings that projext will use as base when generating the ones for the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a>.</p>
 <p><strong><code>babel.overwrites</code></strong></p>
 <p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p>
 <h4 id="-code-flow--code-"><code>flow</code></h4><blockquote>
@@ -526,6 +531,7 @@
   html: { ... },
   css: { ... },
   includeModules: [],
+  excludeModules: [],
   includeTargets: [],
   uglifyOnProduction: true,
   runOnDevelopment: false,
@@ -649,6 +655,10 @@
 <blockquote>
 <p>At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.</p>
 </blockquote>
+<h4 id="-code-excludemodules--code-"><code>excludeModules</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote>
+<p>This setting can be used to specify a list of modules that should never be bundled.</p>
 <h4 id="-code-includetargets--code-"><code>includeTargets</code></h4><blockquote>
 <p>Default value: <code>[]</code></p>
 </blockquote>
@@ -685,6 +695,7 @@
   browserVersions: 2,
   mobileSupport: true,
   polyfill: true,
+  env: {},
   overwrites: {},
 }</code>
 </code></pre>
@@ -707,7 +718,10 @@
 <p><strong><code>babel.mobileSupport</code></strong></p>
 <p>If <code>true</code>, the configuration will add to the list of major browsers <code>iOS</code> and <code>Android</code>.</p>
 <p><strong><code>babel.polyfill</code></strong></p>
-<p>Whether or not the configuration should include the <a href="https://yarnpkg.com/en/package/babel-polyfill"><code>babel-polyfill</code></a> package.</p>
+<p>Whether or not the configuration for the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> should include the settings for <a href="https://babeljs.io/docs/en/babel-preset-env#usebuiltins"><code>useBuiltIns</code> and <code>corejs</code></a>.</p>
+<p>Something that should be noted is that if <code>babel.polyfill</code> is set to <code>true</code>, projext will set <code>useBuiltIns</code> to <code>usage</code>; if you want to change it to <code>entry</code>, you have to change it using <code>babel.env</code> (explained below) and manually import <a href="https://yarnpkg.com/en/package/core-js"><code>core-js/stable</code></a> and <a href="https://yarnpkg.com/en/package/regenerator-runtime"><code>regenerator-runtime/runtime</code></a>. If you do it, you can use the same <em>semver range</em> projext uses so <code>npm</code>/<code>yarn</code> can resolve them to the ones installed by projext.</p>
+<p><strong><code>babel.env</code></strong></p>
+<p>Custom settings that projext will use as base when generating the ones for the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a>.</p>
 <p><strong><code>babel.overwrites</code></strong></p>
 <p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p>
 <h4 id="-code-flow--code-"><code>flow</code></h4><blockquote>

@@ -73,6 +73,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-excludemodules--code-" data-ice="link">excludeModules</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includetargets--code-" data-ice="link">includeTargets</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-uglifyonproduction--code-" data-ice="link">uglifyOnProduction</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
@@ -124,6 +125,7 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#watching-a-target" data-ice="link">Watching a target</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#running-a-target" data-ice="link">Running a target</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#inspecting-a-node-target" data-ice="link">Inspecting a Node target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#analyzing-a-target-bundle" data-ice="link">Analyzing a target bundle</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#cleaning-previous-builds" data-ice="link">Cleaning previous builds</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#copy-the-project-files" data-ice="link">Copy the project files</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#create-the-revision-file" data-ice="link">Create the revision file</a></li>
@@ -365,6 +367,7 @@
     objectRestSpread: false,
   },
   nodeVersion: &apos;current&apos;,
+  env: {},
   overwrites: {},
 }</code>
 </code></pre>
@@ -373,7 +376,7 @@
 <li><code>decorators</code> (disabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-decorators"><code>@babel/plugin-proposal-decorators</code></a>.</li>
 <li><code>dynamicImports</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import"><code>@babel/plugin-syntax-dynamic-import</code></a>.</li>
 <li><code>objectRestSpread</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread"><code>@babel/plugin-proposal-object-rest-spread</code></a>.</li>
-</ul><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.nodeVersion</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
+</ul><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.nodeVersion</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells the preset the version of Node it should <em>&quot;complete&quot;</em>.</p><p><strong><code>babel.env</code></strong></p><p>Custom settings that projext will use as base when generating the ones for the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a>.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support and, in case it was disabled, it will enable transpilation.</p><h4><code>typeScript</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
@@ -424,6 +427,7 @@
   html: { ... },
   css: { ... },
   includeModules: [],
+  excludeModules: [],
   includeTargets: [],
   uglifyOnProduction: true,
   runOnDevelopment: false,
@@ -510,7 +514,9 @@
 <p>Default value: <code>[]</code></p>
 </blockquote><p>This setting can be used to specify a list of node modules you want to process on your bundle.</p><p>For example, let&apos;s say you are using a library that exports a native <code>Class</code> that you are <code>extend</code>ing, but you are transpiling for a browser that doesn&apos;t support native <code>Class</code>es; you can add the name of the module on this setting and projext will include it on its bundling process and transpile it if needed.</p><blockquote>
 <p>At the end of the process, those names are converted to regular expressions, so you can also make the name a expression, while escaping especial characters of course.</p>
-</blockquote><h4><code>includeTargets</code></h4><blockquote>
+</blockquote><h4><code>excludeModules</code></h4><blockquote>
+<p>Default value: <code>[]</code></p>
+</blockquote><p>This setting can be used to specify a list of modules that should never be bundled.</p><h4><code>includeTargets</code></h4><blockquote>
 <p>Default value: <code>[]</code></p>
 </blockquote><p>This setting can be used to specify a list of other targets you want to process on your bundle.</p><p>For example, you have two targets, let&apos;s call them <code>frontend</code> and <code>backend</code>, that share some functionality and which code needs to be transpiled/processed. Since projext define the paths for transpilation/processing to match each target&apos;s directory, the wouldn&apos;t be able to use shared code between each other.</p><p>You have two possible solutions now, thanks to <code>includeTargets</code>: You can either add the other target name on each <code>includeTargets</code> setting, or define a third <code>shared</code> target that both have on the setting.</p><h4><code>uglifyOnProduction</code></h4><blockquote>
 <p>Default value: <code>true</code></p>
@@ -535,6 +541,7 @@
   browserVersions: 2,
   mobileSupport: true,
   polyfill: true,
+  env: {},
   overwrites: {},
 }</code>
 </code></pre>
@@ -545,7 +552,7 @@
 <li><code>objectRestSpread</code> (enabled): <a href="https://yarnpkg.com/en/package/@babel/plugin-proposal-object-rest-spread"><code>@babel/plugin-proposal-object-rest-spread</code></a>.</li>
 </ul><p>If you need other plugins, they can be included on the <code>overwrites</code> option.</p><p><strong><code>babel.browserVersions</code></strong></p><p>When building the Babel configuration, projext uses the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> to just include the necessary stuff. This setting tells how many old versions of the major browsers the target needs transpilation for.</p><blockquote>
 <p>Major browsers: Firefox, Chrome, Safari and Edge.</p>
-</blockquote><p><strong><code>babel.mobileSupport</code></strong></p><p>If <code>true</code>, the configuration will add to the list of major browsers <code>iOS</code> and <code>Android</code>.</p><p><strong><code>babel.polyfill</code></strong></p><p>Whether or not the configuration should include the <a href="https://yarnpkg.com/en/package/babel-polyfill"><code>babel-polyfill</code></a> package.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
+</blockquote><p><strong><code>babel.mobileSupport</code></strong></p><p>If <code>true</code>, the configuration will add to the list of major browsers <code>iOS</code> and <code>Android</code>.</p><p><strong><code>babel.polyfill</code></strong></p><p>Whether or not the configuration for the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a> should include the settings for <a href="https://babeljs.io/docs/en/babel-preset-env#usebuiltins"><code>useBuiltIns</code> and <code>corejs</code></a>.</p><p>Something that should be noted is that if <code>babel.polyfill</code> is set to <code>true</code>, projext will set <code>useBuiltIns</code> to <code>usage</code>; if you want to change it to <code>entry</code>, you have to change it using <code>babel.env</code> (explained below) and manually import <a href="https://yarnpkg.com/en/package/core-js"><code>core-js/stable</code></a> and <a href="https://yarnpkg.com/en/package/regenerator-runtime"><code>regenerator-runtime/runtime</code></a>. If you do it, you can use the same <em>semver range</em> projext uses so <code>npm</code>/<code>yarn</code> can resolve them to the ones installed by projext.</p><p><strong><code>babel.env</code></strong></p><p>Custom settings that projext will use as base when generating the ones for the <a href="https://yarnpkg.com/en/package/@babel/preset-env"><code>@babel/preset-env</code></a>.</p><p><strong><code>babel.overwrites</code></strong></p><p>If you know how to use Babel and need stuff that is not covered by projext, you can use this setting to overwrite/add any value you may need.</p><h4><code>flow</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
 </blockquote><p>Whether or not your target uses <a href="https://flow.org/">flow</a>. This will update the Babel configuration in order to add support for it.</p><h4><code>typeScript</code></h4><blockquote>
 <p>Default value: <code>false</code></p>
@@ -751,13 +758,14 @@
     </div>
 <div class="manual-card-wrap" data-ice="cards">
       <div class="manual-card">
-        <div data-ice="card"><h1>projext CLI</h1><p>The projext Command-Line Interface allows you to tell projext which tasks you want to execute and for which targets.</p><p>You can run this commands with either <a href="https://yarnpkg.com">yarn</a>, <a href="https://www.npmjs.com/package/npx">npx</a> or by using a <code>package.json</code> script.</p><h2>Available commands</h2><h3>Build targets</h3><p>It builds a target and moves it bundle to the distribution directory.</p><pre><code class="lang-bash"><code class="source-code prettyprint">projext build [target] [--type [type]] [--watch] [--run] [--inspect]</code>
+        <div data-ice="card"><h1>projext CLI</h1><p>The projext Command-Line Interface allows you to tell projext which tasks you want to execute and for which targets.</p><p>You can run this commands with either <a href="https://yarnpkg.com">yarn</a>, <a href="https://www.npmjs.com/package/npx">npx</a> or by using a <code>package.json</code> script.</p><h2>Available commands</h2><h3>Build targets</h3><p>It builds a target and moves it bundle to the distribution directory.</p><pre><code class="lang-bash"><code class="source-code prettyprint">projext build [target] [--type [type]] [--watch] [--run] [--inspect] [--analyze]</code>
 </code></pre><ul>
 <li><strong>target:</strong> The name of the target you intend to build. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>
 <li><strong>type:</strong> Which build type: <code>development</code> (default) or <code>production</code>.</li>
 <li><strong>watch:</strong> Watch the target files and update the build. If the target type is Node and it doesn&apos;t require bundling nor transpiling, it won&apos;t do anything.</li>
 <li><strong>run:</strong> Run the target after the build is completed. It only works when the build type is <code>development</code>.</li>
 <li><strong>inspect:</strong> Enable the Node inspector. It only works with the <code>run</code> flag and if the target type is <code>node</code>.</li>
+<li><strong>analyze:</strong> Enable the bundle analyzer of the build engine. It only works on browser targets o Node targets with <code>bundle</code> set to <code>true</code>.</li>
 </ul><h3>Watching a target</h3><p>It tells projext to watch your target files and update the build if they change.</p><pre><code class="lang-bash"><code class="source-code prettyprint">projext run [target]</code>
 </code></pre><ul>
 <li><strong>target:</strong> The name of the target you intend to build and watch. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>
@@ -774,6 +782,12 @@
 <li><strong>target:</strong> The name of the target you intend to build, run and inspect. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>
 </ul><blockquote>
 <p>This is basically an alias of <code>projext build</code> that uses the <code>--run</code> and <code>--inspect</code> flags by default.</p>
+</blockquote><h3>Analyzing a target bundle</h3><p>This is for bundled targets, it tells the build engine to use the analyzer and show the stats for the generated bundle.</p><pre><code class="lang-bash"><code class="source-code prettyprint">projext analyze [target] [--type [type]]</code>
+</code></pre><ul>
+<li><strong>target:</strong> The name of the target you intend to analyze. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>
+<li><strong>type:</strong> Which build type: <code>development</code> (default) or <code>production</code>.</li>
+</ul><blockquote>
+<p>This is basically an alias of <code>projext build</code> that uses the <code>--analyze</code> flag by default.</p>
 </blockquote><h3>Cleaning previous builds</h3><p>Removes the files from previous builds from the distribution directory.</p><pre><code class="lang-bash"><code class="source-code prettyprint">projext clean [target] [--all]</code>
 </code></pre><ul>
 <li><strong>target:</strong> The name of the target you intend to remove builds from. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>

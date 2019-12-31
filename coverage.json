@@ -1,7 +1,7 @@
 {
   "coverage": "100%",
-  "expectCount": 607,
-  "actualCount": 607,
+  "expectCount": 648,
+  "actualCount": 648,
   "files": {
     "src/abstracts/cliCommand.js": {
       "expectCount": 23,
@@ -88,6 +88,11 @@
       "actualCount": 7,
       "undocumentLines": []
     },
+    "src/services/cli/cliAnalyze.js": {
+      "expectCount": 6,
+      "actualCount": 6,
+      "undocumentLines": []
+    },
     "src/services/cli/cliBuild.js": {
       "expectCount": 6,
       "actualCount": 6,
@@ -128,9 +133,14 @@
       "actualCount": 6,
       "undocumentLines": []
     },
+    "src/services/cli/cliSHAnalyze.js": {
+      "expectCount": 10,
+      "actualCount": 10,
+      "undocumentLines": []
+    },
     "src/services/cli/cliSHBuild.js": {
-      "expectCount": 31,
-      "actualCount": 31,
+      "expectCount": 32,
+      "actualCount": 32,
       "undocumentLines": []
     },
     "src/services/cli/cliSHCopy.js": {
@@ -163,9 +173,14 @@
       "actualCount": 8,
       "undocumentLines": []
     },
+    "src/services/cli/cliSHValidateAnalyze.js": {
+      "expectCount": 9,
+      "actualCount": 9,
+      "undocumentLines": []
+    },
     "src/services/cli/cliSHValidateBuild.js": {
-      "expectCount": 12,
-      "actualCount": 12,
+      "expectCount": 14,
+      "actualCount": 14,
       "undocumentLines": []
     },
     "src/services/cli/cliSHValidateInspect.js": {
@@ -254,8 +269,8 @@
       "undocumentLines": []
     },
     "src/services/configurations/babelConfiguration.js": {
-      "expectCount": 10,
-      "actualCount": 10,
+      "expectCount": 11,
+      "actualCount": 11,
       "undocumentLines": []
     },
     "src/services/configurations/projectConfiguration.js": {
@@ -269,8 +284,8 @@
       "undocumentLines": []
     },
     "src/services/targets/targets.js": {
-      "expectCount": 28,
-      "actualCount": 28,
+      "expectCount": 31,
+      "actualCount": 31,
       "undocumentLines": []
     },
     "src/services/targets/targetsFileRules/targetFileRule.js": {
@@ -284,8 +299,8 @@
       "undocumentLines": []
     },
     "src/services/targets/targetsFinder.js": {
-      "expectCount": 20,
-      "actualCount": 20,
+      "expectCount": 29,
+      "actualCount": 29,
       "undocumentLines": []
     },
     "src/services/targets/targetsHTML.js": {

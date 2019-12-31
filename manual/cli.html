@@ -73,6 +73,7 @@
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-html--code-" data-ice="link">html</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-css--code-" data-ice="link">css</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includemodules--code-" data-ice="link">includeModules</a></li>
+<li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-excludemodules--code-" data-ice="link">excludeModules</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-includetargets--code-" data-ice="link">includeTargets</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-uglifyonproduction--code-" data-ice="link">uglifyOnProduction</a></li>
 <li data-ice="manualNav" class="indent-h4" data-link="manual/projectConfiguration.html"><a href="manual/projectConfiguration.html#-code-runondevelopment--code-" data-ice="link">runOnDevelopment</a></li>
@@ -124,6 +125,7 @@
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#watching-a-target" data-ice="link">Watching a target</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#running-a-target" data-ice="link">Running a target</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#inspecting-a-node-target" data-ice="link">Inspecting a Node target</a></li>
+<li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#analyzing-a-target-bundle" data-ice="link">Analyzing a target bundle</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#cleaning-previous-builds" data-ice="link">Cleaning previous builds</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#copy-the-project-files" data-ice="link">Copy the project files</a></li>
 <li data-ice="manualNav" class="indent-h3" data-link="manual/cli.html"><a href="manual/cli.html#create-the-revision-file" data-ice="link">Create the revision file</a></li>
@@ -192,7 +194,7 @@
 <div class="content" data-ice="content"><div class="github-markdown" data-ice="content"><h1 id="projext-cli">projext CLI</h1><p>The projext Command-Line Interface allows you to tell projext which tasks you want to execute and for which targets.</p>
 <p>You can run this commands with either <a href="https://yarnpkg.com">yarn</a>, <a href="https://www.npmjs.com/package/npx">npx</a> or by using a <code>package.json</code> script.</p>
 <h2 id="available-commands">Available commands</h2><h3 id="build-targets">Build targets</h3><p>It builds a target and moves it bundle to the distribution directory.</p>
-<pre><code class="lang-bash"><code class="source-code prettyprint">projext build [target] [--type [type]] [--watch] [--run] [--inspect]</code>
+<pre><code class="lang-bash"><code class="source-code prettyprint">projext build [target] [--type [type]] [--watch] [--run] [--inspect] [--analyze]</code>
 </code></pre>
 <ul>
 <li><strong>target:</strong> The name of the target you intend to build. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>
@@ -200,6 +202,7 @@
 <li><strong>watch:</strong> Watch the target files and update the build. If the target type is Node and it doesn&apos;t require bundling nor transpiling, it won&apos;t do anything.</li>
 <li><strong>run:</strong> Run the target after the build is completed. It only works when the build type is <code>development</code>.</li>
 <li><strong>inspect:</strong> Enable the Node inspector. It only works with the <code>run</code> flag and if the target type is <code>node</code>.</li>
+<li><strong>analyze:</strong> Enable the bundle analyzer of the build engine. It only works on browser targets o Node targets with <code>bundle</code> set to <code>true</code>.</li>
 </ul>
 <h3 id="watching-a-target">Watching a target</h3><p>It tells projext to watch your target files and update the build if they change.</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">projext run [target]</code>
@@ -228,6 +231,16 @@
 </ul>
 <blockquote>
 <p>This is basically an alias of <code>projext build</code> that uses the <code>--run</code> and <code>--inspect</code> flags by default.</p>
+</blockquote>
+<h3 id="analyzing-a-target-bundle">Analyzing a target bundle</h3><p>This is for bundled targets, it tells the build engine to use the analyzer and show the stats for the generated bundle.</p>
+<pre><code class="lang-bash"><code class="source-code prettyprint">projext analyze [target] [--type [type]]</code>
+</code></pre>
+<ul>
+<li><strong>target:</strong> The name of the target you intend to analyze. If no target is specified, projext will try to use the default target (the one with the project&apos;s name or the first on an alphabetical list).</li>
+<li><strong>type:</strong> Which build type: <code>development</code> (default) or <code>production</code>.</li>
+</ul>
+<blockquote>
+<p>This is basically an alias of <code>projext build</code> that uses the <code>--analyze</code> flag by default.</p>
 </blockquote>
 <h3 id="cleaning-previous-builds">Cleaning previous builds</h3><p>Removes the files from previous builds from the distribution directory.</p>
 <pre><code class="lang-bash"><code class="source-code prettyprint">projext clean [target] [--all]</code>

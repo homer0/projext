@@ -88,8 +88,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -131,8 +131,8 @@ describe('abstracts:CLICommand', () => {
       }),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -142,7 +142,6 @@ describe('abstracts:CLICommand', () => {
     const fullDescription = 'Full test description';
     class Sut extends CLICommand {}
     let sut = null;
-    let listener = null;
     let descriptionAfterRegister = null;
     let descriptionAfterActivation = null;
     const expectedDescriptionCalls = [
@@ -156,8 +155,7 @@ describe('abstracts:CLICommand', () => {
     sut.fullDescription = fullDescription;
     sut.register(program, cli);
     descriptionAfterRegister = currentDescription;
-    [[, listener]] = program.on.mock.calls;
-    listener();
+    program.helpInformation();
     descriptionAfterActivation = currentDescription;
     // Then
     expect(sut.cliName).toBe(cli.name);
@@ -171,8 +169,6 @@ describe('abstracts:CLICommand', () => {
     expect(program.action).toHaveBeenCalledWith(expect.any(Function));
     expect(descriptionAfterRegister).toBe(description);
     expect(descriptionAfterActivation).toBe(fullDescription);
-    expect(program.on).toHaveBeenCalledTimes(1);
-    expect(program.on).toHaveBeenCalledWith(`command:${command}`, expect.any(Function));
   });
 
   it('shouldn\'t switch descriptions when executed if `fullDescription` is empty', () => {
@@ -182,8 +178,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -192,14 +188,12 @@ describe('abstracts:CLICommand', () => {
     const description = 'Test description';
     class Sut extends CLICommand {}
     let sut = null;
-    let listener = null;
     // When
     sut = new Sut();
     sut.command = command;
     sut.description = description;
     sut.register(program, cli);
-    [[, listener]] = program.on.mock.calls;
-    listener();
+    program.helpInformation();
     // Then
     expect(sut.cliName).toBe(cli.name);
     expect(program.command).toHaveBeenCalledTimes(1);
@@ -208,8 +202,6 @@ describe('abstracts:CLICommand', () => {
     expect(program.description).toHaveBeenCalledWith(description);
     expect(program.action).toHaveBeenCalledTimes(1);
     expect(program.action).toHaveBeenCalledWith(expect.any(Function));
-    expect(program.on).toHaveBeenCalledTimes(1);
-    expect(program.on).toHaveBeenCalledWith(`command:${command}`, expect.any(Function));
   });
 
   it('should be able to be registered on a CLI program and hide its help', () => {
@@ -218,8 +210,8 @@ describe('abstracts:CLICommand', () => {
       command: jest.fn(() => program),
       description: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -253,8 +245,8 @@ describe('abstracts:CLICommand', () => {
       command: jest.fn(() => program),
       description: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -285,8 +277,8 @@ describe('abstracts:CLICommand', () => {
       command: jest.fn(() => program),
       description: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -320,8 +312,8 @@ describe('abstracts:CLICommand', () => {
       command: jest.fn(() => program),
       description: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -358,8 +350,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -401,8 +393,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -454,8 +446,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -507,8 +499,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -582,8 +574,8 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -668,9 +660,11 @@ describe('abstracts:CLICommand', () => {
       description: jest.fn(() => program),
       option: jest.fn(() => program),
       action: jest.fn(() => program),
-      on: jest.fn(),
       allowUnknownOption: jest.fn(),
-      normalize: jest.fn(() => normalizedUnknownArgs),
+      parseOptions: jest.fn(() => ({
+        unknown: normalizedUnknownArgs,
+      })),
+      helpInformation: jest.fn(),
     };
     const cli = {
       name: 'some-program',
@@ -679,10 +673,9 @@ describe('abstracts:CLICommand', () => {
     const description = 'Test description';
     const allowUnknownOptions = true;
     const handle = jest.fn();
-    const handlerArgs = [{}];
+    const handlerArgs = [{}, unknownArgs];
     class Sut extends CLICommand {}
     let sut = null;
-    let listener = null;
     let handler = null;
     const expectedUknownOptions = {
       include: 'something',
@@ -698,9 +691,7 @@ describe('abstracts:CLICommand', () => {
     sut.allowUnknownOptions = allowUnknownOptions;
     sut.handle = handle;
     sut.register(program, cli);
-    [[, listener]] = program.on.mock.calls;
     [[handler]] = program.action.mock.calls;
-    listener([], unknownArgs);
     handler(...handlerArgs);
     // Then
     expect(sut.cliName).toBe(cli.name);
@@ -710,10 +701,61 @@ describe('abstracts:CLICommand', () => {
     expect(program.description).toHaveBeenCalledWith(description);
     expect(program.action).toHaveBeenCalledTimes(1);
     expect(program.action).toHaveBeenCalledWith(expect.any(Function));
-    expect(program.on).toHaveBeenCalledTimes(1);
-    expect(program.on).toHaveBeenCalledWith(`command:${command}`, expect.any(Function));
-    expect(program.normalize).toHaveBeenCalledTimes(1);
-    expect(program.normalize).toHaveBeenCalledWith(unknownArgs);
+    expect(program.parseOptions).toHaveBeenCalledTimes(1);
+    expect(program.parseOptions).toHaveBeenCalledWith(unknownArgs);
+    expect(handle).toHaveBeenCalledTimes(1);
+    expect(handle).toHaveBeenCalledWith({}, {}, expectedUknownOptions);
+  });
+
+  it('should consider a trailing unknown option as a `true` flag option', () => {
+    // Given
+    //
+    const unknownArgs = [
+      '--include=something',
+      '-i',
+    ];
+    // This is what the previous list would look like once normalized by Commander.
+    const normalizedUnknownArgs = [
+      '--include',
+      'something',
+      '-i',
+    ];
+    const program = {
+      command: jest.fn(() => program),
+      description: jest.fn(() => program),
+      option: jest.fn(() => program),
+      action: jest.fn(() => program),
+      allowUnknownOption: jest.fn(),
+      parseOptions: jest.fn(() => ({
+        unknown: normalizedUnknownArgs,
+      })),
+      helpInformation: jest.fn(),
+    };
+    const cli = {
+      name: 'some-program',
+    };
+    const command = 'test-command';
+    const description = 'Test description';
+    const allowUnknownOptions = true;
+    const handle = jest.fn();
+    const handlerArgs = [{}, unknownArgs];
+    class Sut extends CLICommand {}
+    let sut = null;
+    let handler = null;
+    const expectedUknownOptions = {
+      include: 'something',
+      i: true,
+    };
+    // When
+    sut = new Sut();
+    sut.command = command;
+    sut.description = description;
+    sut.allowUnknownOptions = allowUnknownOptions;
+    sut.handle = handle;
+    sut.register(program, cli);
+    [[handler]] = program.action.mock.calls;
+    handler(...handlerArgs);
+    // Then
     expect(handle).toHaveBeenCalledTimes(1);
     expect(handle).toHaveBeenCalledWith({}, {}, expectedUknownOptions);
   });

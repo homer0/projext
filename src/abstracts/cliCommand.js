@@ -1,7 +1,7 @@
 /**
  * A helper class for creating commands for the CLI.
  * @abstract
- * @version 1.0
+ * @version 2.0
  */
 class CLICommand {
   /**
@@ -77,13 +77,6 @@ class CLICommand {
      */
     this.allowUnknownOptions = false;
     /**
-     * This dictionary will be completed when the command gets activated. If the command supports
-     * unknown options (`allowUnknownOptions`), they'll be parsed and sent to the `handle` method
-     * as the last parameter.
-     * @type {Object}
-     */
-    this._unknownOptions = {};
-    /**
      * Once registered on the program, this property will hold a reference to the real command
      * the program generates.
      * @type {?Command}
@@ -133,10 +126,6 @@ class CLICommand {
    * @see https://yarnpkg.com/en/package/commander
    */
   register(program, cli) {
-    // Get the real name of the command.
-    const commandName = this.command.replace(/\[\w+\]/g, '').trim();
-    // Set a listener on the program in order to detect when it gets executed.
-    program.on(`command:${commandName}`, (args, unknown) => this._onActivation(args, unknown));
     // Get the name of the program
     this.cliName = cli.name;
     const options = {};
@@ -172,6 +161,8 @@ class CLICommand {
     command.action(this._handle.bind(this));
     // Enable unknown options if the command supports it
     command.allowUnknownOption(this.allowUnknownOptions);
+    // Patch the method that shows the command description
+    this._patchCommandHelpActivation(command);
     // Save the reference
     this._command = command;
   }
@@ -286,8 +277,21 @@ class CLICommand {
    * @access protected
    */
   _handle(...args) {
-    // The actual command is always the last argument.
-    const command = args[args.length - 1];
+    /**
+     * If the command supports and recevies unknown arguments, the last argument will be the list
+     * of them; but if it doesn't receive unknown arguments, the last argument is the command.
+     */
+    let command;
+    let unknownArgs;
+    const useArgs = args.slice();
+    if (Array.isArray(useArgs[useArgs.length - 1])) {
+      const beforeLast = 2;
+      command = useArgs[useArgs.length - beforeLast];
+      unknownArgs = useArgs.pop();
+    } else {
+      command = useArgs[useArgs.length - 1];
+    }
+
     const options = {};
     // Loop all the known options the command can receive
     Object.keys(this.optionsByName).forEach((name) => {
@@ -322,32 +326,34 @@ class CLICommand {
       options[name] = value;
     });
 
-    // Copy the arguments list.
-    const newArgs = args.slice();
     // Add the new options dictionary.
-    newArgs.push(options);
+    useArgs.push(options);
+
     // If the method supports unknown options, add them as the last argument.
-    if (this.allowUnknownOptions) {
-      newArgs.push(this._unknownOptions);
+    if (this.allowUnknownOptions && unknownArgs) {
+      useArgs.push(this._parseArgs(unknownArgs));
     }
     // Call the abstract method that handles the execution.
-    this.handle(...newArgs);
+    this.handle(...useArgs);
   }
   /**
-   * This method gets called by the program when the command is executed and it takes care of
-   * switching the descriptions, if needed, and parsing the unknown options, if supported.
-   * @param {Array} args        The list of known arguments the command received.
-   * @param {Array} unknownArgs The list of unknown arguments the command received.
+   * The last version of `Commander` removed an event that was triggered before a command
+   * execution and that this class was using in order to switch from the short to the
+   * complete description, so this method was added.
+   * The method monkey-patches the `helperInformation` method of the command in order to trigger
+   * the description switch before showing it on the screen.
+   * @param {Command} command The command that needs to be patched.
+   * @return {Command}
+   * @access protected
    * @ignore
-   * @protected
    */
-  _onActivation(args, unknownArgs) {
-    // Switch the descriptions.
-    this._updateDescription();
-    // If unknown options are allowed, parsed them and save them on the local property.
-    if (this.allowUnknownOptions && unknownArgs && unknownArgs.length) {
-      this._unknownOptions = this._parseArgs(unknownArgs);
-    }
+  _patchCommandHelpActivation(command) {
+    const originalHelpInformation = command.helpInformation.bind(command);
+    // eslint-disable-next-line no-param-reassign
+    command.helpInformation = (...args) => {
+      this._updateDescription();
+      return originalHelpInformation(...args);
+    };
   }
   /**
    * This method gets called when the command is executed on the program and before reaching the
@@ -386,7 +392,7 @@ class CLICommand {
    */
   _parseArgs(args) {
     // Use Commander to normalize the arguments list.
-    const list = this._command.normalize(args);
+    const { unknown: list } = this._command.parseOptions(args);
     // Define the dictionary to return.
     const parsed = {};
     /**
@@ -446,6 +452,10 @@ class CLICommand {
         currentHeader = null;
       }
     });
+    // If the loop ended and there's still an option, asume it's a _`true` flag_.
+    if (currentHeader) {
+      parsed[currentHeader] = true;
+    }
     // Return the parsed object.
     return parsed;
   }

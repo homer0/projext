@@ -628,9 +628,54 @@ describe('abstracts:CLICommand', () => {
     );
   });
 
+  it('should receive an unknown options object if the command supports them', () => {
+    // Given
+    const program = {
+      command: jest.fn(() => program),
+      description: jest.fn(() => program),
+      option: jest.fn(() => program),
+      action: jest.fn(() => program),
+      allowUnknownOption: jest.fn(),
+      parseOptions: jest.fn(() => ({
+        unknown: [],
+      })),
+      helpInformation: jest.fn(),
+    };
+    const cli = {
+      name: 'some-program',
+    };
+    const command = 'test-command';
+    const description = 'Test description';
+    const allowUnknownOptions = true;
+    const handle = jest.fn();
+    const handlerArgs = [{}];
+    class Sut extends CLICommand {}
+    let sut = null;
+    let handler = null;
+    // When
+    sut = new Sut();
+    sut.command = command;
+    sut.description = description;
+    sut.allowUnknownOptions = allowUnknownOptions;
+    sut.handle = handle;
+    sut.register(program, cli);
+    [[handler]] = program.action.mock.calls;
+    handler(...handlerArgs);
+    // Then
+    expect(sut.cliName).toBe(cli.name);
+    expect(program.command).toHaveBeenCalledTimes(1);
+    expect(program.command).toHaveBeenCalledWith(command, '', {});
+    expect(program.description).toHaveBeenCalledTimes(1);
+    expect(program.description).toHaveBeenCalledWith(description);
+    expect(program.action).toHaveBeenCalledTimes(1);
+    expect(program.action).toHaveBeenCalledWith(expect.any(Function));
+    expect(program.parseOptions).toHaveBeenCalledTimes(0);
+    expect(handle).toHaveBeenCalledTimes(1);
+    expect(handle).toHaveBeenCalledWith({}, {}, {});
+  });
+
   it('should receive unknown options, normalize them and send them to the handle method', () => {
     // Given
-    //
     const unknownArgs = [
       '--include=something',
       '-i',

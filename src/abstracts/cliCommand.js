@@ -1,7 +1,7 @@
 /**
  * A helper class for creating commands for the CLI.
  * @abstract
- * @version 2.0
+ * @version 2.1
  */
 class CLICommand {
   /**
@@ -329,9 +329,9 @@ class CLICommand {
     // Add the new options dictionary.
     useArgs.push(options);
 
-    // If the method supports unknown options, add them as the last argument.
-    if (this.allowUnknownOptions && unknownArgs) {
-      useArgs.push(this._parseArgs(unknownArgs));
+    // If the method supports unknown options.
+    if (this.allowUnknownOptions) {
+      useArgs.push(unknownArgs ? this._parseArgs(unknownArgs) : {});
     }
     // Call the abstract method that handles the execution.
     this.handle(...useArgs);

@@ -1,7 +1,7 @@
 /**
  * A helper class for creating commands for the CLI.
  * @abstract
- * @version 2.1
+ * @version 2.2
  */
 class CLICommand {
   /**
@@ -270,6 +270,51 @@ class CLICommand {
     console.log(text);
   }
   /**
+   * This method exists to solve an issue with Commander: If the supports has required parameter(s)
+   * (like `hello [message]`), supports unkonwn options and it gets invoked without the required
+   * parameter(s), Commander used to send `undefined`, but it now takes the unkonwn options to
+   * fill those parameters. For example, `hello --something else`, would make Commander return
+   * `--something` as `message` and `else` as an unknown option.
+   * This method validates the list of arguments, checks if there are flags that Commander is
+   * trying to pass as parameters and moves them to the "unknown options array". At the same time,
+   * it "forces" the list to always have an "unknown options array", something that changes
+   * depending on the command options and the received arguments.
+   * @param {Array} rawArgs The list of arguments sent by Commander to the `_handle` method.
+   * @return {Array}
+   * @ignore
+   * @access protected
+   */
+  _normalizeArgs(rawArgs) {
+    // Find the index of the first real argument (not a flag or not a string).
+    const realArgsIndex = rawArgs.findIndex((arg) => (
+      typeof arg !== 'string' ||
+      !arg.startsWith('-')
+    ));
+    // Separate the arguments in "categories":
+    // - Unknown options that Commander tried to use as parameters.
+    const flags = rawArgs.slice(0, realArgsIndex);
+    // - The "real arguments", without the flags.
+    const rest = rawArgs.slice(realArgsIndex);
+    // - An array of `undefined`s to fill for the flags that will be removed.
+    const fillers = [...new Array(realArgsIndex)];
+
+    /**
+     * If the command supports and recevies unknown arguments, the last argument will be the list
+     * of them; but if it doesn't receive unknown arguments, the last argument is the command.
+     */
+    const restLastIndex = rest.length - 1;
+    if (Array.isArray(rest[restLastIndex])) {
+      // Prepend the flags to the unknown options array.
+      rest[restLastIndex].unshift(...flags);
+    } else {
+      // Or, create the unknown options array with the extracted flags.
+      rest.push(flags);
+    }
+
+    // Put together the `undefined`s and the real arguments.
+    return [...fillers, ...rest];
+  }
+  /**
    * This is the real method that receives the execution of the command and parses it in order to
    * create the options dictionary that the `handle` method receives.
    * @param {Array} args The list of arguments sent by Commander.
@@ -277,20 +322,10 @@ class CLICommand {
    * @access protected
    */
   _handle(...args) {
-    /**
-     * If the command supports and recevies unknown arguments, the last argument will be the list
-     * of them; but if it doesn't receive unknown arguments, the last argument is the command.
-     */
-    let command;
-    let unknownArgs;
-    const useArgs = args.slice();
-    if (Array.isArray(useArgs[useArgs.length - 1])) {
-      const beforeLast = 2;
-      command = useArgs[useArgs.length - beforeLast];
-      unknownArgs = useArgs.pop();
-    } else {
-      command = useArgs[useArgs.length - 1];
-    }
+    const useArgs = this._normalizeArgs(args);
+    const beforeLast = 2;
+    const command = useArgs[useArgs.length - beforeLast];
+    const unknownArgs = useArgs.pop();
 
     const options = {};
     // Loop all the known options the command can receive
@@ -331,7 +366,7 @@ class CLICommand {
 
     // If the method supports unknown options.
     if (this.allowUnknownOptions) {
-      useArgs.push(unknownArgs ? this._parseArgs(unknownArgs) : {});
+      useArgs.push(unknownArgs.length ? this._parseArgs(unknownArgs) : {});
     }
     // Call the abstract method that handles the execution.
     this.handle(...useArgs);

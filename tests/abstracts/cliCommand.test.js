@@ -674,6 +674,52 @@ describe('abstracts:CLICommand', () => {
     expect(handle).toHaveBeenCalledWith({}, {}, {});
   });
 
+  it('shouldn\'t use unknown arguments as fallback for required parameters', () => {
+    // Given
+    const unknownOptName = '--plugin';
+    const unknownOptValue = 'my-plugin';
+    // const unknownArgs = ['--plugin my-plugin'];
+    // // - This is what the previous list would look like once normalized by Commander.
+    // const normalizedUnknownArgs = ['--plugin', 'my-plugin'];
+    const program = {
+      command: jest.fn(() => program),
+      description: jest.fn(() => program),
+      option: jest.fn(() => program),
+      action: jest.fn(() => program),
+      allowUnknownOption: jest.fn(),
+      parseOptions: jest.fn(() => ({
+        unknown: [unknownOptName, unknownOptValue],
+      })),
+      helpInformation: jest.fn(),
+    };
+    const cli = {
+      name: 'some-program',
+    };
+    const command = 'test-command [name]';
+    const description = 'Test description';
+    const allowUnknownOptions = true;
+    const handle = jest.fn();
+    const handlerArgs = [unknownOptName, {}, [unknownOptValue]];
+    class Sut extends CLICommand {}
+    let sut = null;
+    let handler = null;
+    const expectedUknownOptions = {
+      [unknownOptName.replace(/^-+/, '')]: unknownOptValue,
+    };
+    // When
+    sut = new Sut();
+    sut.command = command;
+    sut.description = description;
+    sut.allowUnknownOptions = allowUnknownOptions;
+    sut.handle = handle;
+    sut.register(program, cli);
+    [[handler]] = program.action.mock.calls;
+    handler(...handlerArgs);
+    // Then
+    expect(handle).toHaveBeenCalledTimes(1);
+    expect(handle).toHaveBeenCalledWith(undefined, {}, {}, expectedUknownOptions);
+  });
+
   it('should receive unknown options, normalize them and send them to the handle method', () => {
     // Given
     const unknownArgs = [
@@ -754,12 +800,11 @@ describe('abstracts:CLICommand', () => {
 
   it('should consider a trailing unknown option as a `true` flag option', () => {
     // Given
-    //
     const unknownArgs = [
       '--include=something',
       '-i',
     ];
-    // This is what the previous list would look like once normalized by Commander.
+    // - This is what the previous list would look like once normalized by Commander.
     const normalizedUnknownArgs = [
       '--include',
       'something',
